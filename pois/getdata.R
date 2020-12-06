@@ -73,4 +73,5 @@ createPoisDataset <- function(area, output_file, osm_key, osm_value)
 area = "Cambridge, UK"
 
 createPoisDataset (area, "supermarkets.geojson", "shop", "supermarkets")
+createPoisDataset (area, "schools.geojson", "amenity", "schools")
 
