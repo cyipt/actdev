@@ -49,9 +49,9 @@ msoa_centroids = get_centroids_ew() %>%
 summary(msoa_flows$geo_code1 %in% msoa_centroids$msoa11cd)
 summary(msoa_flows$geo_code2 %in% msoa_centroids$msoa11cd)
 
-work = unique(msoa_flows$geo_code2)
-home = unique(msoa_flows$geo_code1)
-subset(work, !(work %in% home))
+# work = unique(msoa_flows$geo_code2)
+# home = unique(msoa_flows$geo_code1)
+# subset(work, !(work %in% home))
 
 # exclude the following geo_code2:
 # OD0000001 = mainly work at or from home
@@ -86,24 +86,24 @@ sites$id = 1:dim(sites)[1]
 sites = sites %>%
   select(id, place, everything())
 
-# find the MSOA the site lies within, plus the nearest n MSOA centroids, for a total of 2 MSOAs per site
+# find the MSOA the site lies within, plus the nearest n MSOA centroids, for a total of 2 MSOAs per site - NEEDS EDITING
 c_proj = msoa_centroids %>% st_transform(27700)
+
+msoa_zone = get_pct_zones(region = "west-yorkshire", geography = "msoa") %>%
+  select(msoa11cd = geo_code, lad_name)
+msoa_zone_leeds = msoa_zone %>%
+  filter(lad_name == "Leeds")
+z_proj = msoa_zone %>% st_transform(27700)
 
 sites = sites %>%
   st_transform(27700)
-sites = st_join(sites,c_proj,join = st_nearest_feature) %>%
+# sites = st_join(sites, c_proj, join = st_nearest_feature) %>%
+sites = st_join(sites, z_proj, join = st_within) %>%
   st_transform(4326)
 
 # To map zones and centroids
-reszone = get_pct_zones(region = "west-yorkshire", geography = "msoa")
-
-# tmaptools::palette_explorer()
-
-reszone_leeds = reszone %>%
-  filter(lad_name == "Leeds")
-
 library(mapview)
-mapview(reszone) +
+mapview(msoa_zone) +
   mapview(sites) +
   mapview(msoa_centroids[msoa_centroids$msoa11cd %in% sites$msoa11cd,])
 
@@ -120,7 +120,8 @@ sites_geocodes = sites %>%
 
 # filter flows < 20km length
 msoa_flows_leeds$id = 1:dim(msoa_flows_leeds)[1]
-od_flows_sf = od::od_to_sf(x = msoa_flows_leeds, z = sites_geocodes, zd = msoa_centroids) %>%
+od_flows_sf = od::od_to_sf(x = msoa_flows_leeds, z = sites_geocodes, zd = msoa_centroids)
+od_flows_sf = od_flows_sf %>%
   st_transform(27700) %>%
   mutate(length = st_length(x = od_flows_sf)) %>%
   st_transform(4326)
@@ -136,7 +137,7 @@ short_flows_leeds = msoa_flows_leeds %>%
 
 od_flows = od::od_coordinates(x = short_flows_leeds, p = sites_geocodes, pd = msoa_centroids)
 
-
+write_csv(od_flows, "od-flows-leeds.csv")
 
 
 
