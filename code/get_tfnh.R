@@ -12,3 +12,12 @@ mapview::mapview(boundary)
 
 # workflow to get them from all sites, possibly using this table:
 # https://gist.github.com/aspeakman/989994ec957da57640610d9aa1cd0939
+
+f = list.files(path = "geojsons", full.names = TRUE)
+geo_list = lapply(X = f, FUN = sf::read_sf)
+geo_sf = do.call(what = rbind, args = geo_list)
+geo_tidy = dplyr::bind_rows(geo_list)
+mapview::mapview(geo_sf)
+mapview::mapview(geo_tidy)
+
+sf::st_write(geo_sf, "six-sites.geojson")
