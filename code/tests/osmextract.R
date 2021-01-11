@@ -63,6 +63,7 @@ mapview::mapview(sm)
 
 # next stage: create function
 # osm_to_points = function(osm_points, osm_other) {
+# https://adv-r.hadley.nz/conditions.html?q=try#handling
 unique_centroids = function(osm_points, osm_other) {
   # add code here
   # return("banana")
