@@ -47,8 +47,21 @@ desire_lines_site = desire_lines_site %>%
   mutate(pdrive_commute_base = car_driver/all) %>% 
   mutate(gradient = 0)
 
-# todo: add PT
+# Get region of interest from desire lines --------------------------------
 
+min_flow_od = 30   # threshold below which OD pairs will not define study area
+desire_lines_large = desire_lines_site %>% 
+  filter(all >= min_flow_od)
+
+convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_large))
+mapview::mapview(convex_hull)
+study_area = 
+
+# Add scenarios of change -------------------------------------------------
+
+
+
+# todo: add PT
 # mapview::mapview(desire_lines_site)
 co = c("pwalk_commute_base", "pcycle_commute_base", "pdrive_commute_base")
 b = tmaptools::bb(desire_lines_site, ext = 0.2)
@@ -84,5 +97,7 @@ tm_shape(desire_lines_scenario, bbox = b) +
 
 tm_shape(desire_lines_scenario, bbox = b) +
   tm_lines(lwd = "all", scale = 9, col = co_dutch, palette = "viridis")
+
+
 
 
