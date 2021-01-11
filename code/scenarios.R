@@ -73,13 +73,13 @@ sf::write_sf(study_area, "data-small/study_area_trumpington-test.geojson")
 
 # Add scenarios of change -------------------------------------------------
 
-
-
+desire_lines_site = desire_lines_site[study_area, , op = sf::st_within]
+mapview::mapview(desire_lines_site)
 # todo: add PT
 # mapview::mapview(desire_lines_site)
 co = c("pwalk_commute_base", "pcycle_commute_base", "pdrive_commute_base")
 b = tmaptools::bb(desire_lines_site, ext = 0.2)
-tm_shape(desire_lines_site, bbox = b) +
+tm_shape(desire_lines_site) +
   tm_lines(lwd = "all", scale = 9, col = co, palette = "viridis")
 
 # todo: add empirical data on 'new homes' effect
@@ -106,12 +106,13 @@ desire_lines_scenario = desire_lines_site %>%
 co_dutch = c("walk_commute_godutch", "bicycle_commute_godutch", "car_commute_godutch")
 co_pdutch = c("pwalk_commute_godutch", "pcycle_commute_godutch", "pcar_commute_godutch")
 
-tm_shape(desire_lines_scenario, bbox = b) +
+tm_shape(desire_lines_scenario) +
   tm_lines(lwd = "all", scale = 9, col = co_pdutch, palette = "viridis")
 
-tm_shape(desire_lines_scenario, bbox = b) +
+tm_shape(desire_lines_scenario) +
   tm_lines(lwd = "all", scale = 9, col = co_dutch, palette = "viridis")
 
+readr::write_csv(desire_lines_scenario, "data-small/study_area_trumpington-test-od.csv")
 
 
 
