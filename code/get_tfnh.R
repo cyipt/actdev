@@ -1,5 +1,5 @@
 # Aim: get sf object with all TfNH boundaries that have been digitised
-
+library(dplyr)
 # see https://github.com/cyipt/actdev/issues/22
 
 # get geojson for one site, e.g.
@@ -15,9 +15,14 @@ mapview::mapview(boundary)
 
 f = list.files(path = "geojsons", full.names = TRUE)
 geo_list = lapply(X = f, FUN = sf::read_sf)
-geo_sf = do.call(what = rbind, args = geo_list)
 geo_tidy = dplyr::bind_rows(geo_list)
-mapview::mapview(geo_sf)
+geo_tidy = geo_tidy %>%
+  select(geometry)
 mapview::mapview(geo_tidy)
 
-sf::st_write(geo_sf, "six-sites.geojson")
+sf::st_write(geo_tidy, "all-sites.geojson")
+
+# ## other method
+# geo_sf = do.call(what = rbind, args = geo_list)
+# mapview::mapview(geo_sf)
+# sf::st_write(geo_sf, "six-sites.geojson")

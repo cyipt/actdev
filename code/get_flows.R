@@ -7,7 +7,7 @@ library(acton)
 
 # OA to Workplace Zone flows ----------------------------------------------
 
-
+# this file should be identical to the UK data service one (see email)
 u = "https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"
 oa_wpz_flows = get_od(u = u)
 oa_wpz_flows = oa_wpz_flows %>%
