@@ -50,11 +50,12 @@ desire_lines_site = desire_lines_site %>%
 
 # Get region of interest from desire lines --------------------------------
 
-min_flow_od = 30   # threshold below which OD pairs will not define study area
-region_buffer_dist = 5000
+min_flow_od = 100   # threshold below which OD pairs will not define study area
+region_buffer_dist = 2000
 desire_lines_large = desire_lines_site %>% 
   filter(all >= min_flow_od)
 
+mapview::mapview(desire_lines_large)
 convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_large))
 mapview::mapview(convex_hull)
 study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
@@ -63,8 +64,11 @@ study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
 #   sf::st_buffer(0.0001) %>% 
 #   sf::st_union()
 
-mapview::mapview(study_area)
+mapview::mapview(study_area) +
+  mapview::mapview(desire_lines_large)
+
 dir.create("data-small")
+file.remove("data-small/study_area_trumpington-test.geojson")
 sf::write_sf(study_area, "data-small/study_area_trumpington-test.geojson")
 
 # Add scenarios of change -------------------------------------------------
