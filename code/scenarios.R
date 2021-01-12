@@ -44,7 +44,7 @@ site_c = right_join(site_centroid, zone_data) %>%
 mapview::mapview(site_c) + mapview::mapview(site)
 
 # Generate desire lines ---------------------------------------------------
-# Does this still work when the site lies within 2 or more MSOAs?
+# Adapted to work when the site lies within 2 or more MSOAs
 # Must add in OD pairs where geo_code2 (instead of geo_code1) lies within the site
 od_site = od %>% 
   filter(geo_code1 %in% zones_touching_site$geo_code) %>% 
@@ -54,29 +54,38 @@ od_site = od %>%
 
 desire_lines_site = od::od_to_sf(x = od_site, z = site_c, zd = centroids_msoa)
 
+
+
 # Need to reduce the flows proportionately, to represent the population of the development site, rather than the entire population of the MSOA(s) 
+#1) get msoa populations
+#2) get site population - number of homes * constant
+#3) divide proportionately (accounting for multiple msoas where relevant)
 
-# For sites with 2 or more origin MSOAs, we need to combine flows to avoid having multiple desire lines going to the same destination MSOA
+# For sites with 2 or more origin MSOAs, combine flows to avoid having multiple desire lines to the same destination MSOA
+desire_lines_combined = desire_lines_site %>% 
+  group_by(geo_code2) %>% 
+  summarise(
+    geo_code1 = geo_code1[1], # do we even need this?
+    across(all:other, sum)
+    )
 
-mapview::mapview(desire_lines_site)
-desire_lines_site$length = stplanr::geo_length(desire_lines_site)
+mapview::mapview(desire_lines_combined)
+desire_lines_combined$length = stplanr::geo_length(desire_lines_combined)
 
-
-
-desire_lines_site = desire_lines_site %>% 
+desire_lines_combined = desire_lines_combined %>% 
   mutate(pwalk_commute_base = foot/all) %>% 
   mutate(pcycle_commute_base = bicycle/all) %>% 
   mutate(pdrive_commute_base = car_driver/all) %>% 
   mutate(gradient = 0)
-desire_lines_20km = desire_lines_site %>% 
+desire_lines_20km = desire_lines_combined %>% 
   filter(length <= max_length)
-desire_lines_5 = desire_lines_site %>% 
+desire_lines_5 = desire_lines_combined %>% 
   filter(all >= 5)
 # Get region of interest from desire lines --------------------------------
 
 min_flow_od = 100   # threshold below which OD pairs will not define study area
 region_buffer_dist = 2000
-desire_lines_large = desire_lines_site %>% 
+desire_lines_large = desire_lines_combined %>% 
   filter(all >= min_flow_od)
 
 mapview::mapview(desire_lines_large)
@@ -97,30 +106,30 @@ sf::write_sf(study_area, "data-small/study_area_trumpington-test.geojson")
 
 # Add scenarios of change -------------------------------------------------
 
-desire_lines_site = desire_lines_site[study_area, , op = sf::st_within]
-mapview::mapview(desire_lines_site)
+desire_lines_combined = desire_lines_combined[study_area, , op = sf::st_within]
+mapview::mapview(desire_lines_combined)
 # todo: add PT
-# mapview::mapview(desire_lines_site)
+# mapview::mapview(desire_lines_combined)
 co = c("pwalk_commute_base", "pcycle_commute_base", "pdrive_commute_base")
-b = tmaptools::bb(desire_lines_site, ext = 0.2)
-tm_shape(desire_lines_site) +
+b = tmaptools::bb(desire_lines_combined, ext = 0.2)
+tm_shape(desire_lines_combined) +
   tm_lines(lwd = "all", scale = 9, col = co, palette = "viridis")
 
 # todo: add empirical data on 'new homes' effect
 # todo: add route data
-desire_lines_site = desire_lines_site %>% 
+desire_lines_combined = desire_lines_combined %>% 
   mutate(pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = gradient)) %>% 
   mutate(pwalk_commute_godutch = case_when(
     length <= 2000 ~ pwalk_commute_base + 0.1, # 10% shift walking
     TRUE ~ pwalk_commute_base 
     )
     )  
-plot(desire_lines_site$pwalk_commute_godutch, desire_lines_site$pwalk_commute_base, cex = desire_lines_site$all / 100)
-plot(desire_lines_site$length, desire_lines_site$pcycle_commute_godutch, cex = desire_lines_site$all / 100)
-points(desire_lines_site$length, desire_lines_site$pwalk_commute_godutch, cex = desire_lines_site$all / 100, col = "blue")
+plot(desire_lines_combined$pwalk_commute_godutch, desire_lines_combined$pwalk_commute_base, cex = desire_lines_combined$all / 100)
+plot(desire_lines_combined$length, desire_lines_combined$pcycle_commute_godutch, cex = desire_lines_combined$all / 100)
+points(desire_lines_combined$length, desire_lines_combined$pwalk_commute_godutch, cex = desire_lines_combined$all / 100, col = "blue")
 
 
-desire_lines_scenario = desire_lines_site %>% 
+desire_lines_scenario = desire_lines_combined %>% 
   mutate(bicycle_commute_godutch = all * pcycle_commute_godutch) %>% 
   mutate(walk_commute_godutch = all * pwalk_commute_godutch) %>% 
   mutate(car_commute_godutch = car_driver + (bicycle - bicycle_commute_godutch) +
