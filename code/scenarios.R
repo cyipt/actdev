@@ -28,26 +28,50 @@ mapview::mapview(site)
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 mapview::mapview(zones_touching_site)
 
+
+# Route from site centroid (rather than MSOA centroid) --------------------
+# this could be changed to route from a random selection of homes within the site, to better represent the accessibility of the site as a whole
+site_centroid = site %>% 
+  st_transform(27700) %>% 
+  st_centroid() %>% 
+  st_transform(4326)
+
+zone_data = zones_touching_site %>% 
+  st_drop_geometry() %>%
+  mutate(site_name = site$site_name)
+site_c = right_join(site_centroid, zone_data) %>%
+  select(geo_code, everything())
+mapview::mapview(site_c) + mapview::mapview(site)
+
 # Generate desire lines ---------------------------------------------------
-
-# todo: route to site - Joey has done can add code here
-
+# Does this still work when the site lies within 2 or more MSOAs?
+# Must add in OD pairs where geo_code2 (instead of geo_code1) lies within the site
 od_site = od %>% 
   filter(geo_code1 %in% zones_touching_site$geo_code) %>% 
   filter(geo_code2 %in% centroids_msoa$msoa11cd) %>% 
   filter(geo_code1 != geo_code2) # note: not accounting for intrazonal flows
 # intra-zonal flows could added later
 
-desire_lines_site = od::od_to_sf(x = od_site, z = centroids_msoa)
+desire_lines_site = od::od_to_sf(x = od_site, z = site_c, zd = centroids_msoa)
+
+# Need to reduce the flows proportionately, to represent the population of the development site, rather than the entire population of the MSOA(s) 
+
+# For sites with 2 or more origin MSOAs, we need to combine flows to avoid having multiple desire lines going to the same destination MSOA
+
 mapview::mapview(desire_lines_site)
 desire_lines_site$length = stplanr::geo_length(desire_lines_site)
+
+
+
 desire_lines_site = desire_lines_site %>% 
-  filter(length <= max_length) %>% 
   mutate(pwalk_commute_base = foot/all) %>% 
   mutate(pcycle_commute_base = bicycle/all) %>% 
   mutate(pdrive_commute_base = car_driver/all) %>% 
   mutate(gradient = 0)
-
+desire_lines_20km = desire_lines_site %>% 
+  filter(length <= max_length)
+desire_lines_5 = desire_lines_site %>% 
+  filter(all >= 5)
 # Get region of interest from desire lines --------------------------------
 
 min_flow_od = 100   # threshold below which OD pairs will not define study area
@@ -101,10 +125,10 @@ desire_lines_scenario = desire_lines_site %>%
   mutate(walk_commute_godutch = all * pwalk_commute_godutch) %>% 
   mutate(car_commute_godutch = car_driver + (bicycle - bicycle_commute_godutch) +
            (foot - walk_commute_godutch)) %>% 
-  mutate(pcar_commute_godutch = car_commute_godutch / all)
+  mutate(pdrive_commute_godutch = car_commute_godutch / all)
 
 co_dutch = c("walk_commute_godutch", "bicycle_commute_godutch", "car_commute_godutch")
-co_pdutch = c("pwalk_commute_godutch", "pcycle_commute_godutch", "pcar_commute_godutch")
+co_pdutch = c("pwalk_commute_godutch", "pcycle_commute_godutch", "pdrive_commute_godutch")
 
 tm_shape(desire_lines_scenario) +
   tm_lines(lwd = "all", scale = 9, col = co_pdutch, palette = "viridis")
