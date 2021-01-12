@@ -6,6 +6,7 @@ tmap_mode("view")
 
 # set-up and parameters ---------------------------------------------------
 
+inhabitants_per_home = 2.5 # research this (total or commuters only?)
 max_length = 20000 # maximum length of desire lines in m
 site_number = 16   # which site to look at (can change)
 min_flow_routes = 5 # threshold above which OD pairs are included
@@ -59,8 +60,22 @@ desire_lines_site = od::od_to_sf(x = od_site, z = site_c, zd = centroids_msoa)
 
 
 # Need to reduce the flows proportionately, to represent the population of the development site, rather than the entire population of the MSOA(s) 
+
 #1) get msoa populations
-#2) get site population - number of homes * constant
+
+# u2 = "https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2011/mid2011msoaunformattedfile.xls"
+# piggyback::pb_upload("data/mid2011msoaunformattedfile.xls")
+# piggyback::pb_download("https://github.com/cyipt/actdev/releases/download/0.1.1/data.2fmid2011msoaunformattedfile.xls")
+msoa_pops = readxl::read_xls(path = "data/mid2011msoaunformattedfile.xls", sheet = "Mid-2011 Persons", )
+msoa_pops = msoa_pops %>% 
+  select(geo_code1 = Code, msoa_population = "All Ages")
+
+#2) estimated site population = number of homes when complete * constant
+
+site_dwellings = read_csv("data/site_populations.csv")
+site_pops = site_dwellings %>% 
+  mutate(site_population = dwellings_when_complete * inhabitants_per_home)
+
 #3) divide proportionately (accounting for multiple msoas where relevant)
 
 # todo: add empirical data on 'new homes' effect (residents of new homes are more likely to drive than residents of older homes)
