@@ -8,7 +8,9 @@ tmap_mode("view")
 
 max_length = 20000 # maximum length of desire lines in m
 site_number = 16   # which site to look at (can change)
-
+min_flow_routes = 5 # threshold above which OD pairs are included
+min_flow_map = 100   # threshold below which OD pairs will not define study area
+region_buffer_dist = 2000
 # input data --------------------------------------------------------------
 
 centroids_msoa = pct::get_centroids_ew() 
@@ -45,12 +47,12 @@ mapview::mapview(site_c) + mapview::mapview(site)
 
 # Generate desire lines ---------------------------------------------------
 # Adapted to work when the site lies within 2 or more MSOAs
-# Must add in OD pairs where geo_code2 (instead of geo_code1) lies within the site
+# For MSOA data from wu03ew_v2, downloaded using `get_od()`, geo_code1 is always the home and geo_code2 is the workplace. So we don't need to add in OD pairs where geo_code2 lies within the site
 od_site = od %>% 
   filter(geo_code1 %in% zones_touching_site$geo_code) %>% 
   filter(geo_code2 %in% centroids_msoa$msoa11cd) %>% 
   filter(geo_code1 != geo_code2) # note: not accounting for intrazonal flows
-# intra-zonal flows could added later
+# intra-zonal flows could be added later, using more detailed od-workplace zone data. Or we could simply route from the site centroid to the MSOA centroid.
 
 desire_lines_site = od::od_to_sf(x = od_site, z = site_c, zd = centroids_msoa)
 
@@ -60,6 +62,8 @@ desire_lines_site = od::od_to_sf(x = od_site, z = site_c, zd = centroids_msoa)
 #1) get msoa populations
 #2) get site population - number of homes * constant
 #3) divide proportionately (accounting for multiple msoas where relevant)
+
+# todo: add empirical data on 'new homes' effect (residents of new homes are more likely to drive than residents of older homes)
 
 # For sites with 2 or more origin MSOAs, combine flows to avoid having multiple desire lines to the same destination MSOA
 desire_lines_combined = desire_lines_site %>% 
@@ -80,22 +84,16 @@ desire_lines_combined = desire_lines_combined %>%
 desire_lines_20km = desire_lines_combined %>% 
   filter(length <= max_length)
 desire_lines_5 = desire_lines_combined %>% 
-  filter(all >= 5)
+  filter(all >= min_flow_routes)
 # Get region of interest from desire lines --------------------------------
 
-min_flow_od = 100   # threshold below which OD pairs will not define study area
-region_buffer_dist = 2000
 desire_lines_large = desire_lines_combined %>% 
-  filter(all >= min_flow_od)
+  filter(all >= min_flow_map)
 
 mapview::mapview(desire_lines_large)
 convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_large))
 mapview::mapview(convex_hull)
 study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
-
-# study_area = zones_msoa_national[convex_hull, ] %>%
-#   sf::st_buffer(0.0001) %>% 
-#   sf::st_union()
 
 mapview::mapview(study_area) +
   mapview::mapview(desire_lines_large)
@@ -115,7 +113,7 @@ b = tmaptools::bb(desire_lines_combined, ext = 0.2)
 tm_shape(desire_lines_combined) +
   tm_lines(lwd = "all", scale = 9, col = co, palette = "viridis")
 
-# todo: add empirical data on 'new homes' effect
+
 # todo: add route data
 desire_lines_combined = desire_lines_combined %>% 
   mutate(pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = gradient)) %>% 
@@ -132,8 +130,11 @@ points(desire_lines_combined$length, desire_lines_combined$pwalk_commute_godutch
 desire_lines_scenario = desire_lines_combined %>% 
   mutate(bicycle_commute_godutch = all * pcycle_commute_godutch) %>% 
   mutate(walk_commute_godutch = all * pwalk_commute_godutch) %>% 
-  mutate(car_commute_godutch = car_driver + (bicycle - bicycle_commute_godutch) +
-           (foot - walk_commute_godutch)) %>% 
+  mutate(car_commute_godutch = case_when(
+    car_driver + (bicycle - bicycle_commute_godutch) + (foot - walk_commute_godutch) >= 0 ~ 
+      car_driver + (bicycle - bicycle_commute_godutch) + (foot - walk_commute_godutch),
+    TRUE ~ 0)
+  ) %>% 
   mutate(pdrive_commute_godutch = car_commute_godutch / all)
 
 co_dutch = c("walk_commute_godutch", "bicycle_commute_godutch", "car_commute_godutch")
