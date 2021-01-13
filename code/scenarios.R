@@ -1,16 +1,16 @@
 # Aim: generate scenarios of change associated with new developments
 
 library(tidyverse)
+library(sf)
 library(tmap)
 tmap_mode("view")
 
 # set-up and parameters ---------------------------------------------------
 
-inhabitants_per_home = 2.5 # research this (total or commuters only?)
+household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_number = 16   # which site to look at (can change)
+site_name = "allerton-bywater"   # which site to look at (can change)
 min_flow_routes = 5 # threshold above which OD pairs are included
-min_flow_map = 100   # threshold below which OD pairs will not define study area
 region_buffer_dist = 2000
 # input data --------------------------------------------------------------
 
@@ -26,7 +26,7 @@ sites = sf::st_read(u)
 
 # select site of interest
 mapview::mapview(sites)
-site = sites[site_number, ]
+site = sites[sites$site_name == site_name, ]
 mapview::mapview(site)
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 mapview::mapview(zones_touching_site)
@@ -43,7 +43,7 @@ zone_data = zones_touching_site %>%
   st_drop_geometry() %>%
   mutate(site_name = site$site_name)
 site_c = right_join(site_centroid, zone_data) %>%
-  select(geo_code, everything())
+  select(geo_code, site_name)
 mapview::mapview(site_c) + mapview::mapview(site)
 
 # Generate desire lines ---------------------------------------------------
@@ -52,17 +52,18 @@ mapview::mapview(site_c) + mapview::mapview(site)
 od_site = od %>% 
   filter(geo_code1 %in% zones_touching_site$geo_code) %>% 
   filter(geo_code2 %in% centroids_msoa$msoa11cd) %>% 
-  filter(geo_code1 != geo_code2) # note: not accounting for intrazonal flows
+  filter(geo_code1 != geo_code2) # note: not accounting for intrazonal flows. But where the site lies within 2 or more MSOAs, flows from one to the other of these will still be included.
 # intra-zonal flows could be added later, using more detailed od-workplace zone data. Or we could simply route from the site centroid to the MSOA centroid.
 
 desire_lines_site = od::od_to_sf(x = od_site, z = site_c, zd = centroids_msoa)
-
+desire_lines_site = desire_lines_site %>% 
+  mutate(site_name = site_name)
 
 
 # Need to reduce the flows proportionately, to represent the population of the development site, rather than the entire population of the MSOA(s) 
+# for both MSOAs and development sites, these are entire populations, not commuter populations
 
-#1) get msoa populations
-
+#1) get 2011 MSOA populations
 # u2 = "https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2011/mid2011msoaunformattedfile.xls"
 # piggyback::pb_upload("data/mid2011msoaunformattedfile.xls")
 # piggyback::pb_download("https://github.com/cyipt/actdev/releases/download/0.1.1/data.2fmid2011msoaunformattedfile.xls")
@@ -70,18 +71,35 @@ msoa_pops = readxl::read_xls(path = "data/mid2011msoaunformattedfile.xls", sheet
 msoa_pops = msoa_pops %>% 
   select(geo_code1 = Code, msoa_population = "All Ages")
 
-#2) estimated site population = number of homes when complete * constant
-
-site_dwellings = read_csv("data/site_populations.csv")
+#2) estimated site population = number of homes when complete * household_size constant
+site_dwellings = read_csv("data/site-populations.csv")
 site_pops = site_dwellings %>% 
-  mutate(site_population = dwellings_when_complete * inhabitants_per_home)
+  mutate(site_population = dwellings_when_complete * household_size)
 
 #3) divide proportionately (accounting for multiple msoas where relevant)
+desire_lines_site = inner_join(desire_lines_site, msoa_pops)
+desire_lines_site = inner_join(desire_lines_site, site_pops)
+site_population = unique(desire_lines_site$site_population)
+unique_msoa_pops = desire_lines_site %>% 
+  st_drop_geometry() %>% 
+  select(geo_code1, msoa_population) %>%
+  distinct()
+sum_msoa_pops = sum(unique_msoa_pops$msoa_population)
+desire_lines_site = desire_lines_site %>% 
+  mutate(sum_msoa_pops = sum_msoa_pops)
+
+# # creating a new set of columns for converted flows
+# desire_lines_pops = desire_lines_site %>% 
+#   mutate(across(all:other, .fns = list(converted = ~ ./ sum_msoa_pops * site_population)))
+
+# keeping converted flows in the same columns
+desire_lines_pops = desire_lines_site %>% 
+  mutate(across(all:other, .fns = ~ ./ sum_msoa_pops * site_population))
 
 # todo: add empirical data on 'new homes' effect (residents of new homes are more likely to drive than residents of older homes)
 
 # For sites with 2 or more origin MSOAs, combine flows to avoid having multiple desire lines to the same destination MSOA
-desire_lines_combined = desire_lines_site %>% 
+desire_lines_combined = desire_lines_pops %>% 
   group_by(geo_code2) %>% 
   summarise(
     geo_code1 = geo_code1[1], # do we even need this?
@@ -98,10 +116,12 @@ desire_lines_combined = desire_lines_combined %>%
   mutate(gradient = 0)
 desire_lines_20km = desire_lines_combined %>% 
   filter(length <= max_length)
+mapview::mapview(desire_lines_20km)
 desire_lines_5 = desire_lines_combined %>% 
   filter(all >= min_flow_routes)
+mapview::mapview(desire_lines_5)
 # Get region of interest from desire lines --------------------------------
-
+min_flow_map = site_population / 80
 desire_lines_large = desire_lines_combined %>% 
   filter(all >= min_flow_map)
 
@@ -112,6 +132,10 @@ study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
 
 mapview::mapview(study_area) +
   mapview::mapview(desire_lines_large)
+
+zones_touching_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
+mapview::mapview(desire_lines_large) + 
+  mapview::mapview(zones_touching_study_area)
 
 dir.create("data-small")
 file.remove("data-small/study_area_trumpington-test.geojson")
@@ -141,7 +165,7 @@ plot(desire_lines_combined$pwalk_commute_godutch, desire_lines_combined$pwalk_co
 plot(desire_lines_combined$length, desire_lines_combined$pcycle_commute_godutch, cex = desire_lines_combined$all / 100)
 points(desire_lines_combined$length, desire_lines_combined$pwalk_commute_godutch, cex = desire_lines_combined$all / 100, col = "blue")
 
-
+# todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_combined %>% 
   mutate(bicycle_commute_godutch = all * pcycle_commute_godutch) %>% 
   mutate(walk_commute_godutch = all * pwalk_commute_godutch) %>% 
