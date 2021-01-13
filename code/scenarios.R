@@ -9,7 +9,7 @@ tmap_mode("view")
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "allerton-bywater"   # which site to look at (can change)
+site_name = "great-kneighton"   # which site to look at (can change)
 min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 # input data --------------------------------------------------------------
@@ -60,7 +60,7 @@ desire_lines_site = desire_lines_site %>%
   mutate(site_name = site_name)
 
 
-# Need to reduce the flows proportionately, to represent the population of the development site, rather than the entire population of the MSOA(s) 
+# Adjust flows to represent site population, not MSOA population(s) -------
 # for both MSOAs and development sites, these are entire populations, not commuter populations
 
 #1) get 2011 MSOA populations
@@ -97,6 +97,7 @@ desire_lines_pops = desire_lines_site %>%
   mutate(across(all:other, .fns = ~ ./ sum_msoa_pops * site_population))
 
 # todo: add empirical data on 'new homes' effect (residents of new homes are more likely to drive than residents of older homes)
+# could also adjust the base walking and cycling mode shares in response to the difference between journey distance from the site centroid as compared to journey distance from the MSOA centroid (eg in Cambridge, the MSOA centroid is a fair bit closer to the city centre than the site centroid, which could explain why such a high proportion of commuters are shown walking to work in the city centre)  
 
 # For sites with 2 or more origin MSOAs, combine flows to avoid having multiple desire lines to the same destination MSOA
 desire_lines_combined = desire_lines_pops %>% 
@@ -120,6 +121,7 @@ mapview::mapview(desire_lines_20km)
 desire_lines_5 = desire_lines_combined %>% 
   filter(all >= min_flow_routes)
 mapview::mapview(desire_lines_5)
+
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
 desire_lines_large = desire_lines_combined %>% 
