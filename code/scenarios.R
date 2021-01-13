@@ -9,7 +9,7 @@ tmap_mode("view")
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "great-kneighton"   # which site to look at (can change)
+site_name = "chapelford"   # which site to look at (can change)
 min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 # input data --------------------------------------------------------------
@@ -140,8 +140,9 @@ mapview::mapview(desire_lines_large) +
   mapview::mapview(zones_touching_study_area)
 
 dir.create("data-small")
+dir.create("data-small/chapelford")
 file.remove("data-small/study_area_trumpington-test.geojson")
-sf::write_sf(study_area, "data-small/study_area_trumpington-test.geojson")
+sf::write_sf(study_area, "data-small/chapelford/chapelford-study-area.geojson")
 
 # Add scenarios of change -------------------------------------------------
 
@@ -177,6 +178,8 @@ desire_lines_scenario = desire_lines_combined %>%
     TRUE ~ 0)
   ) %>% 
   mutate(pdrive_commute_godutch = car_commute_godutch / all)
+desire_lines_scenario = desire_lines_scenario %>% 
+  select(geo_code1, geo_code2, all:other, length, gradient, pwalk_commute_base:pdrive_commute_base, walk_commute_godutch, bicycle_commute_godutch, car_commute_godutch, pwalk_commute_godutch, pcycle_commute_godutch, pdrive_commute_godutch)
 
 co_dutch = c("walk_commute_godutch", "bicycle_commute_godutch", "car_commute_godutch")
 co_pdutch = c("pwalk_commute_godutch", "pcycle_commute_godutch", "pdrive_commute_godutch")
@@ -187,7 +190,9 @@ tm_shape(desire_lines_scenario) +
 tm_shape(desire_lines_scenario) +
   tm_lines(lwd = "all", scale = 9, col = co_dutch, palette = "viridis")
 
-readr::write_csv(desire_lines_scenario, "data-small/study_area_trumpington-test-od.csv")
+dir.create("data-small/great-kneighton")
+# readr::write_csv(desire_lines_scenario, "data-small/study_area_trumpington-test-od.csv")
+sf::write_sf(desire_lines_scenario, "data-small/chapelford/chapelford-desire-lines.geojson")
 
 
 
