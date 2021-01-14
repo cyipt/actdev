@@ -55,7 +55,14 @@ site_area_id = sf::st_sf(data.frame(geo_code = "s1"), geometry = site_area$geome
 zones_all = rbind(zones_of_interest_min, site_area_id)
 od_df$geo_code1 = "s1"
 
-desire_lines_disag = od::od_disaggregate(od = od_df, z = zones_all, subzones = buildings_od)
+desire_lines_disag = od::od_disaggregate(od = od_df, z = zones_all, subzones = buildings_od) 
+desire_lines_disag = desire_lines_disag %>% 
+  select(car_driver, bicycle, foot, car_commute_godutch, bicycle_commute_godutch, walk_commute_godutch)
+summary(desire_lines_disag)
+sum(desire_lines$car_driver)
+sum(desire_lines_disag$car_driver)
+sum(desire_lines_disag$car_commute_godutch)
+
 mapview::mapview(desire_lines_disag) + mapview::mapview(buildings_od)
 sf::write_sf(desire_lines_disag, "data-small/great-kneighton/desire_lines_disag.geojson")
 sf::write_sf(buildings_od, "data-small/great-kneighton/buildings_od.geojson")
