@@ -4,6 +4,7 @@
 remotes::install_github("itsleeds/od")
 library(dplyr)
 
+setwd("~/cyipt/actdev/")
 # input data: we should probably have naming conventions for these
 sites = sf::read_sf("all-sites.geojson")
 site_area = sf::read_sf("geojsons/great-kneighton.geojson")
@@ -57,3 +58,4 @@ od_df$geo_code1 = "s1"
 desire_lines_disag = od::od_disaggregate(od = od_df, z = zones_all, subzones = buildings_od)
 mapview::mapview(desire_lines_disag) + mapview::mapview(buildings_od)
 sf::write_sf(desire_lines_disag, "data-small/great-kneighton/desire_lines_disag.geojson")
+sf::write_sf(buildings_od, "data-small/great-kneighton/buildings_od.geojson")
