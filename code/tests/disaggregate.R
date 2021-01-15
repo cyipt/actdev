@@ -63,6 +63,27 @@ sum(desire_lines$car_driver)
 sum(desire_lines_disag$car_driver)
 sum(desire_lines_disag$car_commute_godutch)
 
+# implement scenarios while keeping flow totals unchanged
+change_walking = sum(desire_lines$walk_commute_godutch) - sum(desire_lines$foot)
+change_cycling = sum(desire_lines$bicycle_commute_godutch) - sum(desire_lines$bicycle)
+change_driving = sum(desire_lines$car_commute_godutch) - sum(desire_lines$car_driver)
+desire_lines_disag$car_commute_godutch = desire_lines_disag$car_driver
+desire_lines_disag$bicycle_commute_godutch = desire_lines_disag$bicycle
+desire_lines_disag$walk_commute_godutch = desire_lines_disag$foot
+
+desire_lines_disag$distance = stplanr::geo_length(desire_lines_disag)
+desire_lines_disag$prob_switch = pct::uptake_pct_godutch_2020(distance = desire_lines_disag$distance, gradient = 0)
+plot(desire_lines_disag$distance, desire_lines_disag$prob_switch)
+desire_lines_disag$prob_switch[desire_lines_disag$car_driver < 1] = 0
+sel_car_to_bike = sample(nrow(desire_lines_disag), size = change_cycling, prob = desire_lines_disag$prob_switch)
+desire_lines_disag$car_commute_godutch[sel_car_to_bike] = desire_lines_disag$car_driver[sel_car_to_bike] - 1
+desire_lines_disag$bicycle_commute_godutch[sel_car_to_bike] = desire_lines_disag$bicycle[sel_car_to_bike] + 1
+
+rowSums(desire_lines_disag[1:3] %>% sf::st_drop_geometry()) ==
+rowSums(desire_lines_disag[4:6] %>% sf::st_drop_geometry())
+
 mapview::mapview(desire_lines_disag) + mapview::mapview(buildings_od)
+
+file.remove("data-small/great-kneighton/desire_lines_disag.geojson")
 sf::write_sf(desire_lines_disag, "data-small/great-kneighton/desire_lines_disag.geojson")
 sf::write_sf(buildings_od, "data-small/great-kneighton/buildings_od.geojson")
