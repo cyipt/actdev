@@ -8,10 +8,10 @@ library(sf)
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
 site_name = "great-kneighton"   # which site to look at (can change)
-min_flow_routes = 5 # threshold above which OD pairs are included
+# min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
-# input data --------------------------------------------------------------
 
+# input data --------------------------------------------------------------
 centroids_msoa = pct::get_centroids_ew() 
 centroids_msoa = sf::st_transform(centroids_msoa, 4326)
 zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = "z")
@@ -20,22 +20,24 @@ od = pct::get_od()
 u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
 sites = sf::st_read(u)
 
-#1) get 2011 MSOA populations
-# u2 = "https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2011/mid2011msoaunformattedfile.xls"
-# piggyback::pb_upload("data/mid2011msoaunformattedfile.xls")
-# piggyback::pb_download("https://github.com/cyipt/actdev/releases/download/0.1.1/data.2fmid2011msoaunformattedfile.xls")
+# 2011 MSOA populations
 msoa_pops = readxl::read_xls(path = "data/mid2011msoaunformattedfile.xls", sheet = "Mid-2011 Persons", )
 msoa_pops = msoa_pops %>% 
   select(geo_code1 = Code, msoa_population = "All Ages")
 
-#2) estimated site population = number of homes when complete * household_size constant
+# estimated site populations
 site_dwellings = read_csv("data/site-populations.csv")
 site_pops = site_dwellings %>% 
   mutate(site_population = dwellings_when_complete * household_size)
 
-# select site of interest
+# Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
-sf::write_sf(site, "data-small/chapelford/site-boundary.geojson")
+
+path = file.path("data-small", site_name)
+dir.create(path = path)
+
+dsn = file.path("data-small", site_name, "site-boundary.geojson")
+sf::write_sf(obj = site, dsn = dsn)
 
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 
@@ -54,8 +56,6 @@ site_c = right_join(site_centroid, zone_data) %>%
   select(geo_code, site_name)
 
 # Generate desire lines ---------------------------------------------------
-# Adapted to work when the site lies within 2 or more MSOAs
-# For MSOA data from wu03ew_v2, downloaded using `get_od()`, geo_code1 is always the home and geo_code2 is the workplace. So we don't need to add in OD pairs where geo_code2 lies within the site
 od_site = od %>% 
   filter(geo_code1 %in% zones_touching_site$geo_code) %>% 
   filter(geo_code2 %in% centroids_msoa$msoa11cd) %>% 
@@ -69,26 +69,18 @@ desire_lines_site = desire_lines_site %>%
 
 # Adjust flows to represent site population, not MSOA population(s) -------
 # for both MSOAs and development sites, these are entire populations, not commuter populations
-
-
-
-#3) divide proportionately (accounting for multiple msoas where relevant)
 desire_lines_site = inner_join(desire_lines_site, msoa_pops)
 desire_lines_site = inner_join(desire_lines_site, site_pops)
 site_population = unique(desire_lines_site$site_population)
 unique_msoa_pops = desire_lines_site %>% 
   st_drop_geometry() %>% 
   select(geo_code1, msoa_population) %>%
-  distinct()
+  unique()
 sum_msoa_pops = sum(unique_msoa_pops$msoa_population)
 desire_lines_site = desire_lines_site %>% 
   mutate(sum_msoa_pops = sum_msoa_pops)
 
-# # creating a new set of columns for converted flows
-# desire_lines_pops = desire_lines_site %>% 
-#   mutate(across(all:other, .fns = list(converted = ~ ./ sum_msoa_pops * site_population)))
-
-# keeping converted flows in the same columns
+# keeping converted flows in the original columns
 desire_lines_pops = desire_lines_site %>% 
   mutate(across(all:other, .fns = ~ ./ sum_msoa_pops * site_population))
 
@@ -105,6 +97,7 @@ desire_lines_combined = desire_lines_pops %>%
 
 desire_lines_combined$length = stplanr::geo_length(desire_lines_combined)
 
+# todo: add PT
 desire_lines_combined = desire_lines_combined %>% 
   mutate(pwalk_commute_base = foot/all) %>% 
   mutate(pcycle_commute_base = bicycle/all) %>% 
@@ -114,60 +107,62 @@ desire_lines_combined = desire_lines_combined %>%
 desire_lines_combined = desire_lines_combined %>% 
   select(geo_code1, geo_code2, all:other, length, gradient, pwalk_commute_base:pdrive_commute_base)
 
-desire_lines_rounded = desire_lines_combined %>% 
+# todo: add route data
+
+# Go Dutch scenario -------------------------------------------------------
+desire_lines_scenario = desire_lines_combined %>% 
+  mutate(pwalk_commute_godutch = case_when(
+    length <= 2000 ~ pwalk_commute_base + 0.1, # 10% shift walking
+    TRUE ~ pwalk_commute_base)) %>% 
+  mutate(pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = gradient))
+
+# todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
+desire_lines_scenario = desire_lines_scenario %>% 
+  mutate(walk_commute_godutch = all * pwalk_commute_godutch) %>% 
+  mutate(cycle_commute_godutch = all * pcycle_commute_godutch) %>% 
+  mutate(drive_commute_godutch = case_when(
+    car_driver + (bicycle - cycle_commute_godutch) + (foot - walk_commute_godutch) >= 0 ~ 
+      car_driver + (bicycle - cycle_commute_godutch) + (foot - walk_commute_godutch),
+    TRUE ~ 0)
+  ) %>% 
+  mutate(pdrive_commute_godutch = drive_commute_godutch / all) %>%
+  select(geo_code1:pdrive_commute_base, walk_commute_godutch:drive_commute_godutch, pwalk_commute_godutch, pcycle_commute_godutch, pdrive_commute_godutch)
+
+#######
+
+desire_lines_rounded = desire_lines_scenario %>% 
   mutate(across(where(is.numeric), round, 6))
-readr::write_csv(desire_lines_rounded, "all-census-od.csv")
+st_precision(desire_lines_rounded) = 1000000 # this doesn't seem to work
+
+dsn = file.path("data-small", site_name, "all-census-od.csv")
+readr::write_csv(desire_lines_rounded, file = dsn)
 
 desire_lines_20km = desire_lines_rounded %>% 
   filter(length <= max_length)
-sf::write_sf(desire_lines_20km, "data-small/chapelford/desire-lines-large.geojson")
+dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
+sf::write_sf(desire_lines_20km, dsn = dsn)
 
-desire_lines_5 = desire_lines_rounded %>% 
-  filter(all >= min_flow_routes)
+# desire_lines_5 = desire_lines_rounded %>% 
+#   filter(all >= min_flow_routes)
 
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
-desire_lines_large = desire_lines_combined %>% 
+desire_lines_busy = desire_lines_rounded %>% 
   filter(all >= min_flow_map)
 
-convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_large))
+convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_busy))
 study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
 
 
 zones_touching_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
 
-
-dir.create("data-small/chapelford")
-sf::write_sf(study_area, "data-small/chapelford/small-study-area.geojson")
+dsn = file.path("data-small", site_name, "small-study-area.geojson")
+sf::write_sf(study_area, dsn = dsn)
 
 # Add scenarios of change -------------------------------------------------
 
-desire_lines_small = desire_lines_combined[study_area, , op = sf::st_within]
-# todo: add PT
+desire_lines_few = desire_lines_rounded[study_area, , op = sf::st_within]
 
-#####move this to earlier in the script
-# todo: add route data
-desire_lines_combined = desire_lines_combined %>% 
-  mutate(pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = gradient)) %>% 
-  mutate(pwalk_commute_godutch = case_when(
-    length <= 2000 ~ pwalk_commute_base + 0.1, # 10% shift walking
-    TRUE ~ pwalk_commute_base 
-  )
-  )  
-
-# todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
-desire_lines_scenario = desire_lines_combined %>% 
-  mutate(bicycle_commute_godutch = all * pcycle_commute_godutch) %>% 
-  mutate(walk_commute_godutch = all * pwalk_commute_godutch) %>% 
-  mutate(car_commute_godutch = case_when(
-    car_driver + (bicycle - bicycle_commute_godutch) + (foot - walk_commute_godutch) >= 0 ~ 
-      car_driver + (bicycle - bicycle_commute_godutch) + (foot - walk_commute_godutch),
-    TRUE ~ 0)
-  ) %>% 
-  mutate(pdrive_commute_godutch = car_commute_godutch / all)
-##########
-
-sf::write_sf(desire_lines_scenario, "data-small/chapelford/small-desire-lines.geojson")
-
-
+dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
+sf::write_sf(desire_lines_few, dsn = dsn)
 
