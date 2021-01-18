@@ -7,9 +7,16 @@ library(sf)
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "great-kneighton"   # which site to look at (can change)
+site_name = "chapelford"   # which site to look at (can change)
 # min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
+
+smart.round = function(x) {
+  y = floor(x)
+  indices = utils::tail(order(x-y), round(sum(x)) - sum(y))
+  y[indices] = y[indices] + 1
+  y
+}
 
 # generic input data --------------------------------------------------------------
 centroids_msoa = pct::get_centroids_ew() 
@@ -129,19 +136,22 @@ desire_lines_scenario = desire_lines_scenario %>%
   mutate(pdrive_commute_godutch = drive_commute_godutch / all) %>%
   select(geo_code1:pdrive_commute_base, walk_commute_godutch:drive_commute_godutch, pwalk_commute_godutch, pcycle_commute_godutch, pdrive_commute_godutch)
 
-#######
-
-desire_lines_rounded = desire_lines_scenario %>% 
-  mutate(across(where(is.numeric), round, 6))
-st_precision(desire_lines_rounded) = 1000000
-
 dsn = file.path("data-small", site_name, "all-census-od.csv")
-readr::write_csv(desire_lines_rounded, file = dsn)
+readr::write_csv(desire_lines_scenario, file = dsn)
+
+# Round decimals and select sets of desire lines --------------------------
+# desire_lines_rounded = desire_lines_scenario %>% 
+#   mutate(across(where(is.numeric), round, 6))
+
+desire_lines_rounded = desire_lines_scenario %>%
+  mutate(across(c(all:other, walk_commute_godutch:drive_commute_godutch), smart.round))
+
+st_precision(desire_lines_rounded) = 1000000
 
 desire_lines_20km = desire_lines_rounded %>% 
   filter(length <= max_length)
 desire_lines_20km = desire_lines_20km %>% 
-  select(geo_code1, geo_code2, all_commute_base = all, cycle_commute_base = bicycle, walk_commute_base = foot, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
+  select(geo_code1, geo_code2, all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
 
 dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
 sf::write_sf(desire_lines_20km, dsn = dsn)
@@ -163,11 +173,10 @@ zones_touching_study_area = zones_msoa_national[study_area, , op = sf::st_inters
 dsn = file.path("data-small", site_name, "small-study-area.geojson")
 sf::write_sf(study_area, dsn = dsn)
 
-# Add scenarios of change -------------------------------------------------
-
+# Desire lines for small study area ---------------------------------------
 desire_lines_few = desire_lines_rounded[study_area, , op = sf::st_within]
 desire_lines_few = desire_lines_few %>% 
-  select(geo_code1, geo_code2, all_commute_base = all, cycle_commute_base = bicycle, walk_commute_base = foot, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
+  select(geo_code1, geo_code2, all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
 
 dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
 sf::write_sf(desire_lines_few, dsn = dsn)
