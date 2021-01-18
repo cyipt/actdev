@@ -7,7 +7,7 @@ library(sf)
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "chapelford"   # which site to look at (can change)
+site_name = "great-kneighton"   # which site to look at (can change)
 # min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 
@@ -19,6 +19,7 @@ zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = 
 od = pct::get_od()
 u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
 sites = sf::st_read(u)
+st_precision(sites) = 1000000
 
 # 2011 MSOA populations
 msoa_pops = readxl::read_xls(path = "data/mid2011msoaunformattedfile.xls", sheet = "Mid-2011 Persons", )
@@ -141,6 +142,7 @@ desire_lines_20km = desire_lines_rounded %>%
   filter(length <= max_length)
 desire_lines_20km = desire_lines_20km %>% 
   select(geo_code1, geo_code2, all_commute_base = all, cycle_commute_base = bicycle, walk_commute_base = foot, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
+
 dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
 sf::write_sf(desire_lines_20km, dsn = dsn)
 
@@ -154,7 +156,7 @@ desire_lines_busy = desire_lines_rounded %>%
 
 convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_busy))
 study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
-
+st_precision(study_area) = 1000000
 
 zones_touching_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
 
