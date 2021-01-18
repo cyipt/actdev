@@ -132,13 +132,15 @@ desire_lines_scenario = desire_lines_scenario %>%
 
 desire_lines_rounded = desire_lines_scenario %>% 
   mutate(across(where(is.numeric), round, 6))
-st_precision(desire_lines_rounded) = 1000000 # this doesn't seem to work
+st_precision(desire_lines_rounded) = 1000000
 
 dsn = file.path("data-small", site_name, "all-census-od.csv")
 readr::write_csv(desire_lines_rounded, file = dsn)
 
 desire_lines_20km = desire_lines_rounded %>% 
   filter(length <= max_length)
+desire_lines_20km = desire_lines_20km %>% 
+  select(geo_code1, geo_code2, all_commute_base = all, cycle_commute_base = bicycle, walk_commute_base = foot, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
 dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
 sf::write_sf(desire_lines_20km, dsn = dsn)
 
@@ -162,6 +164,8 @@ sf::write_sf(study_area, dsn = dsn)
 # Add scenarios of change -------------------------------------------------
 
 desire_lines_few = desire_lines_rounded[study_area, , op = sf::st_within]
+desire_lines_few = desire_lines_few %>% 
+  select(geo_code1, geo_code2, all_commute_base = all, cycle_commute_base = bicycle, walk_commute_base = foot, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
 
 dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
 sf::write_sf(desire_lines_few, dsn = dsn)
