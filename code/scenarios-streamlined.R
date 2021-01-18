@@ -22,6 +22,7 @@ smart.round = function(x) {
 centroids_msoa = pct::get_centroids_ew() 
 centroids_msoa = sf::st_transform(centroids_msoa, 4326)
 zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = "z")
+st_precision(zones_msoa_national) = 1000000
 
 od = pct::get_od()
 u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
@@ -144,20 +145,35 @@ readr::write_csv(desire_lines_scenario, file = dsn)
 #   mutate(across(where(is.numeric), round, 6))
 
 desire_lines_rounded = desire_lines_scenario %>%
-  mutate(across(c(all:other, walk_commute_godutch:drive_commute_godutch), smart.round))
+  mutate(across(c(all:other, walk_commute_godutch:drive_commute_godutch), smart.round)) %>% 
+  rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
 
 st_precision(desire_lines_rounded) = 1000000
 
 desire_lines_20km = desire_lines_rounded %>% 
   filter(length <= max_length)
 desire_lines_20km = desire_lines_20km %>% 
-  select(geo_code1, geo_code2, all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
+  select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
 
 dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
 sf::write_sf(desire_lines_20km, dsn = dsn)
 
 # desire_lines_5 = desire_lines_rounded %>% 
 #   filter(all >= min_flow_routes)
+
+# Large study area MSOAs --------------------------------------------------
+work_zone = inner_join(zones_msoa_national %>% select(geo_code), 
+                       desire_lines_20km %>% st_drop_geometry() %>% select(geo_code2),
+                       by = c("geo_code" = "geo_code2"))
+home_zone = inner_join(zones_msoa_national %>% select(geo_code), 
+                       desire_lines_20km %>% st_drop_geometry() %>% select(geo_code1),
+                       by = c("geo_code" = "geo_code1"))
+home_zone = unique(home_zone)
+zones_touching_large_study_area = bind_rows(home_zone, work_zone) %>%
+  unique()
+
+dsn = file.path("data-small", site_name, "large-study-area-zones.geojson")
+sf::write_sf(zones_touching_large_study_area, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
@@ -168,7 +184,7 @@ convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_busy))
 study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
 st_precision(study_area) = 1000000
 
-zones_touching_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
+# zones_touching_small_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
 
 dsn = file.path("data-small", site_name, "small-study-area.geojson")
 sf::write_sf(study_area, dsn = dsn)
@@ -176,7 +192,7 @@ sf::write_sf(study_area, dsn = dsn)
 # Desire lines for small study area ---------------------------------------
 desire_lines_few = desire_lines_rounded[study_area, , op = sf::st_within]
 desire_lines_few = desire_lines_few %>% 
-  select(geo_code1, geo_code2, all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver, walk_commute_godutch:drive_commute_godutch)
+  select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
 
 dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
 sf::write_sf(desire_lines_few, dsn = dsn)
