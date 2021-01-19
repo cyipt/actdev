@@ -7,7 +7,7 @@ library(sf)
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "chapelford"   # which site to look at (can change)
+site_name = "great-kneighton"   # which site to look at (can change)
 # min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 
@@ -39,6 +39,18 @@ site_dwellings = read_csv("data/site-populations.csv")
 site_pops = site_dwellings %>% 
   mutate(site_population = dwellings_when_complete * household_size)
 
+# jts data - SLOW
+all_jts_tables = paste0("jts050", 1:8)
+i = all_jts_tables[1]
+for(i in all_jts_tables){
+  year = 2017
+  f = paste0(i, "-", year, ".geojson")
+  # piggyback::pb_download(f, tag = "0.1.2")
+  f2 = sf::read_sf(f)
+  assign(i, f2)
+  rm(f2)
+}
+
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
 
@@ -52,7 +64,7 @@ zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 
 
 # Route from site centroid (rather than MSOA centroid) --------------------
-# this could be changed to route from a random selection of homes within the site, to better represent the accessibility of the site as a whole
+# `disaggregate.R` changes this to route from a random selection of homes within the site, to better represent the accessibility of the site as a whole
 site_centroid = site %>% 
   st_transform(27700) %>% 
   st_centroid() %>% 
@@ -196,4 +208,31 @@ desire_lines_few = desire_lines_few %>%
 
 dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
 sf::write_sf(desire_lines_few, dsn = dsn)
+
+
+# Get LSOA level JTS data -------------------------------------------------
+library(jts)
+library(mapview)
+
+
+
+employ = jts::get_jts_data(table = "jts0501", output_format = "sf")
+
+employ_site = employ[site, , op = sf::st_intersects]
+employ_site2 = jts0501[site, , op = sf::st_intersects]
+
+shared_only = st_intersection(jts0501, site)
+shared_only$overlap_size = units::drop_units(st_area(shared_only))
+access_employ = shared_only %>% 
+  filter(overlap_size > 10000)
+mapview(access_employ)
+names(access_employ) = sub("X","", names(access_employ))
+
+
+access_employ$weightedJobsPTt = apply(
+  X = access_employ[c("100EmpPTt", "500EmpPTt", "5000EmpPTt")],
+  MARGIN = 1,
+  FUN = weighted.mean,
+  w = c(100, 500, 5000)
+)
 
