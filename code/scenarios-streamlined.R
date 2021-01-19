@@ -211,28 +211,80 @@ sf::write_sf(desire_lines_few, dsn = dsn)
 
 
 # Get LSOA level JTS data -------------------------------------------------
-library(jts)
-library(mapview)
+# employ = jts::get_jts_data(table = "jts0501", output_format = "sf")
+# employ_site = employ[site, , op = sf::st_intersects]
+# employ_site = jts0501[site, , op = sf::st_intersects]
 
-
-
-employ = jts::get_jts_data(table = "jts0501", output_format = "sf")
-
-employ_site = employ[site, , op = sf::st_intersects]
-employ_site2 = jts0501[site, , op = sf::st_intersects]
-
-shared_only = st_intersection(jts0501, site)
-shared_only$overlap_size = units::drop_units(st_area(shared_only))
-access_employ = shared_only %>% 
+employ_site = st_intersection(jts0501, site)
+employ_site$overlap_size = units::drop_units(st_area(employ_site))
+access_employ = employ_site %>% 
   filter(overlap_size > 10000)
 mapview(access_employ)
-names(access_employ) = sub("X","", names(access_employ))
-
+# names(access_employ) = sub("X","", names(access_employ))
 
 access_employ$weightedJobsPTt = apply(
-  X = access_employ[c("100EmpPTt", "500EmpPTt", "5000EmpPTt")],
+  X = st_drop_geometry(access_employ[c("X100EmpPTt", "X500EmpPTt", "X5000EmpPTt")]),
   MARGIN = 1,
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
 
+access_employ$weightedJobsCyct = apply(
+  X = st_drop_geometry(access_employ[c("X100EmpCyct", "X500EmpCyct", "X5000EmpCyct")]),
+  MARGIN = 1,
+  FUN = weighted.mean,
+  w = c(100, 500, 5000)
+)
+
+access_employ$weightedJobsCart = apply(
+  X = st_drop_geometry(access_employ[c("X100EmpCart", "X500EmpCart", "X5000EmpCart")]),
+  MARGIN = 1,
+  FUN = weighted.mean,
+  w = c(100, 500, 5000)
+)
+
+access_site = access_employ %>% 
+  select(LSOA_code, weightedJobsPTt, weightedJobsCyct, weightedJobsCart)
+
+j2 = jts0502 %>% 
+  select(LSOA_code, PSPTt, PSCyct, PSCart) %>% 
+  st_drop_geometry()
+access_site = inner_join(access_site, j2)
+
+j3 = jts0503 %>% 
+  select(LSOA_code, SSPTt, SSCyct, SSCart) %>% 
+  st_drop_geometry()
+access_site = inner_join(access_site, j3)
+
+j4 = jts0504 %>% 
+  select(LSOA_code, FEPTt, FECyct, FECart) %>% 
+  st_drop_geometry()
+access_site = inner_join(access_site, j4)
+
+j5 = jts0505 %>% 
+  select(LSOA_code, GPPTt, GPCyct, GPCart) %>% 
+  st_drop_geometry()
+access_site = inner_join(access_site, j5)
+
+j6 = jts0506 %>% 
+  select(LSOA_code, HospPTt, HospCyct, HospCart) %>% 
+  st_drop_geometry()
+access_site = inner_join(access_site, j6)
+
+j7 = jts0507 %>% 
+  select(LSOA_code, FoodPTt, FoodCyct, FoodCart) %>% 
+  st_drop_geometry()
+access_site = inner_join(access_site, j7)
+
+j8 = jts0508 %>% 
+  select(LSOA_code, TownPTt, TownCyct, TownCart) %>% 
+  st_drop_geometry()
+access_site = inner_join(access_site, j8)
+
+access_means = access_site %>% 
+  st_drop_geometry() %>% 
+  select(weightedJobsPTt:TownCart)
+access_means = colSums(access_means)
+
+file = file.path("data-small", site_name, "site-jts-data.csv")
+write_csv(access_means, file = file)
