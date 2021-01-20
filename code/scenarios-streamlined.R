@@ -7,7 +7,7 @@ library(sf)
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "great-kneighton"   # which site to look at (can change)
+site_name = "chapelford"   # which site to look at (can change)
 # min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 
@@ -35,8 +35,8 @@ msoa_pops = msoa_pops %>%
   select(geo_code1 = Code, msoa_population = "All Ages")
 
 # estimated site populations
-# site_dwellings = read_csv("data/site-populations.csv")
 site_pops = sites %>% 
+  st_drop_geometry() %>% 
   mutate(site_population = dwellings_when_complete * household_size)
 
 # jts data - SLOW
@@ -53,8 +53,6 @@ for(i in all_jts_tables){
 
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
-site = site %>% 
-  select(site_name)
 
 path = file.path("data-small", site_name)
 dir.create(path = path)
@@ -187,7 +185,7 @@ zones_touching_large_study_area = bind_rows(home_zone, work_zone) %>%
 # zones_touching_large_study_area2 = zones_msoa_national[convex_hull, , op = sf::st_intersects]
 
 large_study_area = st_union(zones_touching_large_study_area)
-large_study_area = sfheaders::sf_remove_holes(large_study_area)
+large_study_area1 = sfheaders::sf_remove_holes(large_study_area)
 large_study_area2 = nngeo::st_remove_holes(large_study_area)
 
 zones_without_holes = zones_msoa_national[large_study_area, , op = sf::st_within]
@@ -305,9 +303,10 @@ write_sf(site_data, dsn = dsn)
 
 
 # JTS data for surrounding LSOAs ------------------------------------------
+# large_study_area2 = st_set_crs(large_study_area2, 4326)
+# large_study_area2 = st_make_valid(large_study_area2)
 
-
-employ_lsoas = st_intersection(jts0501, large_study_area) # doesn't work in chapelford, works in great kneighton
+employ_lsoas2 = st_intersection(jts0501, large_study_area2) # doesn't work in chapelford, works in great kneighton
 employ_lsoas$overlap_size = units::drop_units(st_area(employ_lsoas))
 access_lsoas_employ = employ_lsoas %>% 
   filter(overlap_size > 10000)
