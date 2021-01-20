@@ -7,7 +7,7 @@ library(sf)
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "great-kneighton"   # which site to look at (can change)
+site_name = "chapelford"   # which site to look at (can change)
 # min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 
@@ -219,7 +219,7 @@ employ_site = st_intersection(jts0501, site)
 employ_site$overlap_size = units::drop_units(st_area(employ_site))
 access_employ = employ_site %>% 
   filter(overlap_size > 10000)
-mapview(access_employ)
+# mapview(access_employ)
 # names(access_employ) = sub("X","", names(access_employ))
 
 access_employ$weightedJobsPTt = apply(
