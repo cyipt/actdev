@@ -57,9 +57,6 @@ site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
 dir.create(path = path)
 
-dsn = file.path("data-small", site_name, "site-boundary.geojson")
-sf::write_sf(obj = site, dsn = dsn)
-
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 
 
@@ -184,8 +181,19 @@ home_zone = unique(home_zone)
 zones_touching_large_study_area = bind_rows(home_zone, work_zone) %>%
   unique()
 
+# convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_20km))
+# zones_touching_large_study_area2 = zones_msoa_national[convex_hull, , op = sf::st_intersects]
+
+large_study_area = st_union(zones_touching_large_study_area)
+large_study_area = sfheaders::sf_remove_holes(large_study_area)
+
+zones_without_holes = zones_msoa_national[large_study_area, , op = sf::st_within]
+zones_without_holes = zones_without_holes %>% 
+  select(geo_code)
+st_precision(zones_without_holes) = 1000000
+
 dsn = file.path("data-small", site_name, "large-study-area-zones.geojson")
-sf::write_sf(zones_touching_large_study_area, dsn = dsn)
+sf::write_sf(zones_without_holes, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
@@ -210,7 +218,7 @@ dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
 sf::write_sf(desire_lines_few, dsn = dsn)
 
 
-# Get LSOA level JTS data -------------------------------------------------
+# Get LSOA level JTS data for site ----------------------------------------
 # employ = jts::get_jts_data(table = "jts0501", output_format = "sf")
 # employ_site = employ[site, , op = sf::st_intersects]
 # employ_site = jts0501[site, , op = sf::st_intersects]
@@ -286,6 +294,89 @@ access_means = access_site %>%
   group_by(site_name) %>% 
   summarise(across(c(weightedJobsPTt:weightedJobsCart, PSPTt:TownCart), mean))
 
-st_precision(access_means) = 1000000
-dsn = file.path("data-small", site_name, "site-jts-data.geojson")
-write_sf(access_means, dsn = dsn)
+site_data = inner_join(site, st_drop_geometry(access_means), by = "site_name")
+st_precision(site_data) = 1000000
+
+dsn = file.path("data-small", site_name, "site.geojson")
+write_sf(site_data, dsn = dsn)
+
+
+# JTS data for surrounding LSOAs ------------------------------------------
+
+
+employ_large = st_intersection(jts0501, large_study_area)
+employ_large$overlap_size = units::drop_units(st_area(employ_large))
+access_large_employ = employ_large %>% 
+  filter(overlap_size > 10000)
+# mapview(access_large_employ)
+# names(access_large_employ) = sub("X","", names(access_large_employ))
+
+access_large_employ$weightedJobsPTt = apply(
+  X = st_drop_geometry(access_large_employ[c("X100EmpPTt", "X500EmpPTt", "X5000EmpPTt")]),
+  MARGIN = 1,
+  FUN = weighted.mean,
+  w = c(100, 500, 5000)
+)
+
+access_large_employ$weightedJobsCyct = apply(
+  X = st_drop_geometry(access_large_employ[c("X100EmpCyct", "X500EmpCyct", "X5000EmpCyct")]),
+  MARGIN = 1,
+  FUN = weighted.mean,
+  w = c(100, 500, 5000)
+)
+
+access_large_employ$weightedJobsCart = apply(
+  X = st_drop_geometry(access_large_employ[c("X100EmpCart", "X500EmpCart", "X5000EmpCart")]),
+  MARGIN = 1,
+  FUN = weighted.mean,
+  w = c(100, 500, 5000)
+)
+
+access_large = access_large_employ %>% 
+  select(LSOA_code, weightedJobsPTt, weightedJobsCyct, weightedJobsCart)
+
+j2 = jts0502 %>% 
+  select(LSOA_code, PSPTt, PSCyct, PSCart) %>% 
+  st_drop_geometry()
+access_large = inner_join(access_large, j2)
+
+j3 = jts0503 %>% 
+  select(LSOA_code, SSPTt, SSCyct, SSCart) %>% 
+  st_drop_geometry()
+access_large = inner_join(access_large, j3)
+
+j4 = jts0504 %>% 
+  select(LSOA_code, FEPTt, FECyct, FECart) %>% 
+  st_drop_geometry()
+access_large = inner_join(access_large, j4)
+
+j5 = jts0505 %>% 
+  select(LSOA_code, GPPTt, GPCyct, GPCart) %>% 
+  st_drop_geometry()
+access_large = inner_join(access_large, j5)
+
+j6 = jts0506 %>% 
+  select(LSOA_code, HospPTt, HospCyct, HospCart) %>% 
+  st_drop_geometry()
+access_large = inner_join(access_large, j6)
+
+j7 = jts0507 %>% 
+  select(LSOA_code, FoodPTt, FoodCyct, FoodCart) %>% 
+  st_drop_geometry()
+access_large = inner_join(access_large, j7)
+
+j8 = jts0508 %>% 
+  select(LSOA_code, TownPTt, TownCyct, TownCart) %>% 
+  st_drop_geometry()
+access_large = inner_join(access_large, j8)
+
+access_large_means = access_large %>% 
+  mutate(site_name = site_name) %>% 
+  group_by(site_name) %>% 
+  summarise(across(c(weightedJobsPTt:weightedJobsCart, PSPTt:TownCart), mean))
+
+st_precision(access_large_means) = 1000000
+
+dsn = file.path("data-small", site_name, "jts-lsoas.geojson")
+write_sf(access_large_means, dsn = dsn)
+
