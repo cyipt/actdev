@@ -7,7 +7,7 @@ library(sf)
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "chapelford"   # which site to look at (can change)
+site_name = "great-kneighton"   # which site to look at (can change)
 # min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 
@@ -35,8 +35,8 @@ msoa_pops = msoa_pops %>%
   select(geo_code1 = Code, msoa_population = "All Ages")
 
 # estimated site populations
-site_dwellings = read_csv("data/site-populations.csv")
-site_pops = site_dwellings %>% 
+# site_dwellings = read_csv("data/site-populations.csv")
+site_pops = sites %>% 
   mutate(site_population = dwellings_when_complete * household_size)
 
 # jts data - SLOW
@@ -53,6 +53,8 @@ for(i in all_jts_tables){
 
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
+site = site %>% 
+  select(site_name)
 
 path = file.path("data-small", site_name)
 dir.create(path = path)
@@ -186,6 +188,7 @@ zones_touching_large_study_area = bind_rows(home_zone, work_zone) %>%
 
 large_study_area = st_union(zones_touching_large_study_area)
 large_study_area = sfheaders::sf_remove_holes(large_study_area)
+large_study_area2 = nngeo::st_remove_holes(large_study_area)
 
 zones_without_holes = zones_msoa_national[large_study_area, , op = sf::st_within]
 zones_without_holes = zones_without_holes %>% 
@@ -304,79 +307,74 @@ write_sf(site_data, dsn = dsn)
 # JTS data for surrounding LSOAs ------------------------------------------
 
 
-employ_large = st_intersection(jts0501, large_study_area) # doesn't work
-employ_large$overlap_size = units::drop_units(st_area(employ_large))
-access_large_employ = employ_large %>% 
+employ_lsoas = st_intersection(jts0501, large_study_area) # doesn't work in chapelford, works in great kneighton
+employ_lsoas$overlap_size = units::drop_units(st_area(employ_lsoas))
+access_lsoas_employ = employ_lsoas %>% 
   filter(overlap_size > 10000)
-# mapview(access_large_employ)
-# names(access_large_employ) = sub("X","", names(access_large_employ))
+# mapview(access_lsoas_employ)
+# names(access_lsoas_employ) = sub("X","", names(access_lsoas_employ))
 
-access_large_employ$weightedJobsPTt = apply(
-  X = st_drop_geometry(access_large_employ[c("X100EmpPTt", "X500EmpPTt", "X5000EmpPTt")]),
+access_lsoas_employ$weightedJobsPTt = apply(
+  X = st_drop_geometry(access_lsoas_employ[c("X100EmpPTt", "X500EmpPTt", "X5000EmpPTt")]),
   MARGIN = 1,
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
 
-access_large_employ$weightedJobsCyct = apply(
-  X = st_drop_geometry(access_large_employ[c("X100EmpCyct", "X500EmpCyct", "X5000EmpCyct")]),
+access_lsoas_employ$weightedJobsCyct = apply(
+  X = st_drop_geometry(access_lsoas_employ[c("X100EmpCyct", "X500EmpCyct", "X5000EmpCyct")]),
   MARGIN = 1,
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
 
-access_large_employ$weightedJobsCart = apply(
-  X = st_drop_geometry(access_large_employ[c("X100EmpCart", "X500EmpCart", "X5000EmpCart")]),
+access_lsoas_employ$weightedJobsCart = apply(
+  X = st_drop_geometry(access_lsoas_employ[c("X100EmpCart", "X500EmpCart", "X5000EmpCart")]),
   MARGIN = 1,
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
 
-access_large = access_large_employ %>% 
+access_lsoas = access_lsoas_employ %>% 
   select(LSOA_code, weightedJobsPTt, weightedJobsCyct, weightedJobsCart)
 
 j2 = jts0502 %>% 
   select(LSOA_code, PSPTt, PSCyct, PSCart) %>% 
   st_drop_geometry()
-access_large = inner_join(access_large, j2)
+access_lsoas = inner_join(access_lsoas, j2)
 
 j3 = jts0503 %>% 
   select(LSOA_code, SSPTt, SSCyct, SSCart) %>% 
   st_drop_geometry()
-access_large = inner_join(access_large, j3)
+access_lsoas = inner_join(access_lsoas, j3)
 
 j4 = jts0504 %>% 
   select(LSOA_code, FEPTt, FECyct, FECart) %>% 
   st_drop_geometry()
-access_large = inner_join(access_large, j4)
+access_lsoas = inner_join(access_lsoas, j4)
 
 j5 = jts0505 %>% 
   select(LSOA_code, GPPTt, GPCyct, GPCart) %>% 
   st_drop_geometry()
-access_large = inner_join(access_large, j5)
+access_lsoas = inner_join(access_lsoas, j5)
 
 j6 = jts0506 %>% 
   select(LSOA_code, HospPTt, HospCyct, HospCart) %>% 
   st_drop_geometry()
-access_large = inner_join(access_large, j6)
+access_lsoas = inner_join(access_lsoas, j6)
 
 j7 = jts0507 %>% 
   select(LSOA_code, FoodPTt, FoodCyct, FoodCart) %>% 
   st_drop_geometry()
-access_large = inner_join(access_large, j7)
+access_lsoas = inner_join(access_lsoas, j7)
 
 j8 = jts0508 %>% 
   select(LSOA_code, TownPTt, TownCyct, TownCart) %>% 
   st_drop_geometry()
-access_large = inner_join(access_large, j8)
+access_lsoas = inner_join(access_lsoas, j8)
 
-access_large_means = access_large %>% 
-  mutate(site_name = site_name) %>% 
-  group_by(site_name) %>% 
-  summarise(across(c(weightedJobsPTt:weightedJobsCart, PSPTt:TownCart), mean))
-
-st_precision(access_large_means) = 1000000
+st_precision(access_lsoas) = 1000000
 
 dsn = file.path("data-small", site_name, "jts-lsoas.geojson")
-write_sf(access_large_means, dsn = dsn)
+write_sf(access_lsoas, dsn = dsn)
 
