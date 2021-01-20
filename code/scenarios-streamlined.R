@@ -59,6 +59,11 @@ dir.create(path = path)
 
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 
+zones_touching_site$overlap_size = units::drop_units(st_area(zones_touching_site))
+zones_touching_site = zones_touching_site %>% 
+  filter(overlap_size > 10000) %>% 
+  select(-overlap_size)
+
 
 # Route from site centroid (rather than MSOA centroid) --------------------
 # `disaggregate.R` changes this to route from a random selection of homes within the site, to better represent the accessibility of the site as a whole
