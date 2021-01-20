@@ -190,7 +190,7 @@ sf::write_sf(zones_touching_large_study_area, dsn = dsn)
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
 desire_lines_busy = desire_lines_rounded %>% 
-  filter(all >= min_flow_map)
+  filter(all_commute_base >= min_flow_map)
 
 convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_busy))
 study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
@@ -282,9 +282,10 @@ j8 = jts0508 %>%
 access_site = inner_join(access_site, j8)
 
 access_means = access_site %>% 
-  st_drop_geometry() %>% 
-  select(weightedJobsPTt:TownCart)
-access_means = colSums(access_means)
+  mutate(site_name = site_name) %>% 
+  group_by(site_name) %>% 
+  summarise(across(c(weightedJobsPTt:weightedJobsCart, PSPTt:TownCart), mean))
 
-file = file.path("data-small", site_name, "site-jts-data.csv")
-write_csv(access_means, file = file)
+st_precision(access_means) = 1000000
+dsn = file.path("data-small", site_name, "site-jts-data.geojson")
+write_sf(access_means, dsn = dsn)
