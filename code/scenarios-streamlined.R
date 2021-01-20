@@ -304,7 +304,7 @@ write_sf(site_data, dsn = dsn)
 # JTS data for surrounding LSOAs ------------------------------------------
 
 
-employ_large = st_intersection(jts0501, large_study_area)
+employ_large = st_intersection(jts0501, large_study_area) # doesn't work
 employ_large$overlap_size = units::drop_units(st_area(employ_large))
 access_large_employ = employ_large %>% 
   filter(overlap_size > 10000)
