@@ -79,9 +79,9 @@ site_c = right_join(site_centroid, zone_data) %>%
 # Generate desire lines ---------------------------------------------------
 od_site = od %>% 
   filter(geo_code1 %in% zones_touching_site$geo_code) %>% 
-  filter(geo_code2 %in% centroids_msoa$msoa11cd) %>% 
-  filter(geo_code1 != geo_code2) # note: not accounting for intrazonal flows. But where the site lies within 2 or more MSOAs, flows from one to the other of these will still be included.
-# intra-zonal flows could be added later, using more detailed od-workplace zone data. Or we could simply route from the site centroid to the MSOA centroid.
+  filter(geo_code2 %in% centroids_msoa$msoa11cd)
+# intra-zonal flows are included, with the desire line going from the site centroid to the msoa centroid
+# intra-zonal flows could later be represented using more detailed od-workplace zone data.
 
 desire_lines_site = od::od_to_sf(x = od_site, z = site_c, zd = centroids_msoa)
 desire_lines_site = desire_lines_site %>% 
