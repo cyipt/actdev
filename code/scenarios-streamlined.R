@@ -10,6 +10,7 @@ max_length = 20000 # maximum length of desire lines in m
 site_name = "chapelford"   # which site to look at (can change)
 min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
+large_area_buffer = 500
 
 smart.round = function(x) {
   y = floor(x)
@@ -166,17 +167,12 @@ st_precision(desire_lines_rounded) = 1000000
 
 desire_lines_20km = desire_lines_rounded %>% 
   filter(length <= max_length)
-desire_lines_20km = desire_lines_20km %>% 
-  select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
 
 desire_lines_threshold = desire_lines_rounded %>%
   filter(all_commute_base >= min_flow_routes)
 
 desire_lines_bounding = desire_lines_20km %>% 
   filter(geo_code2 %in% desire_lines_threshold$geo_code2)
-
-dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
-sf::write_sf(desire_lines_bounding, dsn = dsn)
 
 # Large study area MSOAs --------------------------------------------------
 # work_zone = inner_join(zones_msoa_national %>% select(geo_code), 
@@ -190,9 +186,10 @@ sf::write_sf(desire_lines_bounding, dsn = dsn)
 #   unique()
 
 large_study_area = sf::st_convex_hull(sf::st_union(desire_lines_bounding))
+large_study_area = stplanr::geo_buffer(large_study_area, dist = large_area_buffer)
 # mapview(desire_lines_bounding) + mapview(large_study_area)
 
-# large_study_area = stplanr::geo_buffer(large_study_area, dist = 200)
+
 # zones_touching_large_study_area2 = zones_msoa_national[convex_hull, , op = sf::st_intersects]
 
 # large_study_area = st_union(zones_touching_large_study_area)
@@ -205,9 +202,16 @@ large_study_area = sf::st_convex_hull(sf::st_union(desire_lines_bounding))
 #   select(geo_code)
 # st_precision(zones_without_holes) = 1000000
 
-dsn = file.path("data-small", site_name, "large-study-area-zones.geojson")
+dsn = file.path("data-small", site_name, "large-study-area.geojson")
 sf::write_sf(large_study_area, dsn = dsn)
 # sf::write_sf(zones_without_holes, dsn = dsn)
+
+desire_lines_many = desire_lines_rounded[large_study_area, , op = sf::st_within]
+desire_lines_many = desire_lines_many %>% 
+  select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
+
+dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
+sf::write_sf(desire_lines_many, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
@@ -334,7 +338,7 @@ lsoa_study_area = sfheaders::sf_remove_holes(lsoa_study_area)
 
 lsoas_all = jts0501[lsoa_study_area, , op = sf::st_within]
 
-mapview(lsoas_all) + mapview(desire_lines_bounding)
+# mapview(lsoas_all) + mapview(desire_lines_bounding)
 
 lsoas_all$weightedJobsPTt = apply(
   X = st_drop_geometry(lsoas_all[c("X100EmpPTt", "X500EmpPTt", "X5000EmpPTt")]),
