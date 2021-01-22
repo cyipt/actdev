@@ -26,4 +26,4 @@ vignettes/*.pdf
 *.knit.md
 # R Environment Variables
 .Renviron
-jts*
+jts0*
