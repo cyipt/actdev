@@ -155,6 +155,40 @@ desire_lines_scenario = desire_lines_scenario %>%
 dsn = file.path("data-small", site_name, "all-census-od.csv")
 readr::write_csv(desire_lines_scenario, file = dsn)
 
+
+# Mode split summary by distance ------------------------------------------
+
+# lots of flows in the h.30+ category have high walking-base and v high cycle-godutch
+mapview(desire_lines_scenario %>% filter(length >+ 30000))
+
+sum_total = sum(desire_lines_scenario$all)
+
+mode_split = desire_lines_scenario %>% 
+  mutate(desire_lines_scenario, length = case_when(geo_code1 == geo_code2 ~ 100, TRUE ~ length)) %>% # doesn't change it
+  select(length, all, pwalk_commute_base:pdrive_commute_base, pwalk_commute_godutch:pdrive_commute_godutch) %>% 
+  mutate(length_cat = case_when(
+    length < 1000 ~ "a.0-1",
+    length < 3000 ~ "b.1-3",
+    length < 6000 ~ "c.3-6",
+    length < 10000 ~ "d.6-10",
+    length < 15000 ~ "e.10-15",
+    length < 20000 ~ "f.15-20",
+    length < 30000 ~ "g.20-30",
+    length >= 30000 ~ "h.30+",
+  )) %>% 
+  group_by(length_cat) %>% 
+  summarise(pwalk_commute_base = weighted.mean(pwalk_commute_base, w = all),
+            pcycle_commute_base = weighted.mean(pcycle_commute_base, w = all),
+            pdrive_commute_base = weighted.mean(pdrive_commute_base, w = all),
+            pwalk_commute_godutch = weighted.mean(pwalk_commute_godutch, w = all),
+            pcycle_commute_godutch = weighted.mean(pcycle_commute_godutch, w = all),
+            pdrive_commute_godutch = weighted.mean(pdrive_commute_godutch, w = all),
+            total = sum(all)/ sum_total
+            )
+
+dsn = file.path("data-small", site_name, "mode-split.csv")
+readr::write_csv(mode_split, file = dsn)
+
 # Round decimals and select sets of desire lines --------------------------
 # desire_lines_rounded = desire_lines_scenario %>% 
 #   mutate(across(where(is.numeric), round, 6))
