@@ -8,7 +8,7 @@ library(sf)
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
 site_name = "chapelford"   # which site to look at (can change)
-# min_flow_routes = 5 # threshold above which OD pairs are included
+min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 
 smart.round = function(x) {
@@ -169,37 +169,45 @@ desire_lines_20km = desire_lines_rounded %>%
 desire_lines_20km = desire_lines_20km %>% 
   select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
 
-dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
-sf::write_sf(desire_lines_20km, dsn = dsn)
+desire_lines_threshold = desire_lines_rounded %>%
+  filter(all_commute_base >= min_flow_routes)
 
-# desire_lines_5 = desire_lines_rounded %>% 
-#   filter(all >= min_flow_routes)
+desire_lines_bounding = desire_lines_20km %>% 
+  filter(geo_code2 %in% desire_lines_threshold$geo_code2)
+
+dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
+sf::write_sf(desire_lines_bounding, dsn = dsn)
 
 # Large study area MSOAs --------------------------------------------------
-work_zone = inner_join(zones_msoa_national %>% select(geo_code), 
-                       desire_lines_20km %>% st_drop_geometry() %>% select(geo_code2),
-                       by = c("geo_code" = "geo_code2"))
-home_zone = inner_join(zones_msoa_national %>% select(geo_code), 
-                       desire_lines_20km %>% st_drop_geometry() %>% select(geo_code1),
-                       by = c("geo_code" = "geo_code1"))
-home_zone = unique(home_zone)
-zones_touching_large_study_area = bind_rows(home_zone, work_zone) %>%
-  unique()
+# work_zone = inner_join(zones_msoa_national %>% select(geo_code), 
+#                        desire_lines_bounding %>% st_drop_geometry() %>% select(geo_code2),
+#                        by = c("geo_code" = "geo_code2"))
+# home_zone = inner_join(zones_msoa_national %>% select(geo_code), 
+#                        desire_lines_bounding %>% st_drop_geometry() %>% select(geo_code1),
+#                        by = c("geo_code" = "geo_code1"))
+# home_zone = unique(home_zone)
+# zones_touching_large_study_area = bind_rows(home_zone, work_zone) %>%
+#   unique()
 
-# convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_20km))
+large_study_area = sf::st_convex_hull(sf::st_union(desire_lines_bounding))
+# mapview(desire_lines_bounding) + mapview(large_study_area)
+
+# large_study_area = stplanr::geo_buffer(large_study_area, dist = 200)
 # zones_touching_large_study_area2 = zones_msoa_national[convex_hull, , op = sf::st_intersects]
 
-large_study_area = st_union(zones_touching_large_study_area)
-large_study_area1 = sfheaders::sf_remove_holes(large_study_area)
-large_study_area2 = nngeo::st_remove_holes(large_study_area)
+# large_study_area = st_union(zones_touching_large_study_area)
+# large_study_area = sfheaders::sf_remove_holes(large_study_area)
+# large_study_area2 = nngeo::st_remove_holes(large_study_area)
+# mapview(desire_lines_bounding) + mapview(large_study_area)
 
-zones_without_holes = zones_msoa_national[large_study_area, , op = sf::st_within]
-zones_without_holes = zones_without_holes %>% 
-  select(geo_code)
-st_precision(zones_without_holes) = 1000000
+# zones_without_holes = zones_msoa_national[large_study_area, , op = sf::st_within]
+# zones_without_holes = zones_without_holes %>% 
+#   select(geo_code)
+# st_precision(zones_without_holes) = 1000000
 
 dsn = file.path("data-small", site_name, "large-study-area-zones.geojson")
-sf::write_sf(zones_without_holes, dsn = dsn)
+sf::write_sf(large_study_area, dsn = dsn)
+# sf::write_sf(zones_without_holes, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
@@ -311,74 +319,84 @@ write_sf(site_data, dsn = dsn)
 # large_study_area2 = st_set_crs(large_study_area2, 4326)
 # large_study_area2 = st_make_valid(large_study_area2)
 
-employ_lsoas2 = st_intersection(jts0501, large_study_area2) # doesn't work in chapelford, works in great kneighton
-employ_lsoas$overlap_size = units::drop_units(st_area(employ_lsoas))
-access_lsoas_employ = employ_lsoas %>% 
-  filter(overlap_size > 10000)
-# mapview(access_lsoas_employ)
-# names(access_lsoas_employ) = sub("X","", names(access_lsoas_employ))
+lsoa_c = st_centroid(jts0501)
+lsoa_c = lsoa_c[large_study_area, ,op = sf::st_within]
+lsoas_inside = filter(jts0501, LSOA_code %in% lsoa_c$LSOA_code)
 
-access_lsoas_employ$weightedJobsPTt = apply(
-  X = st_drop_geometry(access_lsoas_employ[c("X100EmpPTt", "X500EmpPTt", "X5000EmpPTt")]),
+lsoas_bounding = jts0501[desire_lines_bounding, ,op = sf::st_intersects]
+lsoas_both = bind_rows(lsoas_inside, lsoas_bounding) %>% 
+  unique()
+
+lsoa_study_area = st_union(lsoas_both)
+lsoa_study_area = sfheaders::sf_remove_holes(lsoa_study_area)
+# lsoa_study_area2 = nngeo::st_remove_holes(lsoa_study_area)
+
+
+lsoas_all = jts0501[lsoa_study_area, , op = sf::st_within]
+
+mapview(lsoas_all) + mapview(desire_lines_bounding)
+
+lsoas_all$weightedJobsPTt = apply(
+  X = st_drop_geometry(lsoas_all[c("X100EmpPTt", "X500EmpPTt", "X5000EmpPTt")]),
   MARGIN = 1,
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
 
-access_lsoas_employ$weightedJobsCyct = apply(
-  X = st_drop_geometry(access_lsoas_employ[c("X100EmpCyct", "X500EmpCyct", "X5000EmpCyct")]),
+lsoas_all$weightedJobsCyct = apply(
+  X = st_drop_geometry(lsoas_all[c("X100EmpCyct", "X500EmpCyct", "X5000EmpCyct")]),
   MARGIN = 1,
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
 
-access_lsoas_employ$weightedJobsCart = apply(
-  X = st_drop_geometry(access_lsoas_employ[c("X100EmpCart", "X500EmpCart", "X5000EmpCart")]),
+lsoas_all$weightedJobsCart = apply(
+  X = st_drop_geometry(lsoas_all[c("X100EmpCart", "X500EmpCart", "X5000EmpCart")]),
   MARGIN = 1,
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
 
-access_lsoas = access_lsoas_employ %>% 
+lsoas_all = lsoas_all %>% 
   select(LSOA_code, weightedJobsPTt, weightedJobsCyct, weightedJobsCart)
 
 j2 = jts0502 %>% 
   select(LSOA_code, PSPTt, PSCyct, PSCart) %>% 
   st_drop_geometry()
-access_lsoas = inner_join(access_lsoas, j2)
+lsoas_all = inner_join(lsoas_all, j2)
 
 j3 = jts0503 %>% 
   select(LSOA_code, SSPTt, SSCyct, SSCart) %>% 
   st_drop_geometry()
-access_lsoas = inner_join(access_lsoas, j3)
+lsoas_all = inner_join(lsoas_all, j3)
 
 j4 = jts0504 %>% 
   select(LSOA_code, FEPTt, FECyct, FECart) %>% 
   st_drop_geometry()
-access_lsoas = inner_join(access_lsoas, j4)
+lsoas_all = inner_join(lsoas_all, j4)
 
 j5 = jts0505 %>% 
   select(LSOA_code, GPPTt, GPCyct, GPCart) %>% 
   st_drop_geometry()
-access_lsoas = inner_join(access_lsoas, j5)
+lsoas_all = inner_join(lsoas_all, j5)
 
 j6 = jts0506 %>% 
   select(LSOA_code, HospPTt, HospCyct, HospCart) %>% 
   st_drop_geometry()
-access_lsoas = inner_join(access_lsoas, j6)
+lsoas_all = inner_join(lsoas_all, j6)
 
 j7 = jts0507 %>% 
   select(LSOA_code, FoodPTt, FoodCyct, FoodCart) %>% 
   st_drop_geometry()
-access_lsoas = inner_join(access_lsoas, j7)
+lsoas_all = inner_join(lsoas_all, j7)
 
 j8 = jts0508 %>% 
   select(LSOA_code, TownPTt, TownCyct, TownCart) %>% 
   st_drop_geometry()
-access_lsoas = inner_join(access_lsoas, j8)
+lsoas_all = inner_join(lsoas_all, j8)
 
-st_precision(access_lsoas) = 1000000
+st_precision(lsoas_all) = 1000000
 
 dsn = file.path("data-small", site_name, "jts-lsoas.geojson")
-write_sf(access_lsoas, dsn = dsn)
+write_sf(lsoas_all, dsn = dsn)
 
