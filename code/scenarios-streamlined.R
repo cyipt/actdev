@@ -7,7 +7,7 @@ library(sf)
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "chapelford"   # which site to look at (can change)
+site_name = "great-kneighton"   # which site to look at (can change)
 min_flow_routes = 5 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
@@ -159,7 +159,7 @@ readr::write_csv(desire_lines_scenario, file = dsn)
 # Mode split summary by distance ------------------------------------------
 
 # lots of flows in the h.30+ category have high walking-base and v high cycle-godutch
-mapview(desire_lines_scenario %>% filter(length >+ 30000))
+# mapview(desire_lines_scenario %>% filter(length >+ 30000))
 
 sum_total = sum(desire_lines_scenario$all)
 
