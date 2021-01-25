@@ -126,12 +126,37 @@ desire_lines_combined = desire_lines_combined %>%
   mutate(pwalk_commute_base = foot/all) %>% 
   mutate(pcycle_commute_base = bicycle/all) %>% 
   mutate(pdrive_commute_base = car_driver/all) %>% 
-  mutate(gradient = 0)
+  mutate(gradient = 0) #todo: get proper gradients
 
 desire_lines_combined = desire_lines_combined %>% 
-  select(geo_code1, geo_code2, all:other, length, gradient, pwalk_commute_base:pdrive_commute_base)
+  select(geo_code1, geo_code2, all:other, length, gradient, pwalk_commute_base:pdrive_commute_base) %>% 
+  rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
+
 
 # todo: add route data
+
+
+# Create routes and route networks ----------------------------------------
+cl = parallel::makeCluster(parallel::detectCores())
+
+routes_fast = stplanr::route(l = desire_lines_combined, route_fun = cyclestreets::journey, cl = cl)
+routes_balanced = stplanr::route(l = desire_lines_combined, route_fun = cyclestreets::journey, cl = cl, plan = "balanced")
+routes_quiet = stplanr::route(l = desire_lines_combined, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
+
+# routes_fast = routes_fast %>% 
+#   rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
+
+rnet_fast_walk = stplanr::overline2(routes_fast, "walk_commute_base")
+rnet_fast_cycle = stplanr::overline2(routes_fast, "cycle_commute_base")
+rnet_fast_drive = stplanr::overline2(routes_fast, "drive_commute_base")
+
+rnet_balanced_walk = stplanr::overline2(routes_balanced, "walk_commute_base")
+rnet_balanced_cycle = stplanr::overline2(routes_balanced, "cycle_commute_base")
+rnet_balanced_drive = stplanr::overline2(routes_balanced, "drive_commute_base")
+
+rnet_quiet_walk = stplanr::overline2(routes_quiet, "walk_commute_base")
+rnet_quiet_cycle = stplanr::overline2(routes_quiet, "cycle_commute_base")
+rnet_quiet_drive = stplanr::overline2(routes_quiet, "drive_commute_base")
 
 # Go Dutch scenario -------------------------------------------------------
 desire_lines_scenario = desire_lines_combined %>% 
@@ -142,14 +167,14 @@ desire_lines_scenario = desire_lines_combined %>%
 
 # todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 
-  mutate(walk_commute_godutch = all * pwalk_commute_godutch) %>% 
-  mutate(cycle_commute_godutch = all * pcycle_commute_godutch) %>% 
+  mutate(walk_commute_godutch = all_commute_base * pwalk_commute_godutch) %>% 
+  mutate(cycle_commute_godutch = all_commute_base * pcycle_commute_godutch) %>% 
   mutate(drive_commute_godutch = case_when(
-    car_driver + (bicycle - cycle_commute_godutch) + (foot - walk_commute_godutch) >= 0 ~ 
-      car_driver + (bicycle - cycle_commute_godutch) + (foot - walk_commute_godutch),
+    drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch) >= 0 ~ 
+      drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch),
     TRUE ~ 0)
   ) %>% 
-  mutate(pdrive_commute_godutch = drive_commute_godutch / all) %>%
+  mutate(pdrive_commute_godutch = drive_commute_godutch / all_commute_base) %>%
   select(geo_code1:pdrive_commute_base, walk_commute_godutch:drive_commute_godutch, pwalk_commute_godutch, pcycle_commute_godutch, pdrive_commute_godutch)
 
 dsn = file.path("data-small", site_name, "all-census-od.csv")
@@ -158,14 +183,15 @@ readr::write_csv(desire_lines_scenario, file = dsn)
 
 # Mode split summary by distance ------------------------------------------
 
-# lots of flows in the h.30+ category have high walking-base and v high cycle-godutch
+# The Go Dutch scenario does not work for routes with a distance > 30km
 # mapview(desire_lines_scenario %>% filter(length >+ 30000))
 
-sum_total = sum(desire_lines_scenario$all)
+sum_total = sum(desire_lines_scenario$all_commute_base)
 
 mode_split = desire_lines_scenario %>% 
+  st_drop_geometry() %>%
   mutate(desire_lines_scenario, length = case_when(geo_code1 == geo_code2 ~ 100, TRUE ~ length)) %>% # doesn't change it
-  select(length, all, pwalk_commute_base:pdrive_commute_base, pwalk_commute_godutch:pdrive_commute_godutch) %>% 
+  select(length, all_commute_base, pwalk_commute_base:pdrive_commute_base, pwalk_commute_godutch:pdrive_commute_godutch) %>% 
   mutate(length_cat = case_when(
     length < 1000 ~ "a.0-1",
     length < 3000 ~ "b.1-3",
@@ -177,14 +203,21 @@ mode_split = desire_lines_scenario %>%
     length >= 30000 ~ "h.30+",
   )) %>% 
   group_by(length_cat) %>% 
-  summarise(pwalk_commute_base = weighted.mean(pwalk_commute_base, w = all),
-            pcycle_commute_base = weighted.mean(pcycle_commute_base, w = all),
-            pdrive_commute_base = weighted.mean(pdrive_commute_base, w = all),
-            pwalk_commute_godutch = weighted.mean(pwalk_commute_godutch, w = all),
-            pcycle_commute_godutch = weighted.mean(pcycle_commute_godutch, w = all),
-            pdrive_commute_godutch = weighted.mean(pdrive_commute_godutch, w = all),
-            total = sum(all)/ sum_total
-            )
+  summarise(pwalk_commute_base = weighted.mean(pwalk_commute_base, w = all_commute_base),
+            pcycle_commute_base = weighted.mean(pcycle_commute_base, w = all_commute_base),
+            pdrive_commute_base = weighted.mean(pdrive_commute_base, w = all_commute_base),
+            pwalk_commute_godutch = weighted.mean(pwalk_commute_godutch, w = all_commute_base),
+            pcycle_commute_godutch = weighted.mean(pcycle_commute_godutch, w = all_commute_base),
+            pdrive_commute_godutch = weighted.mean(pdrive_commute_godutch, w = all_commute_base),
+            total = sum(all_commute_base)/ sum_total
+            ) %>% 
+  mutate(across(where(is.numeric), round, 2),
+         pwalk_commute_godutch = ifelse(
+           length_cat == "h.30+", NA, pwalk_commute_godutch),
+         pcycle_commute_godutch = ifelse(
+           length_cat == "h.30+", NA, pcycle_commute_godutch),
+         pdrive_commute_godutch = ifelse(
+           length_cat == "h.30+", NA, pdrive_commute_godutch))
 
 dsn = file.path("data-small", site_name, "mode-split.csv")
 readr::write_csv(mode_split, file = dsn)
@@ -194,8 +227,8 @@ readr::write_csv(mode_split, file = dsn)
 #   mutate(across(where(is.numeric), round, 6))
 
 desire_lines_rounded = desire_lines_scenario %>%
-  mutate(across(c(all:other, walk_commute_godutch:drive_commute_godutch), smart.round)) %>% 
-  rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
+  mutate(across(c(all_commute_base:other, walk_commute_godutch:drive_commute_godutch), smart.round)) #%>% 
+  # rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
 
 st_precision(desire_lines_rounded) = 1000000
 
