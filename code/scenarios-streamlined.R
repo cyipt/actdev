@@ -300,7 +300,7 @@ rnet_fast_2 = rnet_fast_breakup %>%
   summarise(cycle_commute_base = sum(cycle_commute_base))
 rnet_fast_2_sf = sf::st_sf(
   rnet_fast_2 %>% select(-geometry_txt),
-  geometry = sf::st_as_sfc(rnet_fast_2$geometry_txt)
+  geometry = sf::st_as_sfc(rnet_fast_2$geometry_txt, crs = 4326)
 )
 
 mapview::mapview(rnet_fast_2_sf)
