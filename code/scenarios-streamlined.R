@@ -233,31 +233,22 @@ routes_fast_grouped = routes_fast_grouped %>%
 routes_fast_save = routes_fast_grouped %>%
   # select(-vars(time:arriving)) %>% 
   # select(-west:arriving) 
-  select(geo_code1, geo_code2, distance_m, mean_gradient, mean_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness)
+  select(geo_code1, geo_code2, distance_m, mean_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness)
 
-# routes_walk$busyness = routes_walk$busynance / routes_walk$distances # fails
+# Walking routes
+# routes_walk$busyness = routes_walk$busynance / routes_walk$distances # fails because osrm doesn't generate busynance
 
-routes_walk_grouped = routes_walk %>%
-  group_by(geo_code1, geo_code2) %>%
+routes_walk = routes_walk %>% 	
   mutate(
-    n = n(), #could remove
-    # fails so commented out (RL)
-    # all_commute_base = mean(all_commute_base),
-    # cycle_commute_base = mean(cycle_commute_base),
-    # mean_gradient = weighted.mean(gradient_smooth, distances),
-    # distance_m = sum(distances),
-    # mean_busyness = weighted.mean(busyness, distances),
-    # max_busyness = max(busyness)
-  ) %>%
-  ungroup()
+    pwalk_commute_base = walk_commute_base / all_commute_base,
+    pwalk_commute_godutch = case_when(	
+      distance <= 2000 ~ pwalk_commute_base + 0.1, # 10% shift walking	
+      TRUE ~ pwalk_commute_base),
+    walk_commute_godutch = pwalk_commute_godutch * all_commute_base
+  ) 
 
-# fails (RL)
-# routes_walk_grouped$pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distance = routes_walk_grouped$distance_m, gradient = routes_walk_grouped$mean_gradient)
-# routes_walk_grouped$cycle_commute_godutch = routes_walk_grouped$pcycle_commute_godutch * routes_walk_grouped$all_commute_base 
-
-routes_walk_save = routes_walk_grouped %>%
-  # select(geo_code1, geo_code2, distance_m, mean_gradient, mean_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness)
-  select(geo_code1, geo_code2, duration)
+routes_walk_save = routes_walk %>%
+  select(geo_code1, geo_code2, distance, duration, all_commute_base, walk_commute_base, walk_commute_godutch)
 
 dsn = file.path("data-small", site_name, "routes-fast.geojson")
 file.remove(dsn)
@@ -274,9 +265,6 @@ dsn = file.path("data-small", site_name, "routes-walk.geojson")
 sf::write_sf(routes_walk_save, dsn = dsn)
 
 # Route networks ----------------------------------------------------------
-
-mapview::mapview(rnet_fast)
-
 rnet_fast = overline(routes_fast_save, attrib = c("cycle_commute_base", "cycle_commute_godutch", "busyness"), fun = c(sum, mean))
 rnet_fast = rnet_fast %>% 
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
@@ -303,9 +291,9 @@ dsn = file.path("data-small", site_name, "rnet-quiet.geojson")
 sf::write_sf(rnet_quiet, dsn = dsn)
 
 # r_walk_grouped_lines = routes_walk_save %>% st_cast("LINESTRING") #wouldn't be needed
-rnet_walk = overline(routes_walk_save, attrib = c("cycle_commute_base", "cycle_commute_godutch", "busyness"), fun = c(sum, mean))
+rnet_walk = overline(routes_walk_save, attrib = c("walk_commute_base", "walk_commute_godutch", "duration"), fun = c(sum, mean))
 rnet_walk = rnet_walk %>% 
-  select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
+  select(walk_commute_base = walk_commute_base_fn1, walk_commute_godutch = walk_commute_godutch_fn1, duration = duration_fn2)
 
 dsn = file.path("data-small", site_name, "rnet-walk.geojson")
 sf::write_sf(rnet_walk, dsn = dsn)
@@ -315,6 +303,7 @@ to_join = routes_fast_grouped %>%
   st_drop_geometry() %>% 
   select(geo_code2, cycle_commute_godutch, pcycle_commute_godutch)
 desire_lines_test = inner_join(desire_lines_many, to_join, by = "geo_code2")
+# needs joining with routes_walk also
 
 # todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 
