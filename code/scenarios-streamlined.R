@@ -10,7 +10,7 @@ setwd("~/cyipt/actdev")
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "great-kneighton"   # which site to look at (can change)
+site_name = "chapelford"   # which site to look at (can change)
 min_flow_routes = 10 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
@@ -243,6 +243,7 @@ routes_fast_des = routes_fast_grouped %>%
   )
 
 #error in View(routes_fast_grouped[routes_fast_grouped$geo_code2 == "E02003791",])
+# View(desire_lines_many[desire_lines_many$geo_code2 == "E02003791",])
 
 # Walking routes
 # routes_walk$busyness = routes_walk$busynance / routes_walk$distances # fails because osrm doesn't generate busynance
@@ -311,18 +312,14 @@ sf::write_sf(rnet_walk, dsn = dsn)
 join_fast = routes_fast_des %>% 
   st_drop_geometry() %>% 
   select(geo_code2, cycle_commute_godutch, pcycle_commute_godutch)
-desire_lines_test = inner_join(desire_lines_many, join_fast, by = "geo_code2")
+desire_lines_scenario = inner_join(desire_lines_many, join_fast, by = "geo_code2")
 join_walk = routes_walk %>% 
   st_drop_geometry() %>% 
   select(geo_code2, walk_commute_godutch, pwalk_commute_godutch)
-desire_lines_test = inner_join(desire_lines_test, join_walk, by = "geo_code2")
-
-# needs joining with routes_walk also
+desire_lines_scenario = inner_join(desire_lines_scenario, join_walk, by = "geo_code2")
 
 # todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 
-  mutate(walk_commute_godutch = all_commute_base * pwalk_commute_godutch) %>% 
-  mutate(cycle_commute_godutch = all_commute_base * pcycle_commute_godutch) %>% 
   mutate(drive_commute_godutch = case_when(
     drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch) >= 0 ~ 
       drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch),
