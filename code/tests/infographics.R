@@ -37,7 +37,7 @@ site_centroid = sites %>%
   filter(site_name == site_name_char) %>% 
   sf::st_centroid()
 
-zones_concentric = zonebuilder::zb_zone(site_centroid)
+zones_concentric = zonebuilder::zb_zone(site_centroid, n_circles = 3)
 
 plot(zones_concentric)
 routes = sf::read_sf(file.path("data-small", site_name_char, "routes-fast.geojson"))
@@ -63,5 +63,5 @@ tm_shape(zones_concentric_joined) +
 
 sf::st_precision(zones_concentric_joined) = 10000
 zones_concentric_joined = sf::st_set_precision(zones_concentric_joined, 100000)
-sf::write_sf(zones_concentric_joined, "data-small/great-kneighton/dartboard.geojson")  
+sf::write_sf(zones_concentric_joined, "data-small/great-kneighton/dartboard-1-3-6km.geojson")  
 head(readLines("data-small/great-kneighton/dartboard.geojson"))
