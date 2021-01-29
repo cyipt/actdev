@@ -135,7 +135,8 @@ desire_lines_combined = desire_lines_combined %>%
   mutate(pdrive_commute_base = car_driver/all)
 
 desire_lines_combined = desire_lines_combined %>% 
-  select(geo_code1, geo_code2, all:other, length, pwalk_commute_base:pdrive_commute_base)
+  select(geo_code1, geo_code2, all:other, length, pwalk_commute_base:pdrive_commute_base) %>%
+  mutate(across(where(is.numeric), round, 6))
 
 st_precision(desire_lines_combined) = 1000000
 
@@ -234,6 +235,15 @@ routes_fast_save = routes_fast_grouped %>%
   # select(-west:arriving) 
   select(geo_code1, geo_code2, distance_m, mean_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness)
 
+routes_fast_des = routes_fast_grouped %>% 
+  group_by(geo_code2) %>% 
+  summarise(
+    cycle_commute_godutch = mean(cycle_commute_godutch),#why is one of them rounding?
+    pcycle_commute_godutch = mean(pcycle_commute_godutch)
+  )
+
+#error in View(routes_fast_grouped[routes_fast_grouped$geo_code2 == "E02003791",])
+
 # Walking routes
 # routes_walk$busyness = routes_walk$busynance / routes_walk$distances # fails because osrm doesn't generate busynance
 
@@ -268,7 +278,7 @@ rnet_fast = overline(routes_fast_save, attrib = c("cycle_commute_base", "cycle_c
 rnet_fast = rnet_fast %>% 
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
 nrow(rnet_fast)
-mapview::mapview(rnet_fast)
+mapview::mapview(rnet_fast["cycle_commute_base"])
 
 dsn = file.path("data-small", site_name, "rnet-fast.geojson")
 sf::write_sf(rnet_fast, dsn = dsn)
@@ -298,10 +308,15 @@ dsn = file.path("data-small", site_name, "rnet-walk.geojson")
 sf::write_sf(rnet_walk, dsn = dsn)
 
 # Go Dutch scenario for desire lines -------------------------------------
-to_join = routes_fast_grouped %>% 
+join_fast = routes_fast_des %>% 
   st_drop_geometry() %>% 
   select(geo_code2, cycle_commute_godutch, pcycle_commute_godutch)
-desire_lines_test = inner_join(desire_lines_many, to_join, by = "geo_code2")
+desire_lines_test = inner_join(desire_lines_many, join_fast, by = "geo_code2")
+join_walk = routes_walk %>% 
+  st_drop_geometry() %>% 
+  select(geo_code2, walk_commute_godutch, pwalk_commute_godutch)
+desire_lines_test = inner_join(desire_lines_test, join_walk, by = "geo_code2")
+
 # needs joining with routes_walk also
 
 # todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
