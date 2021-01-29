@@ -132,12 +132,10 @@ desire_lines_combined$length = stplanr::geo_length(desire_lines_combined)
 desire_lines_combined = desire_lines_combined %>% 
   mutate(pwalk_commute_base = foot/all) %>% 
   mutate(pcycle_commute_base = bicycle/all) %>% 
-  mutate(pdrive_commute_base = car_driver/all) %>% 
-  mutate(gradient = 0) #todo: get proper gradients
+  mutate(pdrive_commute_base = car_driver/all)
 
 desire_lines_combined = desire_lines_combined %>% 
-  select(geo_code1, geo_code2, all:other, length, gradient, pwalk_commute_base:pdrive_commute_base) %>% 
-  rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
+  select(geo_code1, geo_code2, all:other, length, pwalk_commute_base:pdrive_commute_base)
 
 st_precision(desire_lines_combined) = 1000000
 
@@ -148,7 +146,8 @@ readr::write_csv(desire_lines_combined, file = dsn)
 # desire_lines_rounded = desire_lines_scenario %>% 
 #   mutate(across(where(is.numeric), round, 6))
 
-desire_lines_rounded = desire_lines_combined %>%
+desire_lines_rounded = desire_lines_combined %>% 
+  rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver) %>%
   mutate(across(all_commute_base:other, smart.round))
 # desire_lines_rounded = desire_lines_scenario %>%
 #   mutate(across(c(all_commute_base:other, walk_commute_godutch:drive_commute_godutch), smart.round)) #%>% 

@@ -33,7 +33,7 @@ data_dictionary$descriptions = c(
   "average minimum travel time to town centres by car (using population weighted mean of the minimum journey times from each OA centroid)"
 )
 
-write_sf(data_dictionary, "data-small/site-data-dictionary.csv")
+write_csv(data_dictionary, "data-small/site-data-dictionary.csv")
 
 
 des = read_sf("data-small/chapelford/desire-lines-many.geojson") %>% 
@@ -41,9 +41,9 @@ des = read_sf("data-small/chapelford/desire-lines-many.geojson") %>%
 names = colnames(des)
 data_dictionary_des = data.frame(names)
 data_dictionary_des$descriptions = c(
-  "origin MSOA code",
+  "origin MSOA code representing the site",
   "destination MSOA code",
-  "all commuter journeys from origin to destination",
+  "all commuter journeys from origin to destination (baseline and Go Dutch scenarios)",
   "commuter journeys by foot from origin to destination in baseline scenario",
   "commuter journeys by bicycle from origin to destination in baseline scenario",
   "commuter journeys by car drivers from origin to destination in baseline scenario",
@@ -52,22 +52,32 @@ data_dictionary_des$descriptions = c(
   "commuter journeys by car drivers from origin to destination in Go Dutch scenario"
 )
 
-write_sf(data_dictionary_des, "data-small/desire-line-data-dictionary.csv")
+write_csv(data_dictionary_des, "data-small/desire-line-data-dictionary.csv")
 
 
-des = read_sf("data-small/chapelford/all-census-od.csv")
-colnames(des)
-data_dictionary_des = data.frame(names)
-data_dictionary_des$descriptions = c(
-  "origin MSOA code",
+od = read_csv("data-small/great-kneighton/all-census-od.csv") %>% 
+  select(-geometry)
+names = colnames(od)
+data_dictionary_od = data.frame(names)
+data_dictionary_od$descriptions = c(
+  "origin MSOA code representing the site",
   "destination MSOA code",
-  "all commuter journeys from origin to destination",
-  "commuter journeys by foot from origin to destination in baseline scenario",
-  "commuter journeys by bicycle from origin to destination in baseline scenario",
-  "commuter journeys by car drivers from origin to destination in baseline scenario",
-  "commuter journeys by foot from origin to destination in Go Dutch scenario",
-  "commuter journeys by bicycle from origin to destination in Go Dutch scenario",
-  "commuter journeys by car drivers from origin to destination in Go Dutch scenario"
+  "all commuter journeys from origin to destination; based on 2011 census flows adjusted to site population",
+  "employed population who live in origin MSOA, work in destination MSOA, and work from home; based on 2011 census flows adjusted to site population",
+  "commuter journeys by light rail from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by train from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by bus from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by taxi from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by motorbike from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by car drivers from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by car passengers from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by bicycle from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by foot from origin to destination; based on 2011 census flows adjusted to site population",
+  "commuter journeys by other mode from origin to destination; based on 2011 census flows adjusted to site population",
+  "length of desire line (Euclidean distance, m)",
+  "proportion of commuter journeys from origin to destination undertaken by foot; based on 2011 census flows",
+  "proportion of commuter journeys from origin to destination undertaken by bicycle; based on 2011 census flows",
+  "proportion of commuter journeys from origin to destination undertaken by car drivers; based on 2011 census flows"
 )
 
-write_sf(data_dictionary_des, "data-small/desire-line-data-dictionary.csv")
+write_csv(data_dictionary_od, "data-small/all-census-od-data-dictionary.csv")

@@ -1,0 +1,19 @@
+names,descriptions
+geo_code1,origin MSOA code representing the site
+geo_code2,destination MSOA code
+all,"all commuter journeys from origin to destination; based on 2011 census flows adjusted to site population"
+from_home,"employed population who live in origin MSOA, work in destination MSOA, and work from home; based on 2011 census flows adjusted to site population"
+light_rail,"commuter journeys by light rail from origin to destination; based on 2011 census flows adjusted to site population"
+train,"commuter journeys by train from origin to destination; based on 2011 census flows adjusted to site population"
+bus,"commuter journeys by bus from origin to destination; based on 2011 census flows adjusted to site population"
+taxi,"commuter journeys by taxi from origin to destination; based on 2011 census flows adjusted to site population"
+motorbike,"commuter journeys by motorbike from origin to destination; based on 2011 census flows adjusted to site population"
+car_driver,"commuter journeys by car drivers from origin to destination; based on 2011 census flows adjusted to site population"
+car_passenger,"commuter journeys by car passengers from origin to destination; based on 2011 census flows adjusted to site population"
+bicycle,"commuter journeys by bicycle from origin to destination; based on 2011 census flows adjusted to site population"
+foot,"commuter journeys by foot from origin to destination; based on 2011 census flows adjusted to site population"
+other,"commuter journeys by other mode from origin to destination; based on 2011 census flows adjusted to site population"
+length,"length of desire line (Euclidean distance, m)"
+pwalk_commute_base,"proportion of commuter journeys from origin to destination undertaken by foot; based on 2011 census flows"
+pcycle_commute_base,"proportion of commuter journeys from origin to destination undertaken by bicycle; based on 2011 census flows"
+pdrive_commute_base,"proportion of commuter journeys from origin to destination undertaken by car drivers; based on 2011 census flows"

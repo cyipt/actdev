@@ -1,7 +1,7 @@
 names,descriptions
-geo_code1,origin MSOA code
+geo_code1,origin MSOA code representing the site
 geo_code2,destination MSOA code
-all_commute_base,all commuter journeys from origin to destination
+all_commute_base,all commuter journeys from origin to destination (baseline and Go Dutch scenarios)
 walk_commute_base,commuter journeys by foot from origin to destination in baseline scenario
 cycle_commute_base,commuter journeys by bicycle from origin to destination in baseline scenario
 drive_commute_base,commuter journeys by car drivers from origin to destination in baseline scenario
