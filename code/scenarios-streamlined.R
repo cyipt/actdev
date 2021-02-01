@@ -55,7 +55,7 @@ i = all_jts_tables[1]
 for(i in all_jts_tables){
   year = 2017
   f = paste0(i, "-", year, ".geojson")
-  piggyback::pb_download(f, tag = "0.1.2")
+  if(! file.exists(f)) piggyback::pb_download(f, tag = "0.1.2")
   f2 = sf::read_sf(f)
   assign(i, f2)
   rm(f2)
@@ -149,7 +149,8 @@ readr::write_csv(desire_lines_combined, file = dsn)
 
 desire_lines_rounded = desire_lines_combined %>% 
   rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver) %>%
-  mutate(across(all_commute_base:other, smart.round))
+  mutate(across(all_commute_base:other, smart.round)) %>% 
+  filter(all_commute_base > 0)
 # desire_lines_rounded = desire_lines_scenario %>%
 #   mutate(across(c(all_commute_base:other, walk_commute_godutch:drive_commute_godutch), smart.round)) #%>% 
 # rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
@@ -227,8 +228,18 @@ routes_fast_grouped$pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distan
 routes_fast_grouped$cycle_commute_godutch = routes_fast_grouped$pcycle_commute_godutch * routes_fast_grouped$all_commute_base 
 
 routes_fast_grouped = routes_fast_grouped %>%
-  mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch)) %>%
-  mutate(across(c(mean_gradient, mean_busyness), round, 6))
+  # mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch)) %>% #fails
+  mutate(across(c(mean_gradient, mean_busyness, max_busyness, busyness, pcycle_commute_godutch), round, 6))
+
+# to round cycle_commute_godutch
+routes_fast_summarised = routes_fast_grouped %>% 
+  st_drop_geometry() %>% 
+  group_by(geo_code2) %>% 
+  summarise(cycle_commute_godutch = mean(cycle_commute_godutch))
+routes_fast_summarised = routes_fast_summarised %>% 
+  mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch))
+
+routes_fast_grouped = inner_join((routes_fast_grouped %>% select(-cycle_commute_godutch)), routes_fast_summarised)
 
 routes_fast_save = routes_fast_grouped %>%
   # select(-vars(time:arriving)) %>% 
@@ -257,6 +268,10 @@ routes_walk = routes_walk %>%
     walk_commute_godutch = pwalk_commute_godutch * all_commute_base
   ) 
 
+routes_walk = routes_walk %>%
+  mutate(walk_commute_godutch = smart.round(walk_commute_godutch)) %>%
+  mutate(across(c(pwalk_commute_base:pwalk_commute_godutch), round, 6))
+
 routes_walk_save = routes_walk %>%
   select(geo_code1, geo_code2, distance, duration, all_commute_base, walk_commute_base, walk_commute_godutch)
 
@@ -272,6 +287,7 @@ sf::write_sf(routes_fast_save, dsn = dsn)
 # sf::write_sf(routes_quiet_save, dsn = dsn)
 
 dsn = file.path("data-small", site_name, "routes-walk.geojson")
+file.remove(dsn)
 sf::write_sf(routes_walk_save, dsn = dsn)
 
 # Route networks ----------------------------------------------------------
@@ -279,9 +295,10 @@ rnet_fast = overline(routes_fast_save, attrib = c("cycle_commute_base", "cycle_c
 rnet_fast = rnet_fast %>% 
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
 nrow(rnet_fast)
-mapview::mapview(rnet_fast["cycle_commute_base"])
+# mapview::mapview(rnet_fast["cycle_commute_base"])
 
 dsn = file.path("data-small", site_name, "rnet-fast.geojson")
+file.remove(dsn)
 sf::write_sf(rnet_fast, dsn = dsn)
 
 # r_balanced_grouped_lines = routes_balanced_save %>% st_cast("LINESTRING") #wouldn't be needed
@@ -290,6 +307,7 @@ rnet_balanced = rnet_balanced %>%
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
 
 dsn = file.path("data-small", site_name, "rnet-balanced.geojson")
+file.remove(dsn)
 sf::write_sf(rnet_balanced, dsn = dsn)
 
 # r_quiet_grouped_lines = routes_quiet_save %>% st_cast("LINESTRING") #wouldn't be needed
@@ -298,6 +316,7 @@ rnet_quiet = rnet_quiet %>%
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
 
 dsn = file.path("data-small", site_name, "rnet-quiet.geojson")
+file.remove(dsn)
 sf::write_sf(rnet_quiet, dsn = dsn)
 
 # r_walk_grouped_lines = routes_walk_save %>% st_cast("LINESTRING") #wouldn't be needed
@@ -306,6 +325,7 @@ rnet_walk = rnet_walk %>%
   select(walk_commute_base = walk_commute_base_fn1, walk_commute_godutch = walk_commute_godutch_fn1, duration = duration_fn2)
 
 dsn = file.path("data-small", site_name, "rnet-walk.geojson")
+file.remove(dsn)
 sf::write_sf(rnet_walk, dsn = dsn)
 
 # Go Dutch scenario for desire lines -------------------------------------
@@ -320,20 +340,31 @@ desire_lines_scenario = inner_join(desire_lines_scenario, join_walk, by = "geo_c
 
 # todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 
-  mutate(drive_commute_godutch = case_when(
-    drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch) >= 0 ~ 
-      drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch),
-    TRUE ~ 0)
-  ) %>% 
-  mutate(pdrive_commute_godutch = drive_commute_godutch / all_commute_base) %>%
-  select(geo_code1:pdrive_commute_base, walk_commute_godutch:drive_commute_godutch, pwalk_commute_godutch, pcycle_commute_godutch, pdrive_commute_godutch)
+  mutate(
+    drive_commute_godutch = case_when(
+      drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch) >= 0 ~ 
+        drive_commute_base + (cycle_commute_base - cycle_commute_godutch) + (walk_commute_base - walk_commute_godutch),
+      TRUE ~ 0
+    )
+    # ,
+    # pwalk_commute_base = walk_commute_base / all_commute_base,
+    # pcycle_commute_base = cycle_commute_base / all_commute_base,
+    # pdrive_commute_base = drive_commute_base / all_commute_base,
+    # pdrive_commute_godutch = drive_commute_godutch / all_commute_base
+    ) %>%
+  select(
+    geo_code1:drive_commute_base, walk_commute_godutch, cycle_commute_godutch, drive_commute_godutch
+    # , pwalk_commute_base:pdrive_commute_base, pwalk_commute_godutch, pcycle_commute_godutch, pdrive_commute_godutch
+    ) #%>% 
+  # mutate(across(pwalk_commute_base:pdrive_commute_godutch, round, 6))
 
 dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
-sf::write_sf(desire_lines_many, dsn = dsn)
+file.remove(dsn)
+sf::write_sf(desire_lines_scenario, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
 min_flow_map = site_population / 80
-desire_lines_busy = desire_lines_rounded %>% 
+desire_lines_busy = desire_lines_scenario %>% 
   filter(all_commute_base >= min_flow_map)
 
 convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_busy))
@@ -343,14 +374,16 @@ st_precision(study_area) = 1000000
 # zones_touching_small_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
 
 dsn = file.path("data-small", site_name, "small-study-area.geojson")
+file.remove(dsn)
 sf::write_sf(study_area, dsn = dsn)
 
 # Desire lines for small study area ---------------------------------------
-desire_lines_few = desire_lines_rounded[study_area, , op = sf::st_within]
-desire_lines_few = desire_lines_few %>% 
-  select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
+desire_lines_few = desire_lines_scenario[study_area, , op = sf::st_within]
+# desire_lines_few = desire_lines_few %>% 
+#   select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
 
 dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
+file.remove(dsn)
 sf::write_sf(desire_lines_few, dsn = dsn)
 
 

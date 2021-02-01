@@ -27,16 +27,16 @@ mode_split = desire_lines %>%
   group_by(length_cat) %>% 	
   summarise(
     all_commute_base = sum(all),
+    total_proportional = sum(all)/ sum_total,
     walk_commute_base = sum(foot),
     cycle_cycle_base = sum(bicycle),
     drive_commute_base = sum(car_driver),
     pwalk_commute_base = weighted.mean(pwalk_commute_base, w = all),	
     pcycle_commute_base = weighted.mean(pcycle_commute_base, w = all),	
     pdrive_commute_base = weighted.mean(pdrive_commute_base, w = all),	
-    # pwalk_commute_godutch = weighted.mean(pwalk_commute_godutch, w = all),	
+    # , pwalk_commute_godutch = weighted.mean(pwalk_commute_godutch, w = all),	
     # pcycle_commute_godutch = weighted.mean(pcycle_commute_godutch, w = all),	
-    # pdrive_commute_godutch = weighted.mean(pdrive_commute_godutch, w = all),	
-    total_proportional = sum(all)/ sum_total	
+    # pdrive_commute_godutch = weighted.mean(pdrive_commute_godutch, w = all)
   ) %>%
   mutate(
     across(where(is.numeric), round, 2),
