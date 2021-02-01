@@ -10,7 +10,7 @@ setwd("~/cyipt/actdev")
 
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
-site_name = "chapelford"   # which site to look at (can change)
+site_name = "great-kneighton"   # which site to look at (can change)
 min_flow_routes = 10 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
@@ -229,7 +229,7 @@ routes_fast_grouped$cycle_commute_godutch = routes_fast_grouped$pcycle_commute_g
 
 routes_fast_grouped = routes_fast_grouped %>%
   # mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch)) %>% #fails
-  mutate(across(c(mean_gradient, mean_busyness, max_busyness, busyness, pcycle_commute_godutch), round, 6))
+  mutate(across(c(mean_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_commute_godutch), round, 6))
 
 # to round cycle_commute_godutch
 routes_fast_summarised = routes_fast_grouped %>% 
@@ -244,7 +244,7 @@ routes_fast_grouped = inner_join((routes_fast_grouped %>% select(-cycle_commute_
 routes_fast_save = routes_fast_grouped %>%
   # select(-vars(time:arriving)) %>% 
   # select(-west:arriving) 
-  select(geo_code1, geo_code2, distance_m, mean_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness)
+  select(geo_code1, geo_code2, distance_m, mean_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness, gradient_smooth)
 
 routes_fast_des = routes_fast_grouped %>% 
   group_by(geo_code2) %>% 
@@ -291,9 +291,10 @@ file.remove(dsn)
 sf::write_sf(routes_walk_save, dsn = dsn)
 
 # Route networks ----------------------------------------------------------
-rnet_fast = overline(routes_fast_save, attrib = c("cycle_commute_base", "cycle_commute_godutch", "busyness"), fun = c(sum, mean))
+rnet_fast = overline(routes_fast_save, attrib = c("cycle_commute_base", "cycle_commute_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
 rnet_fast = rnet_fast %>% 
-  select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
+  select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2, gradient_smooth = gradient_smooth_fn2) %>% 
+  mutate(gradient_smooth = round(gradient_smooth, 6))
 nrow(rnet_fast)
 # mapview::mapview(rnet_fast["cycle_commute_base"])
 
@@ -370,6 +371,10 @@ desire_lines_busy = desire_lines_scenario %>%
 convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_busy))
 study_area = stplanr::geo_buffer(convex_hull, dist = region_buffer_dist)
 st_precision(study_area) = 1000000
+
+to_add = site %>% 
+  st_drop_geometry()
+study_area = st_sf(cbind(to_add, study_area))
 
 # zones_touching_small_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
 
