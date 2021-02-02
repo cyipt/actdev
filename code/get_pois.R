@@ -5,8 +5,11 @@ get_pois = function(
   q = "SELECT * FROM 'points' WHERE shop IN ('supermarket')",
   ...
   ) {
-  # define study area
-  region_name = "cambridgeshire"
+  # define study area (tests)
+  # region_name = "cambridgeshire"
+  # et = c("shop", "amenity")
+  # q = "SELECT * FROM 'points' WHERE shop IN ('supermarket')"
+  
   osm_points = osmextract::oe_get(region_name, query = q, extra_tags = et, force_vectortranslate = TRUE)
   # names(osm_points)
   
@@ -15,20 +18,24 @@ get_pois = function(
   osm_polygons = osmextract::oe_get(region_name, query = q_poly, extra_tags = et, force_vectortranslate = TRUE)
   
   # deduplicate supermarkets
-  
-  # osm_points_not_in_polygons = osm_points_sm[osm_polygons_sm, , op = sf::st_disjoint]
-  osm_points_in_polygons = osm_points_sm[osm_polygons_sm, ]
-  mapview::mapview(osm_points_in_polygons)
-  osm_points_not_in_polygons = osm_points_sm %>% 
-    filter(!osm_id %in% osm_points_in_polygons$osm_id)
-  
-  mapview::mapview(osm_polygons_sm) + 
-    mapview::mapview(osm_points_not_in_polygons)
-  
-  # convert polygons to points and join together
-  osm_polygons_sm_centroids = sf::st_centroid(osm_polygons_sm)
-  setdiff(names(osm_points_sm), names(osm_polygons_sm_centroids))
-  names_in_both = intersect(names(osm_points_sm), names(osm_polygons_sm_centroids))
-  sm = rbind(osm_points_not_in_polygons[names_in_both], osm_polygons_sm_centroids[names_in_both])
-  
+  require(sf)
+  if(nrow(osm_polygons) > 0) {
+    osm_points_in_polygons = osm_points[osm_polygons, ]
+    mapview::mapview(osm_points_in_polygons)
+    osm_points_not_in_polygons = osm_points[
+      !osm_points$osm_id %in% osm_points_in_polygons$osm_id,
+    ] 
+    
+    # convert polygons to points and join together
+    osm_polygons_centroids = sf::st_centroid(osm_polygons)
+    setdiff(names(osm_points), names(osm_polygons_centroids))
+    names_in_both = intersect(names(osm_points), names(osm_polygons_centroids))
+    osm_points = rbind(osm_points_not_in_polygons[names_in_both], osm_polygons_centroids[names_in_both])
+  } 
+  osm_points
 }
+
+# tests
+pois_hereford = get_pois(region_name = "hereford")
+mapview::mapview(pois_hereford)
+mapview::mapview(get_pois(region_name = "west yorkshire"))
