@@ -39,3 +39,18 @@ get_pois = function(
 pois_hereford = get_pois(region_name = "hereford")
 mapview::mapview(pois_hereford)
 mapview::mapview(get_pois(region_name = "west yorkshire"))
+
+# pois_gb = get_pois(region_name = "england")
+pois_gb = get_pois(region_name = "great britain")
+nrow(pois_gb)
+# [1] 3548
+sf::write_sf(pois_gb, "supermarket-points-gb.geojson")
+piggyback::pb_upload("supermarket-points-gb.geojson")
+piggyback::pb_download_url("supermarket-points-gb.geojson")
+# [1] "https://github.com/cyipt/actdev/releases/download/0.1.2/supermarket-points-gb.geojson"
+mapview::mapview(pois_gb)
+
+u = "https://github.com/cyipt/actdev/releases/download/0.1.2/supermarket-points-gb.geojson"
+pois = sf::read_sf(u)
+mapview::mapview(pois)
+
