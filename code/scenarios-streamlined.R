@@ -144,16 +144,10 @@ dsn = file.path("data-small", site_name, "all-census-od.csv")
 readr::write_csv(desire_lines_combined, file = dsn)
 
 # Round decimals and select sets of desire lines --------------------------
-# desire_lines_rounded = desire_lines_scenario %>% 
-#   mutate(across(where(is.numeric), round, 6))
-
 desire_lines_rounded = desire_lines_combined %>% 
   rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver) %>%
   mutate(across(all_commute_base:other, smart.round)) %>% 
   filter(all_commute_base > 0)
-# desire_lines_rounded = desire_lines_scenario %>%
-#   mutate(across(c(all_commute_base:other, walk_commute_godutch:drive_commute_godutch), smart.round)) #%>% 
-# rename(all_commute_base = all, walk_commute_base = foot, cycle_commute_base = bicycle, drive_commute_base = car_driver)
 
 desire_lines_20km = desire_lines_rounded %>% 
   filter(length <= max_length)
@@ -165,39 +159,15 @@ desire_lines_bounding = desire_lines_20km %>%
   filter(geo_code2 %in% desire_lines_threshold$geo_code2)
 
 # Large study area MSOAs --------------------------------------------------
-# work_zone = inner_join(zones_msoa_national %>% select(geo_code), 
-#                        desire_lines_bounding %>% st_drop_geometry() %>% select(geo_code2),
-#                        by = c("geo_code" = "geo_code2"))
-# home_zone = inner_join(zones_msoa_national %>% select(geo_code), 
-#                        desire_lines_bounding %>% st_drop_geometry() %>% select(geo_code1),
-#                        by = c("geo_code" = "geo_code1"))
-# home_zone = unique(home_zone)
-# zones_touching_large_study_area = bind_rows(home_zone, work_zone) %>%
-#   unique()
-
 large_study_area = sf::st_convex_hull(sf::st_union(desire_lines_bounding))
 large_study_area = stplanr::geo_buffer(large_study_area, dist = large_area_buffer)
-# mapview(desire_lines_bounding) + mapview(large_study_area)
-# zones_touching_large_study_area2 = zones_msoa_national[convex_hull, , op = sf::st_intersects]
-
-# large_study_area = st_union(zones_touching_large_study_area)
-# large_study_area = sfheaders::sf_remove_holes(large_study_area)
-# large_study_area2 = nngeo::st_remove_holes(large_study_area)
-# mapview(desire_lines_bounding) + mapview(large_study_area)
-
-# zones_without_holes = zones_msoa_national[large_study_area, , op = sf::st_within]
-# zones_without_holes = zones_without_holes %>% 
-#   select(geo_code)
-# st_precision(zones_without_holes) = 1000000
 
 dsn = file.path("data-small", site_name, "large-study-area.geojson")
 file.remove(dsn)
 sf::write_sf(large_study_area, dsn = dsn)
-# sf::write_sf(zones_without_holes, dsn = dsn)
 
 desire_lines_many = desire_lines_rounded[large_study_area, , op = sf::st_within]
-# desire_lines_many = desire_lines_many %>% 
-#   select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base, walk_commute_godutch:drive_commute_godutch)
+
 desire_lines_many = desire_lines_many %>% 
   select(geo_code1, geo_code2, all_commute_base, walk_commute_base, cycle_commute_base, drive_commute_base)
 
@@ -228,7 +198,6 @@ routes_fast_grouped$pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distan
 routes_fast_grouped$cycle_commute_godutch = routes_fast_grouped$pcycle_commute_godutch * routes_fast_grouped$all_commute_base 
 
 routes_fast_grouped = routes_fast_grouped %>%
-  # mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch)) %>% #fails
   mutate(across(c(mean_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_commute_godutch), round, 6))
 
 # to round cycle_commute_godutch
@@ -242,23 +211,16 @@ routes_fast_summarised = routes_fast_summarised %>%
 routes_fast_grouped = inner_join((routes_fast_grouped %>% select(-cycle_commute_godutch)), routes_fast_summarised)
 
 routes_fast_save = routes_fast_grouped %>%
-  # select(-vars(time:arriving)) %>% 
-  # select(-west:arriving) 
   select(geo_code1, geo_code2, distance_m, mean_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness, gradient_smooth)
 
 routes_fast_des = routes_fast_grouped %>% 
   group_by(geo_code2) %>% 
   summarise(
-    cycle_commute_godutch = mean(cycle_commute_godutch),#why is one of them rounding?
+    cycle_commute_godutch = mean(cycle_commute_godutch),
     pcycle_commute_godutch = mean(pcycle_commute_godutch)
   )
 
-#error in View(routes_fast_grouped[routes_fast_grouped$geo_code2 == "E02003791",])
-# View(desire_lines_many[desire_lines_many$geo_code2 == "E02003791",])
-
 # Walking routes
-# routes_walk$busyness = routes_walk$busynance / routes_walk$distances # fails because osrm doesn't generate busynance
-
 routes_walk = routes_walk %>% 	
   mutate(
     pwalk_commute_base = walk_commute_base / all_commute_base,
@@ -302,7 +264,6 @@ dsn = file.path("data-small", site_name, "rnet-fast.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_fast, dsn = dsn)
 
-# r_balanced_grouped_lines = routes_balanced_save %>% st_cast("LINESTRING") #wouldn't be needed
 rnet_balanced = overline(routes_balanced_save, attrib = c("cycle_commute_base", "cycle_commute_godutch", "busyness"), fun = c(sum, mean))
 rnet_balanced = rnet_balanced %>% 
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
@@ -311,7 +272,6 @@ dsn = file.path("data-small", site_name, "rnet-balanced.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_balanced, dsn = dsn)
 
-# r_quiet_grouped_lines = routes_quiet_save %>% st_cast("LINESTRING") #wouldn't be needed
 rnet_quiet = overline(routes_quiet_save, attrib = c("cycle_commute_base", "cycle_commute_godutch", "busyness"), fun = c(sum, mean))
 rnet_quiet = rnet_quiet %>% 
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2)
@@ -320,7 +280,7 @@ dsn = file.path("data-small", site_name, "rnet-quiet.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_quiet, dsn = dsn)
 
-# r_walk_grouped_lines = routes_walk_save %>% st_cast("LINESTRING") #wouldn't be needed
+# r_walk_grouped_lines = routes_walk_save %>% st_cast("LINESTRING") #is this needed?
 rnet_walk = overline(routes_walk_save, attrib = c("walk_commute_base", "walk_commute_godutch", "duration"), fun = c(sum, mean))
 rnet_walk = rnet_walk %>% 
   select(walk_commute_base = walk_commute_base_fn1, walk_commute_godutch = walk_commute_godutch_fn1, duration = duration_fn2)
@@ -393,10 +353,6 @@ sf::write_sf(desire_lines_few, dsn = dsn)
 
 
 # Get LSOA level JTS data for site ----------------------------------------
-# employ = jts::get_jts_data(table = "jts0501", output_format = "sf")
-# employ_site = employ[site, , op = sf::st_intersects]
-# employ_site = jts0501[site, , op = sf::st_intersects]
-
 employ_site = st_intersection(jts0501, site)
 employ_site$overlap_size = units::drop_units(st_area(employ_site))
 access_employ = employ_site %>% 
@@ -476,9 +432,6 @@ write_sf(site_data, dsn = dsn)
 
 
 # JTS data for surrounding LSOAs ------------------------------------------
-# large_study_area2 = st_set_crs(large_study_area2, 4326)
-# large_study_area2 = st_make_valid(large_study_area2)
-
 lsoa_c = st_centroid(jts0501)
 lsoa_c = lsoa_c[large_study_area, ,op = sf::st_within]
 lsoas_inside = filter(jts0501, LSOA_code %in% lsoa_c$LSOA_code)
