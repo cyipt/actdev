@@ -1,6 +1,6 @@
 # Aim get pois from osm in a way scales
 
-remotes::install_github("itsleeds/osmextract")
+remotes::install_github("ropensci/osmextract")
 
 library(osmextract)
 library(dplyr)
