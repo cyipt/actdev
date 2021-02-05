@@ -1,10 +1,10 @@
-names,descriptions
-geo_code1,origin MSOA code representing the site
-geo_code2,destination MSOA code
-all_commute_base,all commuter journeys from origin to destination (baseline and Go Dutch scenarios)
-walk_commute_base,commuter journeys by foot from origin to destination in baseline scenario
-cycle_commute_base,commuter journeys by bicycle from origin to destination in baseline scenario
-drive_commute_base,commuter journeys by car drivers from origin to destination in baseline scenario
-walk_commute_godutch,commuter journeys by foot from origin to destination in Go Dutch scenario
-cycle_commute_godutch,commuter journeys by bicycle from origin to destination in Go Dutch scenario
-drive_commute_godutch,commuter journeys by car drivers from origin to destination in Go Dutch scenario
+names,description,title
+geo_code1,origin MSOA code representing the site,Origin
+geo_code2,destination MSOA code,Destination
+all_commute_base,all commuter journeys from origin to destination (baseline and Go Dutch scenarios),All journeys
+walk_commute_base,commuter journeys by foot from origin to destination in baseline scenario,"Journeys by foot, baseline scenario"
+cycle_commute_base,commuter journeys by bicycle from origin to destination in baseline scenario,"Journeys by bicycle, baseline scenario"
+drive_commute_base,commuter journeys by car drivers from origin to destination in baseline scenario,"Journeys by car drivers, baseline scenario"
+walk_commute_godutch,commuter journeys by foot from origin to destination in Go Dutch scenario,"Journeys by foot, Go Dutch scenario"
+cycle_commute_godutch,commuter journeys by bicycle from origin to destination in Go Dutch scenario,"Journeys by bicycle, Go Dutch scenario"
+drive_commute_godutch,commuter journeys by car drivers from origin to destination in Go Dutch scenario,"Journeys by car drivers, Go Dutch scenario"

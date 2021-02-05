@@ -1,27 +1,27 @@
-names,descriptions
-site_name,name of site
-dwellings_when_complete,estimated number of dwellings at completion
-weightedJobsPTt,"average minimum travel time to centres of employment by walking/public transport (weighted mean of travel times to LSOAs with 100-499, 500-4999 and 5000+ jobs; using population weighted mean of the minimum journey times from each OA centroid)"
-weightedJobsCyct,"average minimum travel time to centres of employment by cycling (weighted mean of travel times to LSOAs with >100, >500 and >5000 jobs; using population weighted mean of the minimum journey times from each OA centroid)"
-weightedJobsCart,"average minimum travel time to centres of employment by car (weighted mean of travel times to LSOAs with >100, >500 and >5000 jobs; using population weighted mean of the minimum journey times from each OA centroid)"
-PSPTt,average minimum travel time to primary schools by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid)
-PSCyct,average minimum travel time to primary schools by cycling (using population weighted mean of the minimum journey times from each OA centroid)
-PSCart,average minimum travel time to primary schools by car (using population weighted mean of the minimum journey times from each OA centroid)
-SSPTt,average minimum travel time to secondary schools by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid)
-SSCyct,average minimum travel time to secondary schools by cycling (using population weighted mean of the minimum journey times from each OA centroid)
-SSCart,average minimum travel time to secondary schools by car (using population weighted mean of the minimum journey times from each OA centroid)
-FEPTt,average minimum travel time to further education colleges by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid)
-FECyct,average minimum travel time to further education colleges by cycling (using population weighted mean of the minimum journey times from each OA centroid)
-FECart,average minimum travel time to further education colleges by car (using population weighted mean of the minimum journey times from each OA centroid)
-GPPTt,average minimum travel time to doctors' surgeries by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid)
-GPCyct,average minimum travel time to doctors' surgeries by cycling (using population weighted mean of the minimum journey times from each OA centroid)
-GPCart,average minimum travel time to doctors' surgeries by car (using population weighted mean of the minimum journey times from each OA centroid)
-HospPTt,average minimum travel time to hospitals by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid)
-HospCyct,average minimum travel time to hospitals by cycling (using population weighted mean of the minimum journey times from each OA centroid)
-HospCart,average minimum travel time to hospitals by car (using population weighted mean of the minimum journey times from each OA centroid)
-FoodPTt,average minimum travel time to food stores by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid)
-FoodCyct,average minimum travel time to food stores by cycling (using population weighted mean of the minimum journey times from each OA centroid)
-FoodCart,average minimum travel time to food stores by car (using population weighted mean of the minimum journey times from each OA centroid)
-TownPTt,average minimum travel time to town centres by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid)
-TownCyct,average minimum travel time to town centres by cycling (using population weighted mean of the minimum journey times from each OA centroid)
-TownCart,average minimum travel time to town centres by car (using population weighted mean of the minimum journey times from each OA centroid)
+names,description,title
+site_name,name of site,Site name
+dwellings_when_complete,estimated number of dwellings at completion,Number of dwellings
+weightedJobsPTt,"average minimum travel time to centres of employment by walking/public transport (weighted mean of travel times to LSOAs with 100-499, 500-4999 and 5000+ jobs; using population weighted mean of the minimum journey times from each OA centroid)",Travel time to nearest employment centre by foot/public transport
+weightedJobsCyct,"average minimum travel time to centres of employment by cycling (weighted mean of travel times to LSOAs with >100, >500 and >5000 jobs; using population weighted mean of the minimum journey times from each OA centroid)",Travel time to nearest employment centre by bicycle
+weightedJobsCart,"average minimum travel time to centres of employment by car (weighted mean of travel times to LSOAs with >100, >500 and >5000 jobs; using population weighted mean of the minimum journey times from each OA centroid)",Travel time to nearest employment centre by car
+PSPTt,average minimum travel time to primary schools by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest primary school by foot/public transport
+PSCyct,average minimum travel time to primary schools by cycling (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest primary school by bicycle
+PSCart,average minimum travel time to primary schools by car (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest primary school by car
+SSPTt,average minimum travel time to secondary schools by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest secondary school by foot/public transport
+SSCyct,average minimum travel time to secondary schools by cycling (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest secondary school by bicycle
+SSCart,average minimum travel time to secondary schools by car (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest secondary school by car
+FEPTt,average minimum travel time to further education colleges by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest FE college by foot/public transport
+FECyct,average minimum travel time to further education colleges by cycling (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest FE college by bicycle
+FECart,average minimum travel time to further education colleges by car (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest FE college by car
+GPPTt,average minimum travel time to doctors' surgeries by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest GP surgery by foot/public transport
+GPCyct,average minimum travel time to doctors' surgeries by cycling (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest GP surgery by bicycle
+GPCart,average minimum travel time to doctors' surgeries by car (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest GP surgery by car
+HospPTt,average minimum travel time to hospitals by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest hospital by foot/public transport
+HospCyct,average minimum travel time to hospitals by cycling (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest hospital by bicycle
+HospCart,average minimum travel time to hospitals by car (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest hospital by car
+FoodPTt,average minimum travel time to food stores by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest food store by foot/public transport
+FoodCyct,average minimum travel time to food stores by cycling (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest food store by bicycle
+FoodCart,average minimum travel time to food stores by car (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest food store by car
+TownPTt,average minimum travel time to town centres by walking/public transport (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest town centre by foot/public transport
+TownCyct,average minimum travel time to town centres by cycling (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest town centre by bicycle
+TownCart,average minimum travel time to town centres by car (using population weighted mean of the minimum journey times from each OA centroid),Travel time to nearest town centre by car
