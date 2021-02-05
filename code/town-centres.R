@@ -13,7 +13,7 @@ u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
 sites = sf::st_read(u)
 st_precision(sites) = 1000000
 
-site_name = "great-kneighton"
+site_name = "chapelford"
 site = sites[sites$site_name == site_name, ]
 mapview(site)
 
