@@ -2,14 +2,16 @@
 
 # remotes::install_github("itsleeds/od", "bdb44597f0b701e683e5208b837c9a91c7036838")
 remotes::install_github("itsleeds/od")
+remotes::install_github("ITSLeeds/pct")
 library(dplyr)
 
-setwd("~/cyipt/actdev/")
+# Go to the repo's root directory, assuming we're executing the script from inside its directory.
+setwd("../..")
 # input data: we should probably have naming conventions for these
-sites = sf::read_sf("all-sites.geojson")
+sites = sf::read_sf("data-small/all-sites.geojson")
 site_area = sf::read_sf("geojsons/great-kneighton.geojson")
-desire_lines = sf::read_sf("data-small/great-kneighton/great-kneighton-desire-lines.geojson")
-study_area = sf::read_sf("data-small/great-kneighton/great-kneighton-study-area.geojson")
+desire_lines = sf::read_sf("data-small/great-kneighton/desire-lines-few.geojson")	# TODO or many?
+study_area = sf::read_sf("data-small/great-kneighton/small-study-area.geojson")	# TODO or large?
 # buildings = osmextract::oe_get(study_area, layer = "multipolygons")
 osm_polygons = osmextract::oe_get("cambridgeshire", layer = "multipolygons")
 
