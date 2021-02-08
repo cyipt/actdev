@@ -6,8 +6,8 @@ library(stplanr)
 
 # set-up and parameters ---------------------------------------------------
 
-setwd("~/cyipt/actdev")
-
+# setwd("~/cyipt/actdev") # run this script from the actdev folder
+data_dir = data_dir
 household_size = 2.3 # mean UK household size at 2011 census
 max_length = 20000 # maximum length of desire lines in m
 site_name = "chapelford"   # which site to look at (can change)
@@ -62,11 +62,12 @@ site_pops = sites %>%
 # town_centroids = town_centres %>% 
 #   sf::st_as_sf(coords = c("CENTROIDX", "CENTROIDY"), crs = 27700) %>% 
 #   st_transform(4326)
-sf::write_sf(town_centres, "town_centres.geojson")
-piggyback::pb_upload("town_centres.geojson")
+# sf::write_sf(town_centres, "town_centres.geojson")
+# piggyback::pb_upload("town_centres.geojson")
 
-sf::write_sf(town_centroids, "town_centroids.geojson")
-piggyback::pb_upload("town_centroids.geojson")
+# sf::write_sf(town_centroids, "town_centroids.geojson")
+# piggyback::pb_upload("town_centroids.geojson")
+town_centroids = sf::read_sf("town_centroids.geojson")
 
 # jts data - SLOW
 all_jts_tables = paste0("jts050", 1:8)
@@ -83,7 +84,7 @@ for(i in all_jts_tables){
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
 
-path = file.path("data-small", site_name)
+path = file.path(data_dir, site_name)
 # dir.create(path = path)
 
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
@@ -159,7 +160,7 @@ desire_lines_combined = desire_lines_combined %>%
 
 st_precision(desire_lines_combined) = 1000000
 
-dsn = file.path("data-small", site_name, "all-census-od.csv")
+dsn = file.path(data_dir, site_name, "all-census-od.csv")
 obj = st_drop_geometry(desire_lines_combined)
 file.remove(dsn)
 readr::write_csv(obj, file = dsn)
@@ -183,7 +184,7 @@ desire_lines_bounding = desire_lines_20km %>%
 large_study_area = sf::st_convex_hull(sf::st_union(desire_lines_bounding))
 large_study_area = stplanr::geo_buffer(large_study_area, dist = large_area_buffer)
 
-dsn = file.path("data-small", site_name, "large-study-area.geojson")
+dsn = file.path(data_dir, site_name, "large-study-area.geojson")
 file.remove(dsn)
 sf::write_sf(large_study_area, dsn = dsn)
 
@@ -202,8 +203,8 @@ routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl
 routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "balanced")
 routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
 
-# this has suddenly gone extremely slow and failed. A problem with route_osrm? Maybe we need to save routes_walk into an object to avoid repeated API calls
-routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = walking) 
+# switched to google for now, plan to change it again
+routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = "walking") 
 
 # create routes_fast
 routes_fast = routes_fast %>%
@@ -302,6 +303,11 @@ routes_quiet_summarised = routes_quiet_summarised %>%
 routes_quiet = inner_join((routes_quiet %>% select(-all_base, -cycle_base, -cycle_godutch)), routes_quiet_summarised)
 
 # Walking routes
+if(is.null(routes_walk$distance)) {
+  # change names if routing service used different names
+  routes_walk = routes_walk %>% 
+    mutate(distance = distance_m, duration = duration_s)
+}
 routes_walk = routes_walk %>% 
   filter(distance <= 6000) %>%
   mutate(
@@ -346,6 +352,7 @@ desire_line_town = od::od_to_sf(x = od_town, z = site_centroid, zd = town_neares
 route_fast_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey)
 route_balanced_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey, plan = "balanced")
 route_quiet_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey, plan = "quietest")
+# working again for a single route:
 route_walk_town = stplanr::route(l = desire_line_town, route_fun = stplanr::route_osrm)
 
 fast_town = route_fast_town %>% 
@@ -410,7 +417,7 @@ routes_fast_entire = routes_fast_combined %>%
 routes_fast_des = routes_fast_entire %>% 
   select(geo_code2, cycle_godutch, pcycle_godutch)
 
-dsn = file.path("data-small", site_name, "routes-fast.geojson")
+dsn = file.path(data_dir, site_name, "routes-fast.geojson")
 obj = routes_fast_entire %>%  select(-pcycle_godutch)
 file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
@@ -435,7 +442,7 @@ routes_balanced_entire = routes_balanced_combined %>%
 routes_balanced_des = routes_balanced_entire %>% 
   select(geo_code2, cycle_godutch, pcycle_godutch)
 
-dsn = file.path("data-small", site_name, "routes-balanced.geojson")
+dsn = file.path(data_dir, site_name, "routes-balanced.geojson")
 obj = routes_balanced_entire %>%  select(-pcycle_godutch)
 file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
@@ -460,13 +467,13 @@ routes_quiet_entire = routes_quiet_combined %>%
 routes_quiet_des = routes_quiet_entire %>% 
   select(geo_code2, cycle_godutch, pcycle_godutch)
 
-dsn = file.path("data-small", site_name, "routes-quiet.geojson")
+dsn = file.path(data_dir, site_name, "routes-quiet.geojson")
 obj = routes_quiet_entire %>%  select(-pcycle_godutch)
 file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
 # walking routes
-dsn = file.path("data-small", site_name, "routes-walk.geojson")
+dsn = file.path(data_dir, site_name, "routes-walk.geojson")
 file.remove(dsn)
 sf::write_sf(routes_walk_save, dsn = dsn)
 
@@ -479,7 +486,7 @@ rnet_fast = rnet_fast %>%
 # nrow(rnet_fast)
 # mapview::mapview(rnet_fast["cycle_base"])
 
-dsn = file.path("data-small", site_name, "rnet-fast.geojson")
+dsn = file.path(data_dir, site_name, "rnet-fast.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_fast, dsn = dsn)
 
@@ -489,7 +496,7 @@ rnet_balanced = rnet_balanced %>%
   mutate(gradient_smooth = round(gradient_smooth, 6)) %>% 
   rename(gradient = gradient_smooth)
 
-dsn = file.path("data-small", site_name, "rnet-balanced.geojson")
+dsn = file.path(data_dir, site_name, "rnet-balanced.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_balanced, dsn = dsn)
 
@@ -499,7 +506,7 @@ rnet_quiet = rnet_quiet %>%
   mutate(gradient_smooth = round(gradient_smooth, 6)) %>% 
   rename(gradient = gradient_smooth)
 
-dsn = file.path("data-small", site_name, "rnet-quiet.geojson")
+dsn = file.path(data_dir, site_name, "rnet-quiet.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_quiet, dsn = dsn)
 
@@ -508,7 +515,7 @@ rnet_walk = overline(routes_walk_save, attrib = c("walk_base", "walk_godutch", "
 rnet_walk = rnet_walk %>% 
   select(walk_base = walk_base_fn1, walk_godutch = walk_godutch_fn1, duration = duration_fn2)
 
-dsn = file.path("data-small", site_name, "rnet-walk.geojson")
+dsn = file.path(data_dir, site_name, "rnet-walk.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_walk, dsn = dsn)
 
@@ -542,7 +549,7 @@ desire_lines_scenario = desire_lines_scenario %>%
     ) #%>% 
   # mutate(across(pwalk_base:pdrive_godutch, round, 6))
 
-dsn = file.path("data-small", site_name, "desire-lines-many.geojson")
+dsn = file.path(data_dir, site_name, "desire-lines-many.geojson")
 file.remove(dsn)
 sf::write_sf(desire_lines_scenario, dsn = dsn)
 
@@ -561,7 +568,7 @@ study_area = st_sf(cbind(to_add, study_area))
 
 # zones_touching_small_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
 
-dsn = file.path("data-small", site_name, "small-study-area.geojson")
+dsn = file.path(data_dir, site_name, "small-study-area.geojson")
 file.remove(dsn)
 sf::write_sf(study_area, dsn = dsn)
 
@@ -570,7 +577,7 @@ desire_lines_few = desire_lines_scenario[study_area, , op = sf::st_within]
 # desire_lines_few = desire_lines_few %>% 
 #   select(geo_code1, geo_code2, all_base, walk_base, cycle_base, drive_base, walk_godutch:drive_godutch)
 
-dsn = file.path("data-small", site_name, "desire-lines-few.geojson")
+dsn = file.path(data_dir, site_name, "desire-lines-few.geojson")
 file.remove(dsn)
 sf::write_sf(desire_lines_few, dsn = dsn)
 
@@ -650,7 +657,7 @@ access_means = access_site %>%
 site_data = inner_join(site, st_drop_geometry(access_means), by = "site_name")
 st_precision(site_data) = 1000000
 
-dsn = file.path("data-small", site_name, "site.geojson")
+dsn = file.path(data_dir, site_name, "site.geojson")
 file.remove(dsn)
 write_sf(site_data, dsn = dsn)
 
@@ -734,7 +741,7 @@ lsoas_all = inner_join(lsoas_all, j8)
 
 st_precision(lsoas_all) = 1000000
 
-dsn = file.path("data-small", site_name, "jts-lsoas.geojson")
+dsn = file.path(data_dir, site_name, "jts-lsoas.geojson")
 file.remove(dsn)
 write_sf(lsoas_all, dsn = dsn)
 
