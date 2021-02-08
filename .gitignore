@@ -31,3 +31,8 @@ data
 *.zip
 # Vim swapfiles
 *.swp
+*.osm*
+*.Rds
+supermarket-points-*
+town_centr*
+*.osc
