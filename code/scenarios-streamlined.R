@@ -203,7 +203,7 @@ routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl 
 routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
 
 # this has suddenly gone extremely slow and failed. A problem with route_osrm? Maybe we need to save routes_walk into an object to avoid repeated API calls
-routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm, cl = cl) 
+routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = walking) 
 
 # create routes_fast
 routes_fast = routes_fast %>%

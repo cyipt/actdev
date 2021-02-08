@@ -1,4 +1,4 @@
-geo_code1,geo_code2,all,from_home,light_rail,train,bus,taxi,motorbike,car_driver,car_passenger,bicycle,foot,other,length,pwalk_commute_base,pcycle_commute_base,pdrive_commute_base
+geo_code1,geo_code2,all,from_home,light_rail,train,bus,taxi,motorbike,car_driver,car_passenger,bicycle,foot,other,length,pwalk_base,pcycle_base,pdrive_base
 E02002598,E02000001,1.037964,0,0.259491,0,0,0,0,0.778473,0,0,0,0,271199.043131,0,0,0.75
 E02002599,E02000109,0.259491,0,0,0.259491,0,0,0,0,0,0,0,0,260414.2869,0,0,0
 E02002599,E02000120,0.259491,0,0,0.259491,0,0,0,0,0,0,0,0,264899.007993,0,0,0
