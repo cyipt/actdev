@@ -7,82 +7,24 @@ library(stplanr)
 # set-up and parameters ---------------------------------------------------
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
-data_dir = data_dir
-household_size = 2.3 # mean UK household size at 2011 census
+if(is.null(site_name)) { # assume all presets loaded if site_name exists
+  site_name = "chapelford"   # which site to look at (can change)
+  data_dir = "data-small" # for test sites
+}
 max_length = 20000 # maximum length of desire lines in m
-site_name = "chapelford"   # which site to look at (can change)
+household_size = 2.3 # mean UK household size at 2011 census
 min_flow_routes = 10 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
 
-smart.round = function(x) {
-  y = floor(x)
-  indices = utils::tail(order(x-y), round(sum(x)) - sum(y))
-  y[indices] = y[indices] + 1
-  y
-}
-
-# generic input data --------------------------------------------------------------
-centroids_msoa = pct::get_centroids_ew() 
-centroids_msoa = sf::st_transform(centroids_msoa, 4326)
-zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = "z")
-sf::st_crs(zones_msoa_national)
-st_precision(zones_msoa_national) = 1000000
-
-if(file.exists("od.Rds")) 
-  od = readRDS("od.Rds") else
-    od = pct::get_od()
-# saveRDS(od, "od.Rds")
-
-u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
-sites = sf::st_read(u)
-st_precision(sites) = 1000000
-
-# 2011 MSOA populations - should it be a later year?
-u2 = "https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2011/mid2011msoaunformattedfile.xls"
-f = "data/mid2011msoaunformattedfile.xls"
-if(!file.exists(f)) {
-  download.file(u2, f)
-}
-msoa_pops = readxl::read_xls(path = "data/mid2011msoaunformattedfile.xls", sheet = "Mid-2011 Persons", )
-msoa_pops = msoa_pops %>% 
-  select(geo_code1 = Code, msoa_population = "All Ages")
-
-# estimated site populations
-site_pops = sites %>% 
-  st_drop_geometry() %>% 
-  mutate(site_population = dwellings_when_complete * household_size)
-
-# town centres
-# piggyback::pb_download("English_Town_Centres_2004.zip", tag = "0.1.1")
-# unzip("English_Town_Centres_2004.zip", exdir = "data")
-# town_centres = st_read("data/English_Town_Centres_2004.shp")
-# st_transform(town_centres, 4326)
-# st_precision(town_centres) = 1000000
-# town_centroids = town_centres %>% 
-#   sf::st_as_sf(coords = c("CENTROIDX", "CENTROIDY"), crs = 27700) %>% 
-#   st_transform(4326)
-# sf::write_sf(town_centres, "town_centres.geojson")
-# piggyback::pb_upload("town_centres.geojson")
-
-# sf::write_sf(town_centroids, "town_centroids.geojson")
-# piggyback::pb_upload("town_centroids.geojson")
-town_centroids = sf::read_sf("town_centroids.geojson")
-
-# jts data - SLOW
-all_jts_tables = paste0("jts050", 1:8)
-i = all_jts_tables[1]
-for(i in all_jts_tables){
-  year = 2017
-  f = paste0(i, "-", year, ".geojson")
-  if(! file.exists(f)) piggyback::pb_download(f, tag = "0.1.2")
-  f2 = sf::read_sf(f)
-  assign(i, f2)
-  rm(f2)
+if(!exists("centroids_msoa")) {
+  # run the build script if national data is missing
+  source("code/build.R")
 }
 
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
+message("Building for ", site$site_name)
 
 path = file.path(data_dir, site_name)
 # dir.create(path = path)
@@ -162,7 +104,8 @@ st_precision(desire_lines_combined) = 1000000
 
 dsn = file.path(data_dir, site_name, "all-census-od.csv")
 obj = st_drop_geometry(desire_lines_combined)
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
+if(!dir.exists(path)) dir.create(path)
 readr::write_csv(obj, file = dsn)
 
 # Round decimals and select sets of desire lines --------------------------
@@ -185,7 +128,7 @@ large_study_area = sf::st_convex_hull(sf::st_union(desire_lines_bounding))
 large_study_area = stplanr::geo_buffer(large_study_area, dist = large_area_buffer)
 
 dsn = file.path(data_dir, site_name, "large-study-area.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(large_study_area, dsn = dsn)
 
 desire_lines_many = desire_lines_rounded[large_study_area, , op = sf::st_within]
@@ -419,7 +362,7 @@ routes_fast_des = routes_fast_entire %>%
 
 dsn = file.path(data_dir, site_name, "routes-fast.geojson")
 obj = routes_fast_entire %>%  select(-pcycle_godutch)
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
 # balanced routes
@@ -444,7 +387,7 @@ routes_balanced_des = routes_balanced_entire %>%
 
 dsn = file.path(data_dir, site_name, "routes-balanced.geojson")
 obj = routes_balanced_entire %>%  select(-pcycle_godutch)
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
 # quiet routes
@@ -469,12 +412,12 @@ routes_quiet_des = routes_quiet_entire %>%
 
 dsn = file.path(data_dir, site_name, "routes-quiet.geojson")
 obj = routes_quiet_entire %>%  select(-pcycle_godutch)
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
 # walking routes
 dsn = file.path(data_dir, site_name, "routes-walk.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(routes_walk_save, dsn = dsn)
 
 # Route networks ----------------------------------------------------------
@@ -487,7 +430,7 @@ rnet_fast = rnet_fast %>%
 # mapview::mapview(rnet_fast["cycle_base"])
 
 dsn = file.path(data_dir, site_name, "rnet-fast.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(rnet_fast, dsn = dsn)
 
 rnet_balanced = overline(routes_balanced_combined, attrib = c("cycle_base", "cycle_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
@@ -497,7 +440,7 @@ rnet_balanced = rnet_balanced %>%
   rename(gradient = gradient_smooth)
 
 dsn = file.path(data_dir, site_name, "rnet-balanced.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(rnet_balanced, dsn = dsn)
 
 rnet_quiet = overline(routes_quiet_combined, attrib = c("cycle_base", "cycle_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
@@ -507,7 +450,7 @@ rnet_quiet = rnet_quiet %>%
   rename(gradient = gradient_smooth)
 
 dsn = file.path(data_dir, site_name, "rnet-quiet.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(rnet_quiet, dsn = dsn)
 
 # r_walk_grouped_lines = routes_walk_save %>% st_cast("LINESTRING") #is this needed?
@@ -516,7 +459,7 @@ rnet_walk = rnet_walk %>%
   select(walk_base = walk_base_fn1, walk_godutch = walk_godutch_fn1, duration = duration_fn2)
 
 dsn = file.path(data_dir, site_name, "rnet-walk.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(rnet_walk, dsn = dsn)
 
 # Go Dutch scenario for desire lines -------------------------------------
@@ -550,7 +493,7 @@ desire_lines_scenario = desire_lines_scenario %>%
   # mutate(across(pwalk_base:pdrive_godutch, round, 6))
 
 dsn = file.path(data_dir, site_name, "desire-lines-many.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(desire_lines_scenario, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
@@ -569,7 +512,7 @@ study_area = st_sf(cbind(to_add, study_area))
 # zones_touching_small_study_area = zones_msoa_national[study_area, , op = sf::st_intersects]
 
 dsn = file.path(data_dir, site_name, "small-study-area.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(study_area, dsn = dsn)
 
 # Desire lines for small study area ---------------------------------------
@@ -578,7 +521,7 @@ desire_lines_few = desire_lines_scenario[study_area, , op = sf::st_within]
 #   select(geo_code1, geo_code2, all_base, walk_base, cycle_base, drive_base, walk_godutch:drive_godutch)
 
 dsn = file.path(data_dir, site_name, "desire-lines-few.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(desire_lines_few, dsn = dsn)
 
 
@@ -658,7 +601,7 @@ site_data = inner_join(site, st_drop_geometry(access_means), by = "site_name")
 st_precision(site_data) = 1000000
 
 dsn = file.path(data_dir, site_name, "site.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 write_sf(site_data, dsn = dsn)
 
 
@@ -742,6 +685,6 @@ lsoas_all = inner_join(lsoas_all, j8)
 st_precision(lsoas_all) = 1000000
 
 dsn = file.path(data_dir, site_name, "jts-lsoas.geojson")
-file.remove(dsn)
+if(file.exists(dsn)) file.remove(dsn)
 write_sf(lsoas_all, dsn = dsn)
 
