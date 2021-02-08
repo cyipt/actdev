@@ -3,7 +3,7 @@ library(tidyverse)
 # The Go Dutch scenario does not work for routes with a distance > 30km	
 # mapview(desire_lines_scenario %>% filter(length >+ 30000))	
 
-site_name = "great-kneighton" 
+site_name = "chapelford" 
 file = file.path("data-small", site_name, "all-census-od.csv")
 desire_lines = read_csv(file = file)
 
@@ -40,7 +40,7 @@ mode_split = desire_lines %>%
   ) %>%
   mutate(
     across(where(is.numeric), round, 2),
-    across(all_commute_base:drive_commute_base, round, 0)
+    across(c(all_commute_base, walk_commute_base:drive_commute_base), round, 0)
     # , pwalk_commute_godutch = ifelse(
     #   length_cat == "h.30+", NA, pwalk_commute_godutch),
     # pcycle_commute_godutch = ifelse(
@@ -56,4 +56,5 @@ mode_split = desire_lines %>%
     )
 
 dsn = file.path("data-small", site_name, "mode-split.csv")	
+file.remove(dsn)
 readr::write_csv(mode_split, file = dsn)	
