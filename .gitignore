@@ -29,3 +29,5 @@ vignettes/*.pdf
 jts0*
 data
 *.zip
+# Vim swapfiles
+*.swp
