@@ -71,13 +71,20 @@ for(i in all_jts_tables){
 
 # build for all site names
 set.seed(2021)
-site_names_to_builb = sites %>% 
-  sample_n(size = 5) %>%
-  pull(site_name)
+site_names_to_builb = c(
+  # sites %>% 
+  #  sample_n(size = 5) %>%
+  #  pull(site_name),
+  c("didcot", "taunton-firepool", "allerton-bywater", "handforth"),
+  sites_extra = sites %>% 
+    filter(str_detect(string = site_name, pattern = "chap|knei|bail")) %>% 
+    pull(site_name)
+)
+
 
 data_dir = "data-sites" # for test sites
 dir.create(data_dir)
-
+# note: fails for kidbrooke-village and long-marston
 for(site_name in site_names_to_builb) {
   source("code/scenarios-streamlined.R")
 }

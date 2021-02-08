@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"name": "desire-lines-many",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "geo_code1": "E02002417", "geo_code2": "E02002416", "all_base": 15.0, "walk_base": 1.0, "cycle_base": 0.0, "drive_base": 10.0, "walk_godutch": 2.0, "cycle_godutch": 7.0, "drive_godutch": 2.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.362032, 53.745009 ], [ -1.415793, 53.768987 ] ] } },
+{ "type": "Feature", "properties": { "geo_code1": "E02002417", "geo_code2": "E02002417", "all_base": 12.0, "walk_base": 3.0, "cycle_base": 0.0, "drive_base": 8.0, "walk_godutch": 4.0, "cycle_godutch": 6.0, "drive_godutch": 1.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.362032, 53.745009 ], [ -1.360548, 53.768319 ] ] } },
+{ "type": "Feature", "properties": { "geo_code1": "E02002417", "geo_code2": "E02002418", "all_base": 9.0, "walk_base": 3.0, "cycle_base": 0.0, "drive_base": 4.0, "walk_godutch": 3.0, "cycle_godutch": 4.0, "drive_godutch": 0.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.362032, 53.745009 ], [ -1.375485, 53.769737 ] ] } },
+{ "type": "Feature", "properties": { "geo_code1": "E02002417", "geo_code2": "E02002432", "all_base": 22.0, "walk_base": 9.0, "cycle_base": 1.0, "drive_base": 10.0, "walk_godutch": 10.0, "cycle_godutch": 11.0, "drive_godutch": 0.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.362032, 53.745009 ], [ -1.39453, 53.740992 ] ] } },
+{ "type": "Feature", "properties": { "geo_code1": "E02002417", "geo_code2": "E02002439", "all_base": 23.0, "walk_base": 1.0, "cycle_base": 1.0, "drive_base": 15.0, "walk_godutch": 2.0, "cycle_godutch": 13.0, "drive_godutch": 2.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.362032, 53.745009 ], [ -1.350778, 53.72303 ] ] } },
+{ "type": "Feature", "properties": { "geo_code1": "E02002417", "geo_code2": "E02002441", "all_base": 4.0, "walk_base": 0.0, "cycle_base": 0.0, "drive_base": 3.0, "walk_godutch": 0.0, "cycle_godutch": 2.0, "drive_godutch": 1.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.362032, 53.745009 ], [ -1.366508, 53.718018 ] ] } },
+{ "type": "Feature", "properties": { "geo_code1": "E02002417", "geo_code2": "E02002442", "all_base": 11.0, "walk_base": 0.0, "cycle_base": 0.0, "drive_base": 7.0, "walk_godutch": 1.0, "cycle_godutch": 6.0, "drive_godutch": 0.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.362032, 53.745009 ], [ -1.337376, 53.71751 ] ] } }
+]
+}
