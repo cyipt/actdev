@@ -286,8 +286,10 @@ fast_town = route_fast_town %>%
          # time, speed, 
          length, gradient_smooth, mean_gradient, max_gradient, busyness, mean_busyness, max_busyness, pcycle_commute_godutch)
 
+# Combine and save routes -------------------------------------------------
 routes_fast_cutdown = routes_fast %>%
   select(geo_code1, geo_code2, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness, gradient_smooth, pcycle_commute_godutch)
+
 fast_town_cutdown = fast_town %>% 
   select(geo_code1 = site_name, geo_code2 = town_name, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness, gradient_smooth, pcycle_commute_godutch)
 
