@@ -1,0 +1,11 @@
+names,description,title
+geo_code1,origin MSOA code representing the site,Origin
+geo_code2,destination MSOA code,Destination
+length,total length of route (m),Route length (m)
+mean_gradient,distance weighted mean gradient of route segments,Mean gradient
+max_gradient,maximum route segment gradient,Maximum gradient
+mean_busyness,distance weighted mean busyness of route segments,Mean road busyness
+max_busyness,maximum route segment busyness,Maximum road busyness
+all_base,all journeys from origin to destination (baseline and Go Dutch scenarios),All journeys
+cycle_base,journeys by bicycle from origin to destination in baseline scenario,"Journeys by bicycle, baseline scenario"
+cycle_godutch,journeys by bicycle from origin to destination in Go Dutch scenario,"Journeys by bicycle, Go Dutch scenario"

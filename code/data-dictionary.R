@@ -63,7 +63,7 @@ data_dictionary$title = c(
 
 write_csv(data_dictionary, "data-small/site-data-dictionary.csv")
 
-
+# Desire lines
 des = read_sf("data-small/chapelford/desire-lines-many.geojson") %>% 
   st_drop_geometry()
 names = colnames(des)
@@ -71,13 +71,13 @@ data_dictionary_des = data.frame(names)
 data_dictionary_des$description = c(
   "origin MSOA code representing the site",
   "destination MSOA code",
-  "all commuter journeys from origin to destination (baseline and Go Dutch scenarios)",
-  "commuter journeys by foot from origin to destination in baseline scenario",
-  "commuter journeys by bicycle from origin to destination in baseline scenario",
-  "commuter journeys by car drivers from origin to destination in baseline scenario",
-  "commuter journeys by foot from origin to destination in Go Dutch scenario",
-  "commuter journeys by bicycle from origin to destination in Go Dutch scenario",
-  "commuter journeys by car drivers from origin to destination in Go Dutch scenario"
+  "all journeys from origin to destination (baseline and Go Dutch scenarios)",
+  "journeys by foot from origin to destination in baseline scenario",
+  "journeys by bicycle from origin to destination in baseline scenario",
+  "journeys by car drivers from origin to destination in baseline scenario",
+  "journeys by foot from origin to destination in Go Dutch scenario",
+  "journeys by bicycle from origin to destination in Go Dutch scenario",
+  "journeys by car drivers from origin to destination in Go Dutch scenario"
 )
 data_dictionary_des$title = c(
   "Origin",
@@ -93,7 +93,67 @@ data_dictionary_des$title = c(
 
 write_csv(data_dictionary_des, "data-small/desire-line-data-dictionary.csv")
 
+# Route networks
+rnet = read_sf("data-small/chapelford/rnet-fast.geojson") %>% 
+  st_drop_geometry()
+names = colnames(rnet)
+data_dictionary_rnet = data.frame(names)
+data_dictionary_rnet$description = c(
+  "origin MSOA code representing the site",
+  "destination MSOA code",
+  "all journeys from origin to destination (baseline and Go Dutch scenarios)",
+  "journeys by foot from origin to destination in baseline scenario",
+  "journeys by bicycle from origin to destination in baseline scenario",
+  "journeys by car drivers from origin to destination in baseline scenario",
+  "journeys by foot from origin to destination in Go Dutch scenario",
+  "journeys by bicycle from origin to destination in Go Dutch scenario",
+  "journeys by car drivers from origin to destination in Go Dutch scenario"
+)
+data_dictionary_rnet$title = c(
+  "Origin",
+  "Destination",
+  "All journeys",
+  "Journeys by foot, baseline scenario",
+  "Journeys by bicycle, baseline scenario",
+  "Journeys by car drivers, baseline scenario",
+  "Journeys by foot, Go Dutch scenario",
+  "Journeys by bicycle, Go Dutch scenario",
+  "Journeys by car drivers, Go Dutch scenario"
+)
 
+write_csv(data_dictionary_rnet, "data-small/rnet-data-dictionary.csv")
+
+# Routes
+rou = read_sf("data-small/chapelford/routes-fast.geojson") %>% 
+  st_drop_geometry()
+names = colnames(rou)
+data_dictionary_rou = data.frame(names)
+data_dictionary_rou$description = c(
+  "origin MSOA code representing the site",
+  "destination MSOA code",
+  "all journeys from origin to destination (baseline and Go Dutch scenarios)",
+  "journeys by foot from origin to destination in baseline scenario",
+  "journeys by bicycle from origin to destination in baseline scenario",
+  "journeys by car drivers from origin to destination in baseline scenario",
+  "journeys by foot from origin to destination in Go Dutch scenario",
+  "journeys by bicycle from origin to destination in Go Dutch scenario",
+  "journeys by car drivers from origin to destination in Go Dutch scenario"
+)
+data_dictionary_rou$title = c(
+  "Origin",
+  "Destination",
+  "All journeys",
+  "Journeys by foot, baseline scenario",
+  "Journeys by bicycle, baseline scenario",
+  "Journeys by car drivers, baseline scenario",
+  "Journeys by foot, Go Dutch scenario",
+  "Journeys by bicycle, Go Dutch scenario",
+  "Journeys by car drivers, Go Dutch scenario"
+)
+
+write_csv(data_dictionary_rou, "data-small/routes-data-dictionary.csv")
+
+# OD csv
 od = read_csv("data-small/great-kneighton/all-census-od.csv") %>% 
   select(-geometry)
 names = colnames(od)
