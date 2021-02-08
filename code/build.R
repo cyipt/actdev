@@ -75,16 +75,18 @@ site_names_to_builb = c(
   # sites %>% 
   #  sample_n(size = 5) %>%
   #  pull(site_name),
-  c("didcot", "taunton-firepool", "allerton-bywater", "handforth"),
+  c("taunton-firepool", "allerton-bywater", "handforth"),
   sites_extra = sites %>% 
     filter(str_detect(string = site_name, pattern = "chap|knei|bail")) %>% 
     pull(site_name)
 )
 
 
-data_dir = "data-sites" # for test sites
+data_dir = "data-small" # for test sites
 dir.create(data_dir)
 # note: fails for kidbrooke-village and long-marston
 for(site_name in site_names_to_builb) {
   source("code/scenarios-streamlined.R")
 }
+
+zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")

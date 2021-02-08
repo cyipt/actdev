@@ -5,15 +5,22 @@ remotes::install_github("itsleeds/od")
 remotes::install_github("ITSLeeds/pct")
 library(dplyr)
 
-# Go to the repo's root directory, assuming we're executing the script from inside its directory.
-setwd("../..")
-# input data: we should probably have naming conventions for these
+if(!exists("site_name")) site_name = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")
-site_area = sf::read_sf("geojsons/great-kneighton.geojson")
-desire_lines = sf::read_sf("data-small/great-kneighton/desire-lines-few.geojson")	# TODO or many?
-study_area = sf::read_sf("data-small/great-kneighton/small-study-area.geojson")	# TODO or large?
+site = sites[sites$site_name == site_name, ]
+path = file.path("data-small", site_name)
+
+# Go to the repo's root directory, assuming we're executing the script from inside its directory.
+if(!dir.exists("data-small")) {
+  setwd("../..")
+}
+
+# input data: we should probably have naming conventions for these
+site_area = sf::read_sf("data-small/great-kneighton/site.geojson")
+desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))	# TODO or many?
+study_area = sf::read_sf(file.path(path, "small-study-area.geojson"))	# TODO or large?
 # buildings = osmextract::oe_get(study_area, layer = "multipolygons")
-osm_polygons = osmextract::oe_get("cambridgeshire", layer = "multipolygons")
+osm_polygons = osmextract::oe_get(study_area, layer = "multipolygons")
 
 # from od/data-raw folder
 building_types = c(
@@ -58,12 +65,13 @@ zones_all = rbind(zones_of_interest_min, site_area_id)
 od_df$geo_code1 = "s1"
 
 desire_lines_disag = od::od_disaggregate(od = od_df, z = zones_all, subzones = buildings_od) 
-desire_lines_disag = desire_lines_disag %>% 
-  select(car_driver, bicycle, foot, car_commute_godutch, bicycle_commute_godutch, walk_commute_godutch)
 summary(desire_lines_disag)
-sum(desire_lines$car_driver)
-sum(desire_lines_disag$car_driver)
-sum(desire_lines_disag$car_commute_godutch)
+sum(desire_lines$all_commute_base)
+sum(desire_lines_disag$drive_commute_base)
+sum(desire_lines_disag$drive_commute_godutch)
+
+# sum(desire_lines$drive_commute_base)
+# sum(desire_lines$drive_commute_godutch)
 
 # implement scenarios while keeping flow totals unchanged
 change_walking = sum(desire_lines$walk_commute_godutch) - sum(desire_lines$foot)
@@ -80,9 +88,6 @@ desire_lines_disag$prob_switch[desire_lines_disag$car_driver < 1] = 0
 sel_car_to_bike = sample(nrow(desire_lines_disag), size = change_cycling, prob = desire_lines_disag$prob_switch)
 desire_lines_disag$car_commute_godutch[sel_car_to_bike] = desire_lines_disag$car_driver[sel_car_to_bike] - 1
 desire_lines_disag$bicycle_commute_godutch[sel_car_to_bike] = desire_lines_disag$bicycle[sel_car_to_bike] + 1
-
-rowSums(desire_lines_disag[1:3] %>% sf::st_drop_geometry()) ==
-rowSums(desire_lines_disag[4:6] %>% sf::st_drop_geometry())
 
 mapview::mapview(desire_lines_disag) + mapview::mapview(buildings_od)
 
