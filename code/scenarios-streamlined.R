@@ -474,7 +474,8 @@ sf::write_sf(routes_walk_save, dsn = dsn)
 rnet_fast = overline(routes_fast_combined, attrib = c("cycle_base", "cycle_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
 rnet_fast = rnet_fast %>% 
   select(cycle_base = cycle_base_fn1, cycle_godutch = cycle_godutch_fn1, busyness = busyness_fn2, gradient_smooth = gradient_smooth_fn2) %>% 
-  mutate(gradient = round(gradient_smooth, 6))
+  mutate(gradient_smooth = round(gradient_smooth, 6)) %>% 
+  rename(gradient = gradient_smooth)
 # nrow(rnet_fast)
 # mapview::mapview(rnet_fast["cycle_base"])
 
@@ -482,17 +483,21 @@ dsn = file.path("data-small", site_name, "rnet-fast.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_fast, dsn = dsn)
 
-rnet_balanced = overline(routes_balanced_save, attrib = c("cycle_base", "cycle_godutch", "busyness"), fun = c(sum, mean))
+rnet_balanced = overline(routes_balanced_combined, attrib = c("cycle_base", "cycle_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
 rnet_balanced = rnet_balanced %>% 
-  select(cycle_base = cycle_base_fn1, cycle_godutch = cycle_godutch_fn1, busyness = busyness_fn2)
+  select(cycle_base = cycle_base_fn1, cycle_godutch = cycle_godutch_fn1, busyness = busyness_fn2, gradient_smooth = gradient_smooth_fn2) %>% 
+  mutate(gradient_smooth = round(gradient_smooth, 6)) %>% 
+  rename(gradient = gradient_smooth)
 
 dsn = file.path("data-small", site_name, "rnet-balanced.geojson")
 file.remove(dsn)
 sf::write_sf(rnet_balanced, dsn = dsn)
 
-rnet_quiet = overline(routes_quiet_save, attrib = c("cycle_base", "cycle_godutch", "busyness"), fun = c(sum, mean))
+rnet_quiet = overline(routes_quiet_combined, attrib = c("cycle_base", "cycle_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
 rnet_quiet = rnet_quiet %>% 
-  select(cycle_base = cycle_base_fn1, cycle_godutch = cycle_godutch_fn1, busyness = busyness_fn2)
+  select(cycle_base = cycle_base_fn1, cycle_godutch = cycle_godutch_fn1, busyness = busyness_fn2, gradient_smooth = gradient_smooth_fn2) %>% 
+  mutate(gradient_smooth = round(gradient_smooth, 6)) %>% 
+  rename(gradient = gradient_smooth)
 
 dsn = file.path("data-small", site_name, "rnet-quiet.geojson")
 file.remove(dsn)
