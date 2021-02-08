@@ -25,3 +25,9 @@ colorspace::demoplot(colours)
 colorspace::demoplot(colours_10)
 
 colorspace::hclplot(colours_10)
+
+# google
+stplanr::geo_code("trumpington")
+
+# nominatim
+osmextract:::oe_search("trumpington")

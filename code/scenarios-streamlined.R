@@ -29,12 +29,16 @@ zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = 
 sf::st_crs(zones_msoa_national)
 st_precision(zones_msoa_national) = 1000000
 
-od = pct::get_od()
+if(file.exists("od.Rds")) 
+  od = readRDS("od.Rds") else
+    od = pct::get_od()
+# saveRDS(od, "od.Rds")
+
 u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
 sites = sf::st_read(u)
 st_precision(sites) = 1000000
 
-# 2011 MSOA populations
+# 2011 MSOA populations - should it be a later year?
 u2 = "https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2011/mid2011msoaunformattedfile.xls"
 f = "data/mid2011msoaunformattedfile.xls"
 if(!file.exists(f)) {
@@ -50,15 +54,19 @@ site_pops = sites %>%
   mutate(site_population = dwellings_when_complete * household_size)
 
 # town centres
-town_centres = st_read("data/town-centres/English_Town_Centres_2004.shp")
-st_transform(town_centres, 4326)
-st_precision(town_centres) = 1000000
+# piggyback::pb_download("English_Town_Centres_2004.zip", tag = "0.1.1")
+# unzip("English_Town_Centres_2004.zip", exdir = "data")
+# town_centres = st_read("data/English_Town_Centres_2004.shp")
+# st_transform(town_centres, 4326)
+# st_precision(town_centres) = 1000000
+# town_centroids = town_centres %>% 
+#   sf::st_as_sf(coords = c("CENTROIDX", "CENTROIDY"), crs = 27700) %>% 
+#   st_transform(4326)
+sf::write_sf(town_centres, "town_centres.geojson")
+piggyback::pb_upload("town_centres.geojson")
 
-# may not need to do this since centroid coordinates are already included as fields
-town_centroids = town_centres %>% 
-  st_transform(27700) %>% 
-  st_centroid() %>% 
-  st_transform(4326)
+sf::write_sf(town_centroids, "town_centroids.geojson")
+piggyback::pb_upload("town_centroids.geojson")
 
 # jts data - SLOW
 all_jts_tables = paste0("jts050", 1:8)
@@ -76,7 +84,7 @@ for(i in all_jts_tables){
 site = sites[sites$site_name == site_name, ]
 
 path = file.path("data-small", site_name)
-dir.create(path = path)
+# dir.create(path = path)
 
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 
@@ -193,8 +201,11 @@ obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length)
 routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl)
 routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "balanced")
 routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
-routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm, cl = cl) #this has suddenly gone extremely slow and failed. A problem with route_osrm? Maybe we need to save routes_walk into an object to avoid repeated API calls
 
+# this has suddenly gone extremely slow and failed. A problem with route_osrm? Maybe we need to save routes_walk into an object to avoid repeated API calls
+routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm, cl = cl) 
+
+# create routes_fast
 routes_fast = routes_fast %>%
   mutate(busyness = busynance / distances) %>% 
   group_by(geo_code1, geo_code2) %>%
@@ -216,11 +227,71 @@ routes_fast = routes_fast %>%
 routes_fast_summarised = routes_fast %>% 
   st_drop_geometry() %>% 
   group_by(geo_code2) %>% 
-  summarise(cycle_commute_godutch = mean(cycle_commute_godutch))
+  summarise(
+    all_commute_base = mean(all_commute_base),
+    cycle_commute_base = mean(cycle_commute_base),
+    cycle_commute_godutch = mean(cycle_commute_godutch)
+    )
 routes_fast_summarised = routes_fast_summarised %>% 
   mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch))
 
-routes_fast = inner_join((routes_fast %>% select(-cycle_commute_godutch)), routes_fast_summarised)
+routes_fast = inner_join((routes_fast %>% select(-all_commute_base, -cycle_commute_base, -cycle_commute_godutch)), routes_fast_summarised)
+
+# balanced routes
+routes_balanced = routes_balanced %>%
+  mutate(busyness = busynance / distances) %>% 
+  group_by(geo_code1, geo_code2) %>%
+  mutate(
+    n = n(), #could remove
+    mean_gradient = weighted.mean(gradient_smooth, distances),
+    max_gradient = max(gradient_smooth),
+    mean_busyness = weighted.mean(busyness, distances),
+    max_busyness = max(busyness)
+  ) %>%
+  ungroup() %>% 
+  mutate(
+    pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
+    cycle_commute_godutch = pcycle_commute_godutch * all_commute_base,
+    across(c(mean_gradient, max_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_commute_godutch), round, 6)
+  )
+
+# to round cycle_commute_godutch
+routes_balanced_summarised = routes_balanced %>% 
+  st_drop_geometry() %>% 
+  group_by(geo_code2) %>% 
+  summarise(cycle_commute_godutch = mean(cycle_commute_godutch))
+routes_balanced_summarised = routes_balanced_summarised %>% 
+  mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch))
+
+routes_balanced = inner_join((routes_balanced %>% select(-cycle_commute_godutch)), routes_balanced_summarised)
+
+# quiet routes
+routes_quiet = routes_quiet %>%
+  mutate(busyness = busynance / distances) %>% 
+  group_by(geo_code1, geo_code2) %>%
+  mutate(
+    n = n(), #could remove
+    mean_gradient = weighted.mean(gradient_smooth, distances),
+    max_gradient = max(gradient_smooth),
+    mean_busyness = weighted.mean(busyness, distances),
+    max_busyness = max(busyness)
+  ) %>%
+  ungroup() %>% 
+  mutate(
+    pcycle_commute_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
+    cycle_commute_godutch = pcycle_commute_godutch * all_commute_base,
+    across(c(mean_gradient, max_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_commute_godutch), round, 6)
+  )
+
+# to round cycle_commute_godutch
+routes_quiet_summarised = routes_quiet %>% 
+  st_drop_geometry() %>% 
+  group_by(geo_code2) %>% 
+  summarise(cycle_commute_godutch = mean(cycle_commute_godutch))
+routes_quiet_summarised = routes_quiet_summarised %>% 
+  mutate(cycle_commute_godutch = smart.round(cycle_commute_godutch))
+
+routes_quiet = inner_join((routes_quiet %>% select(-cycle_commute_godutch)), routes_quiet_summarised)
 
 # routes_fast_save = routes_fast %>%
 #   select(geo_code1, geo_code2, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness, gradient_smooth)
@@ -244,9 +315,9 @@ routes_walk = routes_walk %>%
 routes_walk_save = routes_walk %>%
   select(geo_code1, geo_code2, distance, duration, all_commute_base, walk_commute_base, walk_commute_godutch)
 
-all_commuters_baseline = sum(routes_fast_entire$all_commute_base)
-cycle_commuters_baseline = sum(routes_fast_entire$cycle_commute_base)
-cycle_commuters_godutch = sum(routes_fast_entire$cycle_commute_godutch)
+all_commuters_baseline = sum(routes_fast_summarised$all_commute_base)
+cycle_commuters_baseline = sum(routes_fast_summarised$cycle_commute_base)
+cycle_commuters_godutch = sum(routes_fast_summarised$cycle_commute_godutch)
 walk_commuters_baseline = sum(routes_walk$walk_commute_base)
 walk_commuters_godutch = sum(routes_walk$walk_commute_godutch)
 # drive_commuters_baseline = sum(routes_fast_entire$cycle_commute_base)
@@ -291,7 +362,10 @@ routes_fast_cutdown = routes_fast %>%
 fast_town_cutdown = fast_town %>% 
   select(geo_code1 = site_name, geo_code2 = town_name, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, busyness, gradient_smooth, pcycle_commute_godutch)
 
-routes_fast_combined = bind_rows(routes_fast_cutdown, fast_town_cutdown)
+routes_fast_combined = bind_rows(
+  routes_fast_cutdown %>% mutate(purpose = "commute"),
+  fast_town_cutdown %>% mutate(purpose = "town")
+  )
 
 routes_fast_entire = routes_fast_combined %>% 
   group_by(geo_code1, geo_code2, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_commute_base, cycle_commute_base, cycle_commute_godutch, pcycle_commute_godutch) %>% 
@@ -314,7 +388,7 @@ sf::write_sf(routes_walk_save, dsn = dsn)
 rnet_fast = overline(routes_fast_combined, attrib = c("cycle_commute_base", "cycle_commute_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
 rnet_fast = rnet_fast %>% 
   select(cycle_commute_base = cycle_commute_base_fn1, cycle_commute_godutch = cycle_commute_godutch_fn1, busyness = busyness_fn2, gradient_smooth = gradient_smooth_fn2) %>% 
-  mutate(gradient_smooth = round(gradient_smooth, 6))
+  mutate(gradient = round(gradient_smooth, 6))
 nrow(rnet_fast)
 # mapview::mapview(rnet_fast["cycle_commute_base"])
 
