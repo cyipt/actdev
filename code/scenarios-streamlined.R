@@ -10,12 +10,13 @@ library(stplanr)
 if(is.null(site_name)) { # assume all presets loaded if site_name exists
   site_name = "chapelford"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
+  max_length = 20000 # maximum length of desire lines in m
+  household_size = 2.3 # mean UK household size at 2011 census
+  min_flow_routes = 10 # threshold above which OD pairs are included
+  region_buffer_dist = 2000
+  large_area_buffer = 500
 }
-max_length = 20000 # maximum length of desire lines in m
-household_size = 2.3 # mean UK household size at 2011 census
-min_flow_routes = 10 # threshold above which OD pairs are included
-region_buffer_dist = 2000
-large_area_buffer = 500
+
 
 if(!exists("centroids_msoa")) {
   # run the build script if national data is missing

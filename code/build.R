@@ -1,5 +1,10 @@
 # Aim: create geojson data for ui for all sites
 
+library(tidyverse)
+library(sf)
+library(stplanr)
+
+
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 
 smart.round = function(x) {
@@ -39,7 +44,6 @@ msoa_pops = msoa_pops %>%
 site_pops = sites %>% 
   st_drop_geometry() %>% 
   mutate(site_population = dwellings_when_complete * household_size)
-
 
 # town centres
 # piggyback::pb_download("English_Town_Centres_2004.zip", tag = "0.1.1")
