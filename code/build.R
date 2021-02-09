@@ -4,6 +4,13 @@ library(tidyverse)
 library(sf)
 library(stplanr)
 
+# starting parameters
+
+max_length = 20000 # maximum length of desire lines in m
+household_size = 2.3 # mean UK household size at 2011 census
+min_flow_routes = 10 # threshold above which OD pairs are included
+region_buffer_dist = 2000
+large_area_buffer = 500
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 
