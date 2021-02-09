@@ -105,6 +105,102 @@ for(i in seq(nrow(desire_lines))) {
   # desire_lines[i, ]
 }
 
+sf::write_sf(desire_lines_out, "desire_lines_out.geojson")
+piggyback::pb_upload("desire_lines_out.geojson")
 
+json = '{
+  "scenario_name": "monday",
+  "people": [
+    {
+      "origin": {
+        "Position": {
+          "longitude": -122.303723,
+          "latitude": 47.6372834
+        }
+      },
+      "trips": [
+        {
+          "departure": 10800.0,
+          "destination": {
+            "Position": {
+              "longitude": -122.3075948,
+              "latitude": 47.6394773
+        }
+          },
+          "mode": "Drive"
+        }
+      ]
+    },
+{
+      "origin": {
+        "Position": {
+          "longitude": -122.303723,
+          "latitude": 47.6372834
+        }
+      },
+      "trips": [
+        {
+          "departure": 10800.0,
+          "destination": {
+            "Position": {
+              "longitude": -122.3075948,
+              "latitude": 47.6394773
+        }
+          },
+          "mode": "Drive"
+        }
+      ]
+    }
+  ]
+}'
+
+json_r = jsonlite::fromJSON(json)
+str(json_r)
+jsonlite::toJSON(json_r)
 
 mapview::mapview(desire_lines_out)
+
+i = 1
+desire_lines_out = desire_lines_out %>% slice(1:3) # for testing
+names(json_r$people)
+json_r$people$origin
+json_r$people$trips[[1]]
+class(json_r$people$trips[[1]])
+n = nrow(desire_lines_out)
+people = data.frame(origin = rep(NA, n), trips = rep(NA, n))
+
+start_points = lwgeom::st_startpoint(desire_lines_out) %>% sf::st_coordinates()
+end_points = lwgeom::st_endpoint(desire_lines_out) %>% sf::st_coordinates()
+Position = data.frame(
+  longitude = start_points[, "X"],
+  latitude = start_points[, "Y"]
+)
+origin = tibble::tibble(Position = Position)
+
+trips = lapply(seq(nrow(desire_lines_out)), function(i) {
+  Position = data.frame(
+    longitude = end_points[i, "X"],
+    latitude = end_points[i, "Y"]
+  )
+  destination = tibble(Position = Position)
+  tibble::tibble(
+    departure = round(rnorm(n = 1, mean = 8 * 60^2, sd = 0.5 * 60^2)),
+    destination = destination,
+    mode = desire_lines_out$mode_baseline[i]
+  )
+})
+
+people = tibble::tibble(origin = origin, trips)
+people$origin$Position$longitude
+people$trips[[1]]$departure
+people$trips[[3]]$departure
+json_r$people$origin$Position$longitude
+json_r$people$trips[[1]]$departure
+json_r$scenario_name
+
+json_r2 = list(scenario_name = "baseline", people = people)
+jsonlite::write_json(json_r2, "desire_line_out_test_3.json", pretty = TRUE)
+file.edit("desire_line_out_test_3.json")
+piggyback::pb_upload("desire_line_out_test.json")
+piggyback::pb_download_url("desire_line_out_test.json")
+piggyback::pb_download_url("desire_line_out_test_3.json")
