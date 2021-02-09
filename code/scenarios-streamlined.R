@@ -267,9 +267,6 @@ routes_walk = routes_walk %>%
   mutate(walk_godutch = smart.round(walk_godutch)) %>%
   mutate(across(c(pwalk_base:pwalk_godutch), round, 6))
 
-routes_walk_save = routes_walk %>%
-  select(geo_code1, geo_code2, distance, duration, all_base, walk_base, walk_godutch)
-
 all_commuters_baseline = sum(routes_fast_summarised$all_base)
 cycle_commuters_baseline = sum(routes_fast_summarised$cycle_base)
 cycle_commuters_godutch = sum(routes_fast_summarised$cycle_godutch)
@@ -287,7 +284,7 @@ town_nearest = town_nearest %>%
 
 # number of trips to the town centre estimated to equal the total number of commuter trips
 od_town = data.frame(site_name = site_centroid$site_name, town_name = town_nearest$town_name, all_base = all_commuters_baseline, 
-                     # walk_base = walk_commuters_baseline, walk_godutch = walk_commuters_godutch, 
+                     walk_base = walk_commuters_baseline, walk_godutch = walk_commuters_godutch,
                      cycle_base = cycle_commuters_baseline, cycle_godutch = cycle_commuters_godutch)
 
 desire_line_town = od::od_to_sf(x = od_town, z = site_centroid, zd = town_nearest)
@@ -296,7 +293,7 @@ desire_line_town = od::od_to_sf(x = od_town, z = site_centroid, zd = town_neares
 route_fast_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey)
 route_balanced_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey, plan = "balanced")
 route_quiet_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey, plan = "quietest")
-# working again for a single route:
+# working again for a single route. We want this for the desire line, even if it's over 6km
 if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
   route_walk_town = stplanr::route(l = desire_line_town, route_fun = stplanr::route_osrm)
 }
@@ -420,6 +417,12 @@ sf::write_sf(obj = obj, dsn = dsn)
 
 # walking routes
 if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
+  # combine commute and town routes
+  
+  # create object for rnet and to save (desire lines simply use routes_walk)
+  routes_walk_save = routes_walk %>%
+    select(geo_code1, geo_code2, distance, duration, all_base, walk_base, walk_godutch)
+  
   dsn = file.path(data_dir, site_name, "routes-walk.geojson")
   if(file.exists(dsn)) file.remove(dsn)
   sf::write_sf(routes_walk_save, dsn = dsn)
@@ -469,6 +472,8 @@ if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
 }
 
 # Go Dutch scenario for desire lines -------------------------------------
+
+# get the go dutch flows for cycle and walk commutes
 join_fast = routes_fast_des %>% 
   st_drop_geometry() %>% 
   select(geo_code2, cycle_godutch, pcycle_godutch)
@@ -478,6 +483,28 @@ join_walk = routes_walk %>%
   st_drop_geometry() %>% 
   select(geo_code2, walk_godutch, pwalk_godutch)
 desire_lines_scenario = left_join(desire_lines_scenario, join_walk, by = "geo_code2")
+
+desire_lines_scenario = desire_lines_scenario %>% 
+  select(geo_code1:length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
+
+drive_commuters_baseline = sum(desire_lines_scenario$drive_base)
+
+# add in a desire line to the town centre
+desire_line_town = desire_line_town %>%
+  mutate(
+    drive_base = drive_commuters_baseline,
+    length = stplanr::geo_length(desire_line_town),
+    pwalk_godutch = walk_godutch / all_base,
+    pcycle_godutch = cycle_godutch / all_base) %>% 
+  rename(geo_code1 = site_name, geo_code2 = town_name) %>%
+  select(geo_code1:walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
+
+desire_lines_scenario = bind_rows(
+  desire_lines_scenario %>% mutate(purpose = "commute"),
+  desire_line_town %>% mutate(purpose = "town")
+)
+
+desire_lines_scenario[is.na(desire_lines_scenario)] = 0
 
 # todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 
@@ -504,6 +531,7 @@ if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(desire_lines_scenario, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
+# this will now inevitably include the nearest town centre
 min_flow_map = site_population / 80
 desire_lines_busy = desire_lines_scenario %>% 
   filter(all_base >= min_flow_map)
