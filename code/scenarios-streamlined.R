@@ -148,7 +148,9 @@ routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl 
 routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
 
 # switched to google for now, plan to change it again
-routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = "walking") 
+# osrm is working again
+routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm, cl = cl)
+# routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = "walking") 
 
 # create routes_fast
 routes_fast = routes_fast %>%
@@ -179,6 +181,9 @@ routes_fast_summarised = routes_fast %>%
     )
 routes_fast_summarised = routes_fast_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
+
+routes_fast_summarised = routes_fast_summarised %>% 
+  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
 
 routes_fast = inner_join((routes_fast %>% select(-all_base, -cycle_base, -cycle_godutch)), routes_fast_summarised)
 
@@ -212,6 +217,9 @@ routes_balanced_summarised = routes_balanced %>%
 routes_balanced_summarised = routes_balanced_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
+routes_balanced_summarised = routes_balanced_summarised %>% 
+  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
+
 routes_balanced = inner_join((routes_balanced %>% select(-all_base, -cycle_base, -cycle_godutch)), routes_balanced_summarised)
 
 # quiet routes
@@ -244,11 +252,15 @@ routes_quiet_summarised = routes_quiet %>%
 routes_quiet_summarised = routes_quiet_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
+routes_quiet_summarised = routes_quiet_summarised %>% 
+  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
+
 routes_quiet = inner_join((routes_quiet %>% select(-all_base, -cycle_base, -cycle_godutch)), routes_quiet_summarised)
 
 # Walking routes
 if(is.null(routes_walk$distance)) {
   # change names if routing service used different names
+  # but for google these columns are full of NAs
   routes_walk = routes_walk %>% 
     mutate(distance = distance_m, duration = duration_s)
 }
@@ -283,6 +295,7 @@ town_nearest = town_nearest %>%
   select(town_name = NAME)
 
 # number of trips to the town centre estimated to equal the total number of commuter trips
+# todo: change the godutch so this is calculated instead of assumed
 od_town = data.frame(site_name = site_centroid$site_name, town_name = town_nearest$town_name, all_base = all_commuters_baseline, 
                      walk_base = walk_commuters_baseline, walk_godutch = walk_commuters_godutch,
                      cycle_base = cycle_commuters_baseline, cycle_godutch = cycle_commuters_godutch)
