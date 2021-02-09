@@ -431,9 +431,20 @@ sf::write_sf(obj = obj, dsn = dsn)
 # walking routes
 if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
   # combine commute and town routes
+  routes_walk_cutdown = routes_walk %>%
+    select(geo_code1, geo_code2, distance, duration, all_base, walk_base, walk_godutch, pwalk_godutch)
+  
+  walk_town_cutdown = route_walk_town %>% 
+    mutate(pwalk_godutch = round(walk_godutch / all_base, 6)) %>% 
+    select(geo_code1 = site_name, geo_code2 = town_name, distance, duration, all_base, walk_base, walk_godutch, pwalk_godutch)
+  
+  routes_walk_combined = bind_rows(
+    routes_walk_cutdown %>% mutate(purpose = "commute"),
+    walk_town_cutdown %>% mutate(purpose = "town")
+  )
   
   # create object for rnet and to save (desire lines simply use routes_walk)
-  routes_walk_save = routes_walk %>%
+  routes_walk_save = routes_walk_combined %>%
     select(geo_code1, geo_code2, distance, duration, all_base, walk_base, walk_godutch)
   
   dsn = file.path(data_dir, site_name, "routes-walk.geojson")
