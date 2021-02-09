@@ -123,7 +123,7 @@ data_dictionary_rnet$title = c(
 
 write_csv(data_dictionary_rnet, "data-small/rnet-data-dictionary.csv")
 
-# Routes
+# Routes fast
 rou = read_sf("data-small/chapelford/routes-fast.geojson") %>% 
   st_drop_geometry()
 names = colnames(rou)
@@ -131,27 +131,29 @@ data_dictionary_rou = data.frame(names)
 data_dictionary_rou$description = c(
   "origin MSOA code representing the site",
   "destination MSOA code",
+  "total length of route (m)",
+  "distance weighted mean gradient of route segments",
+  "maximum route segment gradient",
+  "distance weighted mean busyness of route segments",
+  "maximum route segment busyness",
   "all journeys from origin to destination (baseline and Go Dutch scenarios)",
-  "journeys by foot from origin to destination in baseline scenario",
   "journeys by bicycle from origin to destination in baseline scenario",
-  "journeys by car drivers from origin to destination in baseline scenario",
-  "journeys by foot from origin to destination in Go Dutch scenario",
-  "journeys by bicycle from origin to destination in Go Dutch scenario",
-  "journeys by car drivers from origin to destination in Go Dutch scenario"
+  "journeys by bicycle from origin to destination in Go Dutch scenario"
 )
 data_dictionary_rou$title = c(
   "Origin",
   "Destination",
+  "Route length (m)",
+  "Mean gradient",
+  "Maximum gradient", 
+  "Mean road busyness",
+  "Maximum road busyness",
   "All journeys",
-  "Journeys by foot, baseline scenario",
   "Journeys by bicycle, baseline scenario",
-  "Journeys by car drivers, baseline scenario",
-  "Journeys by foot, Go Dutch scenario",
-  "Journeys by bicycle, Go Dutch scenario",
-  "Journeys by car drivers, Go Dutch scenario"
+  "Journeys by bicycle, Go Dutch scenario"
 )
 
-write_csv(data_dictionary_rou, "data-small/routes-data-dictionary.csv")
+write_csv(data_dictionary_rou, "data-small/routes-fast-data-dictionary.csv")
 
 # OD csv
 od = read_csv("data-small/great-kneighton/all-census-od.csv") %>% 

@@ -297,7 +297,9 @@ route_fast_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets:
 route_balanced_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey, plan = "balanced")
 route_quiet_town = stplanr::route(l = desire_line_town, route_fun = cyclestreets::journey, plan = "quietest")
 # working again for a single route:
-route_walk_town = stplanr::route(l = desire_line_town, route_fun = stplanr::route_osrm)
+if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
+  route_walk_town = stplanr::route(l = desire_line_town, route_fun = stplanr::route_osrm)
+}
 
 fast_town = route_fast_town %>% 
   mutate(
@@ -417,9 +419,11 @@ if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
 # walking routes
-dsn = file.path(data_dir, site_name, "routes-walk.geojson")
-if(file.exists(dsn)) file.remove(dsn)
-sf::write_sf(routes_walk_save, dsn = dsn)
+if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
+  dsn = file.path(data_dir, site_name, "routes-walk.geojson")
+  if(file.exists(dsn)) file.remove(dsn)
+  sf::write_sf(routes_walk_save, dsn = dsn)
+}
 
 # Route networks ----------------------------------------------------------
 rnet_fast = overline(routes_fast_combined, attrib = c("cycle_base", "cycle_godutch", "busyness", "gradient_smooth"), fun = c(sum, mean))
@@ -454,24 +458,26 @@ dsn = file.path(data_dir, site_name, "rnet-quiet.geojson")
 if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(rnet_quiet, dsn = dsn)
 
-# r_walk_grouped_lines = routes_walk_save %>% st_cast("LINESTRING") #is this needed?
-rnet_walk = overline(routes_walk_save, attrib = c("walk_base", "walk_godutch", "duration"), fun = c(sum, mean))
-rnet_walk = rnet_walk %>% 
-  select(walk_base = walk_base_fn1, walk_godutch = walk_godutch_fn1, duration = duration_fn2)
-
-dsn = file.path(data_dir, site_name, "rnet-walk.geojson")
-if(file.exists(dsn)) file.remove(dsn)
-sf::write_sf(rnet_walk, dsn = dsn)
+if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
+  # r_walk_grouped_lines = routes_walk_save %>% st_cast("LINESTRING") #is this needed?
+  rnet_walk = overline(routes_walk_save, attrib = c("walk_base", "walk_godutch", "duration"), fun = c(sum, mean))
+  rnet_walk = rnet_walk %>% 
+    select(walk_base = walk_base_fn1, walk_godutch = walk_godutch_fn1, duration = duration_fn2)
+  dsn = file.path(data_dir, site_name, "rnet-walk.geojson")
+  if(file.exists(dsn)) file.remove(dsn)
+  sf::write_sf(rnet_walk, dsn = dsn)
+}
 
 # Go Dutch scenario for desire lines -------------------------------------
 join_fast = routes_fast_des %>% 
   st_drop_geometry() %>% 
   select(geo_code2, cycle_godutch, pcycle_godutch)
-desire_lines_scenario = inner_join(desire_lines_many, join_fast, by = "geo_code2")
+desire_lines_scenario = left_join(desire_lines_many, join_fast, by = "geo_code2")
+
 join_walk = routes_walk %>% 
   st_drop_geometry() %>% 
   select(geo_code2, walk_godutch, pwalk_godutch)
-desire_lines_scenario = inner_join(desire_lines_scenario, join_walk, by = "geo_code2")
+desire_lines_scenario = left_join(desire_lines_scenario, join_walk, by = "geo_code2")
 
 # todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 

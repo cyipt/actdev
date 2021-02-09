@@ -37,7 +37,7 @@ u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
 sites = sf::st_read(u)
 st_precision(sites) = 1000000
 
-# 2011 MSOA populations - should it be a later year?
+# 2011 MSOA populations (year matches census commute data)
 u2 = "https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2011/mid2011msoaunformattedfile.xls"
 f = "data/mid2011msoaunformattedfile.xls"
 if(!file.exists(f)) {
@@ -63,9 +63,11 @@ site_pops = sites %>%
 #   st_transform(4326)
 # sf::write_sf(town_centres, "town_centres.geojson")
 # piggyback::pb_upload("town_centres.geojson")
+# piggyback::pb_download("town_centres.geojson", tag = "0.1.2")
 
 # sf::write_sf(town_centroids, "town_centroids.geojson")
 # piggyback::pb_upload("town_centroids.geojson")
+# piggyback::pb_download("town_centroids.geojson", tag = "0.1.2")
 town_centroids = sf::read_sf("town_centroids.geojson")
 
 # jts data - SLOW
@@ -82,7 +84,7 @@ for(i in all_jts_tables){
 
 # build for all site names
 set.seed(2021)
-site_names_to_builb = c(
+site_names_to_build = c(
   # sites %>% 
   #  sample_n(size = 5) %>%
   #  pull(site_name),
@@ -96,7 +98,7 @@ site_names_to_builb = c(
 data_dir = "data-small" # for test sites
 dir.create(data_dir)
 # note: fails for kidbrooke-village and long-marston
-for(site_name in site_names_to_builb) {
+for(site_name in site_names_to_build) {
   source("code/scenarios-streamlined.R")
 }
 
