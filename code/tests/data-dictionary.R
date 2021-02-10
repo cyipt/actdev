@@ -5,28 +5,6 @@
 library(sf)
 library(tidyverse)
 
-file_dic = read_csv("data-small/filename-dictionary.csv")
-file_dic$filename = c(
- "all-census-od.csv",
- "desire-lines-few.geojson",
- "desire-lines-many.geojson",
- "jts-lsoas.geojson",
- "large-study-area.geojson",
- "mode-split.csv",
- "rnet-balanced.geojson",
- "rnet-fast.geojson",
- "rnet-quiet.geojson",
- "rnet-walk.geojson",
- "routes-balanced.geojson",
- "routes-fast.geojson",
- "routes-quiet.geojson",
- "routes-walk.geojson",
- "site.geojson",
- "small-study-area.geojson"
-)
-file_dic$title = c()
-file_dic$description = c()
-
 jts = read_sf("data-small/great-kneighton/site.geojson") %>% 
   st_drop_geometry()
 names = colnames(jts)
