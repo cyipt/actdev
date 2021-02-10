@@ -1,2 +1,17 @@
 filename,title,description
-all-census-od.csv,All Census Commute Origin-destination data,Travel to work patterns of people living in the surrounding area.
+all-census-od.csv,All Census Commute Origin-destination data,Travel to work patterns of people living in the same MSOA(s) as the site in 2011
+desire-lines-few.geojson,Desire lines within the local area,Desire lines for all purposes to MSOAs within the small study area
+desire-lines-many.geojson,Desire lines within a wider area,Desire lines for all purposes to MSOAs within the large study area
+jts-lsoas.geojson,Accessibility stats for the surrounding area,JTS statistics for all LSOAs within the large study area
+large-study-area.geojson,The wider catchment,Area defined using all desire lines with at least 10 commuters that are less than 20km in length
+mode-split.csv,Breakdown of commute modes and distances,Commute OD data from all-census-od.csv assigned to distance categories
+rnet-balanced.geojson,Balanced cycle route network,Segment level data using CycleStreets balanced algorithm   
+rnet-fast.geojson,Fast cycle route network,Segment level data using CycleStreets fast algorithm   
+rnet-quiet.geojson,Quiet cycle route network,Segment level data using CycleStreets quiet algorithm   
+rnet-walk.geojson,Walking route network,Segment level data using OSRM algorithm   
+routes-balanced.geojson,Balanced cycle routes,Whole route level data using CycleStreets balanced algorithm
+routes-fast.geojson,Fast cycle routes,Whole route level data using CycleStreets fast algorithm
+routes-quiet.geojson,Quiet cycle routes,Whole route level data using CycleStreets quiet algorithm
+routes-walk.geojson,Walking routes,Whole route level data using OSRM algorithm
+site.geojson,Development site data,Site boundaries; name; number of dwellings and mean JTS statistics of all MSOAs within the site
+small-study-area.geojson,The local area,Area defined using all desire lines with flow >= site population / 80
