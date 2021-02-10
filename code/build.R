@@ -102,4 +102,8 @@ for(site_name in site_names_to_build) {
   source("code/scenarios-streamlined.R")
 }
 
+# Add json files for abstreet
+
+
+
 zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")
