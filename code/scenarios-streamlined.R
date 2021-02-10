@@ -150,6 +150,7 @@ routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = c
 # switched to google for now, plan to change it again
 # osrm is working again
 routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm, cl = cl)
+# sf::write_sf(routes_walk, "routes_walk.geojson") #save it just in case, to avoid repeatedly calling API
 # routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = "walking") 
 
 # create routes_fast
@@ -366,12 +367,12 @@ routes_fast_combined = bind_rows(
   )
 
 routes_fast_entire = routes_fast_combined %>% 
-  group_by(geo_code1, geo_code2, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
+  group_by(geo_code1, geo_code2, purpose, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
   summarise() %>% 
   arrange(cycle_base)
 
-routes_fast_des = routes_fast_entire %>% 
-  select(geo_code2, cycle_godutch, pcycle_godutch)
+# routes_fast_des = routes_fast_entire %>% 
+#   select(geo_code2, purpose, cycle_godutch, pcycle_godutch)
 
 dsn = file.path(data_dir, site_name, "routes-fast.geojson")
 obj = routes_fast_entire %>%  select(-pcycle_godutch)
@@ -391,12 +392,12 @@ routes_balanced_combined = bind_rows(
 )
 
 routes_balanced_entire = routes_balanced_combined %>% 
-  group_by(geo_code1, geo_code2, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
+  group_by(geo_code1, geo_code2, purpose, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
   summarise() %>% 
   arrange(cycle_base)
 
-routes_balanced_des = routes_balanced_entire %>% 
-  select(geo_code2, cycle_godutch, pcycle_godutch)
+# routes_balanced_des = routes_balanced_entire %>% 
+#   select(geo_code2, cycle_godutch, pcycle_godutch)
 
 dsn = file.path(data_dir, site_name, "routes-balanced.geojson")
 obj = routes_balanced_entire %>%  select(-pcycle_godutch)
@@ -416,12 +417,12 @@ routes_quiet_combined = bind_rows(
 )
 
 routes_quiet_entire = routes_quiet_combined %>% 
-  group_by(geo_code1, geo_code2, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
+  group_by(geo_code1, geo_code2, purpose, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
   summarise() %>% 
   arrange(cycle_base)
 
-routes_quiet_des = routes_quiet_entire %>% 
-  select(geo_code2, cycle_godutch, pcycle_godutch)
+# routes_quiet_des = routes_quiet_entire %>% 
+#   select(geo_code2, cycle_godutch, pcycle_godutch)
 
 dsn = file.path(data_dir, site_name, "routes-quiet.geojson")
 obj = routes_quiet_entire %>%  select(-pcycle_godutch)
@@ -445,7 +446,7 @@ if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
   
   # create object for rnet and to save (desire lines simply use routes_walk)
   routes_walk_save = routes_walk_combined %>%
-    select(geo_code1, geo_code2, distance, duration, all_base, walk_base, walk_godutch)
+    select(geo_code1, geo_code2, purpose, distance, duration, all_base, walk_base, walk_godutch)
   
   dsn = file.path(data_dir, site_name, "routes-walk.geojson")
   if(file.exists(dsn)) file.remove(dsn)
@@ -498,34 +499,35 @@ if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
 # Go Dutch scenario for desire lines -------------------------------------
 
 # get the go dutch flows for cycle and walk commutes
-join_fast = routes_fast_des %>% 
-  st_drop_geometry() %>% 
-  select(geo_code2, cycle_godutch, pcycle_godutch)
+join_fast = routes_fast_entire %>% 
+  select(geo_code2, purpose, cycle_godutch, pcycle_godutch) %>% 
+  st_drop_geometry()
 desire_lines_scenario = left_join(desire_lines_many, join_fast, by = "geo_code2")
 
-join_walk = routes_walk %>% 
+join_walk = routes_walk_combined %>% 
   st_drop_geometry() %>% 
   select(geo_code2, walk_godutch, pwalk_godutch)
 desire_lines_scenario = left_join(desire_lines_scenario, join_walk, by = "geo_code2")
 
 desire_lines_scenario = desire_lines_scenario %>% 
-  select(geo_code1:length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
+  select(geo_code1, geo_code2, purpose, all_base:length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
 drive_commuters_baseline = sum(desire_lines_scenario$drive_base)
 
 # add in a desire line to the town centre
 desire_line_town = desire_line_town %>%
   mutate(
+    purpose = "town",
     drive_base = drive_commuters_baseline,
     length = stplanr::geo_length(desire_line_town),
     pwalk_godutch = walk_godutch / all_base,
     pcycle_godutch = cycle_godutch / all_base) %>% 
   rename(geo_code1 = site_name, geo_code2 = town_name) %>%
-  select(geo_code1:walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
+  select(geo_code1, geo_code2, purpose, all_base, walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
 desire_lines_scenario = bind_rows(
-  desire_lines_scenario %>% mutate(purpose = "commute"),
-  desire_line_town %>% mutate(purpose = "town")
+  desire_lines_scenario,
+  desire_line_town
 )
 
 desire_lines_scenario[is.na(desire_lines_scenario)] = 0
@@ -545,7 +547,7 @@ desire_lines_scenario = desire_lines_scenario %>%
     # pdrive_godutch = drive_godutch / all_base
     ) %>%
   select(
-    geo_code1:drive_base, walk_godutch, cycle_godutch, drive_godutch
+    geo_code1:purpose, length, all_base:drive_base, walk_godutch, cycle_godutch, drive_godutch
     # , pwalk_base:pdrive_base, pwalk_godutch, pcycle_godutch, pdrive_godutch
     ) #%>% 
   # mutate(across(pwalk_base:pdrive_godutch, round, 6))

@@ -1,6 +1,7 @@
 library(sf)
+library(tidyverse)
 
-jts = read_sf("data-small/chapelford/site.geojson") %>% 
+jts = read_sf("data-small/great-kneighton/site.geojson") %>% 
   st_drop_geometry()
 names = colnames(jts)
 data_dictionary = data.frame(names)
@@ -64,7 +65,7 @@ data_dictionary$title = c(
 write_csv(data_dictionary, "data-small/site-data-dictionary.csv")
 
 # Desire lines
-des = read_sf("data-small/chapelford/desire-lines-many.geojson") %>% 
+des = read_sf("data-small/great-kneighton/desire-lines-many.geojson") %>% 
   st_drop_geometry()
 names = colnames(des)
 data_dictionary_des = data.frame(names)
@@ -124,7 +125,7 @@ data_dictionary_rnet$title = c(
 write_csv(data_dictionary_rnet, "data-small/rnet-data-dictionary.csv")
 
 # Routes fast
-rou = read_sf("data-small/chapelford/routes-fast.geojson") %>% 
+rou = read_sf("data-small/great-kneighton/routes-fast.geojson") %>% 
   st_drop_geometry()
 names = colnames(rou)
 data_dictionary_rou = data.frame(names)

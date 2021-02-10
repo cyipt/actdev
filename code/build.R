@@ -59,16 +59,23 @@ site_pops = sites %>%
 # st_transform(town_centres, 4326)
 # st_precision(town_centres) = 1000000
 # town_centroids = town_centres %>%
-#   st_drop_geometry() %>% 
+#   st_drop_geometry() %>%
 #   sf::st_as_sf(coords = c("CENTROIDX", "CENTROIDY"), crs = 27700) %>%
 #   st_transform(4326)
+
+# dsn = "town_centroids.geojson"
+# file.remove(dsn)
+# sf::write_sf(town_centroids, "town_centroids.geojson")
+# piggyback::pb_upload("town_centroids.geojson", tag = "0.1.2")
+# piggyback::pb_download("town_centroids.geojson", tag = "0.1.2")
+
+# dsn = "town_centres.geojson"
+# file.remove(dsn)
 # sf::write_sf(town_centres, "town_centres.geojson")
 # piggyback::pb_upload("town_centres.geojson")
 # piggyback::pb_download("town_centres.geojson", tag = "0.1.2")
-# sf::write_sf(town_centroids, "town_centroids.geojson")
-# piggyback::pb_upload("town_centroids.geojson")
-# piggyback::pb_download("town_centroids.geojson", tag = "0.1.2")
-# town_centroids = sf::read_sf("town_centroids.geojson")
+
+town_centroids = sf::read_sf("town_centroids.geojson")
 
 # jts data - SLOW
 all_jts_tables = paste0("jts050", 1:8)
