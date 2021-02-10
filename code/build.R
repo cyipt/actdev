@@ -102,8 +102,13 @@ for(site_name in site_names_to_build) {
   source("code/scenarios-streamlined.R")
 }
 
+# zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")
+
 # Add json files for abstreet
-
-
-
-zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")
+site_directories = list.dirs(data_dir)[-1]
+site_names = gsub(pattern = "data-small/", replacement = "", x = site_directories)
+i = 1
+for(i in seq(length(site_directories))) {
+  site_name = site_names[i]
+  source("code/abstr-scenarios.R")
+}
