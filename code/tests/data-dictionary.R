@@ -1,3 +1,7 @@
+# Note: this script was used to update the data dictionary files
+# Now after they were created with this script the csv files will be updated directly
+# to contribute without needing to use R
+
 library(sf)
 library(tidyverse)
 
