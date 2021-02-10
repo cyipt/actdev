@@ -1,0 +1,5 @@
+names,description,title
+cycle_base,journeys by bicycle along route segment in baseline scenario,"Journeys by bicycle, baseline scenario"
+cycle_godutch,journeys by bicycle along route segment in Go Dutch scenario,"Journeys by bicycle, Go Dutch scenario"
+busyness,busyness of route segment,Road busyness
+gradient,smoothed gradient of route segment,Gradient

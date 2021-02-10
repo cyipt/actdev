@@ -1,0 +1,4 @@
+names,description,title
+walk_base,journeys by foot along route segment in baseline scenario,"Journeys by foot, baseline scenario"
+walk_godutch,journeys by foot along route segment in Go Dutch scenario,"Journeys by foot, Go Dutch scenario"
+duration,time taken to walk length of route segment,Time taken
