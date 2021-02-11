@@ -8,7 +8,7 @@ library(stplanr)
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 if(is.null(site_name)) { # assume all presets loaded if site_name exists
-  site_name = "chapelford"   # which site to look at (can change)
+  site_name = "lcid"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   max_length = 20000 # maximum length of desire lines in m
   household_size = 2.3 # mean UK household size at 2011 census
@@ -152,6 +152,10 @@ obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length)
 routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl)
 routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "balanced")
 routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
+# save as Rds files for future references, e.g. for dartboard, but not for app:
+saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
+saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
+saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
 
 # switched to google for now, plan to change it again
 # osrm is working again
@@ -766,4 +770,3 @@ st_precision(lsoas_all) = 1000000
 dsn = file.path(data_dir, site_name, "jts-lsoas.geojson")
 if(file.exists(dsn)) file.remove(dsn)
 write_sf(lsoas_all, dsn = dsn)
-
