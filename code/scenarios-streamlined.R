@@ -179,8 +179,9 @@ routes_fast = routes_fast %>%
   ungroup() %>% 
   mutate(
     pcycle_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
-    cycle_godutch = pcycle_godutch * drive_base,
-    drive_godutch = drive_base - cycle_godutch, # ensure totals add up
+    cycle_godutch_additional = pcycle_godutch * drive_base,
+    cycle_godutch = cycle_base + cycle_godutch_additional,
+    drive_godutch = drive_base - cycle_godutch_additional, # ensure totals add up
     across(c(mean_gradient, max_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_godutch), round, 6)
   )
 
@@ -196,6 +197,7 @@ routes_fast_summarised = routes_fast %>%
     )
 routes_fast_summarised = routes_fast_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
+# sanity check
 
 routes_fast_summarised = routes_fast_summarised %>% 
   filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
@@ -234,7 +236,7 @@ routes_balanced_summarised = routes_balanced_summarised %>%
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
 routes_balanced_summarised = routes_balanced_summarised %>% 
-  filter(cycle_base > 0 & cycle_godutch > 0) # remove routes with no cyclists under Go Dutch
+  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists under Go Dutch
 
 routes_balanced = inner_join((routes_balanced %>% select(-all_base, -trimode_base, -cycle_base, -cycle_godutch)), routes_balanced_summarised)
 
@@ -286,6 +288,8 @@ routes_walk_save = routes_walk_save %>%
   mutate(
     # pwalk_base = walk_base / trimode_base,
     pwalk_godutch = case_when(	
+      distance <= 2000 ~ pwalk_base + 0.3, # 10% shift walking for routes >3km
+      distance <= 2500 ~ pwalk_base + 0.2, # 10% shift walking for routes >3km
       distance <= 3000 ~ pwalk_base + 0.1, # 10% shift walking for routes >3km
       distance <= 6000 ~ pwalk_base + 0.05, # 5% shift walking for routes 3-6km	
       TRUE ~ pwalk_base),
@@ -526,7 +530,7 @@ if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
 join_fast = routes_fast_entire %>% 
   select(geo_code2, purpose, cycle_godutch, pcycle_godutch) %>% 
   st_drop_geometry()
-desire_lines_scenario = left_join(desire_lines_many, join_fast, by = "geo_code2")
+desire_lines_scenario = inner_join(desire_lines_many, join_fast, by = "geo_code2")
 
 join_walk = routes_walk_combined %>% 
   st_drop_geometry() %>% 
@@ -536,6 +540,7 @@ desire_lines_scenario = left_join(desire_lines_scenario, join_walk, by = "geo_co
 desire_lines_scenario = desire_lines_scenario %>% 
   select(geo_code1, geo_code2, purpose, all_base:length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
+# same number to town as commute - simplifying assumption
 drive_commuters_baseline = sum(desire_lines_scenario$drive_base)
 
 # add in a desire line to the town centre
@@ -559,25 +564,20 @@ desire_lines_scenario = bind_rows(
 desire_lines_scenario$purpose[is.na(desire_lines_scenario$purpose)] = "commute"
 desire_lines_scenario[is.na(desire_lines_scenario)] = 0
 
-# todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 
   mutate(
-    drive_godutch = case_when(
-      drive_base + (cycle_base - cycle_godutch) + (walk_base - walk_godutch) >= 0 ~ 
-        drive_base + (cycle_base - cycle_godutch) + (walk_base - walk_godutch),
-      TRUE ~ 0
-    )
-    # ,
-    # pwalk_base = walk_base / trimode_base,
-    # pcycle_base = cycle_base / trimode_base,
-    # pdrive_base = drive_base / trimode_base,
-    # pdrive_godutch = drive_godutch / trimode_base
+    trimode_base = walk_base + cycle_base + drive_base,
+    drive_godutch = trimode_base - (cycle_godutch + walk_godutch)
     ) %>%
   select(
     geo_code1:purpose, length, all_base:drive_base, walk_godutch, cycle_godutch, drive_godutch
-    # , pwalk_base:pdrive_base, pwalk_godutch, pcycle_godutch, pdrive_godutch
-    ) #%>% 
-  # mutate(across(pwalk_base:pdrive_godutch, round, 6))
+    ) 
+
+# # sanity checking...
+# sum(desire_lines_scenario$trimode_base)
+# rowSums(desire_lines_scenario %>% select(walk_base:drive_base) %>% sf::st_drop_geometry())
+# sum(.Last.value)
+# rowSums(desire_lines_scenario %>% select(walk_godutch:drive_godutch) %>% sf::st_drop_geometry())
 
 dsn = file.path(data_dir, site_name, "desire-lines-many.geojson")
 if(file.exists(dsn)) file.remove(dsn)

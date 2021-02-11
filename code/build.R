@@ -15,8 +15,11 @@ site_names_to_build = c(
     pull(site_name)
 )
 
-site_names_to_build = "great-kneighton"
+# site_names_to_build = "great-kneighton"
 # site_names_to_build = "kidbrooke-village"
+site_names_to_build = sites %>% 
+  filter(!str_detect(string = site_name, pattern = "aylesham")) %>% 
+  pull(site_name)
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
 # note: fails for kidbrooke-village and long-marston
