@@ -48,6 +48,17 @@ buildings_in_zones = buildings_in_zones %>%
   filter(!is.na(osm_way_id)) %>%
   select(osm_way_id, building)
 
+n_buildings_per_zone = aggregate(buildings_in_zones, zones_of_interest, FUN = "length")
+if(anyNA(n_buildings_per_zone$osm_way_id)) {
+  zones_lacking_buildings = which(is.na(n_buildings_per_zone$osm_way_id))
+  new_buildings = sf::st_sample(zones_of_interest[zones_lacking_buildings, ], size = 5 * length(zones_lacking_buildings))
+  new_buildings = sf::st_sf(
+    data.frame(osm_way_id = rep(NA, length(new_buildings)), building = NA),
+    geometry = stplanr::geo_buffer(new_buildings, dist = 20, nQuadSegs = 1)
+  )
+  buildings_in_zones = rbind(buildings_in_zones, new_buildings)
+}
+
 osm_polygons_in_site = osm_polygons[site_area, , op = sf::st_within]
 houses = osm_polygons_in_site %>%
   filter(building == "residential") %>% 

@@ -101,9 +101,10 @@ site_names_to_build = c(
     pull(site_name)
 )
 
-
+site_names_to_build = "great-kneighton"
+# site_names_to_build = "kidbrooke-village"
 data_dir = "data-small" # for test sites
-dir.create(data_dir)
+# dir.create(data_dir)
 # note: fails for kidbrooke-village and long-marston
 for(site_name in site_names_to_build) {
   source("code/scenarios-streamlined.R")
