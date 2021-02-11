@@ -173,13 +173,14 @@ routes_fast = routes_fast %>%
     n = n(), #could remove
     mean_gradient = weighted.mean(gradient_smooth, distances),
     max_gradient = max(gradient_smooth),
-    mean_busyness = weighted.mean(busyness, distances),
+    mean_busyness = weighted.mean(busyness, distances), 
     max_busyness = max(busyness)
   ) %>%
   ungroup() %>% 
   mutate(
     pcycle_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
-    cycle_godutch = pcycle_godutch * trimode_base,
+    cycle_godutch = pcycle_godutch * drive_base,
+    drive_godutch = drive_base - cycle_godutch, # ensure totals add up
     across(c(mean_gradient, max_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_godutch), round, 6)
   )
 
@@ -233,7 +234,7 @@ routes_balanced_summarised = routes_balanced_summarised %>%
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
 routes_balanced_summarised = routes_balanced_summarised %>% 
-  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
+  filter(cycle_base > 0 & cycle_godutch > 0) # remove routes with no cyclists under Go Dutch
 
 routes_balanced = inner_join((routes_balanced %>% select(-all_base, -trimode_base, -cycle_base, -cycle_godutch)), routes_balanced_summarised)
 
@@ -544,7 +545,9 @@ desire_line_town = desire_line_town %>%
     drive_base = drive_commuters_baseline,
     length = stplanr::geo_length(desire_line_town),
     pwalk_godutch = walk_godutch / trimode_base,
-    pcycle_godutch = cycle_godutch / trimode_base) %>% 
+    pcycle_godutch = cycle_godutch / trimode_base
+    
+    ) %>% 
   rename(geo_code1 = site_name, geo_code2 = town_name) %>%
   select(geo_code1, geo_code2, purpose, all_base, trimode_base, walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
@@ -770,3 +773,11 @@ st_precision(lsoas_all) = 1000000
 dsn = file.path(data_dir, site_name, "jts-lsoas.geojson")
 if(file.exists(dsn)) file.remove(dsn)
 write_sf(lsoas_all, dsn = dsn)
+
+# # check scenarios add up
+# setwd("~/cyipt/actdev/")
+# desire_lines = sf::read_sf("data-small/lcid/desire-lines-few.geojson")
+# desire_lines_df = sf::st_drop_geometry(desire_lines)
+# names(desire_lines_df)
+# rowSums(desire_lines_df[7:9])
+# rowSums(desire_lines_df[10:12])
