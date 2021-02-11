@@ -17,10 +17,9 @@ if(is.null(site_name)) { # assume all presets loaded if site_name exists
   large_area_buffer = 500
 }
 
-
 if(!exists("centroids_msoa")) {
   # run the build script if national data is missing
-  source("code/build.R")
+  source("code/build-setup.R")
 }
 
 # Select site of interest -------------------------------------------------
