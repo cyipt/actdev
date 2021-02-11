@@ -34,7 +34,7 @@ routes_summary = routes_fast %>%
 source("code/tests/color_palette.R")
 actdev_palette1_5 = function(n = 5) actdev_palette1(n = n)
 
-brks = c(1, 2, 3, 10)
+brks = c(1, 1.5, 2, 3, 10)
 routes_summary %>% 
   ggplot(aes(distance_band, n, fill = busyness)) +
   geom_bar(stat = "identity") +
