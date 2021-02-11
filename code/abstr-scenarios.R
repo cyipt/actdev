@@ -6,7 +6,7 @@ remotes::install_github("ITSLeeds/pct")
 remotes::install_github("a-b-street/abstr")
 library(dplyr)
 
-if(!exists("site_name")) site_name = "chapelford"
+if(!exists("site_name")) site_name = "allerton-bywater"
 sites = sf::read_sf("data-small/all-sites.geojson")
 site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
@@ -17,6 +17,12 @@ desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))
 study_area = sf::read_sf(file.path(path, "small-study-area.geojson"))
 # buildings = osmextract::oe_get(study_area, layer = "multipolygons")
 osm_polygons = osmextract::oe_get(sf::st_centroid(study_area), layer = "multipolygons")
+
+# sanity check scenario data
+class(desire_lines)
+sum(desire_lines$trimode_base)
+sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
+sum(desire_lines$walk_godutch, desire_lines$cycle_godutch, desire_lines$drive_godutch)
 
 building_types = c(
   "office",
@@ -30,7 +36,6 @@ building_types = c(
 osm_buildigs = osm_polygons %>%
   filter(building %in% building_types)
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
-zones = pct::get_pct_zones(pct_zone$region_name)
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
 zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
 buildings_in_zones = osm_buildigs[zones_of_interest, , op = sf::st_within]
@@ -49,8 +54,9 @@ buildings_in_zones = buildings_in_zones %>%
   select(osm_way_id, building)
 
 n_buildings_per_zone = aggregate(buildings_in_zones, zones_of_interest, FUN = "length")
-if(anyNA(n_buildings_per_zone$osm_way_id)) {
-  zones_lacking_buildings = which(is.na(n_buildings_per_zone$osm_way_id))
+mbz = 5
+zones_lacking_buildings = n_buildings_per_zone$osm_way_id < mbz
+if(any(zones_lacking_buildings)) {
   new_buildings = sf::st_sample(zones_of_interest[zones_lacking_buildings, ], size = 5 * length(zones_lacking_buildings))
   new_buildings = sf::st_sf(
     data.frame(osm_way_id = rep(NA, length(new_buildings)), building = NA),
@@ -89,6 +95,15 @@ if(exists("procgen_houses")) {
   houses = rbind(houses, procgen_osm)
 }
 
-abstr_list = abstr::ab_scenario(houses, buildings = buildings_in_zones, desire_lines = desire_lines, zones = zones_of_interest, output_format = "json_list")
+desire_lines$all_base = desire_lines$trimode_base
+
+abstr_list = ab_scenario(
+  houses,
+  buildings = buildings_in_zones,
+  desire_lines = desire_lines %>% slice(-n()),
+  zones = zones_of_interest,
+  scenario = "godutch",
+  output_format = "json_list"
+)
 abstr::ab_save(abstr_list, file.path(path, "scenario.json"))
 # file.edit(file.path(path, "scenario.json"))
