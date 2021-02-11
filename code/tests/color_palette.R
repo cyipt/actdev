@@ -1,4 +1,4 @@
-function (n, h = c(0, -100), c = c(80, NA, 40), l = c(40, 75), 
+actdev_palette1 = function (n, h = c(0, -100), c = c(80, NA, 40), l = c(40, 75), 
     power = c(1, 1), gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, 
     rev = FALSE, register = NULL, ..., h1, h2, c1, c2, l1, l2, 
     p1, p2, cmax, c.) 

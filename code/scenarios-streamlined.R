@@ -8,7 +8,7 @@ library(stplanr)
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 if(is.null(site_name)) { # assume all presets loaded if site_name exists
-  site_name = "chapelford"   # which site to look at (can change)
+  site_name = "lcid"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   max_length = 20000 # maximum length of desire lines in m
   household_size = 2.3 # mean UK household size at 2011 census
@@ -17,10 +17,9 @@ if(is.null(site_name)) { # assume all presets loaded if site_name exists
   large_area_buffer = 500
 }
 
-
 if(!exists("centroids_msoa")) {
   # run the build script if national data is missing
-  source("code/build.R")
+  source("code/build-setup.R")
 }
 
 # Select site of interest -------------------------------------------------
@@ -153,6 +152,10 @@ obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length)
 routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl)
 routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "balanced")
 routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
+# save as Rds files for future references, e.g. for dartboard, but not for app:
+saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
+saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
+saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
 
 # switched to google for now, plan to change it again
 # osrm is working again
@@ -170,13 +173,15 @@ routes_fast = routes_fast %>%
     n = n(), #could remove
     mean_gradient = weighted.mean(gradient_smooth, distances),
     max_gradient = max(gradient_smooth),
-    mean_busyness = weighted.mean(busyness, distances),
+    mean_busyness = weighted.mean(busyness, distances), 
     max_busyness = max(busyness)
   ) %>%
   ungroup() %>% 
   mutate(
     pcycle_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
-    cycle_godutch = pcycle_godutch * trimode_base,
+    cycle_godutch_additional = pcycle_godutch * drive_base,
+    cycle_godutch = cycle_base + cycle_godutch_additional,
+    drive_godutch = drive_base - cycle_godutch_additional, # ensure totals add up
     across(c(mean_gradient, max_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_godutch), round, 6)
   )
 
@@ -192,6 +197,7 @@ routes_fast_summarised = routes_fast %>%
     )
 routes_fast_summarised = routes_fast_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
+# sanity check
 
 routes_fast_summarised = routes_fast_summarised %>% 
   filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
@@ -230,7 +236,7 @@ routes_balanced_summarised = routes_balanced_summarised %>%
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
 routes_balanced_summarised = routes_balanced_summarised %>% 
-  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
+  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists under Go Dutch
 
 routes_balanced = inner_join((routes_balanced %>% select(-all_base, -trimode_base, -cycle_base, -cycle_godutch)), routes_balanced_summarised)
 
@@ -282,6 +288,8 @@ routes_walk_save = routes_walk_save %>%
   mutate(
     # pwalk_base = walk_base / trimode_base,
     pwalk_godutch = case_when(	
+      distance <= 2000 ~ pwalk_base + 0.3, # 10% shift walking for routes >3km
+      distance <= 2500 ~ pwalk_base + 0.2, # 10% shift walking for routes >3km
       distance <= 3000 ~ pwalk_base + 0.1, # 10% shift walking for routes >3km
       distance <= 6000 ~ pwalk_base + 0.05, # 5% shift walking for routes 3-6km	
       TRUE ~ pwalk_base),
@@ -522,7 +530,7 @@ if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
 join_fast = routes_fast_entire %>% 
   select(geo_code2, purpose, cycle_godutch, pcycle_godutch) %>% 
   st_drop_geometry()
-desire_lines_scenario = left_join(desire_lines_many, join_fast, by = "geo_code2")
+desire_lines_scenario = inner_join(desire_lines_many, join_fast, by = "geo_code2")
 
 join_walk = routes_walk_combined %>% 
   st_drop_geometry() %>% 
@@ -532,6 +540,7 @@ desire_lines_scenario = left_join(desire_lines_scenario, join_walk, by = "geo_co
 desire_lines_scenario = desire_lines_scenario %>% 
   select(geo_code1, geo_code2, purpose, all_base:length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
+# same number to town as commute - simplifying assumption
 drive_commuters_baseline = sum(desire_lines_scenario$drive_base)
 
 # add in a desire line to the town centre
@@ -541,7 +550,9 @@ desire_line_town = desire_line_town %>%
     drive_base = drive_commuters_baseline,
     length = stplanr::geo_length(desire_line_town),
     pwalk_godutch = walk_godutch / trimode_base,
-    pcycle_godutch = cycle_godutch / trimode_base) %>% 
+    pcycle_godutch = cycle_godutch / trimode_base
+    
+    ) %>% 
   rename(geo_code1 = site_name, geo_code2 = town_name) %>%
   select(geo_code1, geo_code2, purpose, all_base, trimode_base, walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
@@ -553,25 +564,20 @@ desire_lines_scenario = bind_rows(
 desire_lines_scenario$purpose[is.na(desire_lines_scenario$purpose)] = "commute"
 desire_lines_scenario[is.na(desire_lines_scenario)] = 0
 
-# todo: estimate which proportion of the new walkers/cyclists in the go dutch scenarios would switch from driving, and which proportion would switch from other modes
 desire_lines_scenario = desire_lines_scenario %>% 
   mutate(
-    drive_godutch = case_when(
-      drive_base + (cycle_base - cycle_godutch) + (walk_base - walk_godutch) >= 0 ~ 
-        drive_base + (cycle_base - cycle_godutch) + (walk_base - walk_godutch),
-      TRUE ~ 0
-    )
-    # ,
-    # pwalk_base = walk_base / trimode_base,
-    # pcycle_base = cycle_base / trimode_base,
-    # pdrive_base = drive_base / trimode_base,
-    # pdrive_godutch = drive_godutch / trimode_base
+    trimode_base = walk_base + cycle_base + drive_base,
+    drive_godutch = trimode_base - (cycle_godutch + walk_godutch)
     ) %>%
   select(
     geo_code1:purpose, length, all_base:drive_base, walk_godutch, cycle_godutch, drive_godutch
-    # , pwalk_base:pdrive_base, pwalk_godutch, pcycle_godutch, pdrive_godutch
-    ) #%>% 
-  # mutate(across(pwalk_base:pdrive_godutch, round, 6))
+    ) 
+
+# # sanity checking...
+# sum(desire_lines_scenario$trimode_base)
+# rowSums(desire_lines_scenario %>% select(walk_base:drive_base) %>% sf::st_drop_geometry())
+# sum(.Last.value)
+# rowSums(desire_lines_scenario %>% select(walk_godutch:drive_godutch) %>% sf::st_drop_geometry())
 
 dsn = file.path(data_dir, site_name, "desire-lines-many.geojson")
 if(file.exists(dsn)) file.remove(dsn)
@@ -768,3 +774,10 @@ dsn = file.path(data_dir, site_name, "jts-lsoas.geojson")
 if(file.exists(dsn)) file.remove(dsn)
 write_sf(lsoas_all, dsn = dsn)
 
+# # check scenarios add up
+# setwd("~/cyipt/actdev/")
+# desire_lines = sf::read_sf("data-small/lcid/desire-lines-few.geojson")
+# desire_lines_df = sf::st_drop_geometry(desire_lines)
+# names(desire_lines_df)
+# rowSums(desire_lines_df[7:9])
+# rowSums(desire_lines_df[10:12])
