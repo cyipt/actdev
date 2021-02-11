@@ -107,7 +107,16 @@ zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>%
 zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
 zones_of_interest = rbind(zones_of_interest, zone_town_sf)
 
-abstr_list = ab_scenario(
+abstr_base = abstr::ab_scenario(
+  houses,
+  buildings = buildings_in_zones,
+  desire_lines = desire_lines %>% slice(-n()),
+  zones = zones_of_interest,
+  scenario = "base",
+  output_format = "json_list"
+)
+
+abstr_godutch = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
   desire_lines = desire_lines %>% slice(-n()),
@@ -115,5 +124,6 @@ abstr_list = ab_scenario(
   scenario = "godutch",
   output_format = "json_list"
 )
-abstr::ab_save(abstr_list, file.path(path, "scenario.json"))
+abstr::ab_save(abstr_godutch, file.path(path, "scenario-godutch.json"))
+abstr::ab_save(abstr_list, file.path(path, "scenario-godutch.json"))
 # file.edit(file.path(path, "scenario.json"))
