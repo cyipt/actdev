@@ -38,6 +38,18 @@ osm_buildigs = osm_polygons %>%
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
 zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
+
+# add town zone, see #74
+zone_town = zones %>% 
+  sf::st_drop_geometry() %>% 
+  slice(1) %>% 
+  mutate_all(function(x) NA) %>% 
+  mutate(geo_code = tail(desire_lines$geo_code2, 1)) 
+zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>% 
+  stplanr::geo_buffer(dist = 1000) 
+zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
+zones_of_interest = rbind(zones_of_interest, zone_town_sf)
+
 buildings_in_zones = osm_buildigs[zones_of_interest, , op = sf::st_within]
 
 if(site_name == "chapelford") {
@@ -56,6 +68,7 @@ buildings_in_zones = buildings_in_zones %>%
 n_buildings_per_zone = aggregate(buildings_in_zones, zones_of_interest, FUN = "length")
 mbz = 5
 zones_lacking_buildings = n_buildings_per_zone$osm_way_id < mbz
+zones_lacking_buildings[is.na(zones_lacking_buildings)] = TRUE
 if(any(zones_lacking_buildings)) {
   new_buildings = sf::st_sample(zones_of_interest[zones_lacking_buildings, ], size = 5 * length(zones_lacking_buildings))
   new_buildings = sf::st_sf(
@@ -97,33 +110,23 @@ if(exists("procgen_houses")) {
 
 desire_lines$all_base = desire_lines$trimode_base
 
-zone_town = zones %>% 
-  sf::st_drop_geometry() %>% 
-  slice(1) %>% 
-  mutate_all(function(x) NA) %>% 
-  mutate(geo_code = tail(desire_lines$geo_code2, 1)) 
-zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>% 
-  stplanr::geo_buffer(dist = 1000) 
-zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
-zones_of_interest = rbind(zones_of_interest, zone_town_sf)
-
 abstr_base = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% slice(-n()),
+  desire_lines = desire_lines,
   zones = zones_of_interest,
   scenario = "base",
   output_format = "json_list"
 )
 
-abstr_godutch = abstr::ab_scenario(
+abstr_godutch = ab_scenario(
   houses,
   buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% slice(-n()),
+  desire_lines = desire_lines,
   zones = zones_of_interest,
   scenario = "godutch",
   output_format = "json_list"
 )
 abstr::ab_save(abstr_godutch, file.path(path, "scenario-godutch.json"))
-abstr::ab_save(abstr_list, file.path(path, "scenario-godutch.json"))
+abstr::ab_save(abstr_base, file.path(path, "scenario-base.json"))
 # file.edit(file.path(path, "scenario.json"))

@@ -19,6 +19,7 @@ site_names_to_build = c(
 # site_names_to_build = "kidbrooke-village"
 site_names_to_build = sites %>% 
   filter(!str_detect(string = site_name, pattern = "aylesham")) %>% 
+  slice(1:3) %>% 
   pull(site_name)
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
@@ -30,10 +31,10 @@ for(site_name in site_names_to_build) {
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")
 
 # Add json files for abstreet
-site_directories = list.dirs(data_dir)[-1]
-site_names = gsub(pattern = "data-small/", replacement = "", x = site_directories)
+# site_directories = list.dirs(data_dir)[-c(1:2)]
+# site_names = gsub(pattern = "data-small/", replacement = "", x = site_directories)
+
 i = 1
-for(i in seq(length(site_directories))) {
-  site_name = site_names[i]
+for(site_name in site_names_to_build) {
   source("code/abstr-scenarios.R")
 }
