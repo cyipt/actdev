@@ -13,8 +13,8 @@ path = file.path("data-small", site_name)
 
 # input data: we should probably have naming conventions for these
 site_area = sf::read_sf(file.path(path, "site.geojson"))
-desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))	# TODO or many?
-study_area = sf::read_sf(file.path(path, "small-study-area.geojson"))	# TODO or large?
+desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))	
+study_area = sf::read_sf(file.path(path, "small-study-area.geojson"))
 # buildings = osmextract::oe_get(study_area, layer = "multipolygons")
 osm_polygons = osmextract::oe_get(sf::st_centroid(study_area), layer = "multipolygons")
 

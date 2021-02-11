@@ -1,32 +1,47 @@
 library(tidyverse)
+remotes::install_github("zonebuilders/zonebuilder") 
 setwd("~/cyipt/actdev")
 
+if(!exists("site_name")) site_name = "chapelford"
 sites = sf::read_sf("data-small/all-sites.geojson")
-routes = sf::read_sf(file.path("data-small", site_name, "routes-fast.geojson"))
+site = sites[sites$site_name == site_name, ]
+path = file.path("data-small", site_name)
+
+# input data: we should probably have naming conventions for these
+list.files(path)
+site_area = sf::read_sf(file.path(path, "site.geojson"))
+desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))	
+routes_fast = sf::read_sf(file.path(path, "routes-fast.geojson"))
+routes_quiet = sf::read_sf(file.path(path, "routes-quiet.geojson"))
+routes_walk = sf::read_sf(file.path(path, "routes-walk.geojson"))
+
+
+# zonebuilder zones -------------------------------------------------------
 distances = c(0, zonebuilder::zb_100_triangular_numbers[1:9])
-summary(cut(routes$distance_m * 1000, distances))
+summary(cut(routes_fast$length / 1000, distances))
 
-routes_summary = routes %>% 
+routes_summary = routes_fast %>% 
   sf::st_drop_geometry() %>% 
-  mutate(distance_band = cut(x = distance_m / 1000, distances)) %>% 
-  group_by(geo_code2, distance_band) %>% 
-  # todo: update next line to show busyness as busynance/distance
-  summarise(n = sum(first(all_commute_base)), busyness = mean(mean_busyness)) %>% 
-  select(distance_band, n, busyness) %>% 
+  mutate(distance_band = cut(x = length / 1000, distances)) %>% 
+  select(distance_band, n = all_base, busyness = mean_busyness) %>% 
   group_by(distance_band) %>% 
-  summarise(across(n:busyness, sum))
+  summarise(
+    n = mean(n),
+    busyness = mean(busyness)
+    )
 
-routes_summary
+# colorspace::choose_palette()
+source("code/tests/color_palette.R")
+actdev_palette1_5 = function(n = 5) actdev_palette1(n = n)
 
+brks = c(1, 2, 3, 10)
 routes_summary %>% 
   ggplot(aes(distance_band, n, fill = busyness)) +
   geom_bar(stat = "identity") +
-  scale_fill_gradient(low = "green", high = "red")
-
+  colorspace::scale_fill_binned_sequential(palette = "Red-Blue", breaks = brks, trans = "log10")
 
 # geo infographic ---------------------------------------------------------
 
-remotes::install_github("zonebuilders/zonebuilder") # not needed, for reference
 
 library(tidyverse)
 setwd("~/cyipt/actdev")
