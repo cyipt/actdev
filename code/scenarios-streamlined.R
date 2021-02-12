@@ -296,16 +296,15 @@ routes_walk_save = routes_walk_save %>%
     walk_godutch = pwalk_godutch * trimode_base
   ) 
 
-# sanity check of results
-
-plot(routes_walk_save$distance, routes_walk_save$pwalk_godutch, ylim = c(0, 1))
-points(routes_walk_save$distance, routes_walk_save$pwalk_base, col = "red")
-plot(routes_fast_entire$length, routes_fast_entire$cycle_base / routes_fast_entire$trimode_base, ylim = c(0, 1))
-points(routes_fast_entire$length, routes_fast_entire$pcycle_godutch, col = "red")
-
 routes_walk_save = routes_walk_save %>%
   mutate(walk_godutch = smart.round(walk_godutch)) %>%
   mutate(pwalk_godutch = round(pwalk_godutch, 6))
+
+# sanity check of results
+plot(routes_fast_entire$length, routes_fast_entire$cycle_base / routes_fast_entire$trimode_base, ylim = c(0, 1), col = "green")
+points(routes_walk_save$distance, routes_walk_save$pwalk_godutch, ylim = c(0, 1))
+points(routes_walk_save$distance, routes_walk_save$pwalk_base, col = "red")
+points(routes_fast_entire$length, routes_fast_entire$pcycle_godutch, col = "blue")
 
 all_commuters_baseline = sum(routes_fast_summarised$all_base)
 trimode_commuters_baseline = sum(routes_fast_summarised$trimode_base)
