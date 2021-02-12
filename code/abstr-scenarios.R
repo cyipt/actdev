@@ -121,6 +121,8 @@ abstr_base = abstr::ab_scenario(
   output_format = "json_list"
 )
 
+names(desire_lines)
+
 abstr_godutch = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
@@ -129,6 +131,28 @@ abstr_godutch = abstr::ab_scenario(
   scenario = "godutch",
   output_format = "json_list"
 )
+
 abstr::ab_save(abstr_godutch, file.path(path, "scenario-godutch.json"))
 abstr::ab_save(abstr_base, file.path(path, "scenario-base.json"))
 # file.edit(file.path(path, "scenario.json"))
+
+
+# debugging:
+# abstr_godutch_sf = abstr::ab_scenario(
+#   houses,
+#   buildings = buildings_in_zones,
+#   desire_lines = desire_lines,
+#   zones = zones_of_interest,
+#   scenario = "godutch",
+#   output_format = "sf"
+# )
+
+# abstr_godutch = abstr::ab_scenario(
+#   houses,
+#   buildings = buildings_in_zones,
+#   desire_lines = desire_lines %>% slice(1:5),
+#   zones = zones_of_interest,
+#   scenario = "godutch",
+#   output_format = "json_list"
+# )
+# str(abstr_godutch)
