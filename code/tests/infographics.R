@@ -2,7 +2,7 @@ library(tidyverse)
 remotes::install_github("zonebuilders/zonebuilder") 
 setwd("~/cyipt/actdev")
 
-if(!exists("site_name")) site_name = "chapelford"
+if(!exists("site_name")) site_name = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")
 site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
@@ -35,13 +35,14 @@ source("code/tests/color_palette.R")
 actdev_palette1_5 = function(n = 5) actdev_palette1(n = n)
 
 brks = c(1, 1.5, 2, 3, 10)
-routes_summary %>% 
+gg_distance_busyness = routes_summary %>% 
   ggplot(aes(distance_band, n, fill = busyness)) +
   geom_bar(stat = "identity") +
   colorspace::scale_fill_binned_sequential(palette = "Red-Blue", breaks = brks, trans = "log10")
 
-# geo infographic ---------------------------------------------------------
+ggplot2::ggsave(file.path(path, "gg_distance_busyness.png"), gg_distance_busyness)
 
+# geo infographic ---------------------------------------------------------
 
 library(tidyverse)
 setwd("~/cyipt/actdev")

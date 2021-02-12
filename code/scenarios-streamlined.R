@@ -288,13 +288,20 @@ routes_walk_save = routes_walk_save %>%
   mutate(
     # pwalk_base = walk_base / trimode_base,
     pwalk_godutch = case_when(	
-      distance <= 2000 ~ pwalk_base + 0.3, # 10% shift walking for routes >3km
-      distance <= 2500 ~ pwalk_base + 0.2, # 10% shift walking for routes >3km
+      distance <= 2000 ~ pwalk_base + 0.3, # 30% shift walking for routes >2km
+      distance <= 2500 ~ pwalk_base + 0.2, # 20% shift walking for routes >2.5km
       distance <= 3000 ~ pwalk_base + 0.1, # 10% shift walking for routes >3km
       distance <= 6000 ~ pwalk_base + 0.05, # 5% shift walking for routes 3-6km	
       TRUE ~ pwalk_base),
     walk_godutch = pwalk_godutch * trimode_base
   ) 
+
+# sanity check of results
+
+plot(routes_walk_save$distance, routes_walk_save$pwalk_godutch, ylim = c(0, 1))
+points(routes_walk_save$distance, routes_walk_save$pwalk_base, col = "red")
+plot(routes_fast_entire$length, routes_fast_entire$cycle_base / routes_fast_entire$trimode_base, ylim = c(0, 1))
+points(routes_fast_entire$length, routes_fast_entire$pcycle_godutch, col = "red")
 
 routes_walk_save = routes_walk_save %>%
   mutate(walk_godutch = smart.round(walk_godutch)) %>%

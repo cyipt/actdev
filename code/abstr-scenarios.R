@@ -109,6 +109,9 @@ if(exists("procgen_houses")) {
 }
 
 desire_lines$all_base = desire_lines$trimode_base
+sum(desire_lines)
+sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
+summary(desire_lines)
 
 abstr_base = abstr::ab_scenario(
   houses,
