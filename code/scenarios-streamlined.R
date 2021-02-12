@@ -8,7 +8,7 @@ library(stplanr)
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 if(is.null(site_name)) { # assume all presets loaded if site_name exists
-  site_name = "lcid"   # which site to look at (can change)
+  site_name = "great-kneighton"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   max_length = 20000 # maximum length of desire lines in m
   household_size = 2.3 # mean UK household size at 2011 census
@@ -157,10 +157,14 @@ saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
 saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
 saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
 
+# # to reload the data and avoid re-routing
+# routes_fast = readRDS(file.path(path, "routes_fast.Rds"))
+# routes_balanced = readRDS(file.path(path, "routes_balanced.Rds"))
+# routes_quiet = readRDS(file.path(path, "routes_quiet.Rds"))
+
 # switched to google for now, plan to change it again
 # osrm is working again
 routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm, cl = cl)
-routes_walk_save = routes_walk
 # name = paste0(site_name, "-routes-walk.geojson")
 # sf::write_sf(routes_walk, name) #save it just in case, to avoid repeatedly calling API
 # routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = "walking") 
@@ -178,9 +182,10 @@ routes_fast = routes_fast %>%
   ) %>%
   ungroup() %>% 
   mutate(
-    pcycle_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
-    cycle_godutch_additional = pcycle_godutch * drive_base,
+    pcycle_godutch_uptake = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
+    cycle_godutch_additional = pcycle_godutch_uptake * drive_base,
     cycle_godutch = cycle_base + cycle_godutch_additional,
+    pcycle_godutch = cycle_godutch / all_base,
     drive_godutch = drive_base - cycle_godutch_additional, # ensure totals add up
     across(c(mean_gradient, max_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_godutch), round, 6)
   )
@@ -217,8 +222,9 @@ routes_balanced = routes_balanced %>%
   ) %>%
   ungroup() %>% 
   mutate(
-    pcycle_godutch = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
-    cycle_godutch = pcycle_godutch * trimode_base,
+    pcycle_godutch_uptake = pct::uptake_pct_godutch_2020(distance = length, gradient = mean_gradient),
+    cycle_godutch = pcycle_godutch_uptake * drive_base + cycle_base,
+    pcycle_godutch = cycle_godutch / all_base,
     across(c(mean_gradient, max_gradient, mean_busyness, max_busyness, busyness, gradient_smooth, pcycle_godutch), round, 6)
   )
 
@@ -277,13 +283,13 @@ routes_quiet_summarised = routes_quiet_summarised %>%
 routes_quiet = inner_join((routes_quiet %>% select(-all_base, -trimode_base, -cycle_base, -cycle_godutch)), routes_quiet_summarised)
 
 # Walking routes
-if(is.null(routes_walk_save$distance)) {
+if(is.null(routes_walk$distance)) {
   # change names if routing service used different names
   # but for google these columns are full of NAs
-  routes_walk_save = routes_walk_save %>% 
+  routes_walk = routes_walk_save %>% 
     mutate(distance = distance_m, duration = duration_s)
 }
-routes_walk_save = routes_walk_save %>% 
+routes_walk_save = routes_walk %>% 
   filter(distance <= 6000) %>%
   mutate(
     # pwalk_base = walk_base / trimode_base,
@@ -299,12 +305,6 @@ routes_walk_save = routes_walk_save %>%
 routes_walk_save = routes_walk_save %>%
   mutate(walk_godutch = smart.round(walk_godutch)) %>%
   mutate(pwalk_godutch = round(pwalk_godutch, 6))
-
-# sanity check of results
-plot(routes_fast_entire$length, routes_fast_entire$cycle_base / routes_fast_entire$trimode_base, ylim = c(0, 1), col = "green")
-points(routes_walk_save$distance, routes_walk_save$pwalk_godutch, ylim = c(0, 1))
-points(routes_walk_save$distance, routes_walk_save$pwalk_base, col = "red")
-points(routes_fast_entire$length, routes_fast_entire$pcycle_godutch, col = "blue")
 
 all_commuters_baseline = sum(routes_fast_summarised$all_base)
 trimode_commuters_baseline = sum(routes_fast_summarised$trimode_base)
@@ -575,15 +575,7 @@ desire_lines_scenario = desire_lines_scenario %>%
     trimode_base = walk_base + cycle_base + drive_base,
     drive_godutch = trimode_base - (cycle_godutch + walk_godutch)
     ) %>%
-  select(
-    geo_code1:purpose, length, all_base:drive_base, walk_godutch, cycle_godutch, drive_godutch
-    ) 
-
-# # sanity checking...
-# sum(desire_lines_scenario$trimode_base)
-# rowSums(desire_lines_scenario %>% select(walk_base:drive_base) %>% sf::st_drop_geometry())
-# sum(.Last.value)
-# rowSums(desire_lines_scenario %>% select(walk_godutch:drive_godutch) %>% sf::st_drop_geometry())
+  select(geo_code1:purpose, length, all_base:drive_base, walk_godutch, cycle_godutch, drive_godutch) 
 
 dsn = file.path(data_dir, site_name, "desire-lines-many.geojson")
 if(file.exists(dsn)) file.remove(dsn)
