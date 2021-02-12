@@ -3,7 +3,7 @@
 View(jts_tables)
 
 # LSOA level
-all_jts_tables = paste0("jts050", 1:8)
+all_jts_tables = paste0("jts050", 1:9)
 i = all_jts_tables[1]
 for(i in all_jts_tables){
   year = 2017
@@ -17,7 +17,7 @@ for(i in all_jts_tables){
 }
 
 #LA level
-all_jts_tables = paste0("jts040", 1:8)
+all_jts_tables = paste0("jts040", 1:9)
 i = all_jts_tables[1]
 for(i in all_jts_tables){
   year = 2017

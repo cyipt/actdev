@@ -22,9 +22,10 @@ geo_tidy = geo_tidy %>%
   select(site_name, geometry)
 mapview::mapview(geo_tidy)
 
+file.remove("all-sites.geojson")
 sf::st_write(geo_tidy, "all-sites.geojson")
 
-piggyback::pb_upload("all-sites.geojson")
+piggyback::pb_upload("all-sites.geojson", tag = "0.1.1")
 
 # ## other method
 # geo_sf = do.call(what = rbind, args = geo_list)
