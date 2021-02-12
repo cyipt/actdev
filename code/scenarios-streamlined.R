@@ -7,7 +7,7 @@ library(stplanr)
 # set-up and parameters ---------------------------------------------------
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
-if(is.null(site_name)) { # assume all presets loaded if site_name exists
+if(!exists("site_name")) { # assume all presets loaded if site_name exists
   site_name = "great-kneighton"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   max_length = 20000 # maximum length of desire lines in m
