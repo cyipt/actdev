@@ -109,7 +109,6 @@ if(exists("procgen_houses")) {
 }
 
 desire_lines$all_base = desire_lines$trimode_base
-sum(desire_lines)
 sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
 summary(desire_lines)
 
@@ -122,7 +121,7 @@ abstr_base = abstr::ab_scenario(
   output_format = "json_list"
 )
 
-abstr_godutch = ab_scenario(
+abstr_godutch = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
   desire_lines = desire_lines,
