@@ -32,8 +32,8 @@ for(site_name in site_names_to_build) {
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")
 
 # Add json files for abstreet
-# site_directories = list.dirs(data_dir)[-c(1:2)]
-# site_names = gsub(pattern = "data-small/", replacement = "", x = site_directories)
+site_directories = list.dirs(data_dir)[-1]
+site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
 
 i = 1
 for(site_name in site_names_to_build) {

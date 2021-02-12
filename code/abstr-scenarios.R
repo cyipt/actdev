@@ -6,7 +6,7 @@ remotes::install_github("ITSLeeds/pct")
 remotes::install_github("a-b-street/abstr")
 library(dplyr)
 
-if(!exists("site_name")) site_name = "allerton-bywater"
+if(!exists("site_name")) site_name = "ashton-park"
 sites = sf::read_sf("data-small/all-sites.geojson")
 site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
@@ -109,6 +109,7 @@ if(exists("procgen_houses")) {
 }
 
 desire_lines$all_base = desire_lines$trimode_base
+sum(desire_lines$all_base)
 sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
 summary(desire_lines)
 
