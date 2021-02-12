@@ -5,25 +5,26 @@ library(sf)
 library(stplanr)
 
 set.seed(2021)
-site_names_to_build = c(
-  # sites %>% 
-  #  sample_n(size = 5) %>%
-  #  pull(site_name),
-  c("taunton-firepool", "allerton-bywater", "handforth"),
-  sites_extra = sites %>% 
-    filter(str_detect(string = site_name, pattern = "chap|knei|bail")) %>% 
-    pull(site_name)
-)
+# site_names_to_build = c(
+#   # sites %>% 
+#   #  sample_n(size = 5) %>%
+#   #  pull(site_name),
+#   c("taunton-firepool", "allerton-bywater", "handforth"),
+#   sites_extra = sites %>% 
+#     filter(str_detect(string = site_name, pattern = "chap|knei|bail")) %>% 
+#     pull(site_name)
+# )
 
 # site_names_to_build = "great-kneighton"
 # site_names_to_build = "kidbrooke-village"
 site_names_to_build = sites %>% 
   filter(!str_detect(string = site_name, pattern = "aylesham")) %>% 
-  slice(1:3) %>% 
+  slice(1:5) %>% 
   pull(site_name)
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
 # note: fails for kidbrooke-village and long-marston
+site_names_to_build = "allerton-bywater"
 for(site_name in site_names_to_build) {
   source("code/scenarios-streamlined.R")
 }
@@ -38,3 +39,4 @@ i = 1
 for(site_name in site_names_to_build) {
   source("code/abstr-scenarios.R")
 }
+
