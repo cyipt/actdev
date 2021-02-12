@@ -570,6 +570,10 @@ desire_lines_scenario = bind_rows(
 desire_lines_scenario$purpose[is.na(desire_lines_scenario$purpose)] = "commute"
 desire_lines_scenario[is.na(desire_lines_scenario)] = 0
 
+excess_active = desire_lines_scenario$walk_godutch + desire_lines_scenario$cycle_godutch - desire_lines_scenario$trimode_base
+sel_excess = excess_active > 0
+desire_lines_scenario$cycle_godutch[sel_excess] = desire_lines_scenario$cycle_godutch[sel_excess] - excess_active[sel_excess]
+
 desire_lines_scenario = desire_lines_scenario %>% 
   mutate(
     trimode_base = walk_base + cycle_base + drive_base,
