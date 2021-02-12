@@ -144,14 +144,12 @@ desire_lines_many = desire_lines_many %>%
   select(geo_code1, geo_code2, all_base, trimode_base, walk_base, cycle_base, drive_base, length, pwalk_base:pdrive_base)
 
 # Create routes and generate Go Dutch scenario ---------------------
-cl = parallel::makeCluster(parallel::detectCores())
-
 obj = desire_lines_many %>% select(-length)
 obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length)
 
-routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl)
-routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "balanced")
-routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, cl = cl, plan = "quietest")
+routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey)
+routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "balanced")
+routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "quietest")
 # save as Rds files for future references, e.g. for dartboard, but not for app:
 saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
 saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
@@ -164,7 +162,7 @@ saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
 
 # switched to google for now, plan to change it again
 # osrm is working again
-routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm, cl = cl)
+routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm)
 # name = paste0(site_name, "-routes-walk.geojson")
 # sf::write_sf(routes_walk, name) #save it just in case, to avoid repeatedly calling API
 # routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, cl = cl, mode = "walking") 
@@ -574,6 +572,14 @@ excess_active = desire_lines_scenario$walk_godutch + desire_lines_scenario$cycle
 sel_excess = excess_active > 0
 desire_lines_scenario$cycle_godutch[sel_excess] = desire_lines_scenario$cycle_godutch[sel_excess] - excess_active[sel_excess]
 
+# prevent negative numbers cycling
+sel_neg = desire_lines_scenario$cycle_godutch < 0
+if(any(sel_neg)) {
+  desire_lines_scenario$walk_godutch[sel_neg] = desire_lines_scenario$walk_godutch[sel_neg] +
+    desire_lines_scenario$cycle_godutch[sel_neg]
+  desire_lines_scenario$cycle_base[sel_neg] = 0
+}
+
 desire_lines_scenario = desire_lines_scenario %>% 
   mutate(
     trimode_base = walk_base + cycle_base + drive_base,
@@ -611,7 +617,6 @@ desire_lines_few = desire_lines_scenario[study_area, , op = sf::st_within]
 dsn = file.path(data_dir, site_name, "desire-lines-few.geojson")
 if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(desire_lines_few, dsn = dsn)
-
 
 # Get LSOA level JTS data for site ----------------------------------------
 employ_site = st_intersection(jts0501, site)

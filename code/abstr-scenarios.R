@@ -66,7 +66,8 @@ buildings_in_zones = buildings_in_zones %>%
   select(osm_way_id, building)
 
 n_buildings_per_zone = aggregate(buildings_in_zones, zones_of_interest, FUN = "length")
-mbz = 5
+summary(n_buildings_per_zone$osm_way_id)
+mbz = 10
 zones_lacking_buildings = n_buildings_per_zone$osm_way_id < mbz
 zones_lacking_buildings[is.na(zones_lacking_buildings)] = TRUE
 if(any(zones_lacking_buildings)) {
@@ -111,6 +112,7 @@ if(exists("procgen_houses")) {
 desire_lines$all_base = desire_lines$trimode_base
 sum(desire_lines$all_base)
 sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
+sum(desire_lines$walk_godutch, desire_lines$cycle_godutch, desire_lines$drive_godutch)
 summary(desire_lines)
 
 abstr_base = abstr::ab_scenario(
