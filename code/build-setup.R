@@ -23,10 +23,15 @@ if(file.exists("od.Rds"))
     od = pct::get_od()
 # saveRDS(od, "od.Rds")
 
-u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
-sites = sf::st_read(u)
-st_precision(sites) = 1000000
-sf::write_sf(sites, "data-small/all-sites.geojson")
+
+if(!exists("sites")) {
+  u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
+  sites = sf::st_read(u)
+}
+
+# st_precision(sites) = 1000000
+# file.remove("data-small/all-sites.geojson")
+# sf::write_sf(sites, "data-small/all-sites.geojson")
 
 # 2011 MSOA populations (year matches census commute data)
 u2 = "https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2011/mid2011msoaunformattedfile.xls"

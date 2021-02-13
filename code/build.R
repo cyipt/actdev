@@ -4,27 +4,27 @@ library(tidyverse)
 library(sf)
 library(stplanr)
 
-set.seed(2021)
-# site_names_to_build = c(
-#   # sites %>% 
-#   #  sample_n(size = 5) %>%
-#   #  pull(site_name),
-#   c("taunton-firepool", "allerton-bywater", "handforth"),
-#   sites_extra = sites %>% 
-#     filter(str_detect(string = site_name, pattern = "chap|knei|bail")) %>% 
-#     pull(site_name)
-# )
+max_length = 20000 # maximum length of desire lines in m
+household_size = 2.3 # mean UK household size at 2011 census
+min_flow_routes = 10 # threshold above which OD pairs are included
+region_buffer_dist = 2000
+large_area_buffer = 500
 
-# site_names_to_build = "great-kneighton"
+sites = sf::read_sf("data-small/all-sites.geojson")
+
+source("code/build-setup.R")
+
+set.seed(2021)
+
 # site_names_to_build = "kidbrooke-village"
 site_names_to_build = sites %>% 
   # filter(!str_detect(string = site_name, pattern = "allerton-bywater")) %>% 
-  slice(10:15) %>% 
+  # slice(8:35) %>% 
   pull(site_name)
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
 # note: fails for kidbrooke-village and long-marston
-site_names_to_build = "allerton-bywater"
+# site_names_to_build = "allerton-bywater"
 for(site_name in site_names_to_build) {
   source("code/scenarios-streamlined.R")
 }
@@ -32,8 +32,8 @@ for(site_name in site_names_to_build) {
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")
 
 # Add json files for abstreet
-site_directories = list.dirs(data_dir)[-1]
-site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
+# site_directories = list.dirs(data_dir)[-1]
+# site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
 
 i = 1
 for(site_name in site_names_to_build) {
