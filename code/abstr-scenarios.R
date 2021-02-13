@@ -6,8 +6,12 @@ remotes::install_github("ITSLeeds/pct")
 remotes::install_github("a-b-street/abstr")
 library(dplyr)
 
-if(!exists("site_name")) site_name = "ashton-park"
-sites = sf::read_sf("data-small/all-sites.geojson")
+if(!exists("site_name")) {
+  site_name = "ashton-park"
+} 
+if(!exists("sites")) {
+  sites = sf::read_sf("data-small/all-sites.geojson")
+} 
 site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
 
@@ -18,11 +22,27 @@ study_area = sf::read_sf(file.path(path, "small-study-area.geojson"))
 # buildings = osmextract::oe_get(study_area, layer = "multipolygons")
 osm_polygons = osmextract::oe_get(sf::st_centroid(study_area), layer = "multipolygons")
 
-# sanity check scenario data
-class(desire_lines)
-sum(desire_lines$trimode_base)
-sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
-sum(desire_lines$walk_godutch, desire_lines$cycle_godutch, desire_lines$drive_godutch)
+# get procedurally generated houses
+# https://github.com/cyipt/actdev/issues/81
+procgen_url = paste0(
+  "http://abstreet.s3-website.us-east-2.amazonaws.com/dev/data/input/",
+  gsub(pattern = "-", replacement = "_", x = site_name),
+  "/procgen_houses.json.gz"
+)
+procgen_path = file.path(path, "procgen_houses.json")
+procgen_path_gz = file.path(path, "procgen_houses.json.gz")
+
+procgen_get = httr::GET(
+  url = procgen_url,
+  httr::write_disk(procgen_path_gz, overwrite = TRUE)
+  )
+procgen_exists = httr::status_code(procgen_get) != 404
+
+# # sanity check scenario data
+# class(desire_lines)
+# sum(desire_lines$trimode_base)
+# sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
+# sum(desire_lines$walk_godutch, desire_lines$cycle_godutch, desire_lines$drive_godutch)
 
 building_types = c(
   "office",
@@ -52,11 +72,10 @@ zones_of_interest = rbind(zones_of_interest, zone_town_sf)
 
 buildings_in_zones = osm_buildigs[zones_of_interest, , op = sf::st_within]
 
-if(site_name == "chapelford") {
-  u = "http://abstreet.s3-website.us-east-2.amazonaws.com/dev/data/input/cheshire/procgen_houses.json.gz"
-  download.file(u, "procgen_houses.json.gz")
-  system("gunzip procgen_houses.json.gz")
-  procgen_houses = sf::read_sf("procgen_houses.json")
+if(procgen_exists) {
+  file.remove(procgen_path)
+  system(paste0("gunzip ", procgen_path_gz))
+  procgen_houses = sf::read_sf(procgen_path)
 }
 
 mapview::mapview(zones_of_interest) +
@@ -85,7 +104,7 @@ houses = osm_polygons_in_site %>%
   select(osm_way_id, building)
 n_houses = nrow(houses)
 n_dwellings_site = site$dwellings_when_complete
-if(n_houses < n_dwellings_site) {
+if(n_houses < n_dwellings_site && !procgen_exists) {
   n_houses_to_generate = n_dwellings_site - n_houses
   new_house_centroids = sf::st_sample(site_area, size = n_houses_to_generate)
   new_house_polys = stplanr::geo_buffer(new_house_centroids, dist = 8, nQuadSegs = 1)
@@ -97,7 +116,12 @@ if(n_houses < n_dwellings_site) {
   houses = rbind(houses, new_houses)
 }
 
-if(exists("procgen_houses")) {
+mapview::mapview(procgen_houses) +
+  mapview::mapview(site)
+if(procgen_exists) {
+  # quick fix for https://github.com/cyipt/actdev/issues/82
+  # todo: update when new procedurally generated houses are available
+  site_area = stplanr::geo_buffer(site_area, dist = 250) # expand boundary for #82
   procgen_site = procgen_houses[site_area, , op = sf::st_within]
   procgen_osm = sf::st_sf(
     data.frame(
@@ -108,12 +132,6 @@ if(exists("procgen_houses")) {
   )
   houses = rbind(houses, procgen_osm)
 }
-
-desire_lines$all_base = desire_lines$trimode_base
-sum(desire_lines$all_base)
-sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
-sum(desire_lines$walk_godutch, desire_lines$cycle_godutch, desire_lines$drive_godutch)
-summary(desire_lines)
 
 abstr_base = abstr::ab_scenario(
   houses,
@@ -140,15 +158,18 @@ abstr::ab_save(abstr_base, file.path(path, "scenario-base.json"))
 # file.edit(file.path(path, "scenario.json"))
 
 
-# debugging:
-# abstr_godutch_sf = abstr::ab_scenario(
-#   houses,
-#   buildings = buildings_in_zones,
-#   desire_lines = desire_lines,
-#   zones = zones_of_interest,
-#   scenario = "godutch",
-#   output_format = "sf"
-# )
+# debugging / sanity checks:
+abstr_godutch_sf = abstr::ab_scenario(
+  houses,
+  buildings = buildings_in_zones,
+  desire_lines = desire_lines,
+  zones = zones_of_interest,
+  scenario = "godutch",
+  output_format = "sf"
+)
+
+mapview::mapview(abstr_godutch_sf %>% sample_n(20)) +
+  mapview::mapview(houses)
 
 # abstr_godutch = abstr::ab_scenario(
 #   houses,
