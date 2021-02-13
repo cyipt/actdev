@@ -38,7 +38,7 @@ procgen_get = httr::GET(
   )
 procgen_exists = httr::status_code(procgen_get) != 404
 
-# # sanity check scenario data
+# # # sanity check scenario data
 # class(desire_lines)
 # sum(desire_lines$trimode_base)
 # sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
@@ -90,7 +90,8 @@ mbz = 10
 zones_lacking_buildings = n_buildings_per_zone$osm_way_id < mbz
 zones_lacking_buildings[is.na(zones_lacking_buildings)] = TRUE
 if(any(zones_lacking_buildings)) {
-  new_buildings = sf::st_sample(zones_of_interest[zones_lacking_buildings, ], size = 5 * length(zones_lacking_buildings))
+  sz = rep(5, length(zones_lacking_buildings) ) # n buildings per zone - arbitrary
+  new_buildings = sf::st_sample(zones_of_interest[zones_lacking_buildings, ], size = sz)
   new_buildings = sf::st_sf(
     data.frame(osm_way_id = rep(NA, length(new_buildings)), building = NA),
     geometry = stplanr::geo_buffer(new_buildings, dist = 20, nQuadSegs = 1)
@@ -116,8 +117,6 @@ if(n_houses < n_dwellings_site && !procgen_exists) {
   houses = rbind(houses, new_houses)
 }
 
-mapview::mapview(procgen_houses) +
-  mapview::mapview(site)
 if(procgen_exists) {
   # quick fix for https://github.com/cyipt/actdev/issues/82
   # todo: update when new procedurally generated houses are available
@@ -132,6 +131,9 @@ if(procgen_exists) {
   )
   houses = rbind(houses, procgen_osm)
 }
+
+mapview::mapview(procgen_houses) +
+  mapview::mapview(site)
 
 abstr_base = abstr::ab_scenario(
   houses,
