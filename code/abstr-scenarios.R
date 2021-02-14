@@ -12,8 +12,11 @@ if(!exists("site_name")) {
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
 } 
-site = sites[sites$site_name == site_name, ]
+j = sites$site_name == site_name
+site = sites[j, ]
 path = file.path("data-small", site_name)
+# set seed for reproducibility
+set.seed(2021)
 
 # input data: we should probably have naming conventions for these
 site_area = sf::read_sf(file.path(path, "site.geojson"))
@@ -78,10 +81,9 @@ if(procgen_exists) {
   procgen_houses = sf::read_sf(procgen_path)
 }
 
-mapview::mapview(zones_of_interest) +
-  mapview::mapview(buildings_in_zones)
+# mapview::mapview(zones_of_interest) +
+#   mapview::mapview(buildings_in_zones)
 buildings_in_zones = buildings_in_zones %>%
-  filter(!is.na(osm_way_id)) %>%
   select(osm_way_id, building)
 
 n_buildings_per_zone = aggregate(buildings_in_zones, zones_of_interest, FUN = "length")
@@ -101,21 +103,21 @@ if(any(zones_lacking_buildings)) {
 
 osm_polygons_in_site = osm_polygons[site_area, , op = sf::st_within]
 houses = osm_polygons_in_site %>%
-  filter(building == "residential") %>% 
+  # filter(building == "residential") %>% # todo: all non-destination buildings?
   select(osm_way_id, building)
 n_houses = nrow(houses)
 n_dwellings_site = site$dwellings_when_complete
-if(n_houses < n_dwellings_site && !procgen_exists) {
-  n_houses_to_generate = n_dwellings_site - n_houses
-  new_house_centroids = sf::st_sample(site_area, size = n_houses_to_generate)
-  new_house_polys = stplanr::geo_buffer(new_house_centroids, dist = 8, nQuadSegs = 1)
-  plot(new_house_polys)
-  new_houses = sf::st_sf(
-    data.frame(osm_way_id = rep(NA, n_houses_to_generate), building = "residential"),
-    geometry = new_house_polys
-    )
-  houses = rbind(houses, new_houses)
-}
+# if(n_houses < n_dwellings_site / 10 && !procgen_exists) {
+#   n_houses_to_generate = n_dwellings_site - n_houses
+#   new_house_centroids = sf::st_sample(site_area, size = n_houses_to_generate)
+#   new_house_polys = stplanr::geo_buffer(new_house_centroids, dist = 8, nQuadSegs = 1)
+#   plot(new_house_polys)
+#   new_houses = sf::st_sf(
+#     data.frame(osm_way_id = rep(NA, n_houses_to_generate), building = "residential"),
+#     geometry = new_house_polys
+#     )
+#   houses = rbind(houses, new_houses)
+# }
 
 if(procgen_exists) {
   # quick fix for https://github.com/cyipt/actdev/issues/82
@@ -131,9 +133,22 @@ if(procgen_exists) {
   )
   houses = rbind(houses, procgen_osm)
 }
+# mapview::mapview(procgen_houses) +
+#   mapview::mapview(site)
 
-mapview::mapview(procgen_houses) +
-  mapview::mapview(site)
+# # save summary info (todo: add more columns) ------------------------------
+# sites_df = sites %>% sf::st_drop_geometry()
+# sites_df$n_origin_buildings = NA
+# sites_df$n_destination_buildings = NA
+sites_df = readr::read_csv("data-small/sites_df_abstr.csv")
+sites_df$n_origin_buildings[j] = nrow(houses)
+sites_df$n_destination_buildings = nrow(buildings_in_zones)
+readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")
+
+
+# todo: allow setting the population column
+names(desire_lines)
+desire_lines$all_base = desire_lines$trimode_base
 
 abstr_base = abstr::ab_scenario(
   houses,
@@ -143,8 +158,6 @@ abstr_base = abstr::ab_scenario(
   scenario = "base",
   output_format = "json_list"
 )
-
-names(desire_lines)
 
 abstr_godutch = abstr::ab_scenario(
   houses,
@@ -159,26 +172,28 @@ abstr::ab_save(abstr_godutch, file.path(path, "scenario-godutch.json"))
 abstr::ab_save(abstr_base, file.path(path, "scenario-base.json"))
 # file.edit(file.path(path, "scenario.json"))
 
-
-# debugging / sanity checks:
-abstr_godutch_sf = abstr::ab_scenario(
-  houses,
-  buildings = buildings_in_zones,
-  desire_lines = desire_lines,
-  zones = zones_of_interest,
-  scenario = "godutch",
-  output_format = "sf"
-)
-
-mapview::mapview(abstr_godutch_sf %>% sample_n(20)) +
-  mapview::mapview(houses)
-
-# abstr_godutch = abstr::ab_scenario(
+# # debugging / sanity checks:
+# abstr_base_sf = abstr::ab_scenario(
 #   houses,
 #   buildings = buildings_in_zones,
-#   desire_lines = desire_lines %>% slice(1:5),
+#   desire_lines = desire_lines,
+#   zones = zones_of_interest,
+#   scenario = "base",
+#   output_format = "sf"
+# )
+# 
+# abstr_godutch_sf = abstr::ab_scenario(
+#   houses,
+#   buildings = buildings_in_zones,
+#   desire_lines = desire_lines,
 #   zones = zones_of_interest,
 #   scenario = "godutch",
-#   output_format = "json_list"
+#   output_format = "sf"
 # )
-# str(abstr_godutch)
+# 
+# # scenarios look good!
+# table(abstr_base_sf$mode_base)
+# table(abstr_godutch_sf$mode_godutch)
+# 
+# mapview::mapview(abstr_godutch_sf %>% sample_n(20)) +
+#   mapview::mapview(houses)

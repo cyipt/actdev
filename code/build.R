@@ -40,8 +40,12 @@ for(site_name in site_names_to_build) {
 # site_directories = list.dirs(data_dir)[-1]
 # site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
 
-i = 1
 for(site_name in site_names_to_build) {
-  source("code/abstr-scenarios.R")
+  message("Building for ", site_name)
+  suppressMessages({
+    suppressWarnings({
+      source("code/abstr-scenarios.R")
+    })
+  })
 }
 
