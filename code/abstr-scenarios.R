@@ -198,6 +198,7 @@ abtd = abstr::ab_scenario(
 )
 abtd$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n = nrow(abtd))
 abbd = rbind(abc, abt)
+hist(abbd$departure, breaks = seq(0, 60*60*24, 60 * 15))
 abbld = abstr::ab_sf_to_json(abbd)
 
 abstr::ab_save(abbl, file.path(path, "scenario-base.json"))
