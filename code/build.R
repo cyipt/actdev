@@ -18,8 +18,9 @@ set.seed(2021)
 
 # site_names_to_build = "kidbrooke-village"
 site_names_to_build = sites %>% 
-  # filter(!str_detect(string = site_name, pattern = "allerton-bywater")) %>% 
-  # slice(1:5) %>%
+  # fails on the abstreet scenarios for some reason...
+  filter(!str_detect(string = site_name, pattern = "bath|ebb|handf|tyersal-lane")) %>%
+  slice(-(1:27)) %>%
   pull(site_name)
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
