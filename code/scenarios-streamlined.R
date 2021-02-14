@@ -88,7 +88,7 @@ desire_lines_combined = desire_lines_pops %>%
     across(all:other, sum)
   )
 
-desire_lines_combined$length = stplanr::geo_length(desire_lines_combined)
+desire_lines_combined$length = round(stplanr::geo_length(desire_lines_combined))
 
 # todo: add PT
 desire_lines_combined = desire_lines_combined %>% 
@@ -551,7 +551,7 @@ desire_line_town = desire_line_town %>%
   mutate(
     purpose = "town",
     drive_base = drive_commuters_baseline,
-    length = stplanr::geo_length(desire_line_town),
+    length = round(stplanr::geo_length(desire_line_town)),
     pwalk_godutch = walk_godutch / trimode_base,
     pcycle_godutch = cycle_godutch / trimode_base
     
