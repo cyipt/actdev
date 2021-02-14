@@ -560,44 +560,55 @@ desire_line_town = desire_line_town %>%
   rename(geo_code1 = site_name, geo_code2 = town_name) %>%
   select(geo_code1, geo_code2, purpose, all_base, trimode_base, walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
-desire_lines_scenario = bind_rows(
+desire_lines_final = bind_rows(
   desire_lines_scenario,
   desire_line_town
-)
+) %>% select(-matches("pw|pc"))
 
-desire_lines_scenario$purpose[is.na(desire_lines_scenario$purpose)] = "commute"
-desire_lines_scenario[is.na(desire_lines_scenario)] = 0
+desire_lines_final$purpose[is.na(desire_lines_final$purpose)] = "commute"
+desire_lines_final[is.na(desire_lines_final)] = 0
 
-excess_active = desire_lines_scenario$walk_godutch + desire_lines_scenario$cycle_godutch - desire_lines_scenario$trimode_base
+excess_active = desire_lines_final$walk_godutch + desire_lines_final$cycle_godutch - desire_lines_final$trimode_base
 sel_excess = excess_active > 0
-desire_lines_scenario$cycle_godutch[sel_excess] = desire_lines_scenario$cycle_godutch[sel_excess] - excess_active[sel_excess]
+desire_lines_final$cycle_godutch[sel_excess] = desire_lines_final$cycle_godutch[sel_excess] - excess_active[sel_excess]
 
 # prevent negative numbers cycling
-sel_neg = desire_lines_scenario$cycle_godutch < 0
+sel_neg = desire_lines_final$cycle_godutch < 0
 if(any(sel_neg)) {
-  n_walk = desire_lines_scenario$walk_godutch[sel_neg]
-  n_lengths = desire_lines_scenario$length[sel_neg]
-  n_walk_change_min = desire_lines_scenario$cycle_godutch[sel_neg]
-  n_walk_change = n_walk_change_min - round((n_walk + n_walk_change_min) / max(1,  (6 - (n_lengths / 1000)) + 1) )
-  desire_lines_scenario$walk_godutch[sel_neg] = desire_lines_scenario$walk_godutch[sel_neg] + n_walk_change
-  desire_lines_scenario$cycle_godutch[sel_neg] = desire_lines_scenario$cycle_godutch[sel_neg] - n_walk_change
+  n_walk_base = desire_lines_final$walk_base[sel_neg]
+  n_walk = desire_lines_final$walk_godutch[sel_neg]
+  n_lengths = desire_lines_final$length[sel_neg]
+  # increase cycling for greater distances while preventing reduction of walking
+  n_walk_change_min = desire_lines_final$cycle_godutch[sel_neg]
+  n_walk_change_max = n_walk_base - n_walk
+  walk_coef = min(1 / (n_lengths / 750), 1) # for distances of 1.5 km, 50:50 walk:cycle
+  n_walk_change = round(n_walk_change_max - (n_walk_change_max + n_walk_change_min) * walk_coef)
+  desire_lines_final$walk_godutch[sel_neg] = desire_lines_final$walk_godutch[sel_neg] + n_walk_change
+  desire_lines_final$cycle_godutch[sel_neg] = desire_lines_final$cycle_godutch[sel_neg] - n_walk_change
 }
 
-desire_lines_scenario = desire_lines_scenario %>% 
+# calculate drive_godutch
+desire_lines_final = desire_lines_final %>% 
   mutate(
     trimode_base = walk_base + cycle_base + drive_base,
     drive_godutch = trimode_base - (cycle_godutch + walk_godutch)
-    ) %>%
-  select(geo_code1:purpose, length, all_base:drive_base, walk_godutch, cycle_godutch, drive_godutch) 
+    ) 
+
+# sanity check percentages
+desire_lines_final %>%
+  sf::st_drop_geometry() %>% 
+  select(matches("base|godutch")) %>%
+  summarise_all(function(x) round(sum(x)/sum(desire_lines_final$trimode_base) * 100)) %>% 
+  tidyr::pivot_longer(cols = 1:8)
 
 dsn = file.path(data_dir, site_name, "desire-lines-many.geojson")
 if(file.exists(dsn)) file.remove(dsn)
-sf::write_sf(desire_lines_scenario, dsn = dsn)
+sf::write_sf(desire_lines_final, dsn = dsn)
 
 # Get region of interest from desire lines --------------------------------
 # this will now inevitably include the nearest town centre
 min_flow_map = site_population / 80
-desire_lines_busy = desire_lines_scenario %>% 
+desire_lines_busy = desire_lines_final %>% 
   filter(trimode_base >= min_flow_map)
 
 convex_hull = sf::st_convex_hull(sf::st_union(desire_lines_busy))
@@ -615,7 +626,7 @@ if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(study_area, dsn = dsn)
 
 # Desire lines for small study area ---------------------------------------
-desire_lines_few = desire_lines_scenario[study_area, , op = sf::st_within]
+desire_lines_few = desire_lines_final[study_area, , op = sf::st_within]
 
 dsn = file.path(data_dir, site_name, "desire-lines-few.geojson")
 if(file.exists(dsn)) file.remove(dsn)
