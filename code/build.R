@@ -26,7 +26,12 @@ data_dir = "data-small" # for test sites
 # note: fails for kidbrooke-village and long-marston
 # site_names_to_build = "allerton-bywater"
 for(site_name in site_names_to_build) {
-  source("code/scenarios-streamlined.R")
+  message("Building for ", site_name)
+  suppressMessages({
+    suppressWarnings({
+      source("code/scenarios-streamlined.R")
+    })
+  })
 }
 
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-sites")
