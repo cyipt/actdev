@@ -7,7 +7,7 @@ remotes::install_github("a-b-street/abstr")
 library(dplyr)
 
 if(!exists("site_name")) {
-  site_name = "ashton-park"
+  site_name = "lcid"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -18,7 +18,9 @@ path = file.path("data-small", site_name)
 # set seed for reproducibility
 set.seed(2021)
 
-# input data: we should probably have naming conventions for these
+
+# Input parameters and data -----------------------------------------------
+times = list(commute = list(hr = 8.5, sd = 0.25), town = list(hr = 11, sd = 2))
 site_area = sf::read_sf(file.path(path, "site.geojson"))
 desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))	
 study_area = sf::read_sf(file.path(path, "small-study-area.geojson"))
@@ -145,10 +147,20 @@ sites_df$n_origin_buildings[j] = nrow(houses)
 sites_df$n_destination_buildings = nrow(buildings_in_zones)
 readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")
 
-
 # todo: allow setting the population column
 names(desire_lines)
 desire_lines$all_base = desire_lines$trimode_base
+desire_lines$departure = NA
+for(p in unique(desire_lines$purpose)) {
+  sel_p = desire_lines$purpose == p
+  tms = abstr::ab_time_normal(hr = times[[p]]$hr, sd = times[[p]]$sd, n = sum(sel_p))
+  desire_lines$departure[sel_p] = tms
+}
+[desire_lines$purpose == "commute"] =
+  abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd)
+desire_lines$departure[desire_lines$purpose == "town"] =
+  
+
 
 abstr_base = abstr::ab_scenario(
   houses,
