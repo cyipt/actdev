@@ -150,38 +150,62 @@ readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")
 # todo: allow setting the population column
 names(desire_lines)
 desire_lines$all_base = desire_lines$trimode_base
-desire_lines$departure = NA
-for(p in unique(desire_lines$purpose)) {
-  sel_p = desire_lines$purpose == p
-  tms = abstr::ab_time_normal(hr = times[[p]]$hr, sd = times[[p]]$sd, n = sum(sel_p))
-  desire_lines$departure[sel_p] = tms
-}
-[desire_lines$purpose == "commute"] =
-  abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd)
-desire_lines$departure[desire_lines$purpose == "town"] =
-  
+# desire_lines$departure = NA
+# for(p in unique(desire_lines$purpose)) {
+#   sel_p = desire_lines$purpose == p
+#   tms = abstr::ab_time_normal(hr = times[[p]]$hr, sd = times[[p]]$sd, n = sum(sel_p))
+#   desire_lines$departure[sel_p] = tms
+# }
 
-
-abstr_base = abstr::ab_scenario(
+# todo: generalise this code with some kind of loop
+abc = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
-  desire_lines = desire_lines,
+  desire_lines = desire_lines %>% filter(purpose == "commute"),
   zones = zones_of_interest,
   scenario = "base",
-  output_format = "json_list"
+  output_format = "sf"
 )
-
-abstr_godutch = abstr::ab_scenario(
+abc$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
+abt = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
-  desire_lines = desire_lines,
+  desire_lines = desire_lines %>% filter(purpose == "town"),
   zones = zones_of_interest,
-  scenario = "godutch",
-  output_format = "json_list"
+  scenario = "base",
+  output_format = "sf"
 )
+abt$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n = nrow(abt))
+abb = rbind(abc, abt)
+abbl = abstr::ab_sf_to_json(abb)
 
-abstr::ab_save(abstr_godutch, file.path(path, "scenario-godutch.json"))
-abstr::ab_save(abstr_base, file.path(path, "scenario-base.json"))
+abcd = abstr::ab_scenario(
+  houses,
+  buildings = buildings_in_zones,
+  desire_lines = desire_lines %>% filter(purpose == "commute"),
+  zones = zones_of_interest,
+  scenario = "dutch",
+  output_format = "sf"
+)
+abcd$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
+abtd = abstr::ab_scenario(
+  houses,
+  buildings = buildings_in_zones,
+  desire_lines = desire_lines %>% filter(purpose == "town"),
+  zones = zones_of_interest,
+  scenario = "dutch",
+  output_format = "sf"
+)
+abtd$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n = nrow(abtd))
+abbd = rbind(abc, abt)
+abbld = abstr::ab_sf_to_json(abbd)
+
+abstr::ab_save(abbl, file.path(path, "scenario-base.json"))
+abstr::ab_save(abbld, file.path(path, "scenario-godutch.json"))
+
+
+# idea: implement mode shift scenario oon the disaggregate lines
+
 # file.edit(file.path(path, "scenario.json"))
 
 # # debugging / sanity checks:
