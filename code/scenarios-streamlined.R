@@ -582,7 +582,7 @@ if(any(sel_neg)) {
   n_walk_change_min = desire_lines_final$cycle_godutch[sel_neg]
   n_walk_change_max = n_walk_base - n_walk
   walk_coef = min(1 / (n_lengths / 750), 1) # for distances of 1.5 km, 50:50 walk:cycle
-  n_walk_change = round(n_walk_change_max - (n_walk_change_max + n_walk_change_min) * walk_coef)
+  n_walk_change = round(n_walk_change_max - (n_walk_change_max - n_walk_change_min) * walk_coef)
   desire_lines_final$walk_godutch[sel_neg] = desire_lines_final$walk_godutch[sel_neg] + n_walk_change
   desire_lines_final$cycle_godutch[sel_neg] = desire_lines_final$cycle_godutch[sel_neg] - n_walk_change
 }
