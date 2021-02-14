@@ -53,7 +53,7 @@ building_types = c(
   "civic",
   "public"
 )
-osm_buildigs = osm_polygons %>%
+osm_buildings = osm_polygons %>%
   filter(building %in% building_types)
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
@@ -70,7 +70,7 @@ zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>%
 zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
 zones_of_interest = rbind(zones_of_interest, zone_town_sf)
 
-buildings_in_zones = osm_buildigs[zones_of_interest, , op = sf::st_within]
+buildings_in_zones = osm_buildings[zones_of_interest, , op = sf::st_within]
 
 if(procgen_exists) {
   file.remove(procgen_path)

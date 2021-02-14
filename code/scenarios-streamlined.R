@@ -575,9 +575,12 @@ desire_lines_scenario$cycle_godutch[sel_excess] = desire_lines_scenario$cycle_go
 # prevent negative numbers cycling
 sel_neg = desire_lines_scenario$cycle_godutch < 0
 if(any(sel_neg)) {
-  desire_lines_scenario$walk_godutch[sel_neg] = desire_lines_scenario$walk_godutch[sel_neg] +
-    desire_lines_scenario$cycle_godutch[sel_neg]
-  desire_lines_scenario$cycle_base[sel_neg] = 0
+  n_walk = desire_lines_scenario$walk_godutch[sel_neg]
+  n_lengths = desire_lines_scenario$length[sel_neg]
+  n_walk_change_min = desire_lines_scenario$cycle_godutch[sel_neg]
+  n_walk_change = n_walk_change_min - round((n_walk + n_walk_change_min) / max(1,  (6 - (n_lengths / 1000)) + 1) )
+  desire_lines_scenario$walk_godutch[sel_neg] = desire_lines_scenario$walk_godutch[sel_neg] + n_walk_change
+  desire_lines_scenario$cycle_godutch[sel_neg] = desire_lines_scenario$cycle_godutch[sel_neg] - n_walk_change
 }
 
 desire_lines_scenario = desire_lines_scenario %>% 
