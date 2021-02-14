@@ -25,7 +25,7 @@ osm_polygons = osmextract::oe_get(sf::st_centroid(study_area), layer = "multipol
 # get procedurally generated houses
 # https://github.com/cyipt/actdev/issues/81
 procgen_url = paste0(
-  "http://abstreet.s3-website.us-east-2.amazonaws.com/dev/data/input/",
+  "http://abstreet.s3-website.us-east-2.amazonaws.com/dev/data/input/gb/",
   gsub(pattern = "-", replacement = "_", x = site_name),
   "/procgen_houses.json.gz"
 )
