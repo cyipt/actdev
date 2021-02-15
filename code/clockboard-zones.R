@@ -1,7 +1,8 @@
 library(tidyverse)
 remotes::install_github("zonebuilders/zonebuilder") 
 setwd("~/cyipt/actdev")
-if(!exists("site_name")) site_name = "chapelford"
+list.files("data-small")
+if(!exists("site_name")) site_name = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")
 site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
@@ -50,7 +51,7 @@ routes_quiet_df = routes_quiet %>%
 
 # Calculate Go Dutch cycling levels ---------------------------------------
 
-routes_fast_df = routes_fast_seg %>% 
+routes_fast_df = routes_fast %>% 
   sf::st_drop_geometry() %>% 
   mutate(busyness = busynance / distances) %>% 
   group_by(geo_code1, geo_code2) %>%
@@ -68,12 +69,16 @@ routes_fast_df = routes_fast_seg %>%
     drive_godutch = mean(drive_base) - cycle_godutch_additional, # ensure totals add up
     diversion_factor = mean(length) / mean(crow_fly_distance),
     route_dist_cycled_base = mean(cycle_base) * mean(length),
-    route_dist_cycled_dutch = mean(cycle_base) * mean(length)
+    route_dist_cycled_dutch = mean(cycle_godutch) * mean(length)
   )
 
-nrow(routes_fast_df)
-mean(routes_fast_df$busyness_90th)
-mean(routes_fast_df$busyness_max)
+# # sanity tests
+# summary(routes_fast_df)
+# nrow(routes_fast_df)
+# mean(routes_fast_df$busyness_90th)
+# mean(routes_fast_df$busyness_max)
+# mean(routes_fast_df$route_dist_cycled_base)
+# mean(routes_fast_df$route_dist_cycled_dutch)
 
 routes_fast_joined = left_join(routes_fast, routes_fast_df)
 routes_fast_joined2 = left_join(routes_fast_joined, routes_quiet_df)
@@ -91,6 +96,8 @@ for(i in nms) {
   routes_fast_cents[[i]] = dc
 }
 
+summary(routes_fast_cents)
+
 zone_df = routes_fast_cents %>% 
   sf::st_drop_geometry() %>% 
   group_by(label) %>% 
@@ -100,17 +107,20 @@ zone_df = routes_fast_cents %>%
     busyness_cycle_base_quiet = weighted.mean(busyness_mean_quiet, route_dist_cycled_quiet),
     circuity_cycle_fast = weighted.mean(diversion_factor, route_dist_cycled_base),
     circuity_cycle_balanced = NA,
-    circuity_cycle_quiet = weighted.mean(diversion_factor, route_dist_cycled_base),
+    circuity_cycle_quiet = weighted.mean(diversion_factor, route_dist_cycled_quiet),
     circuity_walk = NA,
     quietness_diversion = circuity_cycle_quiet / circuity_cycle_fast
   )
 
+summary(zone_df)
 zones_db = left_join(zones_concentric, zone_df)
 names(zones_db)
+summary(zones_db)
 
 mapview::mapview(zones_db["busyness_cycle_base"]) +
   mapview::mapview(routes_fast_cents)
-mapview::mapview(zones_db["busyness_cycle_base"])
+mapview::mapview(zones_db["busyness_cycle_dutch"])
+mapview::mapview(zones_db["quietness_diversion"])
 
 sf::st_precision(zones_db) = 10000
 zones_db = zones_db %>% 
