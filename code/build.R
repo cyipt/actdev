@@ -55,5 +55,16 @@ for(site_name in site_names_to_build) {
   })
 }
 
+# Generate infographics  ----------------------------------------------
+
+for(site_name in site_names_to_build) {
+  message("Building for ", site_name)
+  suppressMessages({
+    suppressWarnings({
+      source("code/clockboard-zones.R")
+    })
+  })
+}
+
 
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-small")
