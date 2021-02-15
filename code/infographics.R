@@ -14,7 +14,7 @@ routes_quiet = sf::read_sf(file.path(path, "routes-quiet.geojson"))
 routes_walk = sf::read_sf(file.path(path, "routes-walk.geojson"))
 
 # zonebuilder zones -------------------------------------------------------
-distances = c(0, zonebuilder::zb_100_triangular_numbers[1:9])
+distances = c(0, zonebuilder::zb_100_triangular_numbers[1:10])
 distance_bands = cut(routes_fast$length / 1000, distances)
 summary(distance_bands)
 distance_bands_char = as.character(distance_bands)
