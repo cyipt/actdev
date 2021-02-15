@@ -14,11 +14,11 @@ routes_quiet = sf::read_sf(file.path(path, "routes-quiet.geojson"))
 routes_walk = readRDS(file.path(path, "routes_walk.Rds"))
 
 # zonebuilder zones -------------------------------------------------------
-distances = c(0, zonebuilder::zb_100_triangular_numbers[1:9])
+distances = c(0, zonebuilder::zb_100_triangular_numbers[1:10])
 distance_bands = cut(routes_fast$length / 1000, distances)
 summary(distance_bands)
 distance_bands_char = as.character(distance_bands)
-distance_bands_unique = unique(cut(seq(1, 25), distances))
+distance_bands_unique = unique(cut(seq(1, 50), distances))
 
 routes_bands_df = data.frame(distance_band = distance_bands_unique)
 
