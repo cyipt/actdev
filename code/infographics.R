@@ -1,5 +1,4 @@
 library(tidyverse)
-setwd("~/cyipt/actdev")
 
 if(!exists("site_name")) site_name = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")
