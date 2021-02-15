@@ -46,6 +46,8 @@ for(site_name in site_names_to_build) {
 
 # Generate 'clockboard' data ----------------------------------------------
 
+source("code/tests/color_palette.R")
+
 for(site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
@@ -61,7 +63,7 @@ for(site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
     suppressWarnings({
-      source("code/clockboard-zones.R")
+      source("code/infographics.R")
     })
   })
 }

@@ -21,7 +21,7 @@ distances = c(0, zonebuilder::zb_100_triangular_numbers[1:9])
 summary(cut(routes_fast$length / 1000, distances))
 
 # colorspace::choose_palette()
-source("code/tests/color_palette.R")
+# source("code/tests/color_palette.R")
 site_centroid = site_area %>% 
   sf::st_centroid()
 zones_concentric = zonebuilder::zb_zone(site_centroid, n_circles = 3)
@@ -108,7 +108,6 @@ zone_df = routes_fast_cents %>%
     circuity_cycle_fast = weighted.mean(diversion_factor, route_dist_cycled_base),
     circuity_cycle_balanced = NA,
     circuity_cycle_quiet = weighted.mean(diversion_factor, route_dist_cycled_quiet),
-    circuity_walk = NA,
     quietness_diversion = circuity_cycle_quiet / circuity_cycle_fast
   )
 
@@ -117,18 +116,52 @@ zones_db = left_join(zones_concentric, zone_df)
 names(zones_db)
 summary(zones_db)
 
-mapview::mapview(zones_db["busyness_cycle_base"]) +
-  mapview::mapview(routes_fast_cents)
-mapview::mapview(zones_db["busyness_cycle_dutch"])
-mapview::mapview(zones_db["quietness_diversion"])
+# Cirquity walking --------------------------------------------------------
+routes_walk
+routes_walk$walk_base[routes_walk$walk_base == 0] = 1
+routes_walk_joined = inner_join(
+  routes_walk,
+  desire_lines %>% sf::st_drop_geometry() %>% select(matches("geo_code"), length)
+) %>% 
+  mutate(circuity = distance / length)
+mapview::mapview(routes_walk_joined["circuity"])
+
+routes_walk_split = stplanr::line_breakup(l = routes_walk_joined, z = zones_concentric)
+routes_walk_split$length_segment = stplanr::geo_length(routes_walk_split)
+mapview::mapview(routes_walk_split["circuity"]) + zones_concentric
+routes_walk_diversion = routes_walk_split %>% 
+  sf::st_centroid() %>%
+  # idea: add total trips or godutch in Phase II
+  mutate(walk_distance_base = walk_base * length_segment) %>% 
+  select(circuity, walk_distance_base)
+
+zone_df_walk = sf::st_join(
+  routes_walk_diversion,
+  zones_concentric %>% select(label)
+) 
+# plot(zone_df_walk)
+mapview::mapview(zone_df_walk) + zones_concentric
+
+zone_df_to_join = zone_df_walk %>% 
+  sf::st_drop_geometry() %>% 
+  group_by(label) %>% 
+  summarise(circuity_walk = weighted.mean(circuity, walk_distance_base))
+
+zones_db = left_join(zones_db, zone_df_to_join)
+mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
+
+# mapview::mapview(zones_db["busyness_cycle_base"]) +
+#   mapview::mapview(routes_fast_cents)
+# mapview::mapview(zones_db["busyness_cycle_dutch"])
+# mapview::mapview(zones_db["quietness_diversion"])
+# plot(zones_db[-c(1:3)])
 
 sf::st_precision(zones_db) = 10000
 zones_db = zones_db %>% 
-  mutate_if(is.numeric, function(x) round(x, digits = 1))
+  mutate_if(is.numeric, function(x) round(x, digits = 2))
 
 db_file = file.path(path, "dartboard.geojson")
 if(file.exists(db_file)) file.remove(db_file)
 sf::write_sf(zones_db, db_file)
-
 
 # head(readLines("data-small/great-kneighton/dartboard.geojson"))
