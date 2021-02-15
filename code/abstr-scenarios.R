@@ -20,7 +20,7 @@ set.seed(2021)
 
 
 # Input parameters and data -----------------------------------------------
-times = list(commute = list(hr = 8.5, sd = 0.25), town = list(hr = 11, sd = 2))
+times = list(commute = list(hr = 8.5, sd = 0.3), town = list(hr = 11, sd = 2))
 site_area = sf::read_sf(file.path(path, "site.geojson"))
 desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))	
 study_area = sf::read_sf(file.path(path, "small-study-area.geojson"))
