@@ -3,7 +3,7 @@ library(tidyverse)
 # The Go Dutch scenario does not work for routes with a distance > 30km	
 # mapview(desire_lines_scenario %>% filter(length >+ 30000))	
 
-site_name = "chapelford" 
+site = sites[sites$site_name == site_name, ]
 file = file.path("data-small", site_name, "all-census-od.csv")
 desire_lines = read_csv(file = file)
 

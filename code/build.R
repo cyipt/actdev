@@ -68,4 +68,15 @@ for(site_name in site_names_to_build) {
   })
 }
 
+# Generate mode split summary  ----------------------------------------------
+
+for(site_name in site_names_to_build) {
+  message("Building for ", site_name)
+  suppressMessages({
+    suppressWarnings({
+      source("code/mode-split-summary.R")
+    })
+  })
+}
+
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-small")
