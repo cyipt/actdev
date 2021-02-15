@@ -160,6 +160,11 @@ sf::st_precision(zones_db) = 10000
 zones_db = zones_db %>% 
   mutate_if(is.numeric, function(x) round(x, digits = 2))
 
+
+# Create 'minimap infographic' --------------------------------------------
+
+# todo (maybe in Phase II): create minimap visual
+
 db_file = file.path(path, "dartboard.geojson")
 if(file.exists(db_file)) file.remove(db_file)
 sf::write_sf(zones_db, db_file)

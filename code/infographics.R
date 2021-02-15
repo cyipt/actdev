@@ -16,7 +16,12 @@ routes_walk = sf::read_sf(file.path(path, "routes-walk.geojson"))
 
 # zonebuilder zones -------------------------------------------------------
 distances = c(0, zonebuilder::zb_100_triangular_numbers[1:9])
-summary(cut(routes_fast$length / 1000, distances))
+distance_bands = cut(routes_fast$length / 1000, distances)
+summary(distance_bands)
+distance_bands_char = as.character(distance_bands)
+distance_bands_unique = unique(cut(seq(1, 25), distances))
+
+routes_bands_df = data.frame(distance_band = distance_bands_unique)
 
 routes_summary = routes_fast %>% 
   sf::st_drop_geometry() %>% 
@@ -26,27 +31,38 @@ routes_summary = routes_fast %>%
   summarise(
     n = mean(n),
     busyness = mean(busyness)
-    )
+    ) 
+routes_summary = left_join(routes_bands_df, routes_summary)
+routes_summary$n[is.na(routes_summary$n)] = 0
+routes_summary$busyness[is.na(routes_summary$busyness)] = 1
 
 # colorspace::choose_palette()
 # source("code/tests/color_palette.R")
 actdev_palette1_5 = function(n = 5) actdev_palette1(n = n)
 
+median(routes_fast$mean_busyness)
+
 brks = c(1, 1.5, 2, 3, 10)
 gg_distance_busyness = routes_summary %>% 
   ggplot(aes(distance_band, n, fill = busyness)) +
   geom_bar(stat = "identity") +
-  colorspace::scale_fill_binned_sequential(
-    palette = "Red-Blue",
-    breaks = brks,
-    trans = "log10",
-    # labels = waiver()
-    # labels = c(as.character(c(brks))) # fails
-    expand = TRUE,
-    guide = "legend"
-    )
-
+  scale_fill_steps2(low = "blue", mid = "purple", high = "red", midpoint = 3, limits = c(1, 5))
+  
+  # scale_fill_steps2(low = "blue", mid = "purple", high = "red", midpoint = 2, limits = c(1, 6))
 gg_distance_busyness
+  
+# colorspace::scale_fill_binned_sequential(
+  #   palette = "Red-Blue",
+  #   breaks = brks,
+  #   # breaks = waiver(),
+  #   # trans = "log10",
+  #   # labels = waiver()
+  #   # labels = c(as.character(c(brks))) # fails
+  #   # expand = TRUE,
+  #   # guide = "legend",
+  #   drop = FALSE
+  #   )
+
 
 ggplot2::ggsave(file.path(path, "gg_distance_busyness.png"), gg_distance_busyness)
 
@@ -57,35 +73,19 @@ setwd("~/cyipt/actdev")
 
 site_name_char = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")
-site_centroid = sites %>% 
-  filter(site_name == site_name_char) %>% 
-  sf::st_centroid()
 
-zones_concentric = zonebuilder::zb_zone(site_centroid, n_circles = 3)
+zones_db = sf::read_sf(file.path(path, "dartboard.geojson"))	
 
-plot(zones_concentric)
-routes = sf::read_sf(file.path("data-small", site_name_char, "routes-fast.geojson"))
-route_centroids = sf::st_centroid(routes) %>% 
-  select(all_commute_base, mean_busyness) %>% 
-  sf::st_join(zones_concentric) %>% 
-  sf::st_drop_geometry() %>% 
-  group_by(segment_id) %>% 
-  summarise(n = sum(first(all_commute_base)), busyness = mean(routes$mean_gradient)) 
+gg_db = zones_db %>% 
+  ggplot(aes(fill = busyness_cycle_base)) +
+  geom_sf() +
+  scale_fill_steps2(low = "blue", mid = "purple", high = "red", midpoint = 3, limits = c(1, 5)) +
+  theme_void()
+gg_db
 
-zones_concentric_joined = left_join(zones_concentric, y = route_centroids  )
-zones_concentric_joined$busyness = zones_concentric_joined$busyness + runif(nrow(zones_concentric))
+ggsave(filename = file.path(path, "gg_busyness_dartboard.png"), gg_db)
 
-zones_concentric_joined %>% 
-  ggplot() +
-  geom_sf(aes(fill = busyness)) +
-  scale_fill_gradient(low = "green", high = "red")
-
-library(tmap)
-tm_shape(zones_concentric_joined) +
-  tm_polygons("busyness") +
-  tm_scale_bar()
-
-sf::st_precision(zones_concentric_joined) = 10000
-zones_concentric_joined = sf::st_set_precision(zones_concentric_joined, 100000)
-sf::write_sf(zones_concentric_joined, "data-small/great-kneighton/dartboard-1-3-6km.geojson")  
-head(readLines("data-small/great-kneighton/dartboard.geojson"))
+# library(tmap)
+# tm_shape(zones_db) +
+#   tm_polygons("busyness_cycle_base") +
+#   tm_scale_bar()
