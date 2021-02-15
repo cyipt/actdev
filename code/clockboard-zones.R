@@ -25,8 +25,8 @@ site_centroid = site_area %>%
   sf::st_centroid()
 zones_concentric = zonebuilder::zb_zone(site_centroid, n_circles = 3)
 
-mapview::mapview(zones_concentric) +
-  routes_fast %>% sample_n(1000)
+# mapview::mapview(zones_concentric) +
+#   routes_fast %>% sample_n(1000)
 
 # Rename Go Dutch vars and joine with fast segs ---------------------------
 
