@@ -16,8 +16,8 @@ source("code/build-setup.R") # national data
 set.seed(2021) # reproducibility
 site_names_to_build = sites %>% 
   # fails on the abstreet scenarios for some reason...
-  # filter(!str_detect(string = site_name, pattern = "bath|ebb|handf|tyersal-lane")) %>%
-  slice(1:5) %>%
+  filter(!str_detect(string = site_name, pattern = "bath|ebb|handf|tyersal-lane")) %>%
+  # slice(1:5) %>%
   pull(site_name)
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
