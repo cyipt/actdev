@@ -197,12 +197,13 @@ abtd = abstr::ab_scenario(
   output_format = "sf"
 )
 abtd$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n = nrow(abtd))
-abbd = rbind(abc, abt)
+abbd = rbind(abcd, abtd)
 hist(abbd$departure, breaks = seq(0, 60*60*24, 60 * 15))
-abbld = abstr::ab_sf_to_json(abbd)
+abbld = abstr::ab_sf_to_json(abbd, mode_column = "mode_dutch")
 
 abstr::ab_save(abbl, file.path(path, "scenario-base.json"))
 abstr::ab_save(abbld, file.path(path, "scenario-godutch.json"))
+message(readLines(file.path(path, "scenario-godutch.json"), 2))
 
 
 # idea: implement mode shift scenario oon the disaggregate lines
