@@ -68,5 +68,4 @@ for(site_name in site_names_to_build) {
   })
 }
 
-
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-small")

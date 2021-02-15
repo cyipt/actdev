@@ -83,7 +83,16 @@ gg_db = zones_db %>%
   theme_void()
 gg_db
 
+gg_db_walk = zones_db %>% 
+  ggplot(aes(fill = circuity_walk)) +
+  geom_sf() +
+  scale_fill_steps2(low = "blue", mid = "purple", high = "red", midpoint = 1.3, limits = c(1, 1.6)) +
+  theme_void()
+gg_db_walk
+
+
 ggsave(filename = file.path(path, "gg_busyness_dartboard.png"), gg_db)
+ggsave(filename = file.path(path, "gg_walk_dartboard.png"), gg_db_walk)
 
 # library(tmap)
 # tm_shape(zones_db) +
