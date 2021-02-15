@@ -11,8 +11,8 @@ sum_total = sum(desire_lines$all)
 
 mode_split = desire_lines %>% 	
   # st_drop_geometry() %>%	
-  select(length, all, foot, bicycle, car_driver, pwalk_commute_base:pdrive_commute_base
-         # , pwalk_commute_godutch:pdrive_commute_godutch
+  select(length, all, foot, bicycle, car_driver, pwalk_base:pdrive_base
+         # , pwalk_godutch:pdrive_godutch
          ) %>% 	
   mutate(length_cat = case_when(	
     length < 1000 ~ "a.0-1",	
@@ -26,33 +26,33 @@ mode_split = desire_lines %>%
   )) %>% 	
   group_by(length_cat) %>% 	
   summarise(
-    all_commute_base = sum(all),
+    all_base = sum(all),
     total_proportional = sum(all)/ sum_total,
-    walk_commute_base = sum(foot),
-    cycle_cycle_base = sum(bicycle),
-    drive_commute_base = sum(car_driver),
-    pwalk_commute_base = weighted.mean(pwalk_commute_base, w = all),	
-    pcycle_commute_base = weighted.mean(pcycle_commute_base, w = all),	
-    pdrive_commute_base = weighted.mean(pdrive_commute_base, w = all),	
-    # , pwalk_commute_godutch = weighted.mean(pwalk_commute_godutch, w = all),	
-    # pcycle_commute_godutch = weighted.mean(pcycle_commute_godutch, w = all),	
-    # pdrive_commute_godutch = weighted.mean(pdrive_commute_godutch, w = all)
+    walk_base = sum(foot),
+    cycle_base = sum(bicycle),
+    drive_base = sum(car_driver),
+    pwalk_base = weighted.mean(pwalk_base, w = all),	
+    pcycle_base = weighted.mean(pcycle_base, w = all),	
+    pdrive_base = weighted.mean(pdrive_base, w = all),	
+    # , pwalk_godutch = weighted.mean(pwalk_godutch, w = all),	
+    # pcycle_godutch = weighted.mean(pcycle_godutch, w = all),	
+    # pdrive_godutch = weighted.mean(pdrive_godutch, w = all)
   ) %>%
   mutate(
     across(where(is.numeric), round, 2),
-    across(c(all_commute_base, walk_commute_base:drive_commute_base), round, 0)
-    # , pwalk_commute_godutch = ifelse(
-    #   length_cat == "h.30+", NA, pwalk_commute_godutch),
-    # pcycle_commute_godutch = ifelse(
-    #   length_cat == "h.30+", NA, pcycle_commute_godutch),
-    # pdrive_commute_godutch = ifelse(
-    #   length_cat == "h.30+", NA, pdrive_commute_godutch),
-    # pwalk_commute_godutch = ifelse(
-    #   length_cat == "g.20-30", NA, pwalk_commute_godutch),
-    # pcycle_commute_godutch = ifelse(
-    #   length_cat == "g.20-30", NA, pcycle_commute_godutch),
-    # pdrive_commute_godutch = ifelse(
-    #   length_cat == "g.20-30", NA, pdrive_commute_godutch)
+    across(c(all_base, walk_base:drive_base), round, 0)
+    # , pwalk_godutch = ifelse(
+    #   length_cat == "h.30+", NA, pwalk_godutch),
+    # pcycle_godutch = ifelse(
+    #   length_cat == "h.30+", NA, pcycle_godutch),
+    # pdrive_godutch = ifelse(
+    #   length_cat == "h.30+", NA, pdrive_godutch),
+    # pwalk_godutch = ifelse(
+    #   length_cat == "g.20-30", NA, pwalk_godutch),
+    # pcycle_godutch = ifelse(
+    #   length_cat == "g.20-30", NA, pcycle_godutch),
+    # pdrive_godutch = ifelse(
+    #   length_cat == "g.20-30", NA, pdrive_godutch)
     )
 
 dsn = file.path("data-small", site_name, "mode-split.csv")	

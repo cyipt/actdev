@@ -11,7 +11,7 @@ site_area = sf::read_sf(file.path(path, "site.geojson"))
 desire_lines = sf::read_sf(file.path(path, "desire-lines-few.geojson"))	
 routes_fast = sf::read_sf(file.path(path, "routes-fast.geojson"))
 routes_quiet = sf::read_sf(file.path(path, "routes-quiet.geojson"))
-routes_walk = sf::read_sf(file.path(path, "routes-walk.geojson"))
+routes_walk = readRDS(file.path(path, "routes_walk.Rds"))
 
 # zonebuilder zones -------------------------------------------------------
 distances = c(0, zonebuilder::zb_100_triangular_numbers[1:9])
@@ -68,7 +68,6 @@ ggplot2::ggsave(file.path(path, "gg_distance_busyness.png"), gg_distance_busynes
 # geo infographic ---------------------------------------------------------
 
 library(tidyverse)
-setwd("~/cyipt/actdev")
 
 site_name_char = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")
