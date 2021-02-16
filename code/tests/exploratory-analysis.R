@@ -1,5 +1,7 @@
 
 library(ggplot2)
+library(sf)
+library(tidyverse)
 
 dart = read_sf("data-small/lcid/dartboard.geojson")
 routes_fast = read_sf("data-small/lcid/routes-fast.geojson")
@@ -26,8 +28,7 @@ sum(routes_fast$all_base)
 
 mode_split$other_base = mode_split$all_base - mode_split$walk_base - mode_split$cycle_base - mode_split$drive_base
 mode_long = pivot_longer(mode_split, cols = c(walk_base, cycle_base, drive_base, other_base))
-iris$Species <- factor(iris$Species, levels = c("virginica", "versicolor", "setosa"))
-mode_long$name = factor(mode_long$name, levels = c("other_base", "drive_base", "cycle_base", "walk_base"))
+mode_long$name = factor(mode_long$name, levels = c("other_base", "walk_base", "cycle_base", "drive_base"))
 
 ggplot(mode_long, aes(fill = name, y = value, x = length_cat)) +
   geom_bar(position = "stack", stat = "identity")
