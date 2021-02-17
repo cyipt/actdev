@@ -1,36 +1,36 @@
-site_name,dwellings_when_complete,full_name,planning_url
-allerton-bywater,562,Allerton Bywater,NA
-ashton-park,2500,Ashton Park,NA
-aylesbury,3000,Aylesbury - complete name todo,NA
-aylesham,1200,aylesham,NA
-bailrigg,3500,bailrigg,NA
-bath-riverside,2280,bath-riverside,NA
-bicester,6000,bicester,NA
-castlemead,650,castlemead,NA
-chapelford,2110,chapelford,NA
-clackers-brook,670,clackers-brook,NA
-culm,1750,culm,NA
-dickens-heath,1672,dickens-heath,NA
-didcot,3300,didcot,NA
-dunton-hills,4000,dunton-hills,NA
-ebbsfleet,6200,ebbsfleet,NA
-great-kneighton,2300,great-kneighton,NA
-halsnead,1589,halsnead,NA
-hampton,6900,hampton,NA
-handforth,1650,handforth,NA
-kidbrooke-village,4763,kidbrooke-village,NA
-lcid,520,lcid,NA
-long-marston,3500,long-marston,NA
-micklefield,292,micklefield,NA
-newcastle-great-park,4400,newcastle-great-park,NA
-poundbury,2200,poundbury,NA
-priors-hall,5095,priors-hall,NA
-taunton-firepool,747,taunton-firepool,NA
-taunton-garden,4500,taunton-garden,NA
-tresham,1500,tresham,NA
-trumpington-meadows,1200,trumpington-meadows,NA
-tyersal-lane,270,tyersal-lane,NA
-upton,1382,upton,NA
-wichelstowe,4500,wichelstowe,NA
-wixams,4500,wixams,NA
-wynyard,2600,wynyard,NA
+site_name,dwellings_when_complete,full_name,main_local_authority,planning_url
+allerton-bywater,562,Allerton Bywater Millennium Community,Leeds,NA
+ashton-park,2500,"Ashton Park, Trowbridge",Wiltshire,NA
+aylesbury,3000,"Berryfields, Aylesbury Garden Town",Buckinghamshire,NA
+aylesham,1200,Aylesham Garden Village,Dover,NA
+bailrigg,3500,Bailrigg Garden Village,Lancaster,NA
+bath-riverside,2280,Bath Western Riverside,Bath and North East Somerset,NA
+bicester,6000,North West Bicester Eco-Town,Cherwell,NA
+castlemead,650,"Castle Mead, Trowbridge",Wiltshire,NA
+chapelford,2110,Chapelford Urban Village,Warrington,NA
+clackers-brook,670,"Clackers Brook, Melksham",Wiltshire,NA
+culm,1750,Culm Garden Village,Mid Devon,NA
+dickens-heath,1672,Dickens Heath,Solihull,NA
+didcot,3300,"Great Western Park, Didcot Garden Town",South Oxfordshire,NA
+dunton-hills,4000,Dunton Hills Garden Village,Brentwood,NA
+ebbsfleet,6200,"Whitecliffe, Ebbsfleet Garden City",Dartford,NA
+great-kneighton,2300,Great Kneighton,Cambridge,NA
+halsnead,1589,Halsnead Garden Village,Knowsley,NA
+hampton,6900,Hampton,Peterborough,NA
+handforth,1650,Handforth Garden Village,Cheshire East,NA
+kidbrooke-village,4763,Kidbrooke Village,Greenwich,NA
+lcid,520,Leeds Climate Innovation District,Leeds,NA
+long-marston,3500,Long Marston Garden Village,Stratford-upon-Avon,NA
+micklefield,292,Micklefield,Leeds,NA
+newcastle-great-park,4400,Newcastle Great Park,Newcastle,NA
+poundbury,2200,Poundbury,Dorset,NA
+priors-hall,5095,Priors Hall,Corby,NA
+taunton-firepool,747,Firepool,Somerset West and Taunton,NA
+taunton-garden,4500,Monkton Heathfield Garden Community,Somerset West and Taunton,NA
+tresham,1500,Tresham Garden Village,East Northamptonshire,NA
+trumpington-meadows,1200,Trumpington Meadows,Cambridge,NA
+tyersal-lane,270,Tyersal Lane,Leeds,NA
+upton,1382,Upton,Northampton,NA
+wichelstowe,4500,Wichelstowe,Swindon,NA
+wixams,4500,Wixams,Bedford,NA
+wynyard,2600,Wynyard Park,Stockton-on-Tees,NA
