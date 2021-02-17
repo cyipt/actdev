@@ -1,36 +1,36 @@
-site_name,dwellings_when_complete,full_name
-allerton-bywater,562,Allerton Bywater
-ashton-park,2500,Ashton Park
-aylesbury,3000,Aylesbury - complete name todo
-aylesham,1200,aylesham
-bailrigg,3500,bailrigg
-bath-riverside,2280,bath-riverside
-bicester,6000,bicester
-castlemead,650,castlemead
-chapelford,2110,chapelford
-clackers-brook,670,clackers-brook
-culm,1750,culm
-dickens-heath,1672,dickens-heath
-didcot,3300,didcot
-dunton-hills,4000,dunton-hills
-ebbsfleet,6200,ebbsfleet
-great-kneighton,2300,great-kneighton
-halsnead,1589,halsnead
-hampton,6900,hampton
-handforth,1650,handforth
-kidbrooke-village,4763,kidbrooke-village
-lcid,520,lcid
-long-marston,3500,long-marston
-micklefield,292,micklefield
-newcastle-great-park,4400,newcastle-great-park
-poundbury,2200,poundbury
-priors-hall,5095,priors-hall
-taunton-firepool,747,taunton-firepool
-taunton-garden,4500,taunton-garden
-tresham,1500,tresham
-trumpington-meadows,1200,trumpington-meadows
-tyersal-lane,270,tyersal-lane
-upton,1382,upton
-wichelstowe,4500,wichelstowe
-wixams,4500,wixams
-wynyard,2600,wynyard
+site_name,dwellings_when_complete,full_name,planning_url
+allerton-bywater,562,Allerton Bywater,NA
+ashton-park,2500,Ashton Park,NA
+aylesbury,3000,Aylesbury - complete name todo,NA
+aylesham,1200,aylesham,NA
+bailrigg,3500,bailrigg,NA
+bath-riverside,2280,bath-riverside,NA
+bicester,6000,bicester,NA
+castlemead,650,castlemead,NA
+chapelford,2110,chapelford,NA
+clackers-brook,670,clackers-brook,NA
+culm,1750,culm,NA
+dickens-heath,1672,dickens-heath,NA
+didcot,3300,didcot,NA
+dunton-hills,4000,dunton-hills,NA
+ebbsfleet,6200,ebbsfleet,NA
+great-kneighton,2300,great-kneighton,NA
+halsnead,1589,halsnead,NA
+hampton,6900,hampton,NA
+handforth,1650,handforth,NA
+kidbrooke-village,4763,kidbrooke-village,NA
+lcid,520,lcid,NA
+long-marston,3500,long-marston,NA
+micklefield,292,micklefield,NA
+newcastle-great-park,4400,newcastle-great-park,NA
+poundbury,2200,poundbury,NA
+priors-hall,5095,priors-hall,NA
+taunton-firepool,747,taunton-firepool,NA
+taunton-garden,4500,taunton-garden,NA
+tresham,1500,tresham,NA
+trumpington-meadows,1200,trumpington-meadows,NA
+tyersal-lane,270,tyersal-lane,NA
+upton,1382,upton,NA
+wichelstowe,4500,wichelstowe,NA
+wixams,4500,wixams,NA
+wynyard,2600,wynyard,NA
