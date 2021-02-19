@@ -109,7 +109,7 @@ all_dist = all_od_new %>%
   pivot_longer(cols = c(walk, cycle, drive, other))
 
 all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
-ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
+g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
   scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
 
@@ -140,7 +140,11 @@ all_dist_scenario = desire_plus_all %>%
 
 all_dist_scenario$name = factor(all_dist_scenario$name, levels = c("walk", "cycle", "other", "drive"))
 
-ggplot(all_dist_scenario, aes(fill = name, y = value, x = distance_band)) +
+g2 = ggplot(all_dist_scenario, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
   scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
 
+g2
+
+library(patchwork)
+g1 + g2
