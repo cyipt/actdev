@@ -13,7 +13,7 @@ routes_fast = read_sf(file.path(path, "routes-fast.geojson"))
 site = read_sf(file.path(path, "site.geojson"))
 mode_split = read_csv(file.path(path, "mode-split.csv"))
 all_od = read_csv(file.path(path, "all-census-od.csv"))
-all_desire = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
+desire_lines = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
 
 mapview::mapview(dart["circuity_walk"]) +
   mapview(routes_fast["all_base"])
@@ -88,24 +88,25 @@ ggplot(mode_long, aes(fill = name, y = value, x = distance_band)) +
 
 # create combined infographic ---------------------------------------------
 
-get_distance_bands = function(x, distance_band = c(0, zonebuilder::zb_100_triangular_numbers[1:5], 20, 30, 10000)) {
+get_distance_bands = function(x, distance_band = c(0, zonebuilder::zb_100_triangular_numbers[2:5], 20, 30, 10000)) {
   distance_labels = paste0(distance_band[-length(distance_band)], "-", distance_band[-1])
   distance_labels = gsub(pattern = "-10000", replacement = "+", distance_labels)
   cut(x = x, breaks = distance_band * 1000, labels = distance_labels)
 }
 
-
+# Baseline scenario
 all_od_new = all_od %>% 
   rename(all = all, walk = foot, cycle = bicycle, drive = car_driver, trimode = trimode_base) %>% 
   select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
   mutate(across(all:length, as.numeric))
 
-all_dist = all_od_new %>%
-  # sf::st_drop_geometry() %>%
+mode_split_base = all_od_new %>%
   mutate(distance_band = get_distance_bands(x = length)) %>% 
   group_by(distance_band, .drop = FALSE) %>% 
   summarise(across(all:drive, sum)) %>% 
-  mutate(other = all - trimode) %>% 
+  mutate(other = all - trimode)
+
+all_dist = mode_split_base %>% 
   pivot_longer(cols = c(walk, cycle, drive, other))
 
 all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
@@ -113,6 +114,7 @@ g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
   scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
 
+# Go Active scenario
 names(desire_lines) = gsub(pattern = "_godutch", replacement = "", x = names(desire_lines))
 summary(desire_lines$length)
 
@@ -130,12 +132,14 @@ all_dist_outside = all_od_new %>%
 
 desire_plus_all = bind_rows(desire_lines_scenario, all_dist_outside)
 
-all_dist_scenario = desire_plus_all %>%
+mode_split_scenario = desire_plus_all %>%
   # sf::st_drop_geometry() %>%
   mutate(distance_band = get_distance_bands(x = length)) %>% 
   group_by(distance_band, .drop = FALSE) %>% 
   summarise(across(all:drive, sum)) %>% 
-  mutate(other = all - trimode) %>% 
+  mutate(other = all - trimode)
+
+all_dist_scenario = mode_split_scenario %>% 
   pivot_longer(cols = c(walk, cycle, drive, other))
 
 all_dist_scenario$name = factor(all_dist_scenario$name, levels = c("walk", "cycle", "other", "drive"))
@@ -148,3 +152,30 @@ g2
 
 library(patchwork)
 g1 + g2
+
+# Create single mode split summary csv
+sum_total = sum(mode_split_base$all)
+
+mode_split_all = mode_split_base %>% 
+  mutate(
+    proportion_in_distance_band = round(100 * all / sum_total),
+    walk_goactive = mode_split_scenario$walk,
+    cycle_goactive = mode_split_scenario$cycle,
+    drive_goactive = mode_split_scenario$drive,
+    other_goactive = mode_split_scenario$other,
+    percent_walk_base = round(100 * walk / all),	
+    percent_cycle_base = round(100 * cycle / all),	
+    percent_drive_base = round(100 * drive / all),
+    percent_other_base = round(100 * other / all),
+    percent_walk_goactive = round(100 * walk_goactive / all),	
+    percent_cycle_goactive = round(100 * cycle_goactive / all),	
+    percent_drive_goactive = round(100 * drive_goactive / all),
+    percent_other_goactive = round(100 * other_goactive / all)
+    ) %>% 
+  rename(
+    walk_base = walk,
+    cycle_base = cycle,
+    drive_base = drive,
+    other_base = other
+  ) %>% 
+  select(distance_band, proportion_in_distance_band, everything())

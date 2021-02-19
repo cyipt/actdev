@@ -1,60 +1,114 @@
 # Mode split summary by distance ------------------------------------------	
 library(tidyverse)
-# The Go Dutch scenario does not work for routes with a distance > 30km	
-# mapview(desire_lines_scenario %>% filter(length >+ 30000))	
+library(ggplot2)
+library(sf)
 
-site = sites[sites$site_name == site_name, ]
-file = file.path("data-small", site_name, "all-census-od.csv")
-desire_lines = read_csv(file = file)
+if(!exists("site_name")) site_name = "great-kneighton"
 
-sum_total = sum(desire_lines$all)	
+path = file.path("data-small", site_name)
 
-mode_split = desire_lines %>% 	
-  # st_drop_geometry() %>%	
-  select(length, all, foot, bicycle, car_driver, pwalk_base:pdrive_base
-         # , pwalk_godutch:pdrive_godutch
-         ) %>% 	
-  mutate(length_cat = case_when(	
-    length < 1000 ~ "a.0-1",	
-    length < 3000 ~ "b.1-3",	
-    length < 6000 ~ "c.3-6",	
-    length < 10000 ~ "d.6-10",	
-    length < 15000 ~ "e.10-15",	
-    length < 20000 ~ "f.15-20",	
-    length < 30000 ~ "g.20-30",	
-    length >= 30000 ~ "h.30+",	
-  )) %>% 	
-  group_by(length_cat) %>% 	
-  summarise(
-    all_base = sum(all),
-    total_proportional = sum(all)/ sum_total,
-    walk_base = sum(foot),
-    cycle_base = sum(bicycle),
-    drive_base = sum(car_driver),
-    pwalk_base = weighted.mean(pwalk_base, w = all),	
-    pcycle_base = weighted.mean(pcycle_base, w = all),	
-    pdrive_base = weighted.mean(pdrive_base, w = all),	
-    # , pwalk_godutch = weighted.mean(pwalk_godutch, w = all),	
-    # pcycle_godutch = weighted.mean(pcycle_godutch, w = all),	
-    # pdrive_godutch = weighted.mean(pdrive_godutch, w = all)
-  ) %>%
+all_od = read_csv(file.path(path, "all-census-od.csv"))
+desire_lines = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
+
+# create combined infographic ---------------------------------------------
+
+get_distance_bands = function(x, distance_band = c(0, zonebuilder::zb_100_triangular_numbers[2:5], 20, 30, 10000)) {
+  distance_labels = paste0(distance_band[-length(distance_band)], "-", distance_band[-1])
+  distance_labels = gsub(pattern = "-10000", replacement = "+", distance_labels)
+  cut(x = x, breaks = distance_band * 1000, labels = distance_labels)
+}
+
+# Baseline scenario
+all_od_new = all_od %>% 
+  rename(all = all, walk = foot, cycle = bicycle, drive = car_driver, trimode = trimode_base) %>% 
+  select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
+  mutate(across(all:length, as.numeric))
+
+mode_split_base = all_od_new %>%
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  summarise(across(all:drive, sum)) %>% 
+  mutate(other = all - trimode)
+
+all_dist = mode_split_base %>% 
+  pivot_longer(cols = c(walk, cycle, drive, other))
+
+all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
+g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
+  geom_bar(position = "stack", stat = "identity") +
+  scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+
+# Go Active scenario
+names(desire_lines) = gsub(pattern = "_godutch", replacement = "", x = names(desire_lines))
+summary(desire_lines$length)
+
+desire_lines_scenario = desire_lines %>% 
+  mutate(all = all_base, trimode = trimode_base) %>% 
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  filter(purpose == "commute") %>% 
+  select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
+  sf::st_drop_geometry()
+
+# join on actdev scenario data
+all_dist_outside = all_od_new %>% 
+  filter(! geo_code2 %in% desire_lines$geo_code2)
+
+desire_plus_all = bind_rows(desire_lines_scenario, all_dist_outside)
+
+mode_split_scenario = desire_plus_all %>%
+  # sf::st_drop_geometry() %>%
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  summarise(across(all:drive, sum)) %>% 
+  mutate(other = all - trimode)
+
+all_dist_scenario = mode_split_scenario %>% 
+  pivot_longer(cols = c(walk, cycle, drive, other))
+
+all_dist_scenario$name = factor(all_dist_scenario$name, levels = c("walk", "cycle", "other", "drive"))
+
+g2 = ggplot(all_dist_scenario, aes(fill = name, y = value, x = distance_band)) +
+  geom_bar(position = "stack", stat = "identity") +
+  scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+
+library(patchwork)
+infographic = g1 + g2
+
+dsn = file.path("data-small", site_name, "mode-split.png")
+
+png(file = dsn,
+    width=700, height=300)
+infographic
+dev.off()
+
+# Create single mode split summary csv
+sum_total = sum(mode_split_base$all)
+
+mode_split_all = mode_split_base %>% 
   mutate(
-    across(where(is.numeric), round, 2),
-    across(c(all_base, walk_base:drive_base), round, 0)
-    # , pwalk_godutch = ifelse(
-    #   length_cat == "h.30+", NA, pwalk_godutch),
-    # pcycle_godutch = ifelse(
-    #   length_cat == "h.30+", NA, pcycle_godutch),
-    # pdrive_godutch = ifelse(
-    #   length_cat == "h.30+", NA, pdrive_godutch),
-    # pwalk_godutch = ifelse(
-    #   length_cat == "g.20-30", NA, pwalk_godutch),
-    # pcycle_godutch = ifelse(
-    #   length_cat == "g.20-30", NA, pcycle_godutch),
-    # pdrive_godutch = ifelse(
-    #   length_cat == "g.20-30", NA, pdrive_godutch)
-    )
+    proportion_in_distance_band = round(100 * all / sum_total),
+    walk_goactive = mode_split_scenario$walk,
+    cycle_goactive = mode_split_scenario$cycle,
+    drive_goactive = mode_split_scenario$drive,
+    other_goactive = mode_split_scenario$other,
+    percent_walk_base = round(100 * walk / all),	
+    percent_cycle_base = round(100 * cycle / all),	
+    percent_drive_base = round(100 * drive / all),
+    percent_other_base = round(100 * other / all),
+    percent_walk_goactive = round(100 * walk_goactive / all),	
+    percent_cycle_goactive = round(100 * cycle_goactive / all),	
+    percent_drive_goactive = round(100 * drive_goactive / all),
+    percent_other_goactive = round(100 * other_goactive / all)
+  ) %>% 
+  rename(
+    walk_base = walk,
+    cycle_base = cycle,
+    drive_base = drive,
+    other_base = other
+  ) %>% 
+  select(distance_band, proportion_in_distance_band, everything())
 
 dsn = file.path("data-small", site_name, "mode-split.csv")	
 file.remove(dsn)
-readr::write_csv(mode_split, file = dsn)	
+readr::write_csv(mode_split_all, file = dsn)	
