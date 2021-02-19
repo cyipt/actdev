@@ -1,0 +1,21 @@
+names,description,title
+distance_band,distance band,Distance Band
+proportion_in_distance_band,proportion of total commutes in distance band,Proportion of Commutes
+all,all commuter journeys in distance band; based on 2011 census flows adjusted to site population,All commutes in distance band
+trimode,"sum of commutes by foot, cycle and car/van drivers in distance band; based on 2011 census flows adjusted to site population","Commutes by foot, cycle and car/van drivers"
+walk_base,commutes by foot in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Commutes by foot, baseline scenario"
+cycle_base,commutes by bicycle in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Commutes by bicycle, baseline scenario"
+drive_base,commutes by car/van drivers in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Commutes by car/van drivers, baseline scenario"
+other_base,commutes by other modes in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Commutes by other modes, baseline scenario"
+walk_goactive,commutes by foot in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Commutes by foot, Go Active scenario"
+cycle_goactive,commutes by bicycle in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Commutes by bicycle, Go Active scenario"
+drive_goactive,commutes by car/van drivers in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Commutes by car/van drivers, Go Active scenario"
+other_goactive,commutes by other modes in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Commutes by other modes, Go Active scenario"
+percent_walk_base,percentage of commutes by foot in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Percentage of commutes by foot, baseline scenario"
+percent_cycle_base,percentage of commutes by bicycle in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Percentage of commutes by bicycle, baseline scenario"
+percent_drive_base,percentage of commutes by car/van drivers in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Percentage of commutes by car/van drivers, baseline scenario"
+percent_other_base,percentage of commutes by other modes in distance band; based on 2011 census flows adjusted to site population; baseline scenario,"Percentage of commutes by other modes, baseline scenario"
+percent_walk_goactive,percentage of commutes by foot in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Percentage of commutes by foot, Go Active scenario"
+percent_cycle_goactive,percentage of commutes by bicycle in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Percentage of commutes by bicycle, Go Active scenario"
+percent_drive_goactive,percentage of commutes by car/van drivers in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Percentage of commutes by car/van drivers, Go Active scenario"
+percent_other_goactive,percentage of commutes by other modes in distance band; based on 2011 census flows adjusted to site population; Go Active scenario,"Percentage of commutes by other modes, Go Active scenario"
