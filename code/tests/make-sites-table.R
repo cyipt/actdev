@@ -1,6 +1,7 @@
 # Aim: make table of sites
 
 library(tidyverse)
+library(spatstat)
 
 # sites = sf::read_sf("data-small/all-sites.geojson")
 # sites_df = sf::st_drop_geometry(sites)
@@ -21,6 +22,7 @@ sites_join = sf::read_sf("data-small/all-sites.geojson")
 
 # prototype code to get site metrics
 i = sites_join$site_name[1]
+sites_join$median_commute_distance = NA
 sites_join$percent_commute_active_base = NA
 sites_join$percent_drive_convertable = NA
 sites_join$percent_mapped_drive_convertable = NA
@@ -35,6 +37,7 @@ for(i in sites_join$site_name) {
   
   all_desire_lines = all_desire_lines %>% mutate(across(all:pdrive_base, as.numeric))
   prop_near = sum(desire_lines$all_base) / sum(all_desire_lines$all) #proportion of commutes that are represented in desire_lines_many 
+  median_dist = weighted.median(all_desire_lines$length, w = all_desire_lines$all)
   all_trips = sum(all_desire_lines$all)
   drive_trips = sum(all_desire_lines$car_driver)
   active_base = sum(all_desire_lines$foot) + sum(all_desire_lines$bicycle)
@@ -53,6 +56,7 @@ for(i in sites_join$site_name) {
   percent_commute_active_scenario = round(100 * (active_base / all_trips * percent_commute_active_increase))
   
   # code to re-add the data to the sites_join table
+  sites_join$median_commute_distance[sites_join$site_name == i] = median_dist
   sites_join$percent_commute_active_base[sites_join$site_name == i] = percent_commute_active_base
   sites_join$percent_drive_convertable[sites_join$site_name == i] = pchanged
   sites_join$percent_mapped_drive_convertable[sites_join$site_name == i] = pchanged_ofnear

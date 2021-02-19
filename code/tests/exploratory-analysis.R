@@ -2,6 +2,7 @@
 library(ggplot2)
 library(sf)
 library(tidyverse)
+library(spatstat)
 
 site_name = "great-kneighton"   # which site to look at (can change)
 data_dir = "data-small" # for test sites
@@ -18,10 +19,12 @@ desire_lines = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
 mapview::mapview(dart["circuity_walk"]) +
   mapview(routes_fast["all_base"])
 
-summary(all_od)
-mean(all_od$length)
-max(all_od$length)
-# weighted.mean(all_od$length, w = all_od$all)
+summary
+mean(all_od$length) #60776
+median(all_od$length) #54527
+max(all_od$length) #287887
+weighted.mean(all_od$length, w = all_od$all) #15276
+weighted.median(all_od$length, w = all_od$all) #3426
 
 sum(all_od$all)
 dim(all_od)
