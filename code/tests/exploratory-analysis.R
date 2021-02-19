@@ -3,11 +3,17 @@ library(ggplot2)
 library(sf)
 library(tidyverse)
 
-dart = read_sf("data-small/lcid/dartboard.geojson")
-routes_fast = read_sf("data-small/lcid/routes-fast.geojson")
-site = read_sf("data-small/lcid/site.geojson")
-mode_split = read_csv("data-small/lcid/mode-split.csv")
-all_od = read_csv("data-small/great-kneighton/all-census-od.csv")
+site_name = "great-kneighton"   # which site to look at (can change)
+data_dir = "data-small" # for test sites
+
+path = file.path("data-small", site_name)
+
+dart = read_sf(file.path(path, "dartboard.geojson"))
+routes_fast = read_sf(file.path(path, "routes-fast.geojson"))
+site = read_sf(file.path(path, "site.geojson"))
+mode_split = read_csv(file.path(path, "mode-split.csv"))
+all_od = read_csv(file.path(path, "all-census-od.csv"))
+all_desire = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
 
 mapview::mapview(dart["circuity_walk"]) +
   mapview(routes_fast["all_base"])
@@ -28,8 +34,113 @@ sum(routes_fast$all_base)
 
 mode_split$other_base = mode_split$all_base - mode_split$walk_base - mode_split$cycle_base - mode_split$drive_base
 mode_long = pivot_longer(mode_split, cols = c(walk_base, cycle_base, drive_base, other_base))
-mode_long$name = factor(mode_long$name, levels = c("other_base", "walk_base", "cycle_base", "drive_base"))
+mode_long$name = factor(mode_long$name, levels = c("walk_base", "cycle_base", "other_base", "drive_base"))
+mode_long$distance_band = mode_long$length_cat
 
-ggplot(mode_long, aes(fill = name, y = value, x = length_cat)) +
-  geom_bar(position = "stack", stat = "identity")
+ggplot(mode_long, aes(fill = name, y = value, x = distance_band)) +
+  geom_bar(position = "stack", stat = "identity") +
+  scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+
+# # comparing scenarios
+# distance_band = c(0, zonebuilder::zb_100_triangular_numbers[1:5], 20, 30, 10000)
+# distance_labels = paste0(distance_band[-length(distance_band)], "-", distance_band[-1])
+# distance_labels = gsub(pattern = "-10000", replacement = "+", distance_labels)
+# all_desire$distance_band = cut(x = all_desire$length, breaks = distance_band * 1000, labels = distance_labels)
+# (shared_names = union(names(all_desire), names(all_od)))
+# table(all_desire$distance_band)
+# 
+# mode_split_old = all_desire %>%
+#   sf::st_drop_geometry() %>% 
+#   group_by(distance_band, .drop = FALSE) %>% 
+#   summarise(across(all_base:drive_base, sum)) %>% 
+#   mutate(other_base = all_base - trimode_base)
+# 
+# mode_long_old = pivot_longer(mode_split_old, cols = c(walk_base, cycle_base, drive_base, other_base))
+# unique(mode_long_old$name)
+# # mode_long_old$name = factor(mode_long_old$name, factors)
+# ggplot(mode_long_old, aes(fill = name, y = value, x = distance_band)) +
+#   geom_bar(position = "stack", stat = "identity") +
+#   scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+# 
+# all_desire$drive_base = all_desire$drive_godutch
+# all_desire$cycle_base = all_desire$cycle_godutch
+# all_desire$walk_base = all_desire$walk_godutch
+# 
+# all_desire = all_desire %>% select(any_of(shared_names))
+# 
+# mode_split_new = all_desire %>%
+#   sf::st_drop_geometry() %>% 
+#   group_by(distance_band, .drop = FALSE) %>% 
+#   summarise(across(all_base:drive_base, sum)) %>% 
+#   mutate(other_base = all_base - trimode_base)
+# 
+# mode_long_new = pivot_longer(mode_split_new, cols = c(walk_base, cycle_base, drive_base, other_base))
+# 
+# ggplot(mode_long_new, aes(fill = name, y = value, x = distance_band)) +
+#   geom_bar(position = "stack", stat = "identity") +
+#   scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+# 
+# 
+# names(mode_split)
+# 
+# mode_split$other_base = mode_split$all_base - mode_split$walk_base - mode_split$cycle_base - mode_split$drive_base
+
+
+# create combined infographic ---------------------------------------------
+
+get_distance_bands = function(x, distance_band = c(0, zonebuilder::zb_100_triangular_numbers[1:5], 20, 30, 10000)) {
+  distance_labels = paste0(distance_band[-length(distance_band)], "-", distance_band[-1])
+  distance_labels = gsub(pattern = "-10000", replacement = "+", distance_labels)
+  cut(x = x, breaks = distance_band * 1000, labels = distance_labels)
+}
+
+
+all_od_new = all_od %>% 
+  rename(all = all, walk = foot, cycle = bicycle, drive = car_driver, trimode = trimode_base) %>% 
+  select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
+  mutate(across(all:length, as.numeric))
+
+all_dist = all_od_new %>%
+  # sf::st_drop_geometry() %>%
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  summarise(across(all:drive, sum)) %>% 
+  mutate(other = all - trimode) %>% 
+  pivot_longer(cols = c(walk, cycle, drive, other))
+
+all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
+ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
+  geom_bar(position = "stack", stat = "identity") +
+  scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+
+names(desire_lines) = gsub(pattern = "_godutch", replacement = "", x = names(desire_lines))
+summary(desire_lines$length)
+
+desire_lines_scenario = desire_lines %>% 
+  mutate(all = all_base, trimode = trimode_base) %>% 
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  filter(purpose == "commute") %>% 
+  select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
+  sf::st_drop_geometry()
+
+# join on actdev scenario data
+all_dist_outside = all_od_new %>% 
+  filter(! geo_code2 %in% desire_lines$geo_code2)
+
+desire_plus_all = bind_rows(desire_lines_scenario, all_dist_outside)
+
+all_dist_scenario = desire_plus_all %>%
+  # sf::st_drop_geometry() %>%
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  summarise(across(all:drive, sum)) %>% 
+  mutate(other = all - trimode) %>% 
+  pivot_longer(cols = c(walk, cycle, drive, other))
+
+all_dist_scenario$name = factor(all_dist_scenario$name, levels = c("walk", "cycle", "other", "drive"))
+
+ggplot(all_dist_scenario, aes(fill = name, y = value, x = distance_band)) +
+  geom_bar(position = "stack", stat = "identity") +
+  scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
 
