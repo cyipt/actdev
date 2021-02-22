@@ -14,6 +14,8 @@
 # file.edit("code/infographics.R")
 library(tidyverse)
 library(stplanr)
+library(tmap)
+
 setwd("~/cyipt/actdev/")
 
 if(!exists("site_name")) site_name = "great-kneighton"
@@ -55,7 +57,13 @@ site_drive_circuity = sum(site_routes_drive$distance) / sum(site_desire_lines$le
 site_drive_circuity
 
 # infographic plot
+tmap_mode("plot")
+tm_shape(site_area) + tm_polygons() +
+  tm_shape(site_routes_drive) + tm_lines(col = "red", alpha = 0.3) +
+  tm_shape(site_routes_cycle) + tm_lines(col = "green", alpha = 0.3, lwd = 2) +
+  tm_shape(site_routes_walk) + tm_lines(col = "blue", alpha = 0.3, lwd = 2) 
 
+# Todo: rbind all route lines and create a legend that contains circuity values.
 
 # Approach 2: use data from osmextract ------------------------------------
 
