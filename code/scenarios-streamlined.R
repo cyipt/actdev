@@ -703,23 +703,23 @@ access_means = access_site %>%
   group_by(site_name) %>% 
   summarise(across(c(weightedJobsPTt:weightedJobsCart, PSPTt:TownCart), mean))
 
-site_all_base = sum(desire_lines_combined$all)
-site_walk_base = sum(desire_lines_combined$foot) / site_all_base
-site_cycle_base = sum(desire_lines_combined$bicycle) / site_all_base
-site_drive_base = sum(desire_lines_combined$car_driver) / site_all_base
-site_bus_base = sum(desire_lines_combined$bus) / site_all_base
-site_rail_base = (sum(desire_lines_combined$train) + sum(desire_lines_combined$light_rail)) / site_all_base
-site_other_base = (sum(desire_lines_combined$car_passenger) +sum(desire_lines_combined$taxi) + sum(desire_lines_combined$motorbike) + sum(desire_lines_combined$other)) / site_all_base
+# site_all_base = sum(desire_lines_combined$all)
+# site_walk_base = sum(desire_lines_combined$foot) / site_all_base
+# site_cycle_base = sum(desire_lines_combined$bicycle) / site_all_base
+# site_drive_base = sum(desire_lines_combined$car_driver) / site_all_base
+# site_bus_base = sum(desire_lines_combined$bus) / site_all_base
+# site_rail_base = (sum(desire_lines_combined$train) + sum(desire_lines_combined$light_rail)) / site_all_base
+# site_other_base = (sum(desire_lines_combined$car_passenger) +sum(desire_lines_combined$taxi) + sum(desire_lines_combined$motorbike) + sum(desire_lines_combined$other)) / site_all_base
 
 site_data = site
-site_data$pwalk = site_walk_base
-site_data$pcycle = site_cycle_base
-site_data$pdrive = site_drive_base
-site_data$pbus = site_bus_base
-site_data$prail = site_rail_base
-site_data$pother = site_other_base
-site_data = site_data %>% 
-  mutate(across(pwalk:pother, round, 2))
+# site_data$pwalk = site_walk_base
+# site_data$pcycle = site_cycle_base
+# site_data$pdrive = site_drive_base
+# site_data$pbus = site_bus_base
+# site_data$prail = site_rail_base
+# site_data$pother = site_other_base
+# site_data = site_data %>% 
+#   mutate(across(pwalk:pother, round, 2))
 
 site_data = inner_join(site_data, st_drop_geometry(access_means), by = "site_name")
 st_precision(site_data) = 1000000

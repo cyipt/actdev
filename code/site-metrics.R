@@ -94,6 +94,35 @@ for(i in sites_join$site_name) {
   # message(round(100 * (drive_trips - drive_dutch) / drive_trips), " percent in ", i)
 }
 
+sites_join$busyness_fast_cycle = NA
+sites_join$circuity_fast_cycle = NA
+sites_join$circuity_walk = NA
+
+for(i in sites_join$site_name) {
+  f = paste0("data-small/", i, "/desire-lines-many.geojson")
+  desire_lines = sf::read_sf(f)
+  f = paste0("data-small/", i, "/routes-fast.geojson")
+  fast_routes = sf::read_sf(f)
+  f = paste0("data-small/", i, "/routes-walk.geojson")
+  
+  if(file.exists(f)) { walk_routes = sf::read_sf(f)
+  walk = walk_routes %>% st_drop_geometry %>% select(geo_code2, route_length = distance, walk_base)
+  join_walk = inner_join(walk, desire_lines %>% select(geo_code2, euclidean_length = length), by = "geo_code2")
+  join_walk$circuity = join_walk$route_length / join_walk$euclidean_length
+  walk_circuity = round(weighted.mean(join_walk$circuity, w = join_walk$walk_base), 2)
+  sites_join$circuity_walk[sites_join$site_name == i] = walk_circuity
+  }
+  
+  fast = fast_routes %>% st_drop_geometry %>% select(geo_code2, route_length = length, cycle_base)
+  join_fast = inner_join(fast, desire_lines %>% select(geo_code2, euclidean_length = length), by = "geo_code2")
+  join_fast$circuity = join_fast$route_length / join_fast$euclidean_length
+  fast_circuity = round(weighted.mean(join_fast$circuity, w = join_fast$cycle_base), 2)
+  sites_join$circuity_fast_cycle[sites_join$site_name == i] = fast_circuity
+  
+  mean_busyness = round(weighted.mean(fast_routes$mean_busyness, w = fast_routes$cycle_base), 2)
+  sites_join$busyness_fast_cycle[sites_join$site_name == i] = mean_busyness
+}
+
 st_precision(sites_join) = 1000000
 
 # add in circuity measures
