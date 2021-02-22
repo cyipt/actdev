@@ -13,6 +13,8 @@
 # get starting point from infographics.R
 # file.edit("code/infographics.R")
 library(tidyverse)
+library(stplanr)
+setwd("~/cyipt/actdev/")
 
 if(!exists("site_name")) site_name = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")
@@ -38,7 +40,21 @@ site_odc = cbind(
   sf::st_coordinates(site_points_destination)
 )
 site_desire_lines = od::odc_to_sf(site_odc)
+site_desire_lines$length = geo_length(site_desire_lines)
 mapview::mapview(site_desire_lines)
+
+site_routes_walk = route(l = site_desire_lines, route_fun = route_osrm, osrm.profile = "foot")
+site_walk_circuity = sum(site_routes_walk$distance) / sum(site_desire_lines$length)
+
+site_routes_cycle = route(l = site_desire_lines, route_fun = cyclestreets::journey, plan = "balanced")
+site_cycle_circuity = sum(site_routes_cycle$distances) / sum(site_desire_lines$length)
+site_cycle_circuity
+
+site_routes_drive = route(l = site_desire_lines, route_fun = route_osrm, osrm.profile = "car")
+site_drive_circuity = sum(site_routes_drive$distance) / sum(site_desire_lines$length)
+site_drive_circuity
+
+# infographic plot
 
 
 # Approach 2: use data from osmextract ------------------------------------
