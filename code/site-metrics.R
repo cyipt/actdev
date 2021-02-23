@@ -123,6 +123,21 @@ for(i in sites_join$site_name) {
   sites_join$busyness_fast_cycle[sites_join$site_name == i] = mean_busyness
 }
 
+sites_join$in_site_walk_circuity = NA
+sites_join$in_site_cycle_circuity = NA
+sites_join$in_site_drive_circuity = NA
+
+for(i in sites_join$site_name) {
+  f = paste0("data-small/", i, "/in-site-metrics.csv")
+  if(file.exists(f)) {
+    in_site = sf::read_sf(f)
+    
+    sites_join$in_site_walk_circuity[sites_join$site_name == i] = in_site$site_walk_circuity
+    sites_join$in_site_cycle_circuity[sites_join$site_name == i] = in_site$site_cycle_circuity
+    sites_join$in_site_drive_circuity[sites_join$site_name == i] = in_site$site_drive_circuity
+  }
+}
+  
 st_precision(sites_join) = 1000000
 
 # add in circuity measures
