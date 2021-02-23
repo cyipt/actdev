@@ -89,6 +89,18 @@ st_precision(site_rnet_cycle) = 1000000
 st_precision(site_rnet_drive) = 1000000
 st_precision(site_area) = 1000000
 
+dsn = file.path("data-small", site_name, "in-site-walk-rnet.geojson")
+if(file.exists(dsn)) file.remove(dsn)
+sf::write_sf(site_rnet_walk, dsn)
+
+dsn = file.path("data-small", site_name, "in-site-cycle-rnet.geojson")
+if(file.exists(dsn)) file.remove(dsn)
+sf::write_sf(site_rnet_cycle, dsn)
+
+dsn = file.path("data-small", site_name, "in-site-drive-rnet.geojson")
+if(file.exists(dsn)) file.remove(dsn)
+sf::write_sf(site_rnet_drive, dsn)
+
 # infographic plot
 # tmap_mode("plot")
 # tm_shape(site_area) + tm_polygons() +
