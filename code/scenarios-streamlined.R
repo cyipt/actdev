@@ -470,10 +470,9 @@ if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
     mutate(pwalk_godutch = round(walk_godutch / trimode_base, 6)) %>% 
     select(geo_code1 = site_name, geo_code2 = town_name, distance, duration, all_base, trimode_base, walk_base, walk_godutch, pwalk_godutch)
   
-  routes_walk_combined = bind_rows(
-    routes_walk_cutdown %>% mutate(purpose = "commute"),
-    walk_town_cutdown %>% mutate(purpose = "town")
-  )
+  routes_walk_combined = routes_walk_cutdown %>% mutate(purpose = "commute")
+  
+  if(route_walk_town$distance <= 6000) routes_walk_combined = bind_rows(routes_walk_combined, walk_town_cutdown %>% mutate(purpose = "town"))
   
   # create object for rnet and to save (desire lines simply use routes_walk_save)
   walk_obj = routes_walk_combined %>%
