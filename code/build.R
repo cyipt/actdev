@@ -17,7 +17,7 @@ set.seed(2021) # reproducibility
 site_names_to_build = sites %>% 
   # fails on the abstreet scenarios for some reason...
   # filter(!str_detect(string = site_name, pattern = "bath|ebb|handf|tyersal-lane")) %>% # I don't know why these sites were excluded
-  # slice(1:5) %>%
+  slice(16:20) %>%
   pull(site_name)
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
@@ -78,5 +78,17 @@ for(site_name in site_names_to_build) {
     })
   })
 }
+
+# Generate in site metrics  ----------------------------------------------
+
+for(site_name in site_names_to_build) {
+  message("Building for ", site_name)
+  suppressMessages({
+    suppressWarnings({
+      source("code/in-site-metrics.R")
+    })
+  })
+}
+
 
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-small")

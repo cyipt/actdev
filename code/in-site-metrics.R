@@ -47,12 +47,10 @@ site_odc = cbind(
 )
 site_desire_lines = od::odc_to_sf(site_odc)
 site_desire_lines$length = geo_length(site_desire_lines)
-mapview::mapview(site_desire_lines)
+# mapview::mapview(site_desire_lines)
 
 # first generate driving routes
 site_routes_drive = route(l = site_desire_lines, route_fun = route_osrm, osrm.profile = "car")
-site_drive_circuity = sum(site_routes_drive$distance) / sum(site_desire_lines$length)
-# site_drive_circuity
 
 site_routes_drive$drive = 1
 site_rnet_drive = overline(site_routes_drive, attrib = "drive")
@@ -67,22 +65,24 @@ site_odc_reset = cbind(
 )
 site_desire_lines_reset = od::odc_to_sf(site_odc_reset)
 site_desire_lines_reset$length = geo_length(site_desire_lines_reset)
-mapview::mapview(site_desire_lines_reset)
+# mapview::mapview(site_desire_lines_reset)
 
 # then do walking and cycling routes
 site_routes_walk = route(l = site_desire_lines_reset, route_fun = route_osrm, osrm.profile = "foot")
-site_walk_circuity = sum(site_routes_walk$distance) / sum(site_desire_lines$length)
+
 
 site_routes_walk$walk = 1
 site_rnet_walk = overline(site_routes_walk, attrib = "walk")
 
 site_routes_cycle = route(l = site_desire_lines_reset, route_fun = route_osrm, osrm.profile = "bike")
 # site_routes_cycle = unique(site_routes_cycle) #avoid weird bug in ebbsfleet
-site_cycle_circuity = sum(site_routes_cycle$distance) / sum(site_desire_lines$length)
-# site_cycle_circuity
 
 site_routes_cycle$cycle = 1
 site_rnet_cycle = overline(site_routes_cycle, attrib = "cycle")
+
+site_walk_circuity = sum(site_routes_walk$distance) / sum(site_desire_lines_reset$length)
+site_cycle_circuity = sum(site_routes_cycle$distance) / sum(site_desire_lines_reset$length)
+site_drive_circuity = sum(site_routes_drive$distance) / sum(site_desire_lines_reset$length)
 
 st_precision(site_rnet_walk) = 1000000
 st_precision(site_rnet_cycle) = 1000000
@@ -100,7 +100,7 @@ tmap_mode("plot")
 site_map = tm_shape(site_area) + tm_polygons() +
   tm_shape(site_rnet_drive) + tm_lines(col = "red", lwd = "drive", scale = 4) +
   tm_shape(site_rnet_cycle) + tm_lines(col = "green", lwd = "cycle", scale = 4) +
-  tm_shape(site_rnet_walk) + tm_lines(col = "blue", lwd = "walk", scale = 4) 
+  tm_shape(site_rnet_walk) + tm_lines(col = "blue", lwd = "walk", scale = 4)
 
 dsn = file.path("data-small", site_name, "in-site-metrics.png")
 tmap_save(site_map, dsn)
