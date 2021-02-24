@@ -7,7 +7,7 @@ remotes::install_github("a-b-street/abstr")
 library(dplyr)
 
 if(!exists("site_name")) {
-  site_name = "lcid"
+  site_name = "great-kneighton"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -58,8 +58,18 @@ building_types = c(
   "civic",
   "public"
 )
-osm_buildings = osm_polygons %>%
-  filter(building %in% building_types)
+summary(factor(osm_polygons$building))
+
+# show building = NA
+# osm_polygons %>% 
+#   filter(is.na(building)) %>% 
+#   sample_n(size = 100) %>% mapview::mapview()
+
+osm_buildings = osm_polygons %>% 
+  filter(!str_detect(string = building, "resi|house|semi|terrace|detached|apartments"))
+summary(factor(osm_buildings$building))
+
+# %>% filter(building %in% building_types)
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
 zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
@@ -83,8 +93,8 @@ if(procgen_exists) {
   procgen_houses = sf::read_sf(procgen_path)
 }
 
-# mapview::mapview(zones_of_interest) +
-#   mapview::mapview(buildings_in_zones)
+mapview::mapview(zones_of_interest) +
+  mapview::mapview(buildings_in_zones)
 buildings_in_zones = buildings_in_zones %>%
   select(osm_way_id, building)
 
