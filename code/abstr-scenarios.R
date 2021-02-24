@@ -67,6 +67,7 @@ summary(factor(osm_polygons$building))
 
 osm_buildings = osm_polygons %>% 
   filter(!str_detect(string = building, "resi|house|semi|terrace|detached|apartments"))
+  # filter(building %in% building_types)
 summary(factor(osm_buildings$building))
 
 # %>% filter(building %in% building_types)
@@ -189,12 +190,14 @@ abt$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n 
 abb = rbind(abc, abt)
 abbl = abstr::ab_sf_to_json(abb)
 
+names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names(desire_lines))
+
 abcd = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
   desire_lines = desire_lines %>% filter(purpose == "commute"),
   zones = zones_of_interest,
-  scenario = "dutch",
+  scenario = "go_active",
   output_format = "sf"
 )
 abcd$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
@@ -203,22 +206,32 @@ abtd = abstr::ab_scenario(
   buildings = buildings_in_zones,
   desire_lines = desire_lines %>% filter(purpose == "town"),
   zones = zones_of_interest,
-  scenario = "dutch",
+  scenario = "go_active",
   output_format = "sf"
 )
 abtd$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n = nrow(abtd))
 abbd = rbind(abcd, abtd)
 hist(abbd$departure, breaks = seq(0, 60*60*24, 60 * 15))
-abbld = abstr::ab_sf_to_json(abbd, mode_column = "mode_dutch")
+abbld = abstr::ab_sf_to_json(abbd, mode_column = "mode_go_active")
 
 table(abb$mode_base)
-table(abbd$mode_dutch)
+table(abbd$mode_go_active)
 
-abstr::ab_save(abbl, file.path(path, "scenario-base.json"))
-abstr::ab_save(abbld, file.path(path, "scenario-godutch.json"))
-message(readLines(file.path(path, "scenario-godutch.json"), 2))
+abstr::ab_save(abbl, file.path(path, "scenario_base.json"))
+abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 
-# idea: implement mode shift scenario oon the disaggregate lines
+file.remove(file.path(path, "scenario-base.json"))
+file.remove(file.path(path, "scenario-godutch.json"))
+file.copy(file.path(path, "scenario-godutch.json"))
+
+# test in bash
+# cd ~/other-repos/abstreet
+# cargo run --release --bin import_traffic -- --map=data/system/gb/great_kneighton/maps/center.bin --input=/home/robin/cyipt/actdev/data-small/great-kneighton/scenario_go_active.json --skip_problems
+# cargo run --release --bin game -- --dev data/system/gb/great_kneighton/maps/center.bin
+
+# message(readLines(file.path(path, "scenario_go_active.json"), 2))
+
+# idea: implement mode shift scenario on the disaggregate lines
 
 # file.edit(file.path(path, "scenario.json"))
 
@@ -232,18 +245,18 @@ message(readLines(file.path(path, "scenario-godutch.json"), 2))
 #   output_format = "sf"
 # )
 # 
-# abstr_godutch_sf = abstr::ab_scenario(
+# abstr_go_active_sf = abstr::ab_scenario(
 #   houses,
 #   buildings = buildings_in_zones,
 #   desire_lines = desire_lines,
 #   zones = zones_of_interest,
-#   scenario = "godutch",
+#   scenario = "go_active",
 #   output_format = "sf"
 # )
 # 
 # # scenarios look good!
 # table(abstr_base_sf$mode_base)
-# table(abstr_godutch_sf$mode_godutch)
+# table(abstr_go_active_sf$mode_go_active)
 # 
-# mapview::mapview(abstr_godutch_sf %>% sample_n(20)) +
+# mapview::mapview(abstr_go_active_sf %>% sample_n(20)) +
 #   mapview::mapview(houses)
