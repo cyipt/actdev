@@ -36,7 +36,9 @@ all_dist = mode_split_base %>%
 all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
 g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
-  scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+  scale_fill_manual(values = c("blue", "green", "purple", "red")) +
+  labs(y = "", x = "Distance band (km)", fill = "") +
+  theme_minimal()
 
 # Go Active scenario
 names(desire_lines) = gsub(pattern = "_godutch", replacement = "", x = names(desire_lines))
@@ -70,16 +72,23 @@ all_dist_scenario$name = factor(all_dist_scenario$name, levels = c("walk", "cycl
 
 g2 = ggplot(all_dist_scenario, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
-  scale_fill_manual(values = c("darkblue", "blue", "purple", "red"))
+  scale_fill_manual(values = c("blue", "green", "purple", "red")) +
+  labs(y = "", x = "Distance band (km)", fill = "") +
+  theme_minimal()
 
-library(patchwork)
-infographic = g1 + g2
+# library(patchwork)
+# infographic = g1 + g2
 
-dsn = file.path("data-small", site_name, "mode-split.png")
-
+dsn = file.path("data-small", site_name, "mode-split-base.png")
 png(file = dsn,
-    width=700, height=300)
-infographic
+    width=400, height=300)
+print(g1)
+dev.off()
+
+dsn = file.path("data-small", site_name, "mode-split-goactive.png")
+png(file = dsn,
+    width=400, height=300)
+print(g2)
 dev.off()
 
 # Create single mode split summary csv
