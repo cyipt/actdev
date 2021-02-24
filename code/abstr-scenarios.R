@@ -222,7 +222,6 @@ abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 
 file.remove(file.path(path, "scenario-base.json"))
 file.remove(file.path(path, "scenario-godutch.json"))
-file.copy(file.path(path, "scenario-godutch.json"))
 
 # test in bash
 # cd ~/other-repos/abstreet
