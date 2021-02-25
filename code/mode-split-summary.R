@@ -1,4 +1,5 @@
 # Mode split summary by distance ------------------------------------------	
+
 library(tidyverse)
 library(ggplot2)
 library(sf)
@@ -6,9 +7,11 @@ library(sf)
 if(!exists("site_name")) site_name = "great-kneighton"
 
 path = file.path("data-small", site_name)
-
 all_od = read_csv(file.path(path, "all-census-od.csv"))
 desire_lines = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
+
+# colourscheme
+cols = c("#457b9d", "#90be6d", "#ffd166", "#fe5f55")
 
 # create combined infographic ---------------------------------------------
 
@@ -36,7 +39,7 @@ all_dist = mode_split_base %>%
 all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
 g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
-  scale_fill_manual(values = c("blue", "green", "purple", "red")) +
+  scale_fill_manual(values = cols) +
   labs(y = "", x = "Distance band (km)", fill = "") +
   theme_minimal()
 
@@ -72,7 +75,7 @@ all_dist_scenario$name = factor(all_dist_scenario$name, levels = c("walk", "cycl
 
 g2 = ggplot(all_dist_scenario, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
-  scale_fill_manual(values = c("blue", "green", "purple", "red")) +
+  scale_fill_manual(values = cols) +
   labs(y = "", x = "Distance band (km)", fill = "") +
   theme_minimal()
 
