@@ -4,10 +4,10 @@
 remotes::install_github("itsleeds/od")
 remotes::install_github("ITSLeeds/pct")
 remotes::install_github("a-b-street/abstr")
-library(dplyr)
+library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "great-kneighton"
+  site_name = "aylesham"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -86,7 +86,11 @@ zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>%
 zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
 zones_of_interest = rbind(zones_of_interest, zone_town_sf)
 
-buildings_in_zones = osm_buildings[zones_of_interest, , op = sf::st_within]
+tryCatch( {buildings_in_zones = osm_buildings[zones_of_interest, , op = sf::st_within]}
+          , error = function(e) {error <<- TRUE})
+if(error) {
+  buildings_in_zones = osm_buildings[zones_of_interest, ]
+}
 
 if(procgen_exists) {
   file.remove(procgen_path)
@@ -94,8 +98,8 @@ if(procgen_exists) {
   procgen_houses = sf::read_sf(procgen_path)
 }
 
-mapview::mapview(zones_of_interest) +
-  mapview::mapview(buildings_in_zones)
+# mapview::mapview(zones_of_interest) +
+#   mapview::mapview(buildings_in_zones)
 buildings_in_zones = buildings_in_zones %>%
   select(osm_way_id, building)
 
@@ -169,6 +173,9 @@ desire_lines$all_base = desire_lines$trimode_base
 # }
 
 # todo: generalise this code with some kind of loop
+names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names(desire_lines))
+sum(desire_lines$trimode_base) == sum(desire_lines$walk_base + desire_lines$cycle_base + desire_lines$drive_base)
+sum(desire_lines$trimode_base) == sum(desire_lines$walk_go_active + desire_lines$cycle_go_active + desire_lines$drive_go_active)
 abc = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
@@ -186,11 +193,13 @@ abt = abstr::ab_scenario(
   scenario = "base",
   output_format = "sf"
 )
+table(abt$mode_base)
 abt$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n = nrow(abt))
 abb = rbind(abc, abt)
+rows_equal = nrow(abb) == sum(desire_lines$trimode_base)
+if(!rows_equal) stop("Number of trips in scenario different from baseline")
 abbl = abstr::ab_sf_to_json(abb)
 
-names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names(desire_lines))
 
 abcd = abstr::ab_scenario(
   houses,
@@ -200,6 +209,9 @@ abcd = abstr::ab_scenario(
   scenario = "go_active",
   output_format = "sf"
 )
+
+
+# mapview::mapview(abcd)
 abcd$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
 abtd = abstr::ab_scenario(
   houses,
@@ -209,8 +221,12 @@ abtd = abstr::ab_scenario(
   scenario = "go_active",
   output_format = "sf"
 )
+nrow(abtd) == nrow(abt)
+table(abtd$mode_go_active)
 abtd$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n = nrow(abtd))
 abbd = rbind(abcd, abtd)
+rows_equal = nrow(abbd) == sum(desire_lines$trimode_base)
+if(!rows_equal) stop("Number of trips in scenario different from baseline")
 hist(abbd$departure, breaks = seq(0, 60*60*24, 60 * 15))
 abbld = abstr::ab_sf_to_json(abbd, mode_column = "mode_go_active")
 

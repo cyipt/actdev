@@ -80,16 +80,11 @@ g2 = ggplot(all_dist_scenario, aes(fill = name, y = value, x = distance_band)) +
 # infographic = g1 + g2
 
 dsn = file.path("data-small", site_name, "mode-split-base.png")
-png(file = dsn,
-    width=400, height=300)
-print(g1)
-dev.off()
+ggsave(filename = dsn, width = 4, height = 3, dpi = 100, plot = g1)
+# magick::image_read(dsn) # sanity check, looking good!
 
 dsn = file.path("data-small", site_name, "mode-split-goactive.png")
-png(file = dsn,
-    width=400, height=300)
-print(g2)
-dev.off()
+ggsave(filename = dsn, width = 4, height = 3, dpi = 100, plot = g2)
 
 # Create single mode split summary csv
 sum_total = sum(mode_split_base$all)
