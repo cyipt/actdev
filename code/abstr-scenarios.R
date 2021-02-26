@@ -231,7 +231,7 @@ abt$departure = abstr::ab_time_normal(hr = times$town$hr, sd = times$town$sd, n 
 abb = rbind(abc, abt)
 rows_equal = nrow(abb) == sum(desire_lines$trimode_base)
 if(!rows_equal) stop("Number of trips in scenario different from baseline")
-abbl = abstr::ab_sf_to_json(abb)
+abbl = abstr::ab_json(abb)
 
 
 abcd = abstr::ab_scenario(
@@ -261,7 +261,7 @@ abbd = rbind(abcd, abtd)
 rows_equal = nrow(abbd) == sum(desire_lines$trimode_base)
 if(!rows_equal) stop("Number of trips in scenario different from baseline")
 hist(abbd$departure, breaks = seq(0, 60*60*24, 60 * 15))
-abbld = abstr::ab_sf_to_json(abbd, mode_column = "mode_go_active")
+abbld = abstr::ab_json(abbd, mode_column = "mode_go_active")
 
 table(abb$mode_base)
 table(abbd$mode_go_active)
