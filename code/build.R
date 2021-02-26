@@ -93,12 +93,16 @@ for(site_name in site_names_to_build) {
 
 # Update site.geojson files -----------------------------------------------
 
-# site_original = sf::read_sf("data-small/allerton-bywater/site.geojson")
-# (n1 = names(site_original))
-# all_sites = sf::read_sf("data-small/all-sites.geojson")
-# (n2 = names(all_sites))
-# setdiff(n2, n1)
-# n1[!n1 %in% n2]
-# extra_vars = n2[!n2 %in% n1]
+site_original = sf::read_sf("data-small/allerton-bywater/site.geojson")
+(n1 = names(site_original))
+all_sites = sf::read_sf("data-small/all-sites.geojson")
+(n2 = names(all_sites))
+setdiff(n2, n1)
+(in_original_not_all = n1[!n1 %in% n2])
+(extra_vars = n2[!n2 %in% n1])
+site_original_not_in_all = site_original[c("site_name", in_original_not_all)]
+site_new = left_join(site_original_not_in_all, all_sites %>% sf::st_drop_geometry())
+file.remove("data-small/allerton-bywater/site.geojson")
+sf::write_sf(site_new, "data-small/allerton-bywater/site.geojson")
 
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-small")
