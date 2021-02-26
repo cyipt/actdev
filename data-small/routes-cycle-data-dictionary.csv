@@ -7,6 +7,7 @@ mean_gradient,distance weighted mean gradient of route segments,Mean gradient
 max_gradient,maximum route segment gradient,Maximum gradient
 mean_busyness,distance weighted mean busyness of route segments,Mean road busyness
 max_busyness,maximum route segment busyness,Maximum road busyness
-all_base,all journeys from origin to destination (baseline and Go Dutch scenarios),All journeys
+all_base,all journeys from origin to destination (baseline and Go Active scenarios),All journeys
+trimode_base,"journeys by foot, bicycle and car/van drivers from origin to destination (baseline and Go Active scenarios)","Journeys by foot, bicycle and car/van drivers"
 cycle_base,journeys by bicycle from origin to destination in baseline scenario,"Journeys by bicycle, baseline scenario"
 cycle_godutch,journeys by bicycle from origin to destination in Go Dutch scenario,"Journeys by bicycle, Go Dutch scenario"

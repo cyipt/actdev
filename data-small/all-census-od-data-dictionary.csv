@@ -2,18 +2,19 @@ names,description,title
 geo_code1,origin MSOA code representing the site,Origin
 geo_code2,destination MSOA code,Destination
 all,all commuter journeys from origin to destination; based on 2011 census flows adjusted to site population,All commuter journeys
+trimode_base,"commuter journeys by foot, bicycle or car/van drivers, from origin to destination; based on 2011 census flows adjusted to site population","Commutes by foot, bicycle or car/van drivers, baseline scenario"
 from_home,"employed population who live in origin MSOA, work in destination MSOA, and work from home; based on 2011 census flows adjusted to site population","Working from home, baseline scenario"
 light_rail,commuter journeys by light rail from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by light rail, baseline scenario"
 train,commuter journeys by train from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by train, baseline scenario"
 bus,commuter journeys by bus from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by bus, baseline scenario"
 taxi,commuter journeys by taxi from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by taxi, baseline scenario"
 motorbike,commuter journeys by motorbike from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by motorbike, baseline scenario"
-car_driver,commuter journeys by car drivers from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by car drivers, baseline scenario"
-car_passenger,commuter journeys by car passengers from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by car passengers, baseline scenario"
+car_driver,commuter journeys by car/van drivers from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by car/van drivers, baseline scenario"
+car_passenger,commuter journeys by car/van passengers from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by car/van passengers, baseline scenario"
 bicycle,commuter journeys by bicycle from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by bicycle, baseline scenario"
 foot,commuter journeys by foot from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by foot, baseline scenario"
 other,commuter journeys by other mode from origin to destination; based on 2011 census flows adjusted to site population,"Commutes by other mode, baseline scenario"
 length,"length of desire line (Euclidean distance, m)",Distance (m)
-pwalk_commute_base,proportion of commuter journeys from origin to destination undertaken by foot; based on 2011 census flows,Proportion of commutes by foot
-pcycle_commute_base,proportion of commuter journeys from origin to destination undertaken by bicycle; based on 2011 census flows,Proportion of commutes by bicycle
-pdrive_commute_base,proportion of commuter journeys from origin to destination undertaken by car drivers; based on 2011 census flows,Proportion of commutes by car drivers
+pwalk_base,proportion of commuter journeys from origin to destination undertaken by foot; based on 2011 census flows,Proportion of commutes by foot
+pcycle_base,proportion of commuter journeys from origin to destination undertaken by bicycle; based on 2011 census flows,Proportion of commutes by bicycle
+pdrive_base,proportion of commuter journeys from origin to destination undertaken by car/van drivers; based on 2011 census flows,Proportion of commutes by car/van drivers

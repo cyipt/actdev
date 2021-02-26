@@ -1,0 +1,27 @@
+names,description,title
+site_name,name of site,Site name
+full_name,official name of residential development,Full site name
+main_local_authority,the lower tier authority that the majority of the site sits within,Local Authority
+is_complete,estimated level of completion in 2021 plus notes on sites known to have been in progress in 2011,Level of completion
+dwellings_when_complete,estimated number of dwellings at completion,Number of dwellings
+planning_url,URL for outline planning application or other appropriate application available online,Planning application
+percent_commute_active_base,percentage who commute by foot or bicycle in baseline scenario,Active mode share in baseline scenario
+percent_drive_convertable,percentage of total car/van drivers who switch to commuting by foot or bicycle in our Go Active scenario,Percentage of all drivers who switch modes under Go Active
+percent_mapped_drive_convertable,percentage of car/van drivers with destinations within the large study area who switch to commuting by foot or bicycle in our Go Active scenario,Percentage of drivers on local routes who switch modes under Go Active
+percent_commute_active_scenario,"percentage who commute by foot or bicycle in Go Active scenario, assuming trips outside study area switch to active modes at same rate as trips within study area",Active mode share in Go Active scenario
+median_commute_distance,median commute distance based on 2011 census data,Median commute distance
+distance_to_town,Distance to nearest town centre recognised in 2004 MHCLG dataset,Distance to nearest town centre (km)
+crossing_points,Number of points at which the fast cycle routes cross the site boundary,Number of identified cycle routes crossing site boundary 
+percent_commute_walk_base,percentage who commute by foot in baseline scenario,Walking mode share
+percent_commute_cycle_base,percentage who commute by bicycle in baseline scenario,Cycling mode share
+percent_commute_drive_base,percentage who commute as car/van drivers in baseline scenario,Driving mode share
+percent_commute_bus_base,percentage who commute by bus in baseline scenario,Bus mode share
+percent_commute_rail_base,percentage who commute by train or light rail in baseline scenario,Rail mode share
+percent_commute_other_base,percentage who commute by taxi, motorbike or other mode or as car/van passengers in baseline scenario,Other mode share
+circuity_fast_cycle,mean circuity of the commute/town fast cycle routes (across the entire length of the routes),Circuity of cycle routes from the site
+circuity_walk,mean circuity of the commute/town walking routes (across the entire length of the routes),Circuity of walking routes from the site
+busyness_fast_cycle,mean road busyness of the commute/town fast cycle routes (across the entire length of the routes),Road busyness of cycle routes from the site
+in_site_walk_circuity,mean circuity of walking routes between 20 OD pairs within the site,Circuity of walking routes within the site
+in_site_cycle_circuity,mean circuity of cycle routes between 20 OD pairs within the site,Circuity of cycle routes within the site
+in_site_drive_circuity,mean circuity of driving routes between 20 OD pairs within the site,Circuity of driving routes within the site
+percent_commute_drive_scenario,"percentage who commute as car/van drivers in Go Active scenario, assuming trips outside study area switch to active modes at same rate as trips within study area",Driving mode share in Go Active scenario

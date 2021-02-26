@@ -35,6 +35,7 @@ sites_join$percent_drive_convertable = NA
 sites_join$percent_mapped_drive_convertable = NA
 # sites_join$percent_scenario_active = NA
 sites_join$percent_commute_active_scenario = NA
+sites_join$percent_commute_drive_scenario = NA
 sites_join$crossing_points = NA
 for(i in sites_join$site_name) {
   f = paste0("data-small/", i, "/desire-lines-many.geojson")
@@ -54,6 +55,7 @@ for(i in sites_join$site_name) {
   all_trips = sum(all_desire_lines$all)
   drive_trips = sum(all_desire_lines$car_driver)
   active_base = sum(all_desire_lines$foot) + sum(all_desire_lines$bicycle)
+  percent_trimode_trips = sum(all_desire_lines$trimode_base) / all_trips
   
   percent_commute_walk_base = round(100 * sum(all_desire_lines$foot) / all_trips)
   percent_commute_cycle_base = round(100 * sum(all_desire_lines$bicycle) / all_trips)
@@ -73,7 +75,8 @@ for(i in sites_join$site_name) {
   # percent_scenario_active = round(100 * (active_base + active_dutch - active_near) / all_trips)
   # to correct for missing desire lines in small sites: calculate the % by which active travel has increased in the mapped desire lines, then assume it increases by the same proportion in unmapped desire lines (yes this is slightly optimistic because the unmapped ones will be longer, but at least it evens things out between sites with different populations) 
   percent_commute_active_increase = active_dutch / active_near
-  percent_commute_active_scenario = round(100 * (active_base / all_trips * percent_commute_active_increase))
+  percent_commute_active_scenario = (active_base / all_trips * percent_commute_active_increase)
+  percent_commute_drive_scenario = round(100 * (percent_trimode_trips - percent_commute_active_scenario))
   
   # code to re-add the data to the sites_join table
   sites_join$percent_commute_walk_base[sites_join$site_name == i] = percent_commute_walk_base
@@ -89,7 +92,8 @@ for(i in sites_join$site_name) {
   sites_join$percent_drive_convertable[sites_join$site_name == i] = pchanged
   sites_join$percent_mapped_drive_convertable[sites_join$site_name == i] = pchanged_ofnear
   # sites_join$percent_scenario_active[sites_join$site_name == i] = percent_scenario_active
-  sites_join$percent_commute_active_scenario[sites_join$site_name == i] = percent_commute_active_scenario
+  sites_join$percent_commute_active_scenario[sites_join$site_name == i] = round(100 * percent_commute_active_scenario)
+  sites_join$percent_commute_drive_scenario[sites_join$site_name == i] = percent_commute_drive_scenario
   sites_join$crossing_points[sites_join$site_name == i] = length(unique(crossing_points$geometry))
   # message(round(100 * (drive_trips - drive_dutch) / drive_trips), " percent in ", i)
 }

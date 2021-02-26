@@ -1,7 +1,12 @@
 filename,title,description
 all-census-od.csv,All Census Commute Origin-destination data,Travel to work patterns of people living in the same MSOA(s) as the site in 2011
+dartboard.geojson,Route metrics for zones surrounding the site,"Mean circuity and busyness of the routes from the site, averaged across a set of clockface style zones"
 desire-lines-few.geojson,Desire lines within the local area,Desire lines for all purposes to MSOAs within the small study area
 desire-lines-many.geojson,Desire lines within a wider area,Desire lines for all purposes to MSOAs within the large study area
+in-site-cycle-rnet.geojson,Cycle route network within the site,A route network composed of cycle routes for 20 OD pairs within the site
+in-site-drive-rnet.geojson,Driving route network within the site,A route network composed of driving routes for 20 OD pairs within the site
+in-site-metrics.csv,Circuity of route networks within the site,"Mean circuity of the within-site walking, cycling and driving route networks"
+in-site-walk-rnet.geojson,Walking route network within the site,A route network composed of walking routes for 20 OD pairs within the site
 jts-lsoas.geojson,Accessibility stats for the surrounding area,JTS statistics for all LSOAs within the large study area
 large-study-area.geojson,The wider catchment,Area defined using all desire lines with at least 10 commuters that are less than 20km in length
 mode-split.csv,Breakdown of commute modes and distances,Commute OD data from all-census-od.csv assigned to distance categories
