@@ -592,6 +592,15 @@ desire_lines_final = desire_lines_final %>%
     drive_godutch = trimode_base - (cycle_godutch + walk_godutch)
     ) 
 
+# prevent negative driving values
+sel_drive_neg = desire_lines_final$drive_godutch < 0
+if(any(sel_drive_neg)) {
+  desire_lines_final$cycle_godutch[sel_drive_neg] = 
+    desire_lines_final$cycle_godutch[sel_drive_neg] +
+    desire_lines_final$drive_godutch[sel_drive_neg]
+  desire_lines_final$drive_godutch[sel_drive_neg] = 0
+}
+
 # sanity check percentages
 # desire_lines_final %>%
 #   sf::st_drop_geometry() %>% 
