@@ -3,10 +3,10 @@ site_name,name of site,Site name
 dwellings_when_complete,estimated number of dwellings at completion,Number of dwellings
 pwalk,percentage who commute by foot in baseline scenario,Walking mode share
 pcycle,percentage who commute by bicycle in baseline scenario,Cycling mode share
-pdrive,percentage who commute as car drivers in baseline scenario,Driving mode share
+pdrive,percentage who commute as car/van drivers in baseline scenario,Driving mode share
 pbus,percentage who commute by bus in baseline scenario,Bus mode share
 prail,percentage who commute by train or light rail in baseline scenario,Rail mode share
-pother,percentage who commute by taxi, motorbike or other mode or as car passengers in baseline scenario,Other mode share
+pother,percentage who commute by taxi, motorbike or other mode or as car/van passengers in baseline scenario,Other mode share
 weightedJobsPTt,"average minimum travel time to centres of employment by walking/public transport (weighted mean of travel times to LSOAs with 100-499, 500-4999 and 5000+ jobs; using population weighted mean of the minimum journey times from each OA centroid)",Travel time to nearest employment centre by foot/public transport
 weightedJobsCyct,"average minimum travel time to centres of employment by cycling (weighted mean of travel times to LSOAs with >100, >500 and >5000 jobs; using population weighted mean of the minimum journey times from each OA centroid)",Travel time to nearest employment centre by bicycle
 weightedJobsCart,"average minimum travel time to centres of employment by car (weighted mean of travel times to LSOAs with >100, >500 and >5000 jobs; using population weighted mean of the minimum journey times from each OA centroid)",Travel time to nearest employment centre by car

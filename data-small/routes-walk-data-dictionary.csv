@@ -4,6 +4,7 @@ geo_code2,destination MSOA code,Destination
 purpose,journey purpose (commute/town/supermarket),Purpose
 distance,total length of route (m),Route length (m)
 duration,total time taken for route,Time taken
-all_base,all journeys from origin to destination (baseline and Go Dutch scenarios),All journeys
+all_base,all journeys from origin to destination (baseline and Go Active scenarios),All journeys
+trimode_base,"journeys by foot, bicycle and car/van drivers from origin to destination (baseline and Go Active scenarios)","Journeys by foot, bicycle and car/van drivers"
 walk_base,journeys by foot from origin to destination in baseline scenario,"Journeys by foot, baseline scenario"
 walk_godutch,journeys by foot from origin to destination in Go Dutch scenario,"Journeys by foot, Go Dutch scenario"

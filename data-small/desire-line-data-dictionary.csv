@@ -1,12 +1,13 @@
 names,description,title
 geo_code1,origin MSOA code representing the site,Origin
 geo_code2,destination MSOA code,Destination
-purpose,journey purpose (commute/town/supermarket),Purpose
-length,Euclidean distance (m),Distance (m)
-all_base,all journeys from origin to destination (baseline and Go Dutch scenarios),All journeys
+purpose,journey purpose (commute/town),Purpose
+all_base,all journeys from origin to destination (baseline and Go Active scenarios),All journeys
+trimode_base,"journeys by foot, bicycle or car/van drivers from origin to destination (baseline and Go Active scenarios)","Journeys by foot, bicycle or car/van drivers"
 walk_base,journeys by foot from origin to destination in baseline scenario,"Journeys by foot, baseline scenario"
 cycle_base,journeys by bicycle from origin to destination in baseline scenario,"Journeys by bicycle, baseline scenario"
-drive_base,journeys by car drivers from origin to destination in baseline scenario,"Journeys by car drivers, baseline scenario"
+drive_base,journeys by car/van drivers from origin to destination in baseline scenario,"Journeys by car/van drivers, baseline scenario"
+length,Euclidean distance (m),Distance (m)
 walk_godutch,journeys by foot from origin to destination in Go Dutch scenario,"Journeys by foot, Go Dutch scenario"
 cycle_godutch,journeys by bicycle from origin to destination in Go Dutch scenario,"Journeys by bicycle, Go Dutch scenario"
-drive_godutch,journeys by car drivers from origin to destination in Go Dutch scenario,"Journeys by car drivers, Go Dutch scenario"
+drive_godutch,journeys by car/van drivers from origin to destination in Go Dutch scenario,"Journeys by car/van drivers, Go Dutch scenario"
