@@ -49,6 +49,7 @@ procgen_exists = httr::status_code(procgen_get) != 404
 # sum(desire_lines$walk_base, desire_lines$cycle_base, desire_lines$drive_base)
 # sum(desire_lines$walk_godutch, desire_lines$cycle_godutch, desire_lines$drive_godutch)
 
+# table(buildings_in_zones$building)
 building_types = c(
   "office",
   "industrial",
@@ -56,7 +57,14 @@ building_types = c(
   "retail",
   "warehouse",
   "civic",
-  "public"
+  "public",
+  "school",
+  "college",
+  "university",
+  "hospital",
+  "train_station",
+  "pub",
+  "sports_centre"
 )
 summary(factor(osm_polygons$building))
 
@@ -70,7 +78,6 @@ osm_buildings = osm_polygons %>%
   # filter(building %in% building_types)
 summary(factor(osm_buildings$building))
 
-# %>% filter(building %in% building_types)
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
 zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
@@ -116,6 +123,7 @@ if(any(zones_lacking_buildings)) {
     data.frame(osm_way_id = rep(NA, length(new_buildings)), building = NA),
     geometry = stplanr::geo_buffer(new_buildings, dist = 20, nQuadSegs = 1)
   )
+  new_buildings$building = "commercial" # todo: diversify - hardcoded
   buildings_in_zones = rbind(buildings_in_zones, new_buildings)
 }
 
@@ -156,8 +164,16 @@ if(procgen_exists) {
 #   mapview::mapview(site)
 
 # Save the buildings and 'key destinations' datasets ----------------------
-mapview::mapview(houses) # looks good!
-sf::write_sf(houses, file.path(path, "site_buildings.geojson"))
+# mapview::mapview(houses) # looks good!
+dsn = file.path(path, "site_buildings.geojson")
+file.remove(dsn)
+sf::write_sf(houses, dsn)
+
+trip_attractors = buildings_in_zones %>% filter(building %in% building_types)
+# mapview::mapview(trip_attractors) # looks good!
+dsn = file.path(path, "trip_attractors.geojson")
+file.remove(dsn)
+sf::write_sf(trip_attractors, dsn)
 
 # # save summary info (todo: add more columns) ------------------------------
 # sites_df = sites %>% sf::st_drop_geometry()
