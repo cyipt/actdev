@@ -17,7 +17,7 @@ site = sites[j, ]
 path = file.path("data-small", site_name)
 # set seed for reproducibility
 set.seed(2021)
-
+# see build.R
 
 # Input parameters and data -----------------------------------------------
 times = list(commute = list(hr = 8.5, sd = 0.3), town = list(hr = 11, sd = 2))
@@ -121,6 +121,7 @@ if(any(zones_lacking_buildings)) {
 
 osm_polygons_in_site = osm_polygons[site_area, , op = sf::st_within]
 houses = osm_polygons_in_site %>%
+  filter(!is.na(building)) %>% 
   # filter(building == "residential") %>% # todo: all non-destination buildings?
   select(osm_way_id, building)
 n_houses = nrow(houses)
@@ -153,6 +154,10 @@ if(procgen_exists) {
 }
 # mapview::mapview(procgen_houses) +
 #   mapview::mapview(site)
+
+# Save the buildings and 'key destinations' datasets ----------------------
+mapview::mapview(houses) # looks good!
+sf::write_sf(houses, file.path(path, "site_buildings.geojson"))
 
 # # save summary info (todo: add more columns) ------------------------------
 # sites_df = sites %>% sf::st_drop_geometry()
