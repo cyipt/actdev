@@ -86,6 +86,7 @@ zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>%
 zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
 zones_of_interest = rbind(zones_of_interest, zone_town_sf)
 
+error = FALSE
 tryCatch( {buildings_in_zones = osm_buildings[zones_of_interest, , op = sf::st_within]}
           , error = function(e) {error <<- TRUE})
 if(error) {
