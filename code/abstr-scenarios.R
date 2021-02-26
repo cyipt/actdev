@@ -173,6 +173,17 @@ desire_lines$all_base = desire_lines$trimode_base
 #   desire_lines$departure[sel_p] = tms
 # }
 
+sel_zones_in_dests = desire_lines$geo_code2 %in% zones_of_interest[[1]]
+if(!all(sel_zones_in_dests)) {
+  dests_without_zones = which(!sel_zones_in_dests)
+  warning("Desire lines without matching dest zone: ", dests_without_zones)
+  desire_lines = desire_lines[sel_zones_in_dests, ]
+}
+# work-around when town ID is missing
+if(! "town" %in% desire_lines$purpose) {
+  desire_lines$purpose[1] = "town"
+}
+
 # todo: generalise this code with some kind of loop
 names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names(desire_lines))
 sum(desire_lines$trimode_base) == sum(desire_lines$walk_base + desire_lines$cycle_base + desire_lines$drive_base)

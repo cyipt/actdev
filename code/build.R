@@ -16,7 +16,7 @@ source("code/build-setup.R") # national data
 set.seed(2021) # reproducibility
 site_names_to_build = sites %>% 
   # fails on the abstreet scenarios for some reason...
-  # filter(str_detect(string = site_name, pattern = "bath|ebb|handf|tyersal-lane")) %>% # I don't know why these sites were excluded
+  filter(str_detect(string = site_name, pattern = "bath|ebb|handf|tyersal-lane")) %>% # I don't know why these sites were excluded
   # slice(1:35) %>%
   pull(site_name)
 
