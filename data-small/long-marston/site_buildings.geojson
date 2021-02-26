@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "site_buildings",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "osm_way_id": "251780952", "building": "spectator stand" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -1.75816, 52.1363079 ], [ -1.7579925, 52.1362224 ], [ -1.7584221, 52.1359053 ], [ -1.7585896, 52.1359908 ], [ -1.75816, 52.1363079 ] ] ] ] } },
+{ "type": "Feature", "properties": { "osm_way_id": "251780953", "building": "spectator stand" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -1.7577101, 52.1366452 ], [ -1.757535, 52.1365547 ], [ -1.7579617, 52.1362439 ], [ -1.7581368, 52.1363344 ], [ -1.7577101, 52.1366452 ] ] ] ] } },
+{ "type": "Feature", "properties": { "osm_way_id": "251780954", "building": "spectator stand" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -1.7586167, 52.1359688 ], [ -1.7584537, 52.1358851 ], [ -1.7587869, 52.1356407 ], [ -1.7589498, 52.1357244 ], [ -1.7586167, 52.1359688 ] ] ] ] } },
+{ "type": "Feature", "properties": { "osm_way_id": "844936958", "building": "residential" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -1.7444987, 52.1356768 ], [ -1.7443713, 52.1356383 ], [ -1.7444267, 52.1355693 ], [ -1.7445447, 52.1356049 ], [ -1.7446429, 52.1354824 ], [ -1.7448179, 52.1355353 ], [ -1.7447342, 52.1356396 ], [ -1.7447074, 52.1356315 ], [ -1.7446777, 52.1356685 ], [ -1.744539, 52.1356266 ], [ -1.7444987, 52.1356768 ] ] ] ] } }
+]
+}
