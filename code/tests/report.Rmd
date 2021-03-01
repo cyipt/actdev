@@ -85,46 +85,84 @@ We have high degree of knowledge of employment locations through the use of cens
 
 Travel to work comprises x% of total travel (ref).
 These journeys form the core of our investigation, because, unlike most other journey types, the origins and destinations are comprehensively understood and recorded, with complete national coverage, in the 2011 Census (ref).
-We use commute data which disaggregates the points of origin and destination at the Medium Super Output Area (MSOA) level.
+We used commute data which disaggregates the points of origin and destination as OD pairs at the Medium Super Output Area (MSOA) level.
 As well as the geographic location of origin and destination we can also determine the journey distance, and crucially, information is available on the mode of travel.
 Thus we can estimate the average distance of travel to work, and the proportions of residents who commute by walking, cycling, driving, or other modes.
 
 The latest census was conducted in 2011.
 Some of our case study sites were already partially complete by that date, meaning the MSOA data reflects, in part, the actual journeys of site residents themselves.
-However, the census data is best seen as an indication of travel patterns in the local area surrounding a site, rather than a reflection of the site itself.
+However, in most cases the census data is best seen as an indication of travel patterns in the local area surrounding a site, rather than a reflection of the site itself.
 
 An MSOA can cover a wide area, especially in rural areas. 
 
 Issues with the stats and mode share can arise from this (eg Wynyard; Cambridge - Great Kneighton v Trumpington Meadows)
 
+We chose to focus on three modes of travel - walking, cycling and car/van driving.
+Walking and cycling represent active travel.
+Car/van driving is the most frequent mode of travel across the UK, and one of the most damaging in environmental and health terms.
+A key policy aim is to replace journeys by car/van with walking or cycling.
+
 ## Journey routing and road characteristics
 
-Having obtained data on commuter destinations and modes of travel, the next step is the identify the routes on the local road network that we expect these journeys to follow.
-For cycling, we use a set of algorithms created by CycleStreets.net(link).
+Having obtained data on commuter destinations and modes of travel, the next step is to identify the routes on the local road network that we expect these journeys to follow.
+We generated cycling and walking routes for the journeys to walk.
+We also combined the individual routes into a series of route networks. 
+
+For cycle journeys to work, we use a set of algorithms created by CycleStreets.net(link).
 Three algorithms are available, representing fast, balanced and quiet routes.
 For the fast routes, journey times are minimised.
-For the quiet routes, a 'quietness' parameter is maximised. This includes factors such as road type and characteristics. 
-It also takes into account the gradient of route segments.
+For the quiet routes, a 'quietness' parameter is maximised, to avoid routes that follow busy roads.
+The balanced routes represent an intermediate between the fast and quiet approaches.  
+Factors assessed during the routing include road type, cycle path width and surface quality, barriers and obstructions, signage and route legibility, among others (https://www.cyclestreets.net/api/v1/journey/).
+The gradient of route segments is also taken into account.
 
-The differences between fast, balanced and quiet routes.
-Role of gradient.
-Busyness estimates.
+It is useful to have these three different versions of the cycle routes, because this can reveal places where for example a direct road may link to a destination, but may be too busy for most people to consider cycling along it.
+If the 'quiet route' to a given destination is considerably longer than the 'fast route', it suggests that the introduction of dedicated cycle infrastructure along the line of the fast route would likely help to improve cycle accessibility.
+
+For journeys to work on foot, we used the Open Source Routing Machine (OSRM) routing engine.....
+
+The generation of the routes allows estimation of parameters such as route length, duration, mean busyness, maximum busyness, mean gradient and maximum gradient. 
+The next step is to combine the routes into a route network.
+We produced separate route networks for walking routes, fast cycle routes, balanced cycle routes, and quiet cycle routes.
+With these we can see the total number of journeys on each road segment, which can be analysed alongside segment level data on road busyness and gradient. 
 
 Simon's LTN work
 
-OSRM routing used for walking and for within site circuity.
-
 ## Mode shift scenarios
 
-Focus on three modes only. Modal shift only occurs from car/van driving to walking or cycling.
+For each site, we generated two scenarios, Baseline and Go Active.
+The 2011 Census journey to work data represents baseline conditions. 
+For the Baseline scenario, we simply adjusted this data to represent the population, at completion, of the chosen residential development site, rather than the population of the MSOA(s) that the site lies within.
+For any given OD pair and mode: 
+Baseline trips = 2011 Census trips from local MSOA(s) / 2011 MSOA population(s) * Number of dwellings at completion * Mean household size
+The data for MSOA population(s) and mean household size both represent total population, rather than population of working age.
 
-Baseline scenario - apply MSOA census data to the site populations. 
+The Go Active scenario represents the potential for increased uptake of walking and cycling, in the presence of high quality infrastructure and sustained investment.
+We calculated this increased uptake purely in terms of a switch from car/van driving to walking or cycling.
+Other modes of travel such as bus and rail were kept constant, and no change was made to journeys that already took place by foot or bicycle in the Baseline scenario.
+We also assumed that the journey destinations and the total volume of travel remains the same as in the Baseline scenario.
 
-Go Active scenario - PCT Go Dutch for cycling, and a basic modal shift scenario for walking.
+To generate the increased cycle uptake in Go Active, we used the 'Go Dutch' cycling uptake function from the Propensity to Cycle Tool (ref). 
+This represents the proportion of journeys that would be undertaken by bicycle if cycle mode share corresponded with average cycling levels in the Netherlands.
+This function controls for route length and hilliness.
+
+To generate the increased walking uptake in Go Active, we used a set of simple estimations.
+For journeys <= 2.0 km in length we assumed a walking mode share 30% above baseline levels; for journeys of 2.0 - 2.5 km length, walking mode share was increased by 20%; for 2.5 - 3.0 km by 10%; and for 3.0 - 6.0 km by 5%.
+*check how this works*
+This is not data-driven but is simply an estimation. 
 
 ## Within-site metrics
 
-Circuity estimation of local route networks
+The measures discussed so far relate to journeys to work or to other destinations.
+The majority of the length of these journeys will take place outside the boundaries of any particular new residential development.
+However we also wanted to investigate the internal layout of the sites themselves.
+In particular, the circuity of routes within a site can reveal features relating to the design of the site.
+The comparative circuity of routes by foot, by bicycle and by car can be assessed.
+
+To do this, we generated cycling, walking and driving routes for a set of journeys between 20 random points within each site.
+We routed these journeys using OSRM.
+Having obtained the sets of random points, we first generated the driving journeys, then reset the exact origin and destination points based on the results of this routing.
+This constrained the points to be on the road network itself, preventing cycle and walking route origins and destinations from spawning on footpaths.
 
 ## Traffic simulation
 
@@ -176,3 +214,9 @@ Describe the interface components
 ## A/B street interface
 
 Describe the key features.
+
+# Conclusion
+
+## Next steps
+
+A 2 page scoping of the next steps
