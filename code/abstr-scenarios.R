@@ -286,11 +286,11 @@ if(build_background_traffic) {
     sum(desire_lines_traffic$car_driver) / sum(desire_lines$drive_base) 
     mapview::mapview(desire_lines_traffic) + mapview::mapview(zones_of_interest)
     
-    houses_traffic = osm_polygons_in_site %>%
+    houses_traffic = osm_polygons %>%
       filter(!is.na(building))
     
     class(desire_lines_traffic)
-    names(desire_lines_traffic)[3:14] = paste0(names(desire_lines_traffic), "_base")[3:14]
+    names(desire_lines_traffic)[3:14] = paste0(names(desire_lines_traffic), "_traffic")[3:14]
     
     ab_background = abstr::ab_scenario(
       houses_traffic,
@@ -298,12 +298,17 @@ if(build_background_traffic) {
       desire_lines = desire_lines,
       # desire_lines = desire_lines_traffic,
       zones = zones_of_interest,
+      # scenario = "traffic",
       scenario = "base",
       output_format = "sf"
     )
     mapview::mapview(ab_background)
-    table(ab_background$mode_base)
+    names(ab_background)[1] = "mode_traffic"
+    table(ab_background[[1]])
     sum(desire_lines_traffic$car_driver)
+    ab_background_list = abstr::ab_json(ab_background)
+    abstr::ab_save(ab_background_list, "data-small/poundbury/scenario_background_traffic.json")
+    readLines("data-small/poundbury/scenario_background_traffic.json")[1:30]
   }
 }
 
