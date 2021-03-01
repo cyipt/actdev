@@ -1,0 +1,164 @@
+---
+title: "ActDev Report"
+author: "Robin Lovelace, Joey Talbot, Martin Lucas-Smith, Andrew Speakman, Simon Nuttall, Patrick Johansson, Dustin Hoffman"
+date: "26/02/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+bringing together 4 datasets
+
+## The need for the tool
+
+Two key challenges - sustainable transport and housing crisis.
+
+Human health, decarbonisation, air pollution and the need to increase walking and cycling.
+
+Need for affordable housing
+Terrible state of new homes in England
+TfNH reports
+Moving in the wrong direction, towards car dependency.
+
+## Policy landscape
+
+White paper
+Gear change and LTN1/20
+Housing algorithm thrown out
+5 year housing land supply and the Call For Sites process
+Site sustainability assessments
+
+## Aims and objectives
+
+We aimed to create a tool which:
+
+a) Provides a rating for the level of active travel provision (cycling and walking) between development sites and key services, to determine whether a location would be or is acceptable from health perspectives.
+
+b) For known planned/existing development sites, the tool will provide additional analysis to inform specific improvements that could be made in active travel provision and proximity of key services within walking and cycling distance.
+
+c) makes the case for further work to create an interactive web application (including the underlying evolving evidence base) to do the above but on a national scale.
+
+# Project Components 
+
+## Planning data
+
+Use Andrew's text
+
+Choice of case study sites
+Site populations, state of completion - reference TfNH
+
+Use of 35 sites to pin down PlanIt large criteria  
+
+## Access to local services
+
+When choosing a development site, a key consideration is proximity to local services such as shops, schools, parks, and other community facilities.
+Nationally, access to a range of services has been quantified through the Department for Transport's Journey Time Statistics(link). 
+These record the average journey times to the closest food store, primary school, secondary school, further education college, pharmacy, GP surgery, hospital, and town centre, at the Lower Super Output Area (LSOA) level.
+These LSOA level averages are derived from the mean of the journey times from each Output Area within the LSOA.
+
+Journey times are computed by three modes.
+The first mode uses a combination of walking and public transport, depending on which of these is fastest.
+The second mode is cycling, and the third is driving.
+Using these statistics, we can get a picture of which locations allow easy access to local services by walking and cycling.
+We can also compare these journey times to journey times by car.
+
+The JTS data does have some limitations. 
+There is no information on the quality of the route.
+For example, a fast cycling route may be possible along a busy road, but in practice this might not be a feasible route for most people.
+Similarly, we cannot differentiate between a well-used high frequency bus service and an expensive, occasional service.
+
+A further limitation is that the JTS data comprises LSOA-level averages, so will not necessarily be representative of a given locality within that LSOA. 
+To get data that better matches a particular development site, we have also written code to abstract chosen points of interest from OpenStreetMap (OSM).
+For example, we can identify all of the supermarkets on OSM that are close to a given site, and calculate journey times from the site to these known destinations. 
+
+Town centres are a key destination, visited for a wide range of purposes such as shopping, leisure, entertainment, employment, personal business and to access onward travel.
+Using the same 2004 town centre dataset as is used in the JTS statistics, we can identify the closest town centre to a given site. 
+
+Travel to work is one of the most frequent journey purposes. 
+We have high degree of knowledge of employment locations through the use of census data, as described in the following section. 
+
+## Demographic and travel data
+
+Census 2011 - MSOA commute data 
+Mode share, distance and points of origin and destination.
+
+In some cases this reflects the sites themselves, but mostly it's just the local area. 
+Issues with the stats and mode share can arise from this (eg Wynyard; Cambridge - Great Kneighton v Trumpington Meadows)
+
+## Journey routing and road characteristics
+
+CycleStreets algorithms.
+The differences between fast, balanced and quiet routes.
+Role of gradient.
+Busyness estimates.
+
+Simon's LTN work
+
+OSRM routing used for walking and for within site circuity.
+
+## Mode shift scenarios
+
+Focus on three modes only. Modal shift only occurs from car/van driving to walking or cycling.
+
+Baseline scenario - apply MSOA census data to the site populations. 
+
+Go Active scenario - PCT Go Dutch for cycling, and a basic modal shift scenario for walking.
+
+## Within-site metrics
+
+Circuity estimation of local route networks
+
+## Traffic simulation
+
+A/B street as a tool for planning, education and exploration.
+
+# Findings
+
+## Current travel patterns around the 35 case study sites
+
+Comparisons between sites
+
+Compare sites to older areas and to local/regional/national averages.
+
+Why do they differ? 
+- Urban/rural divide
+- existing travel patterns
+- site design
+- surrounding area design
+- lack of connectivity 
+- lack of walkable destinations etc
+
+## Potential improvements for active travel - The Go Active scenario
+
+Differences within and between sites
+
+## Key metrics
+
+Show infographics and explain each metric
+
+# The web tool
+
+## Intended audience
+
+Users can typically be broken down into three groups:
+
+1) Those interested in planning and transport policy issues at a national level, such as Central Government officers.
+
+2) Those interested in planning and transport issues at a local or regional level, including policy implementation, site establishment and site assessment. 
+This may include Local Government officers, developers and consultants.
+
+3) Campaigners and advocates.
+
+## National level
+
+## Site level
+
+Describe the interface components
+
+## A/B street interface
+
+Describe the key features.
