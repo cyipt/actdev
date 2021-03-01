@@ -102,13 +102,17 @@ Walking and cycling represent active travel.
 Car/van driving is the most frequent mode of travel across the UK, and one of the most damaging in environmental and health terms.
 A key policy aim is to replace journeys by car/van with walking or cycling.
 
+Generation of large and small study areas.
+From OD pairs to desire lines.
+Limitation of restricting analysis to these study areas.
+
 ## Journey routing and road characteristics
 
-Having obtained data on commuter destinations and modes of travel, the next step is to identify the routes on the local road network that we expect these journeys to follow.
-We generated cycling and walking routes for the journeys to walk.
+Having obtained data on commute destinations and modes of travel, the next step is to identify the routes on the local road network that we expect these journeys to follow.
+For all desire lines lying within the large study area around each site, we generated cycling and walking routes for the journeys to work.
 We also combined the individual routes into a series of route networks. 
 
-For cycle journeys to work, we use a set of algorithms created by CycleStreets.net(link).
+For cycle journeys to work, we used a set of algorithms created by CycleStreets.net(link).
 Three algorithms are available, representing fast, balanced and quiet routes.
 For the fast routes, journey times are minimised.
 For the quiet routes, a 'quietness' parameter is maximised, to avoid routes that follow busy roads.
@@ -121,8 +125,11 @@ If the 'quiet route' to a given destination is considerably longer than the 'fas
 
 For journeys to work on foot, we used the Open Source Routing Machine (OSRM) routing engine.....
 
+In addition to the commuter journeys, we also generated routes for journeys from each site to the nearest town centre.
+This included both walking and cycling routes, as long as the town centre was within 6 km of the site.
+
 The generation of the routes allows estimation of parameters such as route length, duration, mean busyness, maximum busyness, mean gradient and maximum gradient. 
-The next step is to combine the routes into a route network.
+The next step was to combine the routes into a route network.
 We produced separate route networks for walking routes, fast cycle routes, balanced cycle routes, and quiet cycle routes.
 With these we can see the total number of journeys on each road segment, which can be analysed alongside segment level data on road busyness and gradient. 
 
@@ -172,7 +179,28 @@ A/B street as a tool for planning, education and exploration.
 
 ## Current travel patterns around the 35 case study sites
 
-Comparisons between sites
+The 35 case study sites encompass a wide range of development types, from urban redevelopment schemes to suburban infill, urban fringe expansion and entirely new settlements. 
+The scale of these developments also varies considerably. 
+Most of the chosen sites will have over 1000 homes on completion, but some are smaller, the smallest being Micklefield with xxx.
+
+Unsurprisingly, existing travel patterns in the locality of these sites vary greatly.
+The variation in commuter journeys is captured by the data in our Baseline scenario. 
+Walking mode share for these journeys varies from x in x to x in x, with a mean of x.
+Cycling mode share...
+Driving mode share...
+Other modes...
+
+Mean journey distances
+
+Commute mode and distance breakdowns - infographics
+
+```{r}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
+```
+
+Distance to town centre
+
+## How case study sites compare with existing residential areas
 
 Compare sites to older areas and to local/regional/national averages.
 
@@ -188,9 +216,32 @@ Why do they differ?
 
 Differences within and between sites
 
-## Key metrics
+Proportion of car/van drivers that switch modes under Go Active - explain mapped v total %.
+Impact of site size and the reason for estimating active travel mode shift outside the study area.
 
-Show infographics and explain each metric
+Active travel mode share Baseline v Go Active
+
+Driving mode share Baseline v Go Active
+
+## Barriers and opportunities for increased active travel uptake
+
+Circuity and busyness of routes to key destinations
+
+Explain the clockface graphics
+
+```{r}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108995587-3832f380-7695-11eb-97ca-bbc1fce12a15.png")
+```
+
+## Site layouts and the permeability of site boundaries
+
+Compare in-site circuity of the 3 modes.
+
+```{r}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108996661-8f859380-7696-11eb-9b52-e03ff658ce1c.png")
+```
+
+Crossing points along site boundary
 
 # The web tool
 
