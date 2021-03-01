@@ -109,6 +109,7 @@ for(site_name in site_names_to_build) {
   file.remove(f)
   sf::write_sf(site_new, f)
 }
-
+all_sites %>% filter(site_name == "tresham") %>% 
+  select(percent_commute_active_base:percent_drive_convertable)
 
 # zip(zipfile = "data-sites-2021-02-08.zip", files = "data-small")

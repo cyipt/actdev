@@ -7,7 +7,7 @@ remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "aylesham"
+  site_name = "poundbury"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -271,6 +271,42 @@ abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 
 file.remove(file.path(path, "scenario-base.json"))
 file.remove(file.path(path, "scenario-godutch.json"))
+
+
+if(build_background_traffic) {
+  # add code to generate background traffic
+  # simple visualisation of input data is a starter for 10
+  if(!exists("od")) {
+    od = pct::get_od()
+    # for showing flows that start and end outside region
+    # zones_national = pct::get_pct(geography = "msoa", layer = "z", national = TRUE)
+    desire_lines_traffic = od::od_to_sf(x = od, z = zones_of_interest)
+    nrow(desire_lines_traffic)
+    # 3 times more driving in traffic in poundbury = good starting point
+    sum(desire_lines_traffic$car_driver) / sum(desire_lines$drive_base) 
+    mapview::mapview(desire_lines_traffic) + mapview::mapview(zones_of_interest)
+    
+    houses_traffic = osm_polygons_in_site %>%
+      filter(!is.na(building))
+    
+    class(desire_lines_traffic)
+    names(desire_lines_traffic)[3:14] = paste0(names(desire_lines_traffic), "_base")[3:14]
+    
+    ab_background = abstr::ab_scenario(
+      houses_traffic,
+      buildings = buildings_in_zones,
+      desire_lines = desire_lines,
+      # desire_lines = desire_lines_traffic,
+      zones = zones_of_interest,
+      scenario = "base",
+      output_format = "sf"
+    )
+    mapview::mapview(ab_background)
+    table(ab_background$mode_base)
+    sum(desire_lines_traffic$car_driver)
+  }
+}
+
 
 # test in bash
 # cd ~/other-repos/abstreet
