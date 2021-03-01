@@ -1,6 +1,6 @@
 ---
 title: "ActDev Report"
-author: "Robin Lovelace, Joey Talbot, Martin Lucas-Smith, Andrew Speakman, Simon Nuttall, Patrick Johansson, Dustin Hoffman"
+author: "Robin Lovelace, Joey Talbot, Martin Lucas-Smith, Andrew Speakman, Simon Nuttall, Patrick Johansson, Dustin Carlino"
 date: "26/02/2021"
 output: pdf_document
 ---
@@ -83,15 +83,29 @@ We have high degree of knowledge of employment locations through the use of cens
 
 ## Demographic and travel data
 
-Census 2011 - MSOA commute data 
-Mode share, distance and points of origin and destination.
+Travel to work comprises x% of total travel (ref).
+These journeys form the core of our investigation, because, unlike most other journey types, the origins and destinations are comprehensively understood and recorded, with complete national coverage, in the 2011 Census (ref).
+We use commute data which disaggregates the points of origin and destination at the Medium Super Output Area (MSOA) level.
+As well as the geographic location of origin and destination we can also determine the journey distance, and crucially, information is available on the mode of travel.
+Thus we can estimate the average distance of travel to work, and the proportions of residents who commute by walking, cycling, driving, or other modes.
 
-In some cases this reflects the sites themselves, but mostly it's just the local area. 
+The latest census was conducted in 2011.
+Some of our case study sites were already partially complete by that date, meaning the MSOA data reflects, in part, the actual journeys of site residents themselves.
+However, the census data is best seen as an indication of travel patterns in the local area surrounding a site, rather than a reflection of the site itself.
+
+An MSOA can cover a wide area, especially in rural areas. 
+
 Issues with the stats and mode share can arise from this (eg Wynyard; Cambridge - Great Kneighton v Trumpington Meadows)
 
 ## Journey routing and road characteristics
 
-CycleStreets algorithms.
+Having obtained data on commuter destinations and modes of travel, the next step is the identify the routes on the local road network that we expect these journeys to follow.
+For cycling, we use a set of algorithms created by CycleStreets.net(link).
+Three algorithms are available, representing fast, balanced and quiet routes.
+For the fast routes, journey times are minimised.
+For the quiet routes, a 'quietness' parameter is maximised. This includes factors such as road type and characteristics. 
+It also takes into account the gradient of route segments.
+
 The differences between fast, balanced and quiet routes.
 Role of gradient.
 Busyness estimates.
