@@ -1,13 +1,17 @@
-u = "https://github.com/cyipt/actdev/releases/download/0.1.1/LargeApplics.zip"
+# u = "https://github.com/cyipt/actdev/releases/download/0.1.1/LargeApplics.zip"
+u = "https://github.com/cyipt/actdev/releases/download/0.1.1/NewLarge.zip"
 f = basename(u)
 download.file(u, f)
-dir.create("data/dump1")
-unzip(f, exdir = "data/dump1/")
-list.files("data/dump1/")
+# dir.create("data/dump1")
+dir.create("data/dump2")
+# unzip(f, exdir = "data/dump1/")
+unzip(f, exdir = "data/dump2/")
+list.files("data/dump2/")
 
 library(tidyverse)
 
-largeapplics = read_csv("data/dump1/LargeApplics.csv")
+# largeapplics = read_csv("data/dump1/LargeApplics.csv")
+largeapplics = read_csv("data/dump2/NewLarge.csv")
 largeapplics
 sum(is.na(largeapplics$lat))
 sum(is.na(largeapplics$lng))
