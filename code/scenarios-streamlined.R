@@ -152,7 +152,17 @@ if(disaggregate_desire_lines) {
   zones_lsoa_national = pct::get_pct(layer = "z", national = TRUE)
   centroids_lsoa_many = centroids_lsoa_national[zones_many, ]
   zones_lsoa_many = centroids_lsoa_national %>% filter(geo_code %in% centroids_lsoa_many$geo_code)
-  desire_lines_many = od::od_disaggregate(od = desire_lines_many %>% select(geo_code1:all_base), z = zones_many, subzones = zones_lsoa_many) 
+  desire_lines_many_min = desire_lines_many %>% select(geo_code1:drive_base) %>% sf::st_drop_geometry()
+  n_lines = max(nrow(desire_lines_many), 20) # minimum of 20 desire lines
+  p = sum(desire_lines_many_min$all_base) / n_lines
+  # desire_lines_many_commute = od::od_disaggregate(od = desire_lines_many_min, z = zones_many, subzones = zones_lsoa_many) 
+  # file.edit("~/itsleeds/od/R/aggregate.R") # edit locally for testing + debugging
+  desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = zones_many, subzones = zones_lsoa_many, population_per_od = p)
+  
+  # sanity tests  
+  sum(desire_lines_many$all_base) == sum(desire_lines_disag$all_base)
+  sum(desire_lines_many$walk_base) == sum(desire_lines_disag$walk_base)
+  
 }
 
 # Create routes and generate Go Dutch scenario ---------------------
