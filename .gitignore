@@ -38,3 +38,4 @@ town_centr*
 *.osc
 data-sites/
 procgen_houses.json*
+.Rproj.user
