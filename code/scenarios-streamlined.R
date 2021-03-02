@@ -8,7 +8,7 @@ library(stplanr)
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 if(!exists("site_name")) { # assume all presets loaded if site_name exists
-  site_name = "great-kneighton"   # which site to look at (can change)
+  site_name = "lcid"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   max_length = 20000 # maximum length of desire lines in m
   household_size = 2.3 # mean UK household size at 2011 census
@@ -143,8 +143,11 @@ desire_lines_many = desire_lines_rounded[large_study_area, , op = sf::st_within]
 desire_lines_many = desire_lines_many %>% 
   select(geo_code1, geo_code2, all_base, trimode_base, walk_base, cycle_base, drive_base, length, pwalk_base:pdrive_base)
 
+# for future reference when creating the abstr scenarios
+saveRDS(desire_lines_many, file.path(path, "desire_lines_many.Rds"))
+
 if(!exists("disaggregate_desire_lines"))
-  disagreggate_desire_lines = FALSE
+  disaggregate_desire_lines = FALSE
 
 if(disaggregate_desire_lines) {
   zones_many = zones_msoa_national %>% filter(geo_code %in% desire_lines_many$geo_code2)
@@ -155,13 +158,47 @@ if(disaggregate_desire_lines) {
   desire_lines_many_min = desire_lines_many %>% select(geo_code1:drive_base) %>% sf::st_drop_geometry()
   n_lines = max(nrow(desire_lines_many), 20) # minimum of 20 desire lines
   p = sum(desire_lines_many_min$all_base) / n_lines
+  z = rbind(
+    zones_many %>% select(geo_code),
+    site %>% transmute(geo_code = site$site_name)
+  )
+  g = c(
+    sf::st_sample(zones_many, rep(20, nrow(zones_many))),
+    sf::st_sample(site, 20)
+    )
+  d = data.frame(id = paste0("i", 1:length(g)))
+  sp = sf::st_sf(d, g)
+  # mapview::mapview(sp) + mapview::mapview(z)
+  desire_lines_many_min$geo_code1 = site$site_name
   # desire_lines_many_commute = od::od_disaggregate(od = desire_lines_many_min, z = zones_many, subzones = zones_lsoa_many) 
   # file.edit("~/itsleeds/od/R/aggregate.R") # edit locally for testing + debugging
-  desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = zones_many, subzones = zones_lsoa_many, population_per_od = p)
+  # summary(desire_lines_many_min$geo_code1 %in% z$geo_code)
+  # summary(desire_lines_many_min$geo_code2 %in% z$geo_code)
+  # summary(z$geo_code %in% desire_lines_many_min$geo_code2)
+  trip_attractors = sf::read_sf(file.path(path, "trip_attractors.geojson"))
+  houses = sf::read_sf(file.path(path, "site_buildings.geojson"))
+  sz = rbind(trip_attractors, houses)
+  sz[[1]] = paste0("i", 1:nrow(sz))
+  # Route to random points:
+  # desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subpoints = sp, population_per_od = p)
+  # Route to buildings:
+  desire_lines_disag = od::od_disaggregate(od = desire_lines_many_min, z = z, subzones = sz, population_per_od = p)
   
-  # sanity tests  
-  sum(desire_lines_many$all_base) == sum(desire_lines_disag$all_base)
-  sum(desire_lines_many$walk_base) == sum(desire_lines_disag$walk_base)
+  desire_lines_many = desire_lines_disag %>% 
+    mutate(
+      pwalk_base = walk_base/trimode_base,
+      pcycle_base = cycle_base/trimode_base,
+      pdrive_base = drive_base/trimode_base
+    ) %>% 
+    rename(geo_code1 = o, geo_code2 = d)
+  desire_lines_many$length = stplanr::geo_length(desire_lines_many)
+  
+  # # sanity tests  
+  # sum(desire_lines_many$all_base) == sum(desire_lines_disag$all_base)
+  # sum(desire_lines_many$walk_base) == sum(desire_lines_disag$walk_base)
+  # library(tmap)
+  # tmap_mode("view")
+  # qtm(desire_lines_disag) + qtm(site)
   
 }
 
@@ -169,24 +206,24 @@ if(disaggregate_desire_lines) {
 obj = desire_lines_many %>% select(-length)
 obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length)
 
-# routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey)
-# routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "balanced")
-# routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "quietest")
-# # save as Rds files for future references, e.g. for dartboard, but not for app:
+routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey)
+routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "balanced")
+routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "quietest")
 routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm)
+
 # # name = paste0(site_name, "-routes-walk.geojson")
 # # sf::write_sf(routes_walk, name) #save it just in case, to avoid repeatedly calling API
 # routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, mode = "walking") 
-# save for future reference
+# # save as Rds files for future references, e.g. for dartboard, but not for app:
 saveRDS(routes_walk, file.path(path, "routes_walk.Rds"))
-# saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
-# saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
-# saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
+saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
+saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
+saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
 
 # to reload the data and avoid re-routing
-routes_fast = readRDS(file.path(path, "routes_fast.Rds"))
-routes_balanced = readRDS(file.path(path, "routes_balanced.Rds"))
-routes_quiet = readRDS(file.path(path, "routes_quiet.Rds"))
+# routes_fast = readRDS(file.path(path, "routes_fast.Rds"))
+# routes_balanced = readRDS(file.path(path, "routes_balanced.Rds"))
+# routes_quiet = readRDS(file.path(path, "routes_quiet.Rds"))
 # routes_walk = readRDS(file.path(path, "routes_walk.Rds"))
 
 # create routes_fast
@@ -223,8 +260,8 @@ routes_fast_summarised = routes_fast %>%
 routes_fast_summarised = routes_fast_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
-routes_fast_summarised = routes_fast_summarised %>% 
-  filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
+# routes_fast_summarised = routes_fast_summarised %>% 
+#   filter(cycle_base > 0 | cycle_godutch > 0) # remove routes with no cyclists
 
 routes_fast = inner_join((routes_fast %>% select(-all_base, -trimode_base, -cycle_base, -cycle_godutch)), routes_fast_summarised)
 
