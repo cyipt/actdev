@@ -21,9 +21,8 @@ site_names_to_build = sites %>%
   pull(site_name)
 
 data_dir = "data-small" # for test sites
-# dir.create(data_dir)
-# note: fails for kidbrooke-village and long-marston
-# site_names_to_build = "allerton-bywater"
+disaggregate_desire_lines = TRUE
+
 for(site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
