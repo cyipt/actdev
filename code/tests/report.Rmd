@@ -1,12 +1,14 @@
 ---
 title: "ActDev Report"
-author: "Robin Lovelace, Joey Talbot, Martin Lucas-Smith, Andrew Speakman, Simon Nuttall, Patrick Johansson, Dustin Carlino"
+author: "<br>Robin Lovelace, Joey Talbot (University of Leeds)<br>Martin Lucas-Smith, Simon Nuttall (CycleStreets)<br>Andrew Speakman (PlanIt)<br>Patrick Johansson<br>Dustin Carlino (A/B street)"
 date: "26/02/2021"
-output: pdf_document
+output:
+   rmarkdown::html_vignette:
+     number_sections: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Introduction
@@ -177,28 +179,52 @@ A/B street as a tool for planning, education and exploration.
 
 # Findings
 
-## Current travel patterns around the 35 case study sites
-
 The 35 case study sites encompass a wide range of development types, from urban redevelopment schemes to suburban infill, urban fringe expansion and entirely new settlements. 
 The scale of these developments also varies considerably. 
-Most of the chosen sites will have over 1000 homes on completion, but some are smaller, the smallest being Micklefield with xxx.
+Most of the chosen sites will have over 1000 homes on completion, with up to 6900 at Hampton near Peterborough, but some are smaller, the smallest being Tyersal Lane with only 270 new homes.
+At least three of the sites are now entirely complete and another 24 are mostly or partly complete.
+In eight sites construction has not yet begun, and for these sites we have not generated any in-site metrics.
 
-Unsurprisingly, existing travel patterns in the locality of these sites vary greatly.
-The variation in commuter journeys is captured by the data in our Baseline scenario. 
-Walking mode share for these journeys varies from x in x to x in x, with a mean of x.
-Cycling mode share...
-Driving mode share...
-Other modes...
+Table of site completion, number of dwellings and LA.
 
-Mean journey distances
+## Existing travel patterns in the vicinity of the 35 case study sites
+
+Unsurprisingly, existing travel patterns in the vicinity of these sites vary greatly.
+The variation in commuter journeys is captured by the 2011 Census data as used in our Baseline scenario.
+It must be recognised that these data represent travel patterns in the areas surrounding the sites, rather than specifically for the sites themselves.
+The data are aggregated at the MSOA level (these are zones with a mean population of around 7800), so even for sites which were partially complete in 2011 the Baseline data is derived from a wide zone which stretches beyond the site boundaries. 
+With this caveat in mind, the differences in existing travel patterns show some revealing patterns.
+
+Walking mode share for these journeys varies from 3% at Upton and Dickens Heath to 39% at Bath Western Riverside, with a mean of 11.4%.
+Cycling mode share is as low as 1% at nine, mainly rural, sites. 
+The mean value is 4.3% and the maximum is 31%, at Great Kneighton in Cambridge.
+
+Driving mode share has a mean value of 65.5%. 
+At five sites driving mode share is > 80%, and four of these (Dickens Heath, Chapelford, Wynyard and Upton) are sites in which some of the homes are known to have been occupied prior to 2011.
+Only at five sites is driving mode share < 50%.
+These are all urban sites, with Kidbrooke Village (our only London site) having the lowest driving mode share at 30%.
+
+In terms of other modes of travel, Kidbrooke Village also has the highest mode share for rail, and is one of only three sites - all in or near London - having rail mode share > 10%.
+Bus mode share ranges from 1% at Tresham to 17% at Leeds Climate Innovation District, with a mean of 5.5%.
+Four of the seven sites with highest bus mode share are in Leeds.
+The average mode share for other modes of travel, including car/van passengers, motorbike and taxi, is 7%. 
+
+We expect to see a strong relationship between the distance travelled to work and the mode of travel.
+For the vicinity of each site, we used the 2011 Census data to calculate the median commute distance.
+This ranges from 1.7 km at Taunton Firepool to 16.0 km at Culm Garden Village, with a mean of 7.9 km.
+
+Combining the commute modes and distances, and using a standardised set of distance bands, we can further interrogate the travel to work data, as seen in Figure xx. 
+In this figure we compare commutes at Great Kneighton with those at Chapelford.
+We can see that walking and cycling mostly occurs in the shorter distance bands, and these short journeys comprise a higher proportion of total commutes at Great Kneighton than they do at Chapelford.
 
 Commute mode and distance breakdowns - infographics
 
 ```{r}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
+# knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
+knitr::include_graphics("../../data-small/great-kneighton/mode-split-base.png")
 ```
 
-Distance to town centre
+Show route and route network maps for commutes only, with line width representing usage, and a single colour.
 
 ## How case study sites compare with existing residential areas
 
@@ -212,25 +238,55 @@ Why do they differ?
 - lack of connectivity 
 - lack of walkable destinations etc
 
+## Travel to town centres
+
+Distance to town centre - histogram (but some smaller towns missing from the dataset)
+
 ## Potential improvements for active travel - The Go Active scenario
 
-Differences within and between sites
+Differences within and between sites - infographic to compare with previous one
 
 Proportion of car/van drivers that switch modes under Go Active - explain mapped v total %.
 Impact of site size and the reason for estimating active travel mode shift outside the study area.
+Explain that this isn't included in the infographics.
 
-Active travel mode share Baseline v Go Active
+Infographic with baseline and Go Active mode share alongside one another:
+```{r}
+# knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")
+knitr::include_graphics("../../data-small/great-kneighton/mode-split-goactive.png")
+```
+
+Active travel mode share Baseline v Go Active. 
+XY plot of baseline and Go Active mode shares
 
 Driving mode share Baseline v Go Active
+XY plot of baseline and Go Active mode shares
+
+Why do some sites see greater change than other sites? (% of short journeys? % who travel by other modes?)
+Explain that we don't capture everything, just potential for mode shift from driving.
 
 ## Barriers and opportunities for increased active travel uptake
 
 Circuity and busyness of routes to key destinations
 
+Why is this important?
+Residents put off walking or cycling if they can't find a route where they feel safe, or if such routes are much longer and slower than it would be to drive.
+
+Show route and route network maps, with colour representing busyness.
+
 Explain the clockface graphics
 
 ```{r}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108995587-3832f380-7695-11eb-97ca-bbc1fce12a15.png")
+# knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108995587-3832f380-7695-11eb-97ca-bbc1fce12a15.png")
+knitr::include_graphics("../../data-small/great-kneighton/gg_distance_busyness.png")
+```
+
+Busyness
+
+```{r}
+# knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/gg_busyness_dartboard.png")
+knitr::include_graphics("../../data-small/great-kneighton/gg_busyness_dartboard.png")
+
 ```
 
 ## Site layouts and the permeability of site boundaries
@@ -238,7 +294,9 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/10899
 Compare in-site circuity of the 3 modes.
 
 ```{r}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108996661-8f859380-7696-11eb-9b52-e03ff658ce1c.png")
+# knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108996661-8f859380-7696-11eb-9b52-e03ff658ce1c.png")
+knitr::include_graphics("../../data-small/great-kneighton/in-site-metrics.png")
+
 ```
 
 Crossing points along site boundary
