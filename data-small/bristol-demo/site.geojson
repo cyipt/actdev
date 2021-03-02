@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "site",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "site_name": "bristol-demo", "full_name": "Bristol Demo Development", "dwellings_when_complete": 600.0 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -2.619327306747437, 51.459361757907118 ], [ -2.61549711227417, 51.460137189416493 ], [ -2.616634368896484, 51.463726730864273 ], [ -2.618522644042969, 51.463753467543839 ], [ -2.622320652008057, 51.462028919632282 ], [ -2.620174884796142, 51.460077027098407 ], [ -2.619327306747437, 51.459361757907118 ] ] ] } }
+]
+}

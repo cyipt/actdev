@@ -27,7 +27,11 @@ site = sites[sites$site_name == site_name, ]
 
 # to load a custom site
 site = sf::read_sf("new-site-demo/site.geojson")
-site$site_name = "Bristol Demo Development"
+
+site_name = "bristol-demo"
+site$site_name = site_name
+site$full_name = "Bristol Demo Development"
+site$dwellings_when_complete = 600
 
 message("Building for ", site$site_name)
 
@@ -68,8 +72,11 @@ desire_lines_site = desire_lines_site %>%
 # Adjust flows to represent site population, not MSOA population(s) -------
 # for both MSOAs and development sites, these are entire populations, not commuter populations
 desire_lines_site = inner_join(desire_lines_site, msoa_pops)
-desire_lines_site = inner_join(desire_lines_site, site_pops)
+# desire_lines_site = inner_join(desire_lines_site, site_pops)
+desire_lines_site = desire_lines_site %>% 
+  mutate(site_population = site$dwellings_when_complete * 2.4)
 site_population = unique(desire_lines_site$site_population)
+
 unique_msoa_pops = desire_lines_site %>% 
   st_drop_geometry() %>% 
   select(geo_code1, msoa_population) %>%
@@ -179,12 +186,12 @@ if(disaggregate_desire_lines) {
 }
 
 # Create routes and generate Go Dutch scenario ---------------------
-obj = desire_lines_many %>% select(-length)
-obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length)
+obj = desire_lines_many %>% select(-length) %>% top_n(n = 3, wt = all_base)
+obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length) %>% top_n(n = 3, wt = all_base)
 
-# routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey)
-# routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "balanced")
-# routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "quietest")
+routes_fast = stplanr::route(l = obj, route_fun = cyclestreets::journey)
+routes_balanced = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "balanced")
+routes_quiet = stplanr::route(l = obj, route_fun = cyclestreets::journey, plan = "quietest")
 # # save as Rds files for future references, e.g. for dartboard, but not for app:
 routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm)
 # # name = paste0(site_name, "-routes-walk.geojson")
@@ -192,14 +199,14 @@ routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_osrm)
 # routes_walk = stplanr::route(l = obj2, route_fun = stplanr::route_google, mode = "walking") 
 # save for future reference
 saveRDS(routes_walk, file.path(path, "routes_walk.Rds"))
-# saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
-# saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
-# saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
+saveRDS(routes_fast, file.path(path, "routes_fast.Rds"))
+saveRDS(routes_balanced, file.path(path, "routes_balanced.Rds"))
+saveRDS(routes_quiet, file.path(path, "routes_quiet.Rds"))
 
-# to reload the data and avoid re-routing
-routes_fast = readRDS(file.path(path, "routes_fast.Rds"))
-routes_balanced = readRDS(file.path(path, "routes_balanced.Rds"))
-routes_quiet = readRDS(file.path(path, "routes_quiet.Rds"))
+# # to reload the data and avoid re-routing
+# routes_fast = readRDS(file.path(path, "routes_fast.Rds"))
+# routes_balanced = readRDS(file.path(path, "routes_balanced.Rds"))
+# routes_quiet = readRDS(file.path(path, "routes_quiet.Rds"))
 # routes_walk = readRDS(file.path(path, "routes_walk.Rds"))
 
 # create routes_fast
@@ -350,7 +357,7 @@ walk_commuters_godutch = sum(routes_walk_save$walk_godutch)
 # Route to town centre ----------------------------------------------------
 record = st_nearest_feature(site_centroid, town_centroids)
 town_nearest = town_centroids[record, ]
-# mapview(town_nearest)
+# mapview::mapview(town_nearest)
 town_nearest = town_nearest %>% 
   select(town_name = NAME)
 
@@ -427,6 +434,7 @@ routes_fast_cutdown = routes_fast %>%
 fast_town_cutdown = fast_town %>% 
   select(geo_code1 = site_name, geo_code2 = town_name, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, trimode_base, cycle_base, cycle_godutch, busyness, gradient_smooth, pcycle_godutch)
 
+routes_fast_combined = routes_fast_cutdown %>% mutate(purpose = "commute")
 routes_fast_combined = bind_rows(
   routes_fast_cutdown %>% mutate(purpose = "commute"),
   fast_town_cutdown %>% mutate(purpose = "town")
@@ -593,10 +601,12 @@ desire_line_town = desire_line_town %>%
   rename(geo_code1 = site_name, geo_code2 = town_name) %>%
   select(geo_code1, geo_code2, purpose, all_base, trimode_base, walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
-desire_lines_final = bind_rows(
-  desire_lines_scenario,
-  desire_line_town
-) %>% select(-matches("pw|pc"))
+desire_lines_final = desire_lines_scenario %>% 
+  select(-matches("pw|pc"))
+# desire_lines_final = bind_rows(
+#   desire_lines_scenario,
+#   desire_line_town
+# ) %>% select(-matches("pw|pc"))
 
 desire_lines_final$purpose[is.na(desire_lines_final$purpose)] = "commute"
 desire_lines_final[is.na(desire_lines_final)] = 0
