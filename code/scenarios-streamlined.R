@@ -143,6 +143,18 @@ desire_lines_many = desire_lines_rounded[large_study_area, , op = sf::st_within]
 desire_lines_many = desire_lines_many %>% 
   select(geo_code1, geo_code2, all_base, trimode_base, walk_base, cycle_base, drive_base, length, pwalk_base:pdrive_base)
 
+if(!exists("disaggregate_desire_lines"))
+  disagreggate_desire_lines = FALSE
+
+if(disaggregate_desire_lines) {
+  zones_many = zones_msoa_national %>% filter(geo_code %in% desire_lines_many$geo_code2)
+  centroids_lsoa_national = pct::get_pct(layer = "c", national = TRUE)
+  zones_lsoa_national = pct::get_pct(layer = "z", national = TRUE)
+  centroids_lsoa_many = centroids_lsoa_national[zones_many, ]
+  zones_lsoa_many = centroids_lsoa_national %>% filter(geo_code %in% centroids_lsoa_many$geo_code)
+  desire_lines_many = od::od_disaggregate(od = desire_lines_many %>% select(geo_code1:all_base), z = zones_many, subzones = zones_lsoa_many) 
+}
+
 # Create routes and generate Go Dutch scenario ---------------------
 obj = desire_lines_many %>% select(-length)
 obj2 = desire_lines_many %>% filter(length < 6000) %>% select(-length)
