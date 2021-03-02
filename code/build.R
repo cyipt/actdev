@@ -20,6 +20,8 @@ site_names_to_build = sites %>%
   # slice(1:35) %>%
   pull(site_name)
 
+# should the build process add a background traffic scenario? (WIP)
+build_background_traffic = FALSE
 data_dir = "data-small" # for test sites
 # dir.create(data_dir)
 # note: fails for kidbrooke-village and long-marston
