@@ -24,6 +24,11 @@ if(!exists("centroids_msoa")) {
 
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
+
+# to load a custom site
+site = sf::read_sf("new-site-demo/site.geojson")
+site$site_name = "Bristol Demo Development"
+
 message("Building for ", site$site_name)
 
 path = file.path(data_dir, site_name)
@@ -162,6 +167,14 @@ if(disaggregate_desire_lines) {
   # sanity tests  
   sum(desire_lines_many$all_base) == sum(desire_lines_disag$all_base)
   sum(desire_lines_many$walk_base) == sum(desire_lines_disag$walk_base)
+  
+  desire_lines_disag = desire_lines_disag %>% 
+    mutate(
+      trimode_base = foot + bicycle + car_driver,
+      pwalk_base = foot/trimode_base,
+      pcycle_base = bicycle/trimode_base,
+      pdrive_base = car_driver/trimode_base
+    )
   
 }
 
