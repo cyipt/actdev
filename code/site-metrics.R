@@ -54,7 +54,7 @@ for(i in sites_join$site_name) {
   
   crossing_points = st_intersection(fast_routes, site_line)
   # prop_near = sum(desire_lines$all_base) / sum(all_desire_lines$all) #proportion of commutes that are represented in desire_lines_many 
-  median_dist = weighted.median(all_desire_lines$length, w = all_desire_lines$all)
+  median_dist = round(weighted.median(all_desire_lines$length, w = all_desire_lines$all) / 1000, 1)
   all_trips = sum(all_desire_lines$all)
   drive_trips = sum(all_desire_lines$car_driver)
   active_base = sum(all_desire_lines$foot) + sum(all_desire_lines$bicycle)
@@ -97,7 +97,7 @@ for(i in sites_join$site_name) {
   sites_join$percent_commute_rail_base[sites_join$site_name == i] = percent_commute_rail_base
   sites_join$percent_commute_other_base[sites_join$site_name == i] = percent_commute_other_base
   
-  sites_join$distance_to_town[sites_join$site_name == i] = desire_town$length
+  sites_join$distance_to_town[sites_join$site_name == i] = round(desire_town$length / 1000, 1)
   sites_join$median_commute_distance[sites_join$site_name == i] = median_dist
   sites_join$percent_commute_active_base[sites_join$site_name == i] = percent_commute_active_base
   sites_join$percent_drive_convertable[sites_join$site_name == i] = pchanged
