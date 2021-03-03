@@ -2,6 +2,7 @@
 
 library(tidyverse)
 library(spatstat)
+library(sf)
 
 # sites = sf::read_sf("data-small/all-sites.geojson")
 # sites_df = sf::st_drop_geometry(sites)
@@ -36,6 +37,8 @@ sites_join$percent_mapped_drive_convertable = NA
 # sites_join$percent_scenario_active = NA
 sites_join$percent_commute_active_scenario = NA
 sites_join$percent_commute_drive_scenario = NA
+sites_join$percent_commute_walk_scenario = NA
+sites_join$percent_commute_cycle_scenario = NA
 sites_join$crossing_points = NA
 for(i in sites_join$site_name) {
   f = paste0("data-small/", i, "/desire-lines-many.geojson")
@@ -55,6 +58,8 @@ for(i in sites_join$site_name) {
   all_trips = sum(all_desire_lines$all)
   drive_trips = sum(all_desire_lines$car_driver)
   active_base = sum(all_desire_lines$foot) + sum(all_desire_lines$bicycle)
+  # walk_base = sum(all_desire_lines$foot)
+  # cycle_base = sum(all_desire_lines$bicycle)
   percent_trimode_trips = sum(all_desire_lines$trimode_base) / all_trips
   
   percent_commute_walk_base = round(100 * sum(all_desire_lines$foot) / all_trips)
@@ -68,6 +73,10 @@ for(i in sites_join$site_name) {
   drive_dutch = sum(desire_lines$drive_godutch)
   active_near = sum(desire_lines$walk_base) + sum(desire_lines$cycle_base)
   active_dutch = sum(desire_lines$walk_godutch) + sum(desire_lines$cycle_godutch)
+  # walk_near = sum(desire_lines$walk_base)
+  walk_dutch = sum(desire_lines$walk_godutch)
+  # cycle_near = sum(desire_lines$cycle_base)
+  cycle_dutch = sum(desire_lines$cycle_godutch)
   
   pchanged = round(100 * (drive_near - drive_dutch) / drive_trips)  
   pchanged_ofnear = round(100 * (drive_near - drive_dutch) / drive_near)
@@ -77,6 +86,8 @@ for(i in sites_join$site_name) {
   percent_commute_active_increase = active_dutch / active_near
   percent_commute_active_scenario = (active_base / all_trips * percent_commute_active_increase)
   percent_commute_drive_scenario = round(100 * (percent_trimode_trips - percent_commute_active_scenario))
+  percent_commute_walk_scenario = round(100 * (walk_dutch / active_dutch * percent_commute_active_scenario))
+  percent_commute_cycle_scenario = round(100 * (cycle_dutch / active_dutch * percent_commute_active_scenario))
   
   # code to re-add the data to the sites_join table
   sites_join$percent_commute_walk_base[sites_join$site_name == i] = percent_commute_walk_base
@@ -94,6 +105,8 @@ for(i in sites_join$site_name) {
   # sites_join$percent_scenario_active[sites_join$site_name == i] = percent_scenario_active
   sites_join$percent_commute_active_scenario[sites_join$site_name == i] = round(100 * percent_commute_active_scenario)
   sites_join$percent_commute_drive_scenario[sites_join$site_name == i] = percent_commute_drive_scenario
+  sites_join$percent_commute_walk_scenario[sites_join$site_name == i] = percent_commute_walk_scenario
+  sites_join$percent_commute_cycle_scenario[sites_join$site_name == i] = percent_commute_cycle_scenario
   sites_join$crossing_points[sites_join$site_name == i] = length(unique(crossing_points$geometry))
   # message(round(100 * (drive_trips - drive_dutch) / drive_trips), " percent in ", i)
 }

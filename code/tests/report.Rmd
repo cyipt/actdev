@@ -246,15 +246,15 @@ Distance to town centre - histogram (but some smaller towns missing from the dat
 
 Differences within and between sites - infographic to compare with previous one
 
-Proportion of car/van drivers that switch modes under Go Active - explain mapped v total %.
-Impact of site size and the reason for estimating active travel mode shift outside the study area.
-Explain that this isn't included in the infographics.
-
 Infographic with baseline and Go Active mode share alongside one another:
 ```{r}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")
 knitr::include_graphics("../../data-small/great-kneighton/mode-split-goactive.png")
 ```
+
+Proportion of car/van drivers that switch modes under Go Active - explain mapped v total %.
+Impact of site size and the reason for estimating active travel mode shift outside the study area.
+Explain that this isn't included in the infographics.
 
 Active travel mode share Baseline v Go Active. 
 XY plot of baseline and Go Active mode shares
@@ -262,7 +262,7 @@ XY plot of baseline and Go Active mode shares
 Driving mode share Baseline v Go Active
 XY plot of baseline and Go Active mode shares
 
-Why do some sites see greater change than other sites? (% of short journeys? % who travel by other modes?)
+Why do some sites see greater absolute or relative change than other sites? (% of short journeys? % who travel by other modes?)
 Explain that we don't capture everything, just potential for mode shift from driving.
 
 ## Barriers and opportunities for increased active travel uptake
