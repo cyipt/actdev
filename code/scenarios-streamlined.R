@@ -149,7 +149,7 @@ saveRDS(desire_lines_many, file.path(path, "desire_lines_many.Rds"))
 if(!exists("disaggregate_desire_lines"))
   disaggregate_desire_lines = FALSE
 
-if(disaggregate_desire_lines) {
+if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
   zones_many = zones_msoa_national %>% filter(geo_code %in% desire_lines_many$geo_code2)
   centroids_lsoa_national = pct::get_pct(layer = "c", national = TRUE)
   zones_lsoa_national = pct::get_pct(layer = "z", national = TRUE)
