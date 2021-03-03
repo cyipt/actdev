@@ -196,7 +196,7 @@ if(disaggregate_desire_lines) {
   # Route to random points:
   # desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subpoints = sp, population_per_od = p)
   # Route to buildings:
-  desire_lines_disag = od::od_disaggregate(od = desire_lines_many_min, z = z, subzones = sz, population_per_od = p)
+  desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subzones = sz, population_per_od = p)
   
   desire_lines_many = desire_lines_disag %>% 
     mutate(

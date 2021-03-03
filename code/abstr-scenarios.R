@@ -80,7 +80,18 @@ summary(factor(osm_buildings$building))
 
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
-zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
+# zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
+d_origins = sf::st_sf(geometry = lwgeom::st_startpoint(desire_lines))
+d_destinations = sf::st_sf(geometry = lwgeom::st_endpoint(desire_lines))
+d_ods = rbind(d_origins, d_destinations)
+zones_of_interest = zones[d_ods, ]
+
+desire_d = sf::st_join(
+  sf::st_sf(lwgeom::st_endpoint(desire_lines)),
+  zones_of_interest %>% select(geo_code)
+)
+table(desire_d$geo_code)
+desire_lines$geo_code2 = desire_d$geo_code
 
 # add town zone, see #74
 zone_town = zones %>% 
@@ -167,7 +178,8 @@ if(procgen_exists) {
 # mapview::mapview(houses) # looks good!
 dsn = file.path(path, "site_buildings.geojson")
 file.remove(dsn)
-sf::write_sf(houses, dsn)
+houses_in_site = houses[site, ]
+sf::write_sf(houses_in_site, dsn)
 
 trip_attractors = buildings_in_zones %>% filter(building %in% building_types)
 # mapview::mapview(trip_attractors) # looks good!
@@ -207,6 +219,7 @@ if(! "town" %in% desire_lines$purpose) {
 
 # todo: generalise this code with some kind of loop
 names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names(desire_lines))
+desire_lines = desire_lines %>% select(-matches("pc|pd"))
 sum(desire_lines$trimode_base) == sum(desire_lines$walk_base + desire_lines$cycle_base + desire_lines$drive_base)
 sum(desire_lines$trimode_base) == sum(desire_lines$walk_go_active + desire_lines$cycle_go_active + desire_lines$drive_go_active)
 abc = abstr::ab_scenario(
