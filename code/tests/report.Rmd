@@ -129,6 +129,9 @@ For journeys to work on foot, we used the Open Source Routing Machine (OSRM) rou
 
 In addition to the commuter journeys, we also generated routes for journeys from each site to the nearest town centre.
 This included both walking and cycling routes, as long as the town centre was within 6 km of the site.
+There is no data available on the number of journeys residents make to their nearest town centre, however we know from the [National Travel Survey](https://www.gov.uk/government/statistical-data-sets/nts04-purpose-of-trips) that across England in 2018/19, 15% of journeys were for commuting, 19% were for shopping, 8% were for sport/entertainment, 9% were for personal business, and 5% were for visiting friends (but not at a private home).
+Many of these journeys are likely to involve going to the town centre, either as a destination or as a means of accessing further travel.
+We therefore made a simple assumption that the number of journeys to the nearest town centre are equal to the total number of commuter journeys from a site.
 
 The generation of the routes allows estimation of parameters such as route length, duration, mean busyness, maximum busyness, mean gradient and maximum gradient. 
 The next step was to combine the routes into a route network.
@@ -240,9 +243,31 @@ Why do they differ?
 
 ## Travel to town centres
 
-Distance to town centre - histogram (but some smaller towns missing from the dataset)
+The mean distance from our case study sites to the nearest town centre is 3.2 km.
+Eleven sites lie within 2.0 km of the nearest town centre.
+At five sites the nearest town centre is >5.0 km away, the longest being Aylesham with a distance of 9.2 km. 
+It must be recognised that some smaller towns may be excluded from our town centre dataset, so a degree of local knowledge is useful in interpreting these data.
+
+Currently using Euclidean distance, should use route distance.
+
+Distance to town centre - histogram
 
 ## Potential improvements for active travel - The Go Active scenario
+
+Assuming existing travel patterns remain the same, in terms of the locations of workplaces or other destinations, a key question is what proportion of these journeys could switch from car/van driving to walking or cycling? 
+The answer will vary from site to site, depending mainly on the distances from people's homes to the destinations of interest.
+Estimating this allows us to understand the potential usership of new walking or cycling infrastructure, if sustained investment was made in high quality active travel provision.
+It lets us see how much walking and cycling uptake there could be under the right circumstances.
+We can also see which sites are already close to reaching these high levels of active travel, and which remain far away from them.
+
+The proportion of commutes by foot under our Go Active scenario ranges from 0% to 48%, with a mean of 12%. 
+It is zero in four sites because in these places we identify no journeys less than 6km in length, which is our maximum threshold distance for walking.
+These are typically remote rural locations where new settlements have been proposed or constructed.
+There are three urban sites - Bath Western Riverside, Taunton Firepool and Leeds Climate Innovation District - which see > 40% of commutes by foot in this scenario.
+
+Commutes by bicycle in the Go Active scenario range from 5% at Ashton Park and Tresham to 63% at Great Kneighton in Cambridge.
+The site with the second highest value, also in Cambridge, sees 36% of commutes by bicycle.
+The mean proportion of cycle commuting in this scenario is 18%.
 
 Differences within and between sites - infographic to compare with previous one
 
