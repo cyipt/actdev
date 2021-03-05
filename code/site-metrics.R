@@ -21,6 +21,22 @@ library(sf)
 # sites_join = inner_join(sites,sites_df %>% select(-dwellings_when_complete))
 sites_join = sf::read_sf("data-small/all-sites.geojson")
 
+#get msoas nationally
+zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = "z")
+
+travel_trends = zones_msoa_national %>% 
+  st_drop_geometry() %>% 
+  select(geo_code, all, foot, bicycle, car_driver) %>% 
+  mutate(foot = foot / all,
+         bicycle = bicycle / all,
+         car_driver = car_driver / all)
+
+#calculate 33% and 66% bands
+# median(travel_trends$foot)
+walk_trends = quantile(travel_trends$foot, probs = c(0.33, 0.66))
+cycle_trends = quantile(travel_trends$bicycle, probs = c(0.33, 0.66))
+drive_trends = quantile(travel_trends$car_driver, probs = c(0.33, 0.66))
+
 # code to get site metrics
 i = sites_join$site_name[1]
 sites_join$percent_commute_walk_base = NA
@@ -40,6 +56,9 @@ sites_join$percent_commute_drive_scenario = NA
 sites_join$percent_commute_walk_scenario = NA
 sites_join$percent_commute_cycle_scenario = NA
 sites_join$crossing_points = NA
+sites_join$drive_base_rating = NA
+sites_join$walk_base_rating = NA
+sites_join$cycle_base_rating = NA
 for(i in sites_join$site_name) {
   f = paste0("data-small/", i, "/desire-lines-many.geojson")
   desire_lines = sf::read_sf(f) 
@@ -65,6 +84,17 @@ for(i in sites_join$site_name) {
   percent_commute_walk_base = round(100 * sum(all_desire_lines$foot) / all_trips)
   percent_commute_cycle_base = round(100 * sum(all_desire_lines$bicycle) / all_trips)
   percent_commute_drive_base = round(100 * sum(all_desire_lines$car_driver) / all_trips)
+  
+  walk_base_rating = case_when(sum(all_desire_lines$foot / all_trips) > walk_trends[2] ~ "green",
+                                          sum(all_desire_lines$foot / all_trips) < walk_trends[1] ~ "red",
+                                          TRUE ~ "amber")
+  cycle_base_rating = case_when(sum(all_desire_lines$bicycle / all_trips) > cycle_trends[2] ~ "green",
+                                           sum(all_desire_lines$bicycle / all_trips) < cycle_trends[1] ~ "red",
+                                           TRUE ~ "amber")
+  drive_base_rating = case_when(sum(all_desire_lines$car_driver / all_trips) > drive_trends[2] ~ "red",
+                                           sum(all_desire_lines$car_driver / all_trips) < drive_trends[1] ~ "green",
+                                           TRUE ~ "amber")
+  
   percent_commute_bus_base = round(100 * sum(all_desire_lines$bus) / all_trips)
   percent_commute_rail_base = round(100 * ((sum(all_desire_lines$train) + sum(all_desire_lines$light_rail)) / all_trips))
   percent_commute_other_base = round(100 * ((sum(all_desire_lines$car_passenger) + sum(all_desire_lines$taxi) + sum(all_desire_lines$motorbike) + sum(all_desire_lines$other)) / all_trips))
@@ -107,10 +137,15 @@ for(i in sites_join$site_name) {
   sites_join$percent_commute_drive_scenario[sites_join$site_name == i] = percent_commute_drive_scenario
   sites_join$percent_commute_walk_scenario[sites_join$site_name == i] = percent_commute_walk_scenario
   sites_join$percent_commute_cycle_scenario[sites_join$site_name == i] = percent_commute_cycle_scenario
+  sites_join$walk_base_rating[sites_join$site_name == i] = walk_base_rating
+  sites_join$cycle_base_rating[sites_join$site_name == i] = cycle_base_rating
+  sites_join$drive_base_rating[sites_join$site_name == i] = drive_base_rating
   sites_join$crossing_points[sites_join$site_name == i] = length(unique(crossing_points$geometry))
   # message(round(100 * (drive_trips - drive_dutch) / drive_trips), " percent in ", i)
-}
 
+  }
+
+# add in circuity measures
 sites_join$busyness_fast_cycle = NA
 sites_join$circuity_fast_cycle = NA
 sites_join$circuity_walk = NA
@@ -157,7 +192,29 @@ for(i in sites_join$site_name) {
   
 st_precision(sites_join) = 1000000
 
-# add in circuity measures
+
+
+# planning URLs
+
+sites_join$planning_url[sites_join$site_name == "didcot"] = "https://data.southoxon.gov.uk/ccm/support/Main.jsp?MODULE=ApplicationDetails&REF=P02/W0848/O"
+sites_join$planning_url[sites_join$site_name == "priors-hall"] = "https://publicaccess.corby.gov.uk/publicaccess/applicationDetails.do?activeTab=documents&keyVal=MHCDJ0FF00900"
+sites_join$planning_url[sites_join$site_name == "kidbrooke-village"] = "https://planning.royalgreenwich.gov.uk/online-applications/applicationDetails.do?activeTab=summary&keyVal=_GRNW_DCAPR_59927"
+sites_join$planning_url[sites_join$site_name == "castlemead"] = "https://planning.wiltshire.gov.uk/Northgate/PlanningExplorer/Generic/StdDetails.aspx?PT=Planning%20Applications%20On-Line&TYPE=PL/PlanningPK.xml&PARAM0=769712&XSLT=/Northgate/PlanningExplorer/SiteFiles/Skins/Wiltshire/xslt/PL/PLDetails.xslt&FT=Planning%20Application%20Details&PUBLIC=Y&XMLSIDE=/Northgate/PlanningExplorer/SiteFiles/Skins/Wiltshire/Menus/PL.xml&DAURI=PLANNING"
+sites_join$planning_url[sites_join$site_name == "clackers-brook"] = "https://planning.wiltshire.gov.uk/Northgate/PlanningExplorer/Generic/StdDetails.aspx?PT=Planning%20Applications%20On-Line&TYPE=PL/PlanningPK.xml&PARAM0=769527&XSLT=/Northgate/PlanningExplorer/SiteFiles/Skins/Wiltshire/xslt/PL/PLDetails.xslt&FT=Planning%20Application%20Details&PUBLIC=Y&XMLSIDE=/Northgate/PlanningExplorer/SiteFiles/Skins/Wiltshire/Menus/PL.xml&DAURI=PLANNING"
+sites_join$planning_url[sites_join$site_name == "ashton-park"] = "https://planning.wiltshire.gov.uk/Northgate/PlanningExplorer/Generic/StdDetails.aspx?PT=Planning%20Applications%20On-Line&TYPE=PL/PlanningPK.xml&PARAM0=851482&XSLT=/Northgate/PlanningExplorer/SiteFiles/Skins/Wiltshire/xslt/PL/PLDetails.xslt&FT=Planning%20Application%20Details&PUBLIC=Y&XMLSIDE=/Northgate/PlanningExplorer/SiteFiles/Skins/Wiltshire/Menus/PL.xml&DAURI=PLANNING"
+sites_join$planning_url[sites_join$site_name == "bath-riverside"] = "https://www.bathnes.gov.uk/webforms/planning/details.html?refval=06%2F01733%2FEOUT"
+sites_join$planning_url[sites_join$site_name == "poundbury"] = "https://planning.dorsetcouncil.gov.uk/plandisp.aspx?recno=191275"
+sites_join$planning_url[sites_join$site_name == "wichelstowe"] = "https://pa1.swindon.gov.uk/publicaccess/applicationDetails.do?activeTab=documents&keyVal=ZZZZODPTXT032"
+sites_join$planning_url[sites_join$site_name == "newcastle-great-park"] = "https://portal.newcastle.gov.uk/planning/index.html?fa=getApplication&id=103818"
+sites_join$planning_url[sites_join$site_name == "allerton-bywater"] = "https://publicaccess.leeds.gov.uk/online-applications/applicationDetails.do?activeTab=documents&keyVal=ZZZTK2JBXE141"
+sites_join$planning_url[sites_join$site_name == "tyersal-lane"] = "https://publicaccess.leeds.gov.uk/online-applications/applicationDetails.do?keyVal=NRFIZQJB17S00&activeTab=summary"
+sites_join$planning_url[sites_join$site_name == "micklefield"] = "https://publicaccess.leeds.gov.uk/online-applications/applicationDetails.do?keyVal=NMH4Q7JB17S00&activeTab=summary"
+sites_join$planning_url[sites_join$site_name == "lcid"] = "https://publicaccess.leeds.gov.uk/online-applications/applicationDetails.do?keyVal=NMH4Q7JB17S00&activeTab=summary"
+sites_join$planning_url[sites_join$site_name == "wynyard"] = "https://www.developmentmanagement.stockton.gov.uk/online-applications/applicationDetails.do?activeTab=documents&keyVal=MI28RYPK36000"
+sites_join$planning_url[sites_join$site_name == "taunton-firepool"] = "https://www3.somersetwestandtaunton.gov.uk/asp/webpages/plan/PlAppDets.asp?casefullref=38/99/0394"
+sites_join$planning_url[sites_join$site_name == "taunton-garden"] = "https://www3.somersetwestandtaunton.gov.uk/asp/webpages/plan/PlAppDets.asp?casefullref=48/05/0072"
+sites_join$planning_url[sites_join$site_name == "great-kneighton"] =  "https://applications.greatercambridgeplanning.org/online-applications/applicationDetails.do?activeTab=documents&keyVal=JJ9E18DX03Q00"
+  
 
 file.remove("data-small/all-sites.geojson")
 file.remove("all-sites.geojson")
