@@ -61,8 +61,7 @@ sites_join$walk_base_rating = NA
 sites_join$cycle_base_rating = NA
 for(i in sites_join$site_name) {
   f = paste0("data-small/", i, "/desire-lines-many.geojson")
-  desire_lines = sf::read_sf(f) 
-  desire_town = desire_lines %>% filter(purpose == "town")
+  desire_lines = sf::read_sf(f)
   desire_lines = desire_lines %>% filter(purpose == "commute") # take out journeys to towns
   f = paste0("data-small/", i, "/all-census-od.csv")
   all_desire_lines = read_csv(f)
@@ -70,6 +69,7 @@ for(i in sites_join$site_name) {
   site_line = st_cast(site_boundary,"LINESTRING")
   f = paste0("data-small/", i, "/routes-fast.geojson")
   fast_routes = sf::read_sf(f)
+  route_town = fast_routes %>% filter(purpose == "town")
   
   crossing_points = st_intersection(fast_routes, site_line)
   # prop_near = sum(desire_lines$all_base) / sum(all_desire_lines$all) #proportion of commutes that are represented in desire_lines_many 
@@ -127,7 +127,7 @@ for(i in sites_join$site_name) {
   sites_join$percent_commute_rail_base[sites_join$site_name == i] = percent_commute_rail_base
   sites_join$percent_commute_other_base[sites_join$site_name == i] = percent_commute_other_base
   
-  sites_join$distance_to_town[sites_join$site_name == i] = round(desire_town$length / 1000, 1)
+  sites_join$distance_to_town[sites_join$site_name == i] = round(route_town$length / 1000, 1)
   sites_join$median_commute_distance[sites_join$site_name == i] = median_dist
   sites_join$percent_commute_active_base[sites_join$site_name == i] = percent_commute_active_base
   sites_join$percent_drive_convertable[sites_join$site_name == i] = pchanged
