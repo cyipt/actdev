@@ -99,11 +99,12 @@ sum_total = sum(mode_split_base$all)
 
 mode_split_all = mode_split_base %>% 
   mutate(
+    across(all:other, round, 0),
     proportion_in_distance_band = round(100 * all / sum_total),
-    walk_goactive = mode_split_scenario$walk,
-    cycle_goactive = mode_split_scenario$cycle,
-    drive_goactive = mode_split_scenario$drive,
-    other_goactive = mode_split_scenario$other,
+    walk_goactive = round(mode_split_scenario$walk),
+    cycle_goactive = round(mode_split_scenario$cycle),
+    drive_goactive = round(mode_split_scenario$drive),
+    other_goactive = round(mode_split_scenario$other),
     percent_walk_base = round(100 * walk / all),	
     percent_cycle_base = round(100 * cycle / all),	
     percent_drive_base = round(100 * drive / all),

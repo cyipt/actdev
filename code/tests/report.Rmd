@@ -22,7 +22,7 @@ Two key challenges - sustainable transport and housing crisis.
 Human health, decarbonisation, air pollution and the need to increase walking and cycling.
 
 Need for affordable housing
-Terrible state of new homes in England
+State of new homes in England
 TfNH reports
 Moving in the wrong direction, towards car dependency.
 
@@ -218,13 +218,12 @@ This ranges from 1.7 km at Taunton Firepool to 16.0 km at Culm Garden Village, w
 
 Combining the commute modes and distances, and using a standardised set of distance bands, we can further interrogate the travel to work data, as seen in Figure xx. 
 In this figure we compare commutes at Great Kneighton with those at Chapelford.
-We can see that walking and cycling mostly occurs in the shorter distance bands, and these short journeys comprise a higher proportion of total commutes at Great Kneighton than they do at Chapelford.
-
-Commute mode and distance breakdowns - infographics
+We can see that walking and cycling mostly occurs in the shorter distance bands. At Chapelford the median commute distance is higher than at Great Kneighton, and active modes also comprise a smaller proportion of the short journeys.
 
 ```{r}
 # knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
 knitr::include_graphics("../../data-small/great-kneighton/mode-split-base.png")
+knitr::include_graphics("../../data-small/chapelford/mode-split-base.png")
 ```
 
 Show route and route network maps for commutes only, with line width representing usage, and a single colour.
