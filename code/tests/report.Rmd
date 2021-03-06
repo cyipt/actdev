@@ -242,38 +242,47 @@ Why do they differ?
 
 ## Travel to town centres
 
-The mean distance from our case study sites to the nearest town centre is 3.2 km.
-Eleven sites lie within 2.0 km of the nearest town centre.
-At five sites the nearest town centre is >5.0 km away, the longest being Aylesham with a distance of 9.2 km. 
+Measured on the fast cycle route network, the median distance from our case study sites to the nearest town centre is 3.2 km.
+Just three sites lie within 2.0 km of the nearest town centre.
+At ten sites the nearest town centre is >5.0 km away, the longest being Tresham Garden Village *check this* with a distance of 23.9 km. 
 It must be recognised that some smaller towns may be excluded from our town centre dataset, so a degree of local knowledge is useful in interpreting these data.
-
-Currently using Euclidean distance, should use route distance.
 
 Distance to town centre - histogram
 
 ## Potential improvements for active travel - The Go Active scenario
 
-Assuming existing travel patterns remain the same, in terms of the locations of workplaces or other destinations, a key question is what proportion of these journeys could switch from car/van driving to walking or cycling? 
+Assuming existing travel patterns remain the same, in terms of the locations of workplaces or other destinations, a key question is what proportion of these journeys could theoretically switch from car/van driving to walking or cycling? 
 The answer will vary from site to site, depending mainly on the distances from people's homes to the destinations of interest.
 Estimating this allows us to understand the potential usership of new walking or cycling infrastructure, if sustained investment was made in high quality active travel provision.
 It lets us see how much walking and cycling uptake there could be under the right circumstances.
 We can also see which sites are already close to reaching these high levels of active travel, and which remain far away from them.
+If existing walking and cycling levels are far below their potential, this suggests there may be particular barriers that need further investigation.
 
 The proportion of commutes by foot under our Go Active scenario ranges from 0% to 48%, with a mean of 12%. 
 It is zero in four sites because in these places we identify no journeys less than 6km in length, which is our maximum threshold distance for walking.
 These are typically remote rural locations where new settlements have been proposed or constructed.
 There are three urban sites - Bath Western Riverside, Taunton Firepool and Leeds Climate Innovation District - which see > 40% of commutes by foot in this scenario.
 
-Commutes by bicycle in the Go Active scenario range from 5% at Ashton Park and Tresham to 63% at Great Kneighton in Cambridge.
+Commutes by bicycle in the Go Active scenario range from 5% at Ashton Park and Tresham Garden Village to 63% at Great Kneighton in Cambridge.
 The site with the second highest value, also in Cambridge, sees 36% of commutes by bicycle.
 The mean proportion of cycle commuting in this scenario is 18%.
+The proportion of commutes by car/van drivers is typically lower in Go Active than in the Baseline scenario. 
+It has a mean of 52%, ranging from 18% at Kidbrooke Village to 83% at Tresham Garden Village.
+We do not model changes in other modes of travel.
 
-Differences within and between sites - infographic to compare with previous one
+Studying the differences between the Baseline and Go Active scenarios, we can see where there is potential for substantially increased increased uptake of walking and cycling, given the right circumstances.
+Of the 35 sites, the one with the greatest proportional increase in walking from Baseline to Go Active scenario, is at Chapelford, where walking mode share increases 250%, from 4% to 10%. 
+This suggests that in 2011, the proportion of people walking at Chapelford was well below potential.  
+Proportional increases in cycling between the two scenarios are much greater than for walking. 
+The greatest proportional increase in cycling, from the Baseline to the Go Active scenario, is at Dickens Heath, where cycling mode share increases 2000%, from 1% to 20%.
+The mean proportional increase in cycling across all sites is 700%.
 
-Infographic with baseline and Go Active mode share alongside one another:
+Figure xx shows the Baseline and Go Active scenarios for Dickens Heath. We can see that in 2011, 82% of commutes here were by car/van drivers, but many of these could potentially switch to cycling, if sufficient investment was made into safe, convenient cycle routes. 
+
 ```{r}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")
-knitr::include_graphics("../../data-small/great-kneighton/mode-split-goactive.png")
+knitr::include_graphics("../../data-small/dickens-heath/mode-split-base.png")
+knitr::include_graphics("../../data-small/dickens-heath/mode-split-goactive.png")
 ```
 
 Proportion of car/van drivers that switch modes under Go Active - explain mapped v total %.
