@@ -172,11 +172,6 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
   sp = sf::st_sf(d, g)
   # mapview::mapview(sp) + mapview::mapview(z)
   desire_lines_many_min$geo_code1 = site$site_name
-  # desire_lines_many_commute = od::od_disaggregate(od = desire_lines_many_min, z = zones_many, subzones = zones_lsoa_many) 
-  # file.edit("~/itsleeds/od/R/aggregate.R") # edit locally for testing + debugging
-  # summary(desire_lines_many_min$geo_code1 %in% z$geo_code)
-  # summary(desire_lines_many_min$geo_code2 %in% z$geo_code)
-  # summary(z$geo_code %in% desire_lines_many_min$geo_code2)
   trip_attractors = sf::read_sf(file.path(path, "trip_attractors.geojson"))
   houses = sf::read_sf(file.path(path, "site_buildings.geojson"))
   sz = rbind(trip_attractors, houses)
@@ -199,6 +194,8 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
   # desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subpoints = sp, population_per_od = p)
   # Route to buildings:
   desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subzones = sz, population_per_od = p)
+  desire_lines_disag = desire_lines_disag %>% 
+    select(geo_code1 = o_agg, geo_code2 = d_agg, matches("base"))
   
   desire_lines_many = desire_lines_disag %>% 
     mutate(
