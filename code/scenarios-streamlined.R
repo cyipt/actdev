@@ -202,8 +202,7 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
       pwalk_base = walk_base/trimode_base,
       pcycle_base = cycle_base/trimode_base,
       pdrive_base = drive_base/trimode_base
-    ) %>% 
-    rename(geo_code1 = o, geo_code2 = d)
+    ) 
   desire_lines_many$length = stplanr::geo_length(desire_lines_many)
   
   # # sanity tests  
