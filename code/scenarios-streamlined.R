@@ -24,6 +24,13 @@ if(!exists("centroids_msoa")) {
   source("code/build-setup.R")
 }
 
+# evidence-based way of selecting threshold for desire lines
+summary(sites$dwellings_when_complete) 
+summary(sites$dwellings_when_complete) # 2500
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 270    1291    2280    2680    4200    6900 
+min_flow_routes = mean(sites$dwellings_when_complete / 250)
+
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
 message("Building for ", site$site_name)
@@ -82,13 +89,18 @@ desire_lines_pops = desire_lines_site %>%
 # todo: add empirical data on 'new homes' effect (residents of new homes are more likely to drive than residents of older homes)
 # could also adjust the base walking and cycling mode shares in response to the difference between journey distance from the site centroid as compared to journey distance from the MSOA centroid (eg in Cambridge, the MSOA centroid is a fair bit closer to the city centre than the site centroid, which could explain why such a high proportion of commuters are shown walking to work in the city centre)  
 
-# For sites with 2 or more origin MSOAs, combine flows to avoid having multiple desire lines to the same destination MSOA
+# For sites with 2 or more origin MSOAs, combine flows to avoid having
+# multiple desire lines to the same destination MSOA
+# length(unique(desire_lines_pops$geo_code1))
+# length(unique(desire_lines_pops$geo_code2))
 desire_lines_combined = desire_lines_pops %>% 
-  group_by(geo_code2) %>% 
+  sf::st_drop_geometry() %>%
+  mutate(geo_code1 = site_name) %>% 
+  group_by(geo_code1, geo_code2) %>% 
   summarise(
-    geo_code1 = geo_code1[1], # do we even need this?
     across(all:other, sum)
-  )
+  ) 
+desire_lines_combined = od::od_to_sf(x = desire_lines_combined, z = site, zd = centroids_msoa)
 
 desire_lines_combined$length = round(stplanr::geo_length(desire_lines_combined))
 
@@ -189,13 +201,12 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
     sz = rbind(sz, b)
   }
   
-  # mapview::mapview(sz) + mapview::mapview(zones_with_buildings) + mapview::mapview(zones_without_buildings)
+  # mapview::mapview(sz) + mapview::mapview(zones_with_buildings) + 
+  #   mapview::mapview(zones_without_buildings) + mapview::mapview(desire_lines_bounding)
   # Route to random points:
   # desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subpoints = sp, population_per_od = p)
   # Route to buildings:
   desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subzones = sz, population_per_od = p)
-  desire_lines_disag = desire_lines_disag %>% 
-    select(geo_code1 = o_agg, geo_code2 = d_agg, matches("base"))
   
   desire_lines_many = desire_lines_disag %>% 
     mutate(
@@ -204,6 +215,7 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
       pdrive_base = drive_base/trimode_base
     ) 
   desire_lines_many$length = stplanr::geo_length(desire_lines_many)
+  names(desire_lines_many)[1:2] = names(od_site)[1:2]
   
   # # sanity tests  
   # sum(desire_lines_many$all_base) == sum(desire_lines_disag$all_base)
@@ -738,7 +750,6 @@ access_employ$weightedJobsCart = apply(
   FUN = weighted.mean,
   w = c(100, 500, 5000)
 )
-
 access_site = access_employ %>% 
   select(LSOA_code, weightedJobsPTt, weightedJobsCyct, weightedJobsCart)
 

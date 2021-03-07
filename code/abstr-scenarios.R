@@ -81,17 +81,6 @@ summary(factor(osm_buildings$building))
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
 # zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
-d_origins = sf::st_sf(geometry = lwgeom::st_startpoint(desire_lines))
-d_destinations = sf::st_sf(geometry = lwgeom::st_endpoint(desire_lines))
-d_ods = rbind(d_origins, d_destinations)
-zones_of_interest = zones[d_ods, ]
-
-desire_d = sf::st_join(
-  sf::st_sf(lwgeom::st_endpoint(desire_lines)),
-  zones_of_interest %>% select(geo_code)
-)
-table(desire_d$geo_code)
-desire_lines$geo_code2 = desire_d$geo_code
 
 # add town zone, see #74
 zone_town = zones %>% 
@@ -143,6 +132,8 @@ houses = osm_polygons_in_site %>%
   filter(!is.na(building)) %>% 
   # filter(building == "residential") %>% # todo: all non-destination buildings?
   select(osm_way_id, building)
+# subset to those in the site
+# mapview::mapview(site) + mapview::mapview(houses)
 n_houses = nrow(houses)
 n_dwellings_site = site$dwellings_when_complete
 # if(n_houses < n_dwellings_site / 10 && !procgen_exists) {
@@ -175,7 +166,8 @@ if(procgen_exists) {
 #   mapview::mapview(site)
 
 # Save the buildings and 'key destinations' datasets ----------------------
-# mapview::mapview(houses) # looks good!
+mapview::mapview(houses) # looks good, but includes houses outside the site!
+houses = houses[site, , op = sf::st_within]
 dsn = file.path(path, "site_buildings.geojson")
 file.remove(dsn)
 houses_in_site = houses[site, ]
@@ -285,7 +277,8 @@ abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 file.remove(file.path(path, "scenario-base.json"))
 file.remove(file.path(path, "scenario-godutch.json"))
 
-
+if(!exists("build_background_traffic"))
+  build_background_traffic = FALSE
 if(build_background_traffic) {
   # add code to generate background traffic
   # simple visualisation of input data is a starter for 10
