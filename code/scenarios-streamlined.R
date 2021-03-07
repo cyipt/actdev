@@ -194,6 +194,22 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
   desire_lines_many_min$geo_code1 = site$site_name
   trip_attractors = sf::read_sf(file.path(path, "trip_attractors.geojson"))
   houses = sf::read_sf(file.path(path, "site_buildings.geojson"))
+  houses_in_site = houses[site, , op = sf::st_within]
+  
+  if(nrow(houses_in_site) == 0) {
+    message("No houses in site, sampling them.")
+    n_houses_to_generate = 20
+    new_house_centroids = sf::st_sample(site, size = n_houses_to_generate)
+    new_house_polys = stplanr::geo_buffer(new_house_centroids, dist = 8, nQuadSegs = 1)
+    plot(new_house_polys)
+    new_houses = sf::st_sf(
+      data.frame(osm_way_id = rep(NA, n_houses_to_generate), building = "residential"),
+      geometry = new_house_polys
+      )
+    houses = rbind(houses, new_houses)
+  } 
+  # mapview::mapview(houses) + mapview::mapview(site) # check houses in site
+  # mapview::mapview(houses_in_site) + mapview::mapview(site) # check houses in site
   sz = rbind(trip_attractors, houses)
   sz[[1]] = paste0("i", 1:nrow(sz))
   zones_with_buildings = z[sz, ]
