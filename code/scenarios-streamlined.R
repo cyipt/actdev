@@ -644,7 +644,9 @@ desire_line_town = desire_line_town %>%
 desire_lines_final = bind_rows(
   desire_lines_scenario,
   desire_line_town
-) %>% select(-matches("pw|pc"))
+) %>% 
+  mutate(geo_code1 = o_agg, geo_code2 = d_agg) %>% 
+  select(-matches("agg|pw|pc"))
 
 desire_lines_final$purpose[is.na(desire_lines_final$purpose)] = "commute"
 desire_lines_final[is.na(desire_lines_final)] = 0

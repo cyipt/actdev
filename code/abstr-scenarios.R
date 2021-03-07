@@ -1,6 +1,5 @@
 # Aim: demonstrate disaggregating polygons for #24
 
-# remotes::install_github("itsleeds/od", "bdb44597f0b701e683e5208b837c9a91c7036838")
 remotes::install_github("itsleeds/od")
 remotes::install_github("ITSLeeds/pct")
 remotes::install_github("a-b-street/abstr")
@@ -80,7 +79,7 @@ summary(factor(osm_buildings$building))
 
 pct_zone = pct::pct_regions[site_area %>% sf::st_centroid(), ]
 zones = pct::get_pct_zones(pct_zone$region_name, geography = "msoa")
-# zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
+zones_of_interest = zones[zones$geo_code %in% c(desire_lines$geo_code1, desire_lines$geo_code2), ]
 
 # add town zone, see #74
 zone_town = zones %>% 
@@ -89,7 +88,7 @@ zone_town = zones %>%
   mutate_all(function(x) NA) %>% 
   mutate(geo_code = tail(desire_lines$geo_code2, 1)) 
 zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>% 
-  stplanr::geo_buffer(dist = 1000) 
+  stplanr::geo_buffer(dist = 500) 
 zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
 zones_of_interest = rbind(zones_of_interest, zone_town_sf)
 
