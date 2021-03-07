@@ -211,8 +211,9 @@ if(! "town" %in% desire_lines$purpose) {
 # todo: generalise this code with some kind of loop
 names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names(desire_lines))
 desire_lines = desire_lines %>% select(-matches("pc|pd"))
-sum(desire_lines$trimode_base) == sum(desire_lines$walk_base + desire_lines$cycle_base + desire_lines$drive_base)
-sum(desire_lines$trimode_base) == sum(desire_lines$walk_go_active + desire_lines$cycle_go_active + desire_lines$drive_go_active)
+abs((sum(desire_lines$trimode_base) - sum(desire_lines$walk_base + desire_lines$cycle_base + desire_lines$drive_base)) / sum(desire_lines$trimode_base)) * 100
+abs((sum(desire_lines$trimode_base) - sum(desire_lines$walk_go_active + desire_lines$cycle_go_active + desire_lines$drive_go_active)) / sum(desire_lines$trimode_base)) * 100
+# % error should be less than ~1%
 abc = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
