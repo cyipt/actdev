@@ -404,7 +404,13 @@ walk_commuters_godutch = sum(routes_walk_save$walk_godutch)
 # drive_commuters_godutch = sum(routes_fast_summarised$drive_godutch)
 
 # Route to town centre ----------------------------------------------------
-record = st_nearest_feature(site_centroid, town_centroids)
+bng_site = site_centroid %>% st_transform(27700)
+bng_town = town_centroids %>% st_transform(27700)
+# record = case_when(
+#   site_name == "ebbsfleet" ~ as.integer(860),
+#   TRUE ~ st_nearest_feature(bng_site, bng_town)
+# )
+record = st_nearest_feature(bng_site, bng_town)
 town_nearest = town_centroids[record, ]
 # mapview(town_nearest)
 town_nearest = town_nearest %>% 

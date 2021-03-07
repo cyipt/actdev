@@ -244,7 +244,13 @@ Why do they differ?
 
 Measured on the fast cycle route network, the median distance from our case study sites to the nearest town centre is 3.2 km.
 Just three sites lie within 2.0 km of the nearest town centre.
-At ten sites the nearest town centre is >5.0 km away, the longest being Tresham Garden Village *check this* with a distance of 23.9 km. 
+At ten sites the nearest town centre is >5.0 km away, the longest being Tresham Garden Village with a distance of 23.9 km. 
+This is an example of a site where there appears to be no real cycle route to the nearest town. 
+Using the Euclidean distance, the town centre of Corby is 7.8 km from Tresham Garden Village, linked by a direct road.
+This is a long way but could be cycleable for some people.
+However, the local roads appear so inhospitable to cycling that the fast cycling route follows a circuitous path of almost 24 km in length.
+
+
 It must be recognised that some smaller towns may be excluded from our town centre dataset, so a degree of local knowledge is useful in interpreting these data.
 
 Distance to town centre - histogram
