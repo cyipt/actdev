@@ -88,8 +88,14 @@ desire_lines_site = desire_lines_site %>%
 desire_lines_pops = desire_lines_site %>% 
   mutate(across(all:other, .fns = ~ ./ sum_msoa_pops * site_population))
 
-# todo: add empirical data on 'new homes' effect (residents of new homes are more likely to drive than residents of older homes)
-# could also adjust the base walking and cycling mode shares in response to the difference between journey distance from the site centroid as compared to journey distance from the MSOA centroid (eg in Cambridge, the MSOA centroid is a fair bit closer to the city centre than the site centroid, which could explain why such a high proportion of commuters are shown walking to work in the city centre)  
+# todo: add empirical data on 'new homes' effect (residents of new homes are 
+# more likely to drive than residents of older homes)
+# could also adjust the base walking and cycling mode shares in response to the 
+# difference between journey distance from the site centroid as compared to 
+# journey distance from the MSOA centroid (eg in Cambridge, the MSOA centroid
+# is a fair bit closer to the city centre than the site centroid, which could
+# explain why such a high proportion of commuters are shown walking
+# to work in the city centre)  
 
 # For sites with 2 or more origin MSOAs, combine flows to avoid having
 # multiple desire lines to the same destination MSOA
