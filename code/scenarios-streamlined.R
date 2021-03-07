@@ -204,13 +204,16 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
     n_buildings_per_zone = rep(10, n_without)
     p_sample = sf::st_sample(zones_without_buildings, n_buildings_per_zone)
     d = sz %>% sf::st_drop_geometry() %>% sample_n(length(p_sample), replace = TRUE)
-    d$osm_way_id = paste0("synthetic", 1:length(p))
+    d$osm_way_id = paste0("synthetic", 1:length(p_sample))
     b = sf::st_sf(d, geometry = stplanr::geo_buffer(p_sample, dist = 50))
     sz = rbind(sz, b)
   }
   
-  # mapview::mapview(sz) + mapview::mapview(zones_with_buildings) + 
-  #   mapview::mapview(zones_without_buildings) + mapview::mapview(desire_lines_bounding)
+  mapview::mapview(sz) + mapview::mapview(zones_with_buildings) +
+    # mapview::mapview(zones_without_buildings) +
+    # mapview::mapview(desire_lines_many)
+    mapview::mapview(desire_lines_disag)
+  
   # Route to random points:
   # desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subpoints = sp, population_per_od = p)
   # Route to buildings:
