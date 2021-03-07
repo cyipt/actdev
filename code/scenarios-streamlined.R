@@ -209,10 +209,10 @@ if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
     sz = rbind(sz, b)
   }
   
-  mapview::mapview(sz) + mapview::mapview(zones_with_buildings) +
+  # mapview::mapview(sz) + mapview::mapview(zones_with_buildings) +
     # mapview::mapview(zones_without_buildings) +
     # mapview::mapview(desire_lines_many)
-    mapview::mapview(desire_lines_disag)
+    # mapview::mapview(desire_lines_disag)
   
   # Route to random points:
   # desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subpoints = sp, population_per_od = p)
