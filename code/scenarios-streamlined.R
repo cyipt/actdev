@@ -680,8 +680,8 @@ desire_lines_final = desire_lines_final %>%
     drive_godutch = pmax(trimode_base - (cycle_godutch + walk_godutch), 0)
     ) 
 
-min_vals = sapply(desire_lines_final %>% sf::st_drop_geometry(), min)
-if(any(grepl(pattern = "-", x = min_vals))) stop("Negative values detected")
+min_vals = sapply(desire_lines_final %>% sf::st_drop_geometry() %>% select_if(is.numeric), min)
+if(any(min_vals < 0)) stop("Negative values detected")
 # # sanity check percentages
 desire_lines_final %>%
   sf::st_drop_geometry() %>%
