@@ -517,13 +517,20 @@ routes_fast_combined = bind_rows(
 routes_fast_entire = routes_fast_combined %>% 
   group_by(geo_code1, geo_code2, purpose, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, trimode_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
   summarise() %>% 
-  arrange(cycle_base)
+  arrange(cycle_base) 
 
-# routes_fast_des = routes_fast_entire %>% 
-#   select(geo_code2, purpose, cycle_godutch, pcycle_godutch)
+desire_lines_lookup = desire_lines_many %>% 
+  sf::st_drop_geometry() %>% 
+  select(matches("geo|agg"))
 
 dsn = file.path(data_dir, site_name, "routes-fast.geojson")
-obj = routes_fast_entire %>%  select(-pcycle_godutch)
+obj = routes_fast_entire %>% select(-pcycle_godutch)
+if(any(grepl(pattern = "^i|synthetic", x = obj$geo_code2))) {
+  obj = obj %>% 
+    left_join(desire_lines_lookup) %>% 
+    mutate(geo_code1 = o_agg, geo_code2 = d_agg) %>% 
+    select(-matches("agg"))
+}
 if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
@@ -549,6 +556,12 @@ routes_balanced_entire = routes_balanced_combined %>%
 
 dsn = file.path(data_dir, site_name, "routes-balanced.geojson")
 obj = routes_balanced_entire %>%  select(-pcycle_godutch)
+if(any(grepl(pattern = "^i|synthetic", x = obj$geo_code2))) {
+  obj = obj %>% 
+    left_join(desire_lines_lookup) %>% 
+    mutate(geo_code1 = o_agg, geo_code2 = d_agg) %>% 
+    select(-matches("agg"))
+}
 if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
@@ -574,6 +587,12 @@ routes_quiet_entire = routes_quiet_combined %>%
 
 dsn = file.path(data_dir, site_name, "routes-quiet.geojson")
 obj = routes_quiet_entire %>%  select(-pcycle_godutch)
+if(any(grepl(pattern = "^i|synthetic", x = obj$geo_code2))) {
+  obj = obj %>% 
+    left_join(desire_lines_lookup) %>% 
+    mutate(geo_code1 = o_agg, geo_code2 = d_agg) %>% 
+    select(-matches("agg"))
+}
 if(file.exists(dsn)) file.remove(dsn)
 sf::write_sf(obj = obj, dsn = dsn)
 
@@ -592,12 +611,17 @@ if(walk_commuters_baseline > 0 | walk_commuters_godutch > 0) {
   if(route_walk_town$distance <= 6000) routes_walk_combined = bind_rows(routes_walk_combined, walk_town_cutdown %>% mutate(purpose = "town"))
   
   # create object for rnet and to save (desire lines simply use routes_walk_save)
-  walk_obj = routes_walk_combined %>%
+  obj = routes_walk_combined %>%
     select(geo_code1, geo_code2, purpose, distance, duration, all_base, trimode_base, walk_base, walk_godutch)
-  
+  if(any(grepl(pattern = "^i|synthetic", x = obj$geo_code2))) {
+    obj = obj %>% 
+      left_join(desire_lines_lookup) %>% 
+      mutate(geo_code1 = o_agg, geo_code2 = d_agg) %>% 
+      select(-matches("agg"))
+  }
   dsn = file.path(data_dir, site_name, "routes-walk.geojson")
   if(file.exists(dsn)) file.remove(dsn)
-  sf::write_sf(walk_obj, dsn = dsn)
+  sf::write_sf(obj, dsn = dsn)
 }
 
 # Route networks ----------------------------------------------------------
