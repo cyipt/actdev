@@ -100,9 +100,9 @@ if(error) {
 }
 
 if(procgen_exists) {
-  file.remove(procgen_path)
   system(paste0("gunzip ", procgen_path_gz))
   procgen_houses = sf::read_sf(procgen_path)
+  file.remove(procgen_path)
 }
 
 # mapview::mapview(zones_of_interest) +
@@ -218,16 +218,22 @@ names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names
 desire_lines = desire_lines %>% select(-matches("pc|pd"))
 abs((sum(desire_lines$trimode_base) - sum(desire_lines$walk_base + desire_lines$cycle_base + desire_lines$drive_base)) / sum(desire_lines$trimode_base)) * 100
 abs((sum(desire_lines$trimode_base) - sum(desire_lines$walk_go_active + desire_lines$cycle_go_active + desire_lines$drive_go_active)) / sum(desire_lines$trimode_base)) * 100
-
 # % error should be less than ~1%
+
+# # Check inputs for A/B Street scenarios
+# mapview::mapview(houses) + mapview::mapview(buildings_in_zones) +
+#   mapview::mapview(desire_lines) + mapview::mapview(zones_of_interest)
+
 abc = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% filter(purpose == "commute"),
+  desire_lines = desire_lines %>% filter(purpose == "commute" & all_base > 0),
   zones = zones_of_interest,
   scenario = "base",
   output_format = "sf"
 )
+# to debug run: file.edit("~/cyipt/abstr/R/ab_scenario.R")
+
 abc$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
 abt = abstr::ab_scenario(
   houses,
@@ -248,7 +254,7 @@ abbl = abstr::ab_json(abb)
 abcd = abstr::ab_scenario(
   houses,
   buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% filter(purpose == "commute"),
+  desire_lines = desire_lines %>% filter(purpose == "commute" & all_base > 0),
   zones = zones_of_interest,
   scenario = "go_active",
   output_format = "sf"
