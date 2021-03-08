@@ -12,7 +12,7 @@ set.seed(42) # for deterministic builds
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 if(!exists("site_name")) { # assume all presets loaded if site_name exists
-  site_name = "lcid"   # which site to look at (can change)
+  site_name = "tyersal-lane"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   max_length = 20000 # maximum length of desire lines in m
   household_size = 2.3 # mean UK household size at 2011 census
@@ -389,15 +389,16 @@ routes_quiet_summarised = routes_quiet_summarised %>%
 
 routes_quiet = inner_join((routes_quiet %>% select(-all_base, -trimode_base, -cycle_base, -cycle_godutch)), routes_quiet_summarised)
 
-# Walking routes
-if(is.null(routes_walk$distance)) {
-  # change names if routing service used different names
-  # but for google these columns are full of NAs
-  routes_walk = routes_walk_save %>% 
-    mutate(distance = distance_m, duration = duration_s)
-}
+# Walking route fixes if another routing service is used
+# if(is.null(routes_walk$distance)) {
+#   # change names if routing service used different names
+#   # but for google these columns are full of NAs
+#   routes_walk = routes_walk_save %>% 
+#     mutate(distance = distance_m, duration = duration_s)
+# }
+
 routes_walk_save = routes_walk %>% 
-  filter(distance <= 6000) %>%
+  dplyr::filter(distance <= 6000) %>%
   mutate(
     # pwalk_base = walk_base / trimode_base,
     pwalk_godutch = case_when(	
@@ -704,6 +705,22 @@ desire_lines_final = desire_lines_final %>%
     trimode_base = walk_base + cycle_base + drive_base,
     drive_godutch = pmax(trimode_base - (cycle_godutch + walk_godutch), 0)
     ) 
+
+
+# Sanity tests for scenarios ----------------------------------------------
+base_mode_totals = desire_lines_final %>%
+  sf::st_drop_geometry() %>%
+  select(matches("base")) %>% 
+  select(-matches("all|tri")) %>% 
+  colSums()
+dutch_mode_totals = desire_lines_final %>%
+  sf::st_drop_geometry() %>%
+  select(matches("dutch")) %>% 
+  select(-matches("all|tri")) %>% 
+  colSums()
+
+(shift_totals = dutch_mode_totals - base_mode_totals)
+if(sum(shift_totals) != 0) stop("Mode totals do not add up.")
 
 min_vals = sapply(desire_lines_final %>% sf::st_drop_geometry() %>% select_if(is.numeric), min)
 if(any(min_vals < 0)) stop("Negative values detected")
