@@ -90,9 +90,9 @@ dsn = file.path("data-small", site_name, "mode-split-goactive.png")
 ggsave(filename = dsn, width = 4, height = 3, dpi = 100, plot = g2)
 
 # experimental: output plot as html
-p1 = plotly::ggplotly(g1)
-dsn = file.path("data-small", site_name, "mode-split-base.html")
-htmlwidgets::saveWidget(p1, dsn)
+# p1 = plotly::ggplotly(g1)
+# dsn = file.path("data-small", site_name, "mode-split-base.html")
+# htmlwidgets::saveWidget(p1, dsn)
 
 # Create single mode split summary csv
 sum_total = sum(mode_split_base$all)

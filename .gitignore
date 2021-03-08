@@ -39,3 +39,5 @@ town_centr*
 data-sites/
 procgen_houses.json*
 .Rproj.user
+*mode-split-base.html
+*mode-split-base_files*
