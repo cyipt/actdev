@@ -32,17 +32,40 @@ travel_trends = zones_msoa_national %>%
          bicycle = bicycle / all,
          car_driver = car_driver / all)
 
-#calculate 25%, 50%, 75% bands
+# calculate 25%, 50%, 75% bands
+# probs = c(0.25, 0.50, 0.75)
+# probs = c(0.5, seq(0.5, 1, length.out = 4)[2:3])
+# probs = c(0.5, seq(0.5, 1, length.out = 5)[2:4])
+# [1] 0.5000000 0.6666667 0.8333333
+# probs = c(0.5, 0.75)
+probs = c(0.8, 0.95)
 # median(travel_trends$foot)
-active_trends = quantile(travel_trends$active, probs = c(0.25, 0.50, 0.75))
-walk_trends = quantile(travel_trends$foot, probs = c(0.25, 0.50, 0.75))
-cycle_trends = quantile(travel_trends$bicycle, probs = c(0.25, 0.50, 0.75))
-drive_trends = quantile(travel_trends$car_driver, probs = c(0.25, 0.50, 0.75))
+active_trends = quantile(travel_trends$active, probs)
+walk_trends = quantile(travel_trends$foot, probs = probs)
+cycle_trends = quantile(travel_trends$bicycle, probs = probs)
+drive_trends = quantile(travel_trends$car_driver, probs = 1 - probs)
 
 traffic_light = data.frame(active_trends, walk_trends, cycle_trends, drive_trends)
 
 file.remove("data-small/traffic-light.csv")
-write_csv(traffic_light,"data-small/traffic-light.csv")
+write.csv(traffic_light,"data-small/traffic-light.csv")
+
+active_trends
+hist(travel_trends$active)
+abline(v = active_trends)
+
+walk_trends
+hist(travel_trends$foot)
+abline(v = walk_trends)
+
+cycle_trends
+hist(travel_trends$bicycle)
+abline(v = cycle_trends)
+
+drive_trends 
+hist(travel_trends$car_driver)
+abline(v = drive_trends)
+
 
 # code to get site metrics
 i = sites_join$site_name[1]
