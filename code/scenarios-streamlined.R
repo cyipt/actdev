@@ -389,16 +389,16 @@ routes_quiet_summarised = routes_quiet_summarised %>%
 
 routes_quiet = inner_join((routes_quiet %>% select(-all_base, -trimode_base, -cycle_base, -cycle_godutch)), routes_quiet_summarised)
 
-# Walking route fixes if another routing service is used
-# if(is.null(routes_walk$distance)) {
-#   # change names if routing service used different names
-#   # but for google these columns are full of NAs
-#   routes_walk = routes_walk_save %>% 
-#     mutate(distance = distance_m, duration = duration_s)
-# }
+# # Walking route fixes if another routing service is used
+if(is.null(routes_walk$distance)) {
+  # change names if routing service used different names
+  # but for google these columns are full of NAs
+  routes_walk = routes_walk_save %>%
+    mutate(distance = distance_m, duration = duration_s)
+}
 
 routes_walk_save = routes_walk %>% 
-  dplyr::filter(distance <= 6000) %>%
+  dplyr::filter(distance <= 6000 & trimode_base > 0) %>%
   mutate(
     # pwalk_base = walk_base / trimode_base,
     pwalk_godutch = case_when(	
