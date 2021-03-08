@@ -27,15 +27,22 @@ zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = 
 travel_trends = zones_msoa_national %>% 
   st_drop_geometry() %>% 
   select(geo_code, all, foot, bicycle, car_driver) %>% 
-  mutate(foot = foot / all,
+  mutate(active = (foot + bicycle) / all,
+         foot = foot / all,
          bicycle = bicycle / all,
          car_driver = car_driver / all)
 
-#calculate 33% and 66% bands
+#calculate 25%, 50%, 75% bands
 # median(travel_trends$foot)
-walk_trends = quantile(travel_trends$foot, probs = c(0.33, 0.66))
-cycle_trends = quantile(travel_trends$bicycle, probs = c(0.33, 0.66))
-drive_trends = quantile(travel_trends$car_driver, probs = c(0.33, 0.66))
+active_trends = quantile(travel_trends$active, probs = c(0.25, 0.50, 0.75))
+walk_trends = quantile(travel_trends$foot, probs = c(0.25, 0.50, 0.75))
+cycle_trends = quantile(travel_trends$bicycle, probs = c(0.25, 0.50, 0.75))
+drive_trends = quantile(travel_trends$car_driver, probs = c(0.25, 0.50, 0.75))
+
+traffic_light = data.frame(active_trends, walk_trends, cycle_trends, drive_trends)
+
+file.remove("data-small/traffic-light.csv")
+write_csv(traffic_light,"data-small/traffic-light.csv")
 
 # code to get site metrics
 i = sites_join$site_name[1]
@@ -56,9 +63,6 @@ sites_join$percent_commute_drive_scenario = NA
 sites_join$percent_commute_walk_scenario = NA
 sites_join$percent_commute_cycle_scenario = NA
 sites_join$crossing_points = NA
-sites_join$drive_base_rating = NA
-sites_join$walk_base_rating = NA
-sites_join$cycle_base_rating = NA
 for(i in sites_join$site_name) {
   f = paste0("data-small/", i, "/desire-lines-many.geojson")
   desire_lines = sf::read_sf(f)
@@ -84,16 +88,6 @@ for(i in sites_join$site_name) {
   percent_commute_walk_base = round(100 * sum(all_desire_lines$foot) / all_trips)
   percent_commute_cycle_base = round(100 * sum(all_desire_lines$bicycle) / all_trips)
   percent_commute_drive_base = round(100 * sum(all_desire_lines$car_driver) / all_trips)
-  
-  walk_base_rating = case_when(sum(all_desire_lines$foot / all_trips) > walk_trends[2] ~ "green",
-                                          sum(all_desire_lines$foot / all_trips) < walk_trends[1] ~ "red",
-                                          TRUE ~ "amber")
-  cycle_base_rating = case_when(sum(all_desire_lines$bicycle / all_trips) > cycle_trends[2] ~ "green",
-                                           sum(all_desire_lines$bicycle / all_trips) < cycle_trends[1] ~ "red",
-                                           TRUE ~ "amber")
-  drive_base_rating = case_when(sum(all_desire_lines$car_driver / all_trips) > drive_trends[2] ~ "red",
-                                           sum(all_desire_lines$car_driver / all_trips) < drive_trends[1] ~ "green",
-                                           TRUE ~ "amber")
   
   percent_commute_bus_base = round(100 * sum(all_desire_lines$bus) / all_trips)
   percent_commute_rail_base = round(100 * ((sum(all_desire_lines$train) + sum(all_desire_lines$light_rail)) / all_trips))
@@ -137,9 +131,6 @@ for(i in sites_join$site_name) {
   sites_join$percent_commute_drive_scenario[sites_join$site_name == i] = percent_commute_drive_scenario
   sites_join$percent_commute_walk_scenario[sites_join$site_name == i] = percent_commute_walk_scenario
   sites_join$percent_commute_cycle_scenario[sites_join$site_name == i] = percent_commute_cycle_scenario
-  sites_join$walk_base_rating[sites_join$site_name == i] = walk_base_rating
-  sites_join$cycle_base_rating[sites_join$site_name == i] = cycle_base_rating
-  sites_join$drive_base_rating[sites_join$site_name == i] = drive_base_rating
   sites_join$crossing_points[sites_join$site_name == i] = length(unique(crossing_points$geometry))
   # message(round(100 * (drive_trips - drive_dutch) / drive_trips), " percent in ", i)
 
