@@ -16,7 +16,7 @@ source("code/build-setup.R") # national data
 set.seed(2021) # reproducibility
 site_names_to_build = sites %>% 
   # uncomment the following lines to omit of test for subset of sites
-  filter(!str_detect(string = site_name, pattern = "tyersal")) %>%
+  # filter(!str_detect(string = site_name, pattern = "tyersal")) %>%
   # filter(str_detect(string = site_name, pattern = "kneighton|allert|pound")) %>%
   pull(site_name)
 
