@@ -152,7 +152,7 @@ if(procgen_exists) {
 #   mapview::mapview(site)
 
 # Save the buildings and 'key destinations' datasets ----------------------
-mapview::mapview(houses) + mapview::mapview(site) # looks good, but includes houses outside the site!
+# mapview::mapview(houses) + mapview::mapview(site) # looks good, but includes houses outside the site!
 houses_in_site = houses[site, ]
 n_houses = nrow(houses_in_site)
 n_dwellings_site = site$dwellings_when_complete
