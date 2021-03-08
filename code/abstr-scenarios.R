@@ -133,24 +133,11 @@ houses = osm_polygons_in_site %>%
   select(osm_way_id, building)
 # subset to those in the site
 # mapview::mapview(site) + mapview::mapview(houses)
-n_houses = nrow(houses)
-n_dwellings_site = site$dwellings_when_complete
-# if(n_houses < n_dwellings_site / 10 && !procgen_exists) {
-#   n_houses_to_generate = n_dwellings_site - n_houses
-#   new_house_centroids = sf::st_sample(site_area, size = n_houses_to_generate)
-#   new_house_polys = stplanr::geo_buffer(new_house_centroids, dist = 8, nQuadSegs = 1)
-#   plot(new_house_polys)
-#   new_houses = sf::st_sf(
-#     data.frame(osm_way_id = rep(NA, n_houses_to_generate), building = "residential"),
-#     geometry = new_house_polys
-#     )
-#   houses = rbind(houses, new_houses)
-# }
 
 if(procgen_exists) {
   # quick fix for https://github.com/cyipt/actdev/issues/82
   # todo: update when new procedurally generated houses are available
-  site_area = stplanr::geo_buffer(site_area, dist = 250) # expand boundary for #82
+  # site_area = stplanr::geo_buffer(site_area, dist = 250) # expand boundary for #82
   procgen_site = procgen_houses[site_area, , op = sf::st_within]
   procgen_osm = sf::st_sf(
     data.frame(
@@ -165,12 +152,30 @@ if(procgen_exists) {
 #   mapview::mapview(site)
 
 # Save the buildings and 'key destinations' datasets ----------------------
-mapview::mapview(houses) # looks good, but includes houses outside the site!
-houses = houses[site, , op = sf::st_within]
+mapview::mapview(houses) + mapview::mapview(site) # looks good, but includes houses outside the site!
+houses_in_site = houses[site, ]
+n_houses = nrow(houses_in_site)
+n_dwellings_site = site$dwellings_when_complete
+
+if(n_houses < 5) {
+  n_houses_to_generate = n_dwellings_site - n_houses
+  new_house_centroids = sf::st_sample(site_area, size = n_houses_to_generate)
+  new_house_polys = stplanr::geo_buffer(new_house_centroids, dist = 8, nQuadSegs = 1)
+  plot(new_house_polys)
+  new_houses = sf::st_sf(
+    data.frame(osm_way_id = rep(NA, n_houses_to_generate), building = "synthetic"),
+    geometry = new_house_polys
+    )
+  houses = rbind(houses_in_site, new_houses)
+} else {
+  houses = houses_in_site
+}
+
+# mapview::mapview(houses) + mapview::mapview(site)
+
 dsn = file.path(path, "site_buildings.geojson")
 file.remove(dsn)
-houses_in_site = houses[site, ]
-sf::write_sf(houses_in_site, dsn)
+sf::write_sf(houses, dsn)
 
 trip_attractors = buildings_in_zones %>% filter(building %in% building_types)
 # mapview::mapview(trip_attractors) # looks good!
@@ -213,6 +218,7 @@ names(desire_lines) = gsub(pattern = "godutch", replacement = "go_active", names
 desire_lines = desire_lines %>% select(-matches("pc|pd"))
 abs((sum(desire_lines$trimode_base) - sum(desire_lines$walk_base + desire_lines$cycle_base + desire_lines$drive_base)) / sum(desire_lines$trimode_base)) * 100
 abs((sum(desire_lines$trimode_base) - sum(desire_lines$walk_go_active + desire_lines$cycle_go_active + desire_lines$drive_go_active)) / sum(desire_lines$trimode_base)) * 100
+
 # % error should be less than ~1%
 abc = abstr::ab_scenario(
   houses,
