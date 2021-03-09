@@ -1,3 +1,5 @@
+<!--
+Rmd stuff...
 ---
 title: "ActDev Report"
 author: "<br>Robin Lovelace, Joey Talbot (University of Leeds)<br>Martin Lucas-Smith, Simon Nuttall (CycleStreets)<br>Andrew Speakman (PlanIt)<br>Patrick Johansson<br>Dustin Carlino (A/B Street)"
@@ -6,6 +8,10 @@ output:
    rmarkdown::html_vignette:
      number_sections: true
 ---
+-->
+
+<br>Robin Lovelace, Joey Talbot (University of Leeds)<br>Martin Lucas-Smith, Simon Nuttall (CycleStreets)<br>Andrew Speakman (PlanIt)<br>Patrick Johansson<br>Dustin Carlino (A/B Street)
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
