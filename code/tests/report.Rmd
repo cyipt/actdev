@@ -1,14 +1,11 @@
-<!--
-Rmd stuff...
 ---
 title: "ActDev Report"
 author: "<br>Robin Lovelace, Joey Talbot (University of Leeds)<br>Martin Lucas-Smith, Simon Nuttall (CycleStreets)<br>Andrew Speakman (PlanIt)<br>Patrick Johansson<br>Dustin Carlino (A/B Street)"
 date: "26/02/2021"
 output:
-   rmarkdown::html_vignette:
+   bookdown::markdown_document2:
      number_sections: true
 ---
--->
 
 <br>Robin Lovelace, Joey Talbot (University of Leeds)<br>Martin Lucas-Smith, Simon Nuttall (CycleStreets)<br>Andrew Speakman (PlanIt)<br>Patrick Johansson<br>Dustin Carlino (A/B Street)
 
