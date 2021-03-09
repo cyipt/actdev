@@ -232,8 +232,9 @@ We can see that walking and cycling mostly occurs in the shorter distance bands.
 
 ```{r}
 # knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
-knitr::include_graphics("../../data-small/great-kneighton/mode-split-base.png")
-knitr::include_graphics("../../data-small/chapelford/mode-split-base.png")
+# https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png")
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/chapelford/mode-split-base.png")
 ```
 
 Show route and route network maps for commutes only, with line width representing usage, and a single colour.
@@ -297,8 +298,8 @@ Figure xx shows the Baseline and Go Active scenarios for Dickens Heath. We can s
 
 ```{r}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")
-knitr::include_graphics("../../data-small/dickens-heath/mode-split-base.png")
-knitr::include_graphics("../../data-small/dickens-heath/mode-split-goactive.png")
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png")
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png")
 ```
 
 Proportion of car/van drivers that switch modes under Go Active - explain mapped v total %.
@@ -327,14 +328,14 @@ Explain the clockface graphics
 
 ```{r}
 # knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108995587-3832f380-7695-11eb-97ca-bbc1fce12a15.png")
-knitr::include_graphics("../../data-small/great-kneighton/gg_distance_busyness.png")
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/gg_distance_busyness.png")
 ```
 
 Busyness
 
 ```{r}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/gg_busyness_dartboard.png")
-knitr::include_graphics("../../data-small/great-kneighton/gg_busyness_dartboard.png")
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/gg_busyness_dartboard.png")
 
 ```
 
@@ -344,7 +345,7 @@ Compare in-site circuity of the 3 modes.
 
 ```{r}
 # knitr::include_graphics("https://user-images.githubusercontent.com/1825120/108996661-8f859380-7696-11eb-9b52-e03ff658ce1c.png")
-knitr::include_graphics("../../data-small/great-kneighton/in-site-metrics.png")
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/in-site-metrics.png")
 
 ```
 
