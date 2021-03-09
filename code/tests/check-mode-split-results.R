@@ -88,7 +88,7 @@ summary(desire_lines_sample$distance)
 
 desire_lines_modesplit = desire_lines_sample %>%
   filter(distance < 20000) %>% 
-  filter(distance > 300) %>% 
+  filter(distance > 0) %>% 
   mutate(
   distance_band_fine = cut(distance, dist_breaks),
   pwalk_base = foot / all,
@@ -181,8 +181,9 @@ desire_lines_summary$Mode[grepl(pattern = "drive", x = desire_lines_summary$Scen
 desire_lines_summary$Scenario[grepl(pattern = "active", x = desire_lines_summary$ScenarioMode)] = "Go Active"
 desire_lines_summary$Mode = factor(desire_lines_summary$Mode, levels = c("Drive", "Cycle", "Walk"))
 
-table(desire_lines_summary_all$ScenarioMode)
+table(desire_lines_summary$ScenarioMode)
 desire_lines_q90 = desire_lines_summary %>% filter(str_detect(string = ScenarioMode, pattern = "90th"))
+desire_lines_q90$Proportion[desire_lines_q90$Proportion > 1] = 0.99
 desire_lines_q10 = desire_lines_summary %>% filter(str_detect(string = ScenarioMode, pattern = "10th"))
 desire_lines_summary = desire_lines_summary %>% filter(!str_detect(string = ScenarioMode, pattern = "th"))
 desire_lines_summary$Proportion_90th = desire_lines_q90$Proportion
@@ -201,7 +202,7 @@ desire_lines_summary %>%
   scale_fill_manual(values = cols) +
   facet_grid(vars(Scenario)) +
   scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
-  scale_x_continuous(name = "Euclidean Distance (km)")
+  scale_x_continuous(name = "Distance (km)")
 
 ggsave("data-small/scenario-overview.png")
 

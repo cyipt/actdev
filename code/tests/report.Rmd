@@ -163,7 +163,7 @@ To generate the increased walking uptake in Go Active, we used a set of simple e
 For journeys <= 2.0 km in length we assumed a walking mode share 30% above baseline levels; for journeys of 2.0 - 2.5 km length, walking mode share was increased by 20%; for 2.5 - 3.0 km by 10%; and for 3.0 - 6.0 km by 5%.
 In future work we plan to refine the uptake model, which is illustrated in Figure \@ref(fig:scenario-overview).
 
-```{r scenario-overview, fig.cap="Overview of the uptake model underlying the Go Active scenario compared with the Baseline scenario which is based on data from the 2011 Census."}
+```{r scenario-overview, fig.cap="Overview of the uptake model underlying the Go Active scenario compared with the Baseline scenario which is based on data from the 2011 Census. The bands represent the range within which the majority of origin-destination pairs fall, from the 20th to the 80th percentile.", out.width="80%"}
 knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png")
 ```
 

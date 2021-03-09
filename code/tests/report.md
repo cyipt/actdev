@@ -221,11 +221,12 @@ km length, walking mode share was increased by 20%; for 2.5 - 3.0 km by
 uptake model, which is illustrated in Figure
 <a href="#fig:scenario-overview">2.1</a>.
 
-<img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png" alt="Overview of the uptake model underlying the Go Active scenario compared with the Baseline scenario which is based on data from the 2011 Census."  />
+<img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png" alt="Overview of the uptake model underlying the Go Active scenario compared with the Baseline scenario which is based on data from the 2011 Census. The bands represent the range within which the majority of origin-destination pairs fall, from the 20th to the 80th percentile." width="80%" />
 <p class="caption">
 Figure 2.1: Overview of the uptake model underlying the Go Active
 scenario compared with the Baseline scenario which is based on data from
-the 2011 Census.
+the 2011 Census. The bands represent the range within which the majority
+of origin-destination pairs fall, from the 20th to the 80th percentile.
 </p>
 
 ## 2.6 Within-site metrics
