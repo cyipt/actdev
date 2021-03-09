@@ -1,7 +1,3 @@
-<br>Robin Lovelace, Joey Talbot (University of Leeds)<br>Martin
-Lucas-Smith, Simon Nuttall (CycleStreets)<br>Andrew Speakman
-(PlanIt)<br>Patrick Johansson<br>Dustin Carlino (A/B Street)
-
 # 1 Introduction
 
 bringing together 4 datasets
@@ -190,8 +186,9 @@ Simon’s LTN work
 
 ## 2.5 Mode shift scenarios
 
-For each site, we generated two scenarios, Baseline and Go Active. The
-2011 Census journey to work data represents baseline conditions. For the
+For each site, we generated two scenarios, Baseline and Go Active, as
+illustrated in Figure <a href="#fig:scenario-overview">2.1</a>. The 2011
+Census journey to work data represents baseline conditions. For the
 Baseline scenario, we simply adjusted this data to represent the
 population, at completion, of the chosen residential development site,
 rather than the population of the MSOA(s) that the site lies within. For
@@ -220,8 +217,16 @@ To generate the increased walking uptake in Go Active, we used a set of
 simple estimations. For journeys &lt;= 2.0 km in length we assumed a
 walking mode share 30% above baseline levels; for journeys of 2.0 - 2.5
 km length, walking mode share was increased by 20%; for 2.5 - 3.0 km by
-10%; and for 3.0 - 6.0 km by 5%. *check how this works* This is not
-data-driven but is simply an estimation.
+10%; and for 3.0 - 6.0 km by 5%. In future work we plan to refine the
+uptake model, which is illustrated in Figure
+<a href="#fig:scenario-overview">2.1</a>.
+
+<img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png" alt="Overview of the uptake model underlying the Go Active scenario compared with the Baseline scenario which is based on data from the 2011 Census."  />
+<p class="caption">
+Figure 2.1: Overview of the uptake model underlying the Go Active
+scenario compared with the Baseline scenario which is based on data from
+the 2011 Census.
+</p>
 
 ## 2.6 Within-site metrics
 

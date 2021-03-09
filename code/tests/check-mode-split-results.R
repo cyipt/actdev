@@ -67,6 +67,78 @@ min_vals = sapply(desire_lines_final %>% sf::st_drop_geometry() %>% select_if(is
 if(any(min_vals < 0)) stop("Negative values detected")
 
 
+# Illustrate the uptake model
 
+od_national = pct::get_od()
+centroids_msoa = pct::get_centroids_ew()
+set.seed(2021)
+od_sample = od_national %>% 
+  filter(geo_code1 %in% centroids_msoa$msoa11cd) %>% 
+  filter(geo_code2 %in% centroids_msoa$msoa11cd) %>%
+  filter(all > 10) %>% 
+  sample_n(100000, weight = all)
 
+sum(od_sample$all) / sum(od_national$all) # 40% trips
+
+desire_lines_sample = od::od_to_sf(od_sample, centroids_msoa)
+desire_lines_sample$distance = stplanr::geo_length(desire_lines_sample)
+dist_breaks = c(seq(from = 0.2, to = 4.5, by = 0.4),  seq(from = 5, to = 21, by = 2)) * 1000
+
+desire_lines_modesplit = desire_lines_sample %>%
+  filter(distance < 20000) %>% 
+  filter(distance > 0.2) %>% 
+  mutate(
+  distance_band_fine = cut(distance, dist_breaks),
+  pwalk_base = foot / all,
+  pwalk_godutch = case_when(	
+    distance <= 2000 ~ pwalk_base + 0.3, # 30% shift walking for routes >2km
+    distance <= 2500 ~ pwalk_base + 0.2, # 20% shift walking for routes >2.5km
+    distance <= 3000 ~ pwalk_base + 0.1, # 10% shift walking for routes >3km
+    distance <= 6000 ~ pwalk_base + 0.05, # 5% shift walking for routes 3-6km	
+    TRUE ~ pwalk_base),
+  walk_godutch = pwalk_godutch * all
+) %>% 
+  mutate(
+    pcycle_godutch_uptake = pct::uptake_pct_godutch_2020(distance = distance, gradient = 0.01),
+    cycle_godutch_additional = pcycle_godutch_uptake * car_driver,
+    cycle_godutch = bicycle + cycle_godutch_additional,
+    pcycle_godutch = cycle_godutch / all,
+    drive_godutch = car_driver - cycle_godutch_additional # ensure totals add up
+  )
+
+table(desire_lines_modesplit$distance_band_fine)
+
+desire_lines_summary = desire_lines_modesplit %>% 
+  sf::st_drop_geometry() %>% 
+  group_by(distance_band_fine) %>% 
+  summarise(
+    distance = mean(distance) / 1000,
+    pwalk = sum(foot) / sum(all),
+    pwalk_go_active = sum(walk_godutch) / sum(all),
+    pcycle = sum(bicycle) / sum(all),
+    pcycle_go_active = sum(cycle_godutch) / sum(all),
+    pdrive = sum(car_driver) / sum(all),
+    pdrive_go_active = sum(drive_godutch) / sum(all),
+  ) %>% 
+  select(matches("p|dist")) %>% 
+  pivot_longer(cols = matches("p"), names_to = "ScenarioMode", values_to = "Proportion")
+
+table(desire_lines_summary$ScenarioMode)
+
+desire_lines_summary$Mode = NA
+desire_lines_summary$Scenario = "Baseline"
+desire_lines_summary$Mode[grepl(pattern = "cycle", x = desire_lines_summary$ScenarioMode)] = "Cycle"
+desire_lines_summary$Mode[grepl(pattern = "foot|walk", x = desire_lines_summary$ScenarioMode)] = "Walk"
+desire_lines_summary$Mode[grepl(pattern = "drive", x = desire_lines_summary$ScenarioMode)] = "Drive"
+desire_lines_summary$Scenario[grepl(pattern = "active", x = desire_lines_summary$ScenarioMode)] = "Go Active"
+desire_lines_summary$Mode = factor(desire_lines_summary$Mode, levels = c("Drive", "Cycle", "Walk"))
+
+desire_lines_summary %>% 
+  ggplot() +
+  # geom_line(aes(distance, value, colour = Mode)) %>% 
+  geom_line(aes(distance, Proportion)) +
+  facet_grid(Mode ~ Scenario) +
+  scale_y_continuous(labels = scales::percent)
+
+ggsave("data-small/scenario-overview.png")
 
