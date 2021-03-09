@@ -21,13 +21,40 @@ get_distance_bands = function(x, distance_band = c(0, zonebuilder::zb_100_triang
   cut(x = x, breaks = distance_band * 1000, labels = distance_labels)
 }
 
-# Baseline scenario
 all_od_new = all_od %>% 
   rename(all = all, walk = foot, cycle = bicycle, drive = car_driver, trimode = trimode_base) %>% 
   select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
   mutate(across(all:length, as.numeric))
 
-mode_split_base = all_od_new %>%
+# disaggregated desire lines inside the study area
+desire_lines_disag = desire_lines %>% 
+  rename(all = all_base, trimode = trimode_base) %>% 
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  filter(purpose == "commute") %>% 
+  select(geo_code2, all, trimode, walk_base, cycle_base, drive_base, walk_godutch, cycle_godutch, drive_godutch, length) %>% 
+  sf::st_drop_geometry()
+
+# get desire lines outside the study area
+all_dist_outside = all_od_new %>% 
+  filter(! geo_code2 %in% desire_lines_disag$geo_code2)
+
+# join the lines inside and outside the study area for the two scenarios separately
+desire_disag_base = desire_lines_disag %>%
+  select(-c(walk_godutch:drive_godutch)) %>% 
+  rename(walk = walk_base, cycle = cycle_base, drive = drive_base)
+
+desire_disag_scenario = desire_lines_disag %>%
+  select(-c(walk_base:drive_base)) %>% 
+  rename(walk = walk_godutch, cycle = cycle_godutch, drive = drive_godutch)
+
+desire_all_base = bind_rows(desire_disag_base, all_dist_outside)
+
+desire_all_scenario = bind_rows(desire_disag_scenario, all_dist_outside)
+
+# Baseline scenario
+
+mode_split_base = desire_all_base %>%
   mutate(distance_band = get_distance_bands(x = length)) %>% 
   group_by(distance_band, .drop = FALSE) %>% 
   summarise(across(all:drive, sum)) %>% 
@@ -37,6 +64,7 @@ all_dist = mode_split_base %>%
   pivot_longer(cols = c(walk, cycle, drive, other))
 
 all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
+
 g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
   geom_bar(position = "stack", stat = "identity") +
   scale_fill_manual(values = cols) +
@@ -44,25 +72,8 @@ g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
   theme_minimal()
 
 # Go Active scenario
-names(desire_lines) = gsub(pattern = "_godutch", replacement = "", x = names(desire_lines))
-summary(desire_lines$length)
 
-desire_lines_scenario = desire_lines %>% 
-  mutate(all = all_base, trimode = trimode_base) %>% 
-  mutate(distance_band = get_distance_bands(x = length)) %>% 
-  group_by(distance_band, .drop = FALSE) %>% 
-  filter(purpose == "commute") %>% 
-  select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
-  sf::st_drop_geometry()
-
-# join on actdev scenario data
-all_dist_outside = all_od_new %>% 
-  filter(! geo_code2 %in% desire_lines$geo_code2)
-
-desire_plus_all = bind_rows(desire_lines_scenario, all_dist_outside)
-
-mode_split_scenario = desire_plus_all %>%
-  # sf::st_drop_geometry() %>%
+mode_split_scenario = desire_all_scenario %>%
   mutate(distance_band = get_distance_bands(x = length)) %>% 
   group_by(distance_band, .drop = FALSE) %>% 
   summarise(across(all:drive, sum)) %>% 
