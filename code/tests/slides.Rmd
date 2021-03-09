@@ -30,7 +30,7 @@ output:
 <!-- 20 minutes Q & A on the ActDev tool -->
 
 
-## The problem
+## A technical problem
 
 ![](https://user-images.githubusercontent.com/1825120/103755051-1b6b2f80-5005-11eb-988b-f7c8d3108e53.png)
 
@@ -51,21 +51,16 @@ Source: ['Inside the black box' report](https://www.co.pierce.wa.us/DocumentCent
 
 --
 
+- Yet tools for transport planning and development are based on old priorities
+
+
+## The ActDev tool
 
 ---
 
-## The solution
+## The importance of open data and open tools
 
-**New technologies mean that open access transport models are possible**
-
-![](https://raw.githubusercontent.com/dabreegster/abstreet/master/book/editing_map.gif)
-Source: A/B Street, free, open source, gamified transport planning software [github.com/dabreegster/abstreet](https://github.com/dabreegster/abstreet/#ab-street)
-
----
-
-## The paper
-
-![](https://www.robinlovelace.net/publication/lovelace-open-2020/featured_hu0c285bfa775f060af938f28c962ce470_79909_808x455_fill_lanczos_smart1_2.png)
+![](https://www.robinlovelace.net/publication/lovelace-open-2020/featured.png)
 - Transport models represent a leverage point in transport systems
 - New paper, Lovelace et al (2020) describes the emergence and possibilities for 'open access models'
 
@@ -73,21 +68,13 @@ Source: A/B Street, free, open source, gamified transport planning software [git
 
 ## Live demo
 
-![](https://user-images.githubusercontent.com/1825120/72727608-443fae00-3b83-11ea-9dc1-90c50efac927.png)
 
 ---
 
-# Get involved
+# Modelling change in transport systems
 
-- Support open source solutions indirectly
-  - Sign-up to platforms for sharing and collaborating on open source projects, such as https://github.com/
-  - Preferentially use, cite and endorse open access and open source solutions
-  - Find the open source tool best suited to your needs and communicate constructively with the developers
-  - Communicate ways to improve open source solutions, e.g. by commenting on 'issue trackers' on forums such as [GitHub](https://github.com/)
+![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png)
 
-- Download, install and play with open source software
-  - R/RStudio, great for data analysis but also interactive visualisation and, increasingly, [transport planning workflows](https://docs.ropensci.org/stplanr/)
-  - Have a play with open access transport tools such as [A/B Street](https://github.com/dabreegster/abstreet/#ab-street) and the [PCT](https://www.pct.bike/), which can run on your computer or in the browser
 
 
 ---
