@@ -1,8 +1,8 @@
 distance_band,proportion_in_distance_band,all,trimode,walk_base,cycle_base,drive_base,other_base,walk_goactive,cycle_goactive,drive_goactive,other_goactive,percent_walk_base,percent_cycle_base,percent_drive_base,percent_other_base,percent_walk_goactive,percent_cycle_goactive,percent_drive_goactive,percent_other_goactive
 0-3,11,122,110,35,36,39,12,41,58,11,12,29,30,32,10,34,48,9,10
-3-6,45,487,424,68,171,185,63,84,263,82,58,14,35,38,13,17,54,17,12
-6-10,16,170,147,3,24,120,23,0,53,94,23,2,14,71,14,0,31,55,14
-10-15,6,66,59,1,5,53,6,1,9,50,6,2,8,80,9,2,14,76,9
+3-6,45,487,429,71,173,185,58,84,263,82,58,15,36,38,12,17,54,17,12
+6-10,16,171,147,3,25,119,23,0,53,94,23,2,15,70,13,0,31,55,13
+10-15,6,66,60,2,5,53,6,1,9,50,6,3,8,80,9,2,14,76,9
 15-20,3,37,32,0,2,29,6,0,2,29,6,0,5,78,16,0,5,78,16
 20-30,4,45,41,1,2,39,3,1,2,39,3,2,4,87,7,2,4,87,7
 30+,15,167,93,4,3,86,74,4,3,86,74,2,2,51,44,2,2,51,44
