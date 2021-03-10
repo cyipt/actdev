@@ -1,3 +1,14 @@
+-   [Overview of the tool](#overview-of-the-tool)
+-   [The landing page](#the-landing-page)
+-   [The site level web application](#the-site-level-web-application)
+    -   [Core ActDev Layers](#core-actdev-layers)
+        -   [Desire lines](#desire-lines)
+        -   [Routes](#routes)
+        -   [Route network](#route-network)
+    -   [Additional layers](#additional-layers)
+-   [Traffic simulation](#traffic-simulation)
+-   [Providing feedback](#providing-feedback)
+
 # Overview of the tool
 
 The ActDev tool is a prototype tool to help the planning system better
@@ -34,17 +45,27 @@ level views are available from URLs such as
 <https://actdev.cyipt.bike/handforth>.
 
 On the left hand side is the user interface panel. On the right hand
-side is the map view.
+side is the map view, as illustrated in Figure
+<a href="#fig:panels">1</a>.
+
+<img src="https://user-images.githubusercontent.com/1825120/110693965-f4390600-81df-11eb-8d7a-c37ea0e23f1f.png" alt="The site level view." width="80%" />
+<p class="caption">
+Figure 1: The site level view.
+</p>
 
 Key elements in the user interface panel are:
 
--   The site name and description, with information on number of
-    dwellings from planning application data and the average (median)
-    commute distance for people in the surrounding area based on the
-    2011 Census, a reasonable proxy for likely commute distances for
-    future residents unless the site comes with substantial on-site
-    employment opportunities.
--   The scenario button, …
+-   The **site name and description** text in the top left provides
+    information on number of dwellings from planning application data
+    and the average (median) commute distance for people in the
+    surrounding area based on the 2011 Census, a reasonable proxy for
+    likely commute distances for future residents unless the site comes
+    with substantial on-site employment opportunities.
+-   The **scenario button** is used to show how travel patterns could
+    change. Clicking the toggle changes the travel behaviour graph to
+    show how walking and cycling could grow under a scenario of high
+    active travel (see report for details).
+-   
 
 ## Core ActDev Layers
 
@@ -91,11 +112,11 @@ interventions may be needed to enable walking and cycling away from busy
 roads. This use is well illustrated by comparing the route networks for
 Great Kneighton, which has good walking and cycling infrastructure going
 to the nearest town vs Handforth, which is surrounded by busy roads, as
-illustrated in Figure <a href="#fig:rnet">1</a> below.
+illustrated in Figure <a href="#fig:rnet">2</a> below.
 
 <img src="https://user-images.githubusercontent.com/1825120/110683382-d9f92b00-81d3-11eb-9ec4-8ac745637762.png" alt="Route network layer for sites Great Kneighton (left) and Handforth (right). Note the predominance of relatively quiet and therefore more cyclable routes in Great Kneighton in blue vs the busy routes that may deter people from walking and particularly cycling on key parts of the route network leading to key destinations in Handforth." width="45%" /><img src="https://user-images.githubusercontent.com/1825120/110683635-27759800-81d4-11eb-83c3-6e5b4ddf224d.png" alt="Route network layer for sites Great Kneighton (left) and Handforth (right). Note the predominance of relatively quiet and therefore more cyclable routes in Great Kneighton in blue vs the busy routes that may deter people from walking and particularly cycling on key parts of the route network leading to key destinations in Handforth." width="45%" />
 <p class="caption">
-Figure 1: Route network layer for sites Great Kneighton (left) and
+Figure 2: Route network layer for sites Great Kneighton (left) and
 Handforth (right). Note the predominance of relatively quiet and
 therefore more cyclable routes in Great Kneighton in blue vs the busy
 routes that may deter people from walking and particularly cycling on

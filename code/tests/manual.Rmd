@@ -5,6 +5,7 @@ output:
    bookdown::markdown_document2:
    # bookdown::html_document2:
      number_sections: FALSE
+     toc: TRUE
 ---
 
 ```{r, include=FALSE}
@@ -37,12 +38,18 @@ The tool is designed to be used primarily at the site level.
 The site level views are available from URLs such as https://actdev.cyipt.bike/great-kneighton and https://actdev.cyipt.bike/handforth.
 
 On the left hand side is the user interface panel.
-On the right hand side is the map view.
+On the right hand side is the map view, as illustrated in Figure \@ref(fig:panels).
+
+```{r panels, fig.cap="The site level view.", out.width="80%"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/110693965-f4390600-81df-11eb-8d7a-c37ea0e23f1f.png")
+```
+
 
 Key elements in the user interface panel are:
 
-- The site name and description, with information on number of dwellings from planning application data and the average (median) commute distance for people in the surrounding area based on the 2011 Census, a reasonable proxy for likely commute distances for future residents unless the site comes with substantial on-site employment opportunities.
-- The scenario button, ...
+- The **site name and description** text in the top left provides information on number of dwellings from planning application data and the average (median) commute distance for people in the surrounding area based on the 2011 Census, a reasonable proxy for likely commute distances for future residents unless the site comes with substantial on-site employment opportunities.
+- The **scenario button** is used to show how travel patterns could change. Clicking the toggle changes the travel behaviour graph to show how walking and cycling could grow under a scenario of high active travel (see report for details).
+- 
 
 ## Core ActDev Layers
 
