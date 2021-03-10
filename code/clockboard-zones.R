@@ -11,7 +11,7 @@ list.files(path)
 site_area = sf::read_sf(file.path(path, "site.geojson"))
 desire_lines = sf::read_sf(file.path(path, "desire-lines-many.geojson"))	
 routes_fast = readRDS(file.path(path, "routes_fast.Rds"))
-routes_balanced = readRDS(file.path(path, "routes_balanced.Rds"))
+# routes_balanced = readRDS(file.path(path, "routes_balanced.Rds"))
 routes_quiet = readRDS(file.path(path, "routes_quiet.Rds"))
 routes_walk = readRDS(file.path(path, "routes_walk.Rds"))
 
@@ -102,11 +102,11 @@ zone_df = routes_fast_cents %>%
   group_by(label) %>% 
   summarise(
     busyness_cycle_base = weighted.mean(busyness_mean, route_dist_cycled_base),
-    busyness_cycle_dutch = weighted.mean(busyness_mean_quiet, route_dist_cycled_dutch),
+    busyness_cycle_dutch = weighted.mean(busyness_mean, route_dist_cycled_dutch),
     busyness_cycle_base_quiet = weighted.mean(busyness_mean_quiet, route_dist_cycled_quiet),
     circuity_cycle_fast = weighted.mean(diversion_factor, route_dist_cycled_base),
-    circuity_cycle_balanced = NA,
-    circuity_cycle_quiet = weighted.mean(diversion_factor, route_dist_cycled_quiet),
+    # circuity_cycle_balanced = NA,
+    circuity_cycle_quiet = weighted.mean(diversion_factor_quiet, route_dist_cycled_quiet),
     quietness_diversion = circuity_cycle_quiet / circuity_cycle_fast
   )
 
@@ -116,38 +116,39 @@ names(zones_db)
 summary(zones_db)
 
 # Cirquity walking --------------------------------------------------------
-routes_walk
-routes_walk$walk_base[routes_walk$walk_base == 0] = 1
-routes_walk_joined = inner_join(
-  routes_walk,
-  desire_lines %>% sf::st_drop_geometry() %>% select(matches("geo_code"), length)
-) %>% 
-  mutate(circuity = distance / length)
-mapview::mapview(routes_walk_joined["circuity"])
-
-routes_walk_split = stplanr::line_breakup(l = routes_walk_joined, z = zones_concentric)
-routes_walk_split$length_segment = stplanr::geo_length(routes_walk_split)
-mapview::mapview(routes_walk_split["circuity"]) + zones_concentric
-routes_walk_diversion = routes_walk_split %>% 
-  sf::st_centroid() %>%
-  # idea: add total trips or godutch in Phase II
-  mutate(walk_distance_base = walk_base * length_segment) %>% 
-  select(circuity, walk_distance_base)
-
-zone_df_walk = sf::st_join(
-  routes_walk_diversion,
-  zones_concentric %>% select(label)
-) 
-# plot(zone_df_walk)
-mapview::mapview(zone_df_walk) + zones_concentric
-
-zone_df_to_join = zone_df_walk %>% 
-  sf::st_drop_geometry() %>% 
-  group_by(label) %>% 
-  summarise(circuity_walk = weighted.mean(circuity, walk_distance_base))
-
-zones_db = left_join(zones_db, zone_df_to_join)
-mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
+# routes_walk
+# routes_walk$walk_base[routes_walk$walk_base == 0] = 1
+# routes_walk_joined = inner_join(
+#   routes_walk,
+#   desire_lines %>% sf::st_drop_geometry() %>% select(matches("geo_code"), length)
+# ) %>%
+#   mutate(circuity = distance / length)
+# mapview::mapview(routes_walk_joined["circuity"])
+# 
+# routes_walk_split = stplanr::line_breakup(l = routes_walk_joined, z = zones_concentric)
+# routes_walk_split$length_segment = stplanr::geo_length(routes_walk_split)
+# mapview::mapview(routes_walk_split["circuity"]) + zones_concentric
+# routes_walk_diversion = routes_walk_split %>%
+#   sf::st_centroid() %>%
+#   # idea: add total trips or godutch in Phase II
+#   mutate(walk_distance_base = walk_base * length_segment) %>%
+#   select(circuity, walk_distance_base)
+# 
+# zone_df_walk = sf::st_join(
+#   routes_walk_diversion,
+#   zones_concentric %>% select(label)
+# )
+# # plot(zone_df_walk)
+# mapview::mapview(zone_df_walk) + zones_concentric
+# 
+# zone_df_to_join = zone_df_walk %>%
+#   sf::st_drop_geometry() %>%
+#   group_by(label) %>%
+#   summarise(circuity_walk = weighted.mean(circuity, walk_distance_base))
+# 
+# # EXCLUDED WALKING ROUTES BECAUSE OF BUG THAT MEANS `ROUTES_WALK_JOINED` HAS NO CONTENTS
+# zones_db = left_join(zones_db, zone_df_to_join)
+# mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
 
 # mapview::mapview(zones_db["busyness_cycle_base"]) +
 #   mapview::mapview(routes_fast_cents)
