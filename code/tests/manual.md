@@ -15,6 +15,17 @@ and the A/B Street traffic simulation tool.
 
 # The landing page
 
+The landing page provides an overview of the sites. In the prototype
+version at the time of writing there are 35 sites, although we would
+plan to add more in a national tool. The horizontal bars represent the
+average number of trips per day that are likely to arise from the site,
+with colour representing mode. Changing the scenarios shows how the mode
+split could change under different scenarios. Currently only ‘Baseline’
+(based on the 2011 Census) and a hypothetical ‘Go Active’ scenarios are
+implemented. We would like to refine the scenarios in future work. The
+scenarios can also be used in the site level tool, which can be launched
+by clicking on a site on the landing page.
+
 # The site level web application
 
 ## Core ActDev Layers
