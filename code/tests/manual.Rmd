@@ -40,6 +40,14 @@ The other travel layers, which are based on the desire lines, are the Routes and
 
 ### Routes
 
+The Routes layer shows routes to destinations represented in the desire lines layer.
+There are a number of route options shown in the Routes drop-down menu:
+
+![](https://user-images.githubusercontent.com/1825120/110682147-876b3f00-81d2-11eb-96e9-b86203ec250e.png)
+- Walking routes, showing likely walking routes according an online routing service
+- Cycling - quiet, showing routes that take off road paths and avoid busy roads wherever possible
+- Cycling - balanced, showing cycling routes from CycleStreets which aim to find a balance between speed and quietness
+- Cycling - fast, direct routes from CycleStreets
 
 ## Additional layers
 
