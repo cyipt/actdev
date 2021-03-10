@@ -21,7 +21,7 @@ Currently the tool only provides data for 35 sites, as outlined in the
 describes the functionality of the tool’s main layers: the landing page
 at <https://actdev.cyipt.bike>, the site level web application which is
 available at
-[actdev.cyipt.bike/great-kneighton/](https://actdev.cyipt.bike/great-kneighton/),
+[actdev.cyipt.bike/sites/](https://actdev.cyipt.bike/sites/),
 and the A/B Street traffic simulation tool.
 
 # The landing page
