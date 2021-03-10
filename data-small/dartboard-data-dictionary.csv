@@ -1,0 +1,10 @@
+names,description,title
+label,label,label
+circle_id,circle_id,circle_id
+segment_id,segment_id,segment_id
+busyness_cycle_base,weighted mean busyness of fast cycle route km within sector; baseline scenario,Mean busyness of fast cycle routes in baseline scenario
+busyness_cycle_dutch,weighted mean busyness of fast cycle route km within sector; Go Active scenario,Mean busyness of fast cycle routes in Go Active scenario
+busyness_cycle_base_quiet,weighted mean busyness of quiet cycle route km within sector; baseline scenario,Mean busyness of quiet cycle routes in baseline scenario
+circuity_cycle_fast,weighted mean circuity of fast cycle route km within sector; baseline scenario,Directness of fast cycle routes in baseline scenario
+circuity_cycle_quiet,weighted mean circuity of quiet cycle route km within sector; baseline scenario,Directness of quiet cycle routes in baseline scenario
+quietness_diversion,Circuity of quiet cycle routes divided by circuity of fast cycle routes,Comparative directness of fast versus quiet cycle routes
