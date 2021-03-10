@@ -193,6 +193,14 @@ time statistics (JTS) to key destinations.
 
 # 4 Traffic simulation
 
+Clicking on the ‘View simulation’ button in the left panel of the site
+level view will open a new tab in your browser showing the site and
+surrounding area in the A/B Street traffic simulation software (requires
+a modern browser and desktop/laptop computer). The boundaries of this
+simulation view are determined by common workplace destinations
+associated with the surrounding area and the data in the map is taken
+from OpenStreetMap.
+
 Moving around the map in A/B Street works the same as other typical web
 maps: click and drag to pan, and zoom with your mouse’s scroll wheel or
 touchpad. The view becomes more detailed when you zoom in, showing
