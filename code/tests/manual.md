@@ -1,15 +1,17 @@
--   [Overview of the tool](#overview-of-the-tool)
--   [The landing page](#the-landing-page)
--   [The site level web application](#the-site-level-web-application)
-    -   [Core ActDev Layers](#core-actdev-layers)
-        -   [Desire lines](#desire-lines)
-        -   [Routes](#routes)
-        -   [Route network](#route-network)
-    -   [Additional layers](#additional-layers)
--   [Traffic simulation](#traffic-simulation)
--   [Providing feedback](#providing-feedback)
+-   [1 Overview of the tool](#overview-of-the-tool)
+-   [2 The landing page](#the-landing-page)
+-   [3 The site level web application](#the-site-level-web-application)
+    -   [3.1 Core ActDev Layers](#core-actdev-layers)
+        -   [3.1.1 Desire lines](#desire-lines)
+        -   [3.1.2 Routes](#routes)
+        -   [3.1.3 Route network](#route-network)
+    -   [3.2 In site network](#in-site-network)
+    -   [3.3 Accessibility](#accessibility)
+    -   [3.4 Journey times](#journey-times)
+-   [4 Traffic simulation](#traffic-simulation)
+-   [5 Providing feedback](#providing-feedback)
 
-# Overview of the tool
+# 1 Overview of the tool
 
 The ActDev tool is a prototype tool to help the planning system better
 account for and support sustainable travel. The aim is to demonstrate
@@ -21,10 +23,11 @@ Currently the tool only provides data for 35 sites, as outlined in the
 describes the functionality of the tool’s main layers: the landing page
 at <https://actdev.cyipt.bike>, the site level web application which is
 available at
-[actdev.cyipt.bike/sites/](https://actdev.cyipt.bike/sites/),
-and the A/B Street traffic simulation tool.
+[actdev.cyipt.bike/sites/](https://actdev.cyipt.bike/sites/) (with
+‘sites’ corresponding to the site name), and the A/B Street traffic
+simulation tool.
 
-# The landing page
+# 2 The landing page
 
 The landing page provides an overview of the sites. In the prototype
 version at the time of writing there are 35 sites, although we would
@@ -37,7 +40,7 @@ implemented. We would like to refine the scenarios in future work. The
 scenarios can also be used in the site level tool, which can be launched
 by clicking on a site on the landing page.
 
-# The site level web application
+# 3 The site level web application
 
 The tool is designed to be used primarily at the site level. The site
 level views are available from URLs such as
@@ -46,11 +49,11 @@ level views are available from URLs such as
 
 On the left hand side is the user interface panel. On the right hand
 side is the map view, as illustrated in Figure
-<a href="#fig:panels">1</a>.
+<a href="#fig:panels">3.1</a>.
 
 <img src="https://user-images.githubusercontent.com/1825120/110693965-f4390600-81df-11eb-8d7a-c37ea0e23f1f.png" alt="The site level view." width="80%" />
 <p class="caption">
-Figure 1: The site level view.
+Figure 3.1: The site level view.
 </p>
 
 Key elements in the user interface panel are:
@@ -65,11 +68,58 @@ Key elements in the user interface panel are:
     change. Clicking the toggle changes the travel behaviour graph to
     show how walking and cycling could grow under a scenario of high
     active travel (see report for details).
--   
+-   The **planning application link** which, when available, takes you
+    to a web page showing the planning application associated with the
+    site.
+-   The **view simulation** button, which opens up the A/B Street
+    traffic simulation link to show travel behaviour at the level of
+    individual agents on the network (see the Traffic simulation section
+    below for details).
+-   **Key site metrics** are shown with colours ranging from good
+    (green) to poor (red) levels from an active travel perspective. The
+    levels associated with red/amber/red are shown when the user hovers
+    over the text, as shown below (see [issue 51 in the actdev-ui
+    repo](https://github.com/cyipt/actdev-ui/issues/51%20for%20details).
 
-## Core ActDev Layers
+![](https://user-images.githubusercontent.com/1825120/110697687-9a870a80-81e4-11eb-9e20-9874a7e2a9c4.png)
 
-### Desire lines
+-   The **mode split graph** provides an overview of travel patterns
+    associated with the site. The coloured bars show the average number
+    of trips per day by different modes of travel (walking, cycling, car
+    driving are shown currently) for different trip distances, based on
+    2011 travel to work data reporting travel behaviour in the
+    surrounding area.
+-   The **site data** buttons shown the core ActDev layers described in
+    the next section.
+-   **Site photos** provide a visual impression of the site where
+    available.
+
+The key elements of the map element to the right of Figure
+<a href="#fig:panels">3.1</a> are:
+
+-   The site boundary, shown in light blue
+-   The basemap interface in the bottom left, which allows you select
+    alternative maps, e.g. the Satellite basemap to provide an
+    indication of road widths.
+-   Additional layers, which include the following.
+    -   Destinations: this layer shows some key destinations such as
+        schools, shops and hospitals in close proximity to the site
+    -   Buildings: the buildings on the development site which are
+        either taken from OpenStreetMap or simulated when OpenStreetMap
+        data is unavailable.
+    -   Applications: planning applications from the PlanIt API, which
+        gives an indication of how many other large planning
+        applications for new dwellings and other developments are
+        planned in the surrounding area (see the StreetFocus project for
+        more detailed site application data)
+    -   Collisions: data on where car crashes and other types of vehicle
+        collisions have taken place in the surrounding area
+    -   Traffic counts: this layer provides an indication of traffic
+        levels on some major roads in the map area
+
+## 3.1 Core ActDev Layers
+
+### 3.1.1 Desire lines
 
 ![](https://user-images.githubusercontent.com/1825120/110680868-0d868600-81d1-11eb-9342-62461b222b60.png)
 The desire lines layer shows the shortest path between origins on the
@@ -88,7 +138,7 @@ in the desire line and other travel layers. The other travel layers,
 which are based on the desire lines, are the Routes and Route network
 layers.
 
-### Routes
+### 3.1.2 Routes
 
 The Routes layer shows routes to destinations represented in the desire
 lines layer. There are a number of route options shown in the Routes
@@ -102,7 +152,7 @@ showing cycling routes from CycleStreets which aim to find a balance
 between speed and quietness - Cycling - fast, direct routes from
 CycleStreets
 
-### Route network
+### 3.1.3 Route network
 
 The route network shows the same data as the route information but at
 the level of individual segments which are typically only a dozen or so
@@ -112,20 +162,36 @@ interventions may be needed to enable walking and cycling away from busy
 roads. This use is well illustrated by comparing the route networks for
 Great Kneighton, which has good walking and cycling infrastructure going
 to the nearest town vs Handforth, which is surrounded by busy roads, as
-illustrated in Figure <a href="#fig:rnet">2</a> below.
+illustrated in Figure <a href="#fig:rnet">3.2</a> below.
 
 <img src="https://user-images.githubusercontent.com/1825120/110683382-d9f92b00-81d3-11eb-9ec4-8ac745637762.png" alt="Route network layer for sites Great Kneighton (left) and Handforth (right). Note the predominance of relatively quiet and therefore more cyclable routes in Great Kneighton in blue vs the busy routes that may deter people from walking and particularly cycling on key parts of the route network leading to key destinations in Handforth." width="45%" /><img src="https://user-images.githubusercontent.com/1825120/110683635-27759800-81d4-11eb-83c3-6e5b4ddf224d.png" alt="Route network layer for sites Great Kneighton (left) and Handforth (right). Note the predominance of relatively quiet and therefore more cyclable routes in Great Kneighton in blue vs the busy routes that may deter people from walking and particularly cycling on key parts of the route network leading to key destinations in Handforth." width="45%" />
 <p class="caption">
-Figure 2: Route network layer for sites Great Kneighton (left) and
+Figure 3.2: Route network layer for sites Great Kneighton (left) and
 Handforth (right). Note the predominance of relatively quiet and
 therefore more cyclable routes in Great Kneighton in blue vs the busy
 routes that may deter people from walking and particularly cycling on
 key parts of the route network leading to key destinations in Handforth.
 </p>
 
-## Additional layers
+## 3.2 In site network
 
-# Traffic simulation
+The purpose of this layer is to show what the layout of the travel
+network is like *in the site boundaries*. This layer depends on the
+availability of road data from OSM so is unavailable for sites that have
+yet to be built.
+
+## 3.3 Accessibility
+
+This provides an overview of the accessibility of the area directly
+surrounding the site, divided up into concentric rings of 1, 3 and 6 km
+in radius, with the centrepoint in the centre of the site.
+
+## 3.4 Journey times
+
+This layer presents data from the Department for Transport’s journey
+time statistics (JTS) to key destinations.
+
+# 4 Traffic simulation
 
 Moving around the map in A/B Street works the same as other typical web
 maps: click and drag to pan, and zoom with your mouse’s scroll wheel or
@@ -195,4 +261,20 @@ natively and does not need to constantly download new files. Once you
 install it, you need to opt into downloading data for the UK sites
 you’re interested in.
 
-# Providing feedback
+# 5 Providing feedback
+
+If you have feedback on the tool please let us know in the [ActDev
+questionnaire](https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3yyMypkiIdOJGrvs4vzE0KWxUQzY2WDhJVFNDTzk0Q1oxQlVSSkJaSUVGMi4u)
+- this will be quick (around 5 minutes) to fill in and will help us
+improve the tool or subsequent tools building on the approach.
+
+If you would like to provide specific technical feedback or provide
+reproducible bugs, you can do so (requires a GitHub account):
+
+-   In the [actdev-ui issue
+    tracker](https://github.com/cyipt/actdev-ui/issues) if it is a bug
+    associated with the website
+-   In the [actdev issue
+    tracker](https://github.com/cyipt/actdev/issues) if you have a
+    specific technical suggestion or would like to report a bug with the
+    data

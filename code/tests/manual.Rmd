@@ -4,7 +4,7 @@ title: "The ActDev Manual"
 output:
    bookdown::markdown_document2:
    # bookdown::html_document2:
-     number_sections: FALSE
+     number_sections: TRUE
      toc: TRUE
 ---
 
@@ -13,14 +13,13 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-
 # Overview of the tool
 
 The ActDev tool is a prototype tool to help the planning system better account for and support sustainable travel.
 The aim is to demonstrate what is possible with new datasets and methods and to make the case for a complete nationally available tool.
 
 Currently the tool only provides data for 35 sites, as outlined in the [ActDev report](https://actdev.cyipt.bike/report/).
-This manual describes the functionality of the tool's main layers: the landing page at https://actdev.cyipt.bike, the site level web application which is available at [actdev.cyipt.bike/sites/](https://actdev.cyipt.bike/sites/), and the A/B Street traffic simulation tool.
+This manual describes the functionality of the tool's main layers: the landing page at https://actdev.cyipt.bike, the site level web application which is available at [actdev.cyipt.bike/sites/](https://actdev.cyipt.bike/sites/) (with 'sites' corresponding to the site name), and the A/B Street traffic simulation tool.
 
 # The landing page
 
@@ -49,7 +48,26 @@ Key elements in the user interface panel are:
 
 - The **site name and description** text in the top left provides information on number of dwellings from planning application data and the average (median) commute distance for people in the surrounding area based on the 2011 Census, a reasonable proxy for likely commute distances for future residents unless the site comes with substantial on-site employment opportunities.
 - The **scenario button** is used to show how travel patterns could change. Clicking the toggle changes the travel behaviour graph to show how walking and cycling could grow under a scenario of high active travel (see report for details).
-- 
+- The **planning application link** which, when available, takes you to a web page showing the planning application associated with the site.
+- The **view simulation** button, which opens up the A/B Street traffic simulation link to show travel behaviour at the level of individual agents on the network (see the Traffic simulation section below for details).
+- **Key site metrics** are shown with colours ranging from good (green) to poor (red) levels from an active travel perspective. The levels associated with red/amber/red are shown when the user hovers over the text, as shown below (see [issue 51 in the actdev-ui repo](https://github.com/cyipt/actdev-ui/issues/51 for details).
+
+![](https://user-images.githubusercontent.com/1825120/110697687-9a870a80-81e4-11eb-9e20-9874a7e2a9c4.png)
+
+- The **mode split graph** provides an overview of travel patterns associated with the site. The coloured bars show the average number of trips per day by different modes of travel (walking, cycling, car driving are shown currently) for different trip distances, based on 2011 travel to work data reporting travel behaviour in the surrounding area.
+- The **site data** buttons shown the core ActDev layers described in the next section.
+- **Site photos** provide a visual impression of the site where available.
+
+The key elements of the map element to the right of Figure \@ref(fig:panels) are:
+
+- The site boundary, shown in light blue
+- The basemap interface in the bottom left, which allows you select alternative maps, e.g. the Satellite basemap to provide an indication of road widths.
+- Additional layers, which include the following.
+  - Destinations: this layer shows some key destinations such as schools, shops and hospitals in close proximity to the site
+  -  Buildings: the buildings on the development site which are either taken from OpenStreetMap or simulated when OpenStreetMap data is unavailable.
+  - Applications: planning applications from the PlanIt API, which gives an indication of how many other large planning applications for new dwellings and other developments are planned in the surrounding area (see the StreetFocus project for more detailed site application data)
+  - Collisions: data on where car crashes and other types of vehicle collisions have taken place in the surrounding area
+  - Traffic counts: this layer provides an indication of traffic levels on some major roads in the map area
 
 ## Core ActDev Layers
 
@@ -93,8 +111,18 @@ knitr::include_graphics(c(
 ))
 ```
 
+## In site network
 
-## Additional layers
+The purpose of this layer is to show what the layout of the travel network is like *in the site boundaries*.
+This layer depends on the availability of road data from OSM so is unavailable for sites that have yet to be built.
+
+## Accessibility
+
+This provides an overview of the accessibility of the area directly surrounding the site, divided up into concentric rings of 1, 3 and 6 km in radius, with the centrepoint in the centre of the site.
+
+## Journey times
+
+This layer presents data from the Department for Transport's journey time statistics (JTS) to key destinations.
 
 # Traffic simulation
 
@@ -116,3 +144,9 @@ As a final hint, if you are using A/B Street a fair bit and want to reduce loadi
 
 # Providing feedback
 
+If you have feedback on the tool please let us know in the [ActDev questionnaire](https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3yyMypkiIdOJGrvs4vzE0KWxUQzY2WDhJVFNDTzk0Q1oxQlVSSkJaSUVGMi4u) - this will be quick (around 5 minutes) to fill in and will help us improve the tool or subsequent tools building on the approach.
+
+If you would like to provide specific technical feedback or provide reproducible bugs, you can do so (requires a GitHub account):
+
+- In the [actdev-ui issue tracker](https://github.com/cyipt/actdev-ui/issues) if it is a bug associated with the website
+- In the [actdev issue tracker](https://github.com/cyipt/actdev/issues) if you have a specific technical suggestion or would like to report a bug with the data
