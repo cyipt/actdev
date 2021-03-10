@@ -3,8 +3,14 @@ title: "The ActDev Manual"
 # date: "Last updated: `r Sys.Date()`"
 output:
    bookdown::markdown_document2:
+   # bookdown::html_document2:
      number_sections: FALSE
 ---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
 
 
 # Overview of the tool
@@ -48,6 +54,20 @@ There are a number of route options shown in the Routes drop-down menu:
 - Cycling - quiet, showing routes that take off road paths and avoid busy roads wherever possible
 - Cycling - balanced, showing cycling routes from CycleStreets which aim to find a balance between speed and quietness
 - Cycling - fast, direct routes from CycleStreets
+
+### Route network
+
+The route network shows the same data as the route information but at the level of individual segments which are typically only a dozen or so meters in length.
+The purpose of this layer is to highlight areas on the network that may have high active travel volumes and places where interventions may be needed to enable walking and cycling away from busy roads.
+This use is well illustrated by comparing the route networks for Great Kneighton, which has good walking and cycling infrastructure going to the nearest town vs Handforth, which is surrounded by busy roads, as illustrated in Figure \@ref(fig:rnet) below.
+
+```{r rnet, fig.show='hold', out.width="45%", fig.cap="Route network layer for sites Great Kneighton (left) and Handforth (right). Note the predominance of relatively quiet and therefore more cyclable routes in Great Kneighton in blue vs the busy routes that may deter people from walking and particularly cycling on key parts of the route network leading to key destinations in Handforth."}
+knitr::include_graphics(c(
+  "https://user-images.githubusercontent.com/1825120/110683382-d9f92b00-81d3-11eb-9ec4-8ac745637762.png",
+  "https://user-images.githubusercontent.com/1825120/110683635-27759800-81d4-11eb-83c3-6e5b4ddf224d.png"
+))
+```
+
 
 ## Additional layers
 
