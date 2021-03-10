@@ -28,6 +28,24 @@ by clicking on a site on the landing page.
 
 # The site level web application
 
+The tool is designed to be used primarily at the site level. The site
+level views are available from URLs such as
+<https://actdev.cyipt.bike/great-kneighton> and
+<https://actdev.cyipt.bike/handforth>.
+
+On the left hand side is the user interface panel. On the right hand
+side is the map view.
+
+Key elements in the user interface panel are:
+
+-   The site name and description, with information on number of
+    dwellings from planning application data and the average (median)
+    commute distance for people in the surrounding area based on the
+    2011 Census, a reasonable proxy for likely commute distances for
+    future residents unless the site comes with substantial on-site
+    employment opportunities.
+-   The scenario button, …
+
 ## Core ActDev Layers
 
 ### Desire lines
