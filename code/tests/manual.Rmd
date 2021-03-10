@@ -28,6 +28,21 @@ This manual describes the functionality of the tool's main layers: the landing p
 
 # Traffic simulation
 
+Moving around the map in A/B Street works the same as other typical web maps: click and drag to pan, and zoom with your mouse's scroll wheel or touchpad. The view becomes more detailed when you zoom in, showing individual lanes, intersections, and agents. You can click on these object to get more information and interact with them.
+
+The simulation starts at 8am, running at 30x real-time speed. The top-left panel lets you pause, change simulation speed, jump to a particular time, or rewind to midnight. When you hover over any button, keyboard shortcuts are shown. Pausing/resuming using the spacebar key is particularly useful. The color scheme switches automatically at 6am and 6pm to reflect day and night.
+
+The top-right panel lets you switch between the Baseline and Go Active scenarios. These control the mode split of the people living in the site. By default, only site residents are simulated, but you can enable background traffic to simulate people living in the rest of the map and just outside the map boundaries. This background traffic is synthesized from 2011 census data.
+
+The top-right panel also has shortcuts for some of the most interesting tools. You can follow an individual person, which you can also manage by zooming in and clicking on anybody. You can also open a layer showing the walking and cycling activity around the map, to determine which roads are most used by different groups of people. The cycling activity layer breaks down throughput by roads with some sort of bike-only lane and not, so you can find areas where bikes may be interacting with cars. The bottom-right panel has buttons to explore more layers and examine more data about aggregate trip patterns.
+
+You don't just passively watch the simulation in A/B Street unfold; you can modify roads and intersections to try to mitigate some observed problem. Click edit map in the top-right panel, then zoom in and click on an individual lane or intersection. You can transform a single lane's type, toggling between a general-purpose travel lane, a bike-only lane, a bus-only lane, street parking (though parking is disabled for the ActDev simulations), or close the lane for construction. You can also reverse the direction of a lane, implement traffic calming measures to control speed, and define low-traffic neighborhoods that don't allow through-traffic. Note that changing the width of roads or number of lanes is not yet supported. Even if a two-way cycletrack would physically fit in the space that one driving lane takes, you cannot yet model this type of change. This is future work.
+
+For intersections, you can toggle stop signs to control which road has right-of-way, and modify traffic signals in great detail, adjusting timing and changing the movements protected and permitted by each stage of the signal.
+
+The simulations in A/B Street are deterministic, given the same traffic scenario and set of map edits. This means that when you make a few edits to the map, you can precisely compare the effects on individual people and in aggregate. Once you're running the simulation with some map edits, clicking individual people, roads, intersections, and checking the trip aggregates in the "more data" section will show a comparison with the baseline of no map edits. Note that mode choice does not change as a function of your edits; as many people will continue to drive, no matter how much you improve the bike network. You can use the baseline and go active scenarios to compare mode shift.
+
+As a final hint, if you are using A/B Street a fair bit and want to reduce loading times, you can [download and install](https://a-b-street.github.io/docs/howto/index.html) the software instead of running it in your web browser. It runs much faster natively and does not need to constantly download new files. Once you install it, you need to opt into downloading data for the UK sites you're interested in.
 
 # Providing feedback
 
