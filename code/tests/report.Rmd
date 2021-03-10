@@ -369,10 +369,6 @@ This may include Local Government officers, developers and consultants.
 
 Describe the interface components
 
-## A/B street interface
-
-Describe the key features.
-
 # Conclusion
 
 ## Next steps
