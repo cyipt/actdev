@@ -30,7 +30,7 @@ output:
 <!-- 20 minutes Q & A on the ActDev tool -->
 
 
-## A technical problem
+## The problem(s)
 
 ![](https://user-images.githubusercontent.com/1825120/103755051-1b6b2f80-5005-11eb-988b-f7c8d3108e53.png)
 
@@ -42,33 +42,104 @@ Source: ['Inside the black box' report](https://www.co.pierce.wa.us/DocumentCent
 
 --
 
-- 21^st^ Century priorities are very different
-
---
-
-  - Climate science, air pollution and health force a shift in focus
-  - The concepts of 'participatory democracy' and 'citizen science' mean there is a need for collaborative solutions
+- Few tools for assessing active travel potential or provision in/around new developments
 
 --
 
 - Yet tools for transport planning and development are based on old priorities
 
 
+???
+
+As we've seen the problem is largely political but it has has a substantial technical component
+
+The 'tools of the trade' 
+
+  - Climate science, air pollution and health force a shift in focus
+  - The concepts of 'participatory democracy' and 'citizen science' mean there is a need for collaborative solutions
+
+Despite substantial academic work on integrated land-use transport models and an entire academic journal dedicated to it
+
+---
+
 ## The ActDev tool
 
+Publicly available tool with maps and data on active travel levels, potential and provision
+
+![](https://user-images.githubusercontent.com/1825120/110671502-79afbc80-81c6-11eb-9dc5-52046b1d04c8.gif)
 ---
 
-## The importance of open data and open tools
+## Levels of analysis
 
-![](https://www.robinlovelace.net/publication/lovelace-open-2020/featured.png)
-- Transport models represent a leverage point in transport systems
-- New paper, Lovelace et al (2020) describes the emergence and possibilities for 'open access models'
+[](https://user-images.githubusercontent.com/1825120/110673378-9ea52f00-81c8-11eb-9822-58d44e1ecae2.png)
 
 ---
 
-## The importance of open evidence
+#### The ActDev Team
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I.e. not like this Roman fort being built, with more to come as councils seem powerless to stop them, <a href="https://t.co/FND8wAgA0l">pic.twitter.com/FND8wAgA0l</a></p>&mdash; 🚶🏻‍♂️ACTive Crewe NOT Travelling atm (@ActiveTravelCre) <a href="https://twitter.com/ActiveTravelCre/status/1369542901471064083?ref_src=twsrc%5Etfw">March 10, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+![](https://user-images.githubusercontent.com/1825120/110677777-75d36880-81cd-11eb-8c59-eb406066bc4a.png)
+
+--
+
+![](https://user-images.githubusercontent.com/1825120/110678305-0e69e880-81ce-11eb-98aa-7d91fd71e81c.png)
+
+![](https://user-images.githubusercontent.com/1825120/110678068-ca76e380-81cd-11eb-8dec-f191dfe708b6.png)
+
+---
+
+## About this workshop
+
+![](https://user-images.githubusercontent.com/1825120/110672803-f0998500-81c7-11eb-9f9a-d2019028dca4.png)
+--
+
+- Opportunity to present the tool, get feedback, help decide next steps
+
+---
+
+## Perspectives
+
+14:15 - 14:30
+
+- Lynda Addison, Lead on planning and transport integration, Transport Planning Society
+
+- Julian Sanchez, Active Travel, Programme Manager, Essex County Council
+
+- Megan Streb, Partnership Manager, Sustrans
+
+---
+
+## Panel session
+
+14.30  - 15.00
+
+- Graham Smith, Urban Design Group
+- Robin Lovelace, Associate Professor of Transport Data Science, Institute for Transport Studies, University of Leeds
+- Lucy Taussig, Consultant, Active Travel
+
+---
+
+## About the ActDev project
+
+15:00 - 15:55
+
+- The ActDev Tool, Robin Lovelace and Joey Talbot (15 min)
+- Planning and routing data in the ActDev project, Martin Lucas-Smith (10 min)
+- Traffic simulation in and around new development sites (10 min)
+- Q&A (20 min)
+
+- Breakout rooms 16:00 - 16:45
+
+1. Locating development sites: moderator Lynda Addison
+2. Policy: moderator Roger Geffen
+3. Good design of development sites: moderator Joey Talbot
+4. Planning/routing data: moderator Martin Lucas Smith
+5. Technology: moderator Dustin Carlino
+
+---
+
+## The ActDev tool
+
+
 
 ---
 
@@ -83,13 +154,25 @@ Source: ['Inside the black box' report](https://www.co.pierce.wa.us/DocumentCent
 
 ## Using the tool to assess site location
 
-Joey
+Trip patterns
+
+- Add images showning trip/distance/mode splits
+
+- Great Kneighton
+
+- Wynward
 
 ---
 
 ## Using the tool to assess (and improve) walking and cycling routes
 
 Joey
+
+- Busyness levels
+
+- Circuity
+
+- Great Kneighton vs Upton
 
 
 ---
@@ -98,7 +181,17 @@ Joey
 
 ![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png)
 
+---
 
+## The importance of open data and open tools
+
+![](https://www.robinlovelace.net/publication/lovelace-open-2020/featured.png)
+- Transport models have a huge impact on transport planning
+- More people with access to good data -> better outcomes
+
+???
+
+- New paper, Lovelace et al (2020) describes the emergence and possibilities for 'open access models'
 
 ---
 
