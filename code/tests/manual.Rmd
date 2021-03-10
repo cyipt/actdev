@@ -5,7 +5,7 @@ output:
    bookdown::markdown_document2:
    # bookdown::html_document2:
      number_sections: TRUE
-     toc: TRUE
+     toc: FALSE
 ---
 
 ```{r, include=FALSE}

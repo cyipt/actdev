@@ -1,16 +1,3 @@
--   [1 Overview of the tool](#overview-of-the-tool)
--   [2 The landing page](#the-landing-page)
--   [3 The site level web application](#the-site-level-web-application)
-    -   [3.1 Core ActDev Layers](#core-actdev-layers)
-        -   [3.1.1 Desire lines](#desire-lines)
-        -   [3.1.2 Routes](#routes)
-        -   [3.1.3 Route network](#route-network)
-    -   [3.2 In site network](#in-site-network)
-    -   [3.3 Accessibility](#accessibility)
-    -   [3.4 Journey times](#journey-times)
--   [4 Traffic simulation](#traffic-simulation)
--   [5 Providing feedback](#providing-feedback)
-
 # 1 Overview of the tool
 
 The ActDev tool is a prototype tool to help the planning system better
