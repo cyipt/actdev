@@ -19,6 +19,13 @@ and the A/B Street traffic simulation tool.
 
 ## Core ActDev Layers
 
+### Desire lines
+
+![](https://user-images.githubusercontent.com/1825120/110680868-0d868600-81d1-11eb-9342-62461b222b60.png)
+The desire lines layer shows the shortest path between origins on the
+site and destinations. The layer can be selected by clicking on the
+‘Desire lines’ toggle in the left panel:
+
 ## Additional layers
 
 # Traffic simulation
