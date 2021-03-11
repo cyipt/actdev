@@ -65,8 +65,7 @@ Key elements in the user interface panel are:
 -   **Key site metrics** are shown with colours ranging from good
     (green) to poor (red) levels from an active travel perspective. The
     levels associated with red/amber/red are shown when the user hovers
-    over the text, as shown below (see [issue 51 in the actdev-ui
-    repo](https://github.com/cyipt/actdev-ui/issues/51%20for%20details).
+    over the text, as shown below.
 
 ![](https://user-images.githubusercontent.com/1825120/110697687-9a870a80-81e4-11eb-9e20-9874a7e2a9c4.png)
 
