@@ -50,7 +50,7 @@ Key elements in the user interface panel are:
 - The **scenario button** is used to show how travel patterns could change. Clicking the toggle changes the travel behaviour graph to show how walking and cycling could grow under a scenario of high active travel (see report for details).
 - The **planning application link** which, when available, takes you to a web page showing the planning application associated with the site.
 - The **view simulation** button, which opens up the A/B Street traffic simulation link to show travel behaviour at the level of individual agents on the network (see the Traffic simulation section below for details).
-- **Key site metrics** are shown with colours ranging from good (green) to poor (red) levels from an active travel perspective. The levels associated with red/amber/red are shown when the user hovers over the text, as shown below (see [issue 51 in the actdev-ui repo](https://github.com/cyipt/actdev-ui/issues/51 for details).
+- **Key site metrics** are shown with colours ranging from good (green) to poor (red) levels from an active travel perspective. The levels associated with red/amber/red are shown when the user hovers over the text, as shown below (see [issue 51 in the actdev-ui repo](https://github.com/cyipt/actdev-ui/issues/51) for details).
 
 ![](https://user-images.githubusercontent.com/1825120/110697687-9a870a80-81e4-11eb-9e20-9874a7e2a9c4.png)
 
