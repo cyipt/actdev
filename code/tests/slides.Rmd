@@ -1,13 +1,12 @@
 ---
 title: "The ActDev tool"
 subtitle: "Actionable evidence enabling the planning system to account for and support active travel"
-author: "Robin Lovelace and Joey Talbot"
-institute: "University of Leeds, [Institute for Transport Studies](https://environment.leeds.ac.uk/transport)"
+author: "Robin Lovelace, Joey Talbot, Nikée Groot, Martin Lucas-Smith, Patrick Johansson, Simon Nutall & Andrew Speakman"
+institute: "Leeds' [Institute for Transport Studies](https://environment.leeds.ac.uk/transport) and partners"
 date: "ActDev Workshop, 2021-03-12 (updated: `r Sys.Date()`)\nReproducible source code: [github.com/cyipt/actdev](https://github.com/cyipt/actdev)"
 output:
   xaringan::moon_reader:
     css: [default, robot, robot-fonts]
-    lib_dir: libs
     nature: 
       beforeInit: "https://platform.twitter.com/widgets.js"
       highlightStyle: github
@@ -30,7 +29,7 @@ output:
 <!-- 20 minutes Q & A on the ActDev tool -->
 
 
-## The problem(s)
+## The problem
 
 ![](https://user-images.githubusercontent.com/1825120/103755051-1b6b2f80-5005-11eb-988b-f7c8d3108e53.png)
 
@@ -60,6 +59,8 @@ The 'tools of the trade'
 
 Despite substantial academic work on integrated land-use transport models and an entire academic journal dedicated to it
 
+Planning and transport not always joined up
+
 ---
 
 ## The ActDev tool
@@ -70,6 +71,7 @@ Publicly available tool with maps and data on active travel levels, potential an
 ---
 
 ## Levels of analysis
+
 
 ![](https://user-images.githubusercontent.com/1825120/110673378-9ea52f00-81c8-11eb-9822-58d44e1ecae2.png)
 
@@ -93,6 +95,20 @@ Publicly available tool with maps and data on active travel levels, potential an
 --
 
 - Opportunity to present the tool, get feedback, help decide next steps
+
+---
+
+## Providing feedback
+
+- Go to ActDev.cyipt.bike and click on the Feedback link
+
+![](https://user-images.githubusercontent.com/1825120/110797848-79203000-8271-11eb-80be-99b8d7abcec5.png)
+---
+
+## The ActDev Questionnaire
+
+![](https://user-images.githubusercontent.com/1825120/110797354-e5e6fa80-8270-11eb-8b9d-26b2ac1c0403.png)
+Your feedback will help improve our work
 
 ---
 
