@@ -61,7 +61,7 @@ The specific objectives were to create an actionable evidence base:
     application (including the underlying evolving evidence base) to do
     the above but on a national scale.
 
-As oulined below, we believe we have achieved each of these objectives
+As outlined below, we believe we have achieved each of these objectives
 with the publication of the prototype ActDev tool.
 
 # 2 Project Components
@@ -78,11 +78,12 @@ When choosing a development site, a key consideration is proximity to
 local services such as shops, schools, parks, and other community
 facilities. Nationally, access to a range of services has been
 quantified through the Department for Transport’s Journey Time
-Statistics(link). These record the average journey times to the closest
-food store, primary school, secondary school, further education college,
-pharmacy, GP surgery, hospital, and town centre, at the Lower Super
-Output Area (LSOA) level. These LSOA level averages are derived from the
-mean of the journey times from each Output Area within the LSOA.
+Statistics. <!-- (link).  --> These record the average journey times to
+the closest food store, primary school, secondary school, further
+education college, pharmacy, GP surgery, hospital, and town centre, at
+the Lower Super Output Area (LSOA) level. These LSOA level averages are
+derived from the mean of the journey times from each Output Area within
+the LSOA.
 
 Journey times are computed by three modes. The first mode uses a
 combination of walking and public transport, depending on which of these
@@ -117,54 +118,60 @@ census data, as described in the following section.
 
 ## 2.2 Demographic and travel data
 
-Travel to work comprises x% of total travel (ref). These journeys form
-the core of our investigation, because, unlike most other journey types,
-the origins and destinations are comprehensively understood and
-recorded, with complete national coverage, in the 2011 Census (ref). We
-used commute data which disaggregates the points of origin and
-destination as OD pairs at the Medium Super Output Area (MSOA) level. As
-well as the geographic location of origin and destination we can also
-determine the journey distance, and crucially, information is available
-on the mode of travel. Thus we can estimate the average distance of
-travel to work, and the proportions of residents who commute by walking,
-cycling, driving, or other modes.
+Travel to work accounted for [around
+20%](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/877039/commuting-in-england-1988-2015.pdf)
+of total UK travel by distance before the coronavirus pandemic led
+working from home levels to increase from around 5% to 40% of the
+workforce.[3]
+<!-- These journeys form the core of our investigation, because, unlike most other journey types, the origins and destinations are comprehensively understood and recorded, with complete national coverage, in the 2011 Census (ref). -->
+<!-- We used commute data which disaggregates the points of origin and destination as OD pairs at the Medium Super Output Area (MSOA) level. -->
+<!-- As well as the geographic location of origin and destination we can also determine the journey distance, and crucially, information is available on the mode of travel. -->
+<!-- Thus we can estimate the average distance of travel to work, and the proportions of residents who commute by walking, cycling, driving, or other modes. -->
 
-The latest census was conducted in 2011. Some of our case study sites
-were already partially complete by that date, meaning the MSOA data
-reflects, in part, the actual journeys of site residents themselves.
-However, in most cases the census data is best seen as an indication of
-travel patterns in the local area surrounding a site, rather than a
-reflection of the site itself.
+<!-- The latest census was conducted in 2011. -->
 
-An MSOA can cover a wide area, especially in rural areas.
+The best available travel information available at high levels of
+geographic resolution in the UK is the 2011 travel to work
+origin-destination data, which formed a foundation of the analysis. Some
+of our case study sites were already partially complete by that date,
+meaning the MSOA data reflects, in part, the actual journeys of site
+residents themselves. However, in most cases the census data is best
+seen as an indication of travel patterns in the local area surrounding a
+site, rather than a reflection of the site itself.
 
-Issues with the stats and mode share can arise from this (eg Wynyard;
-Cambridge - Great Kneighton v Trumpington Meadows)
+We used MSOA data to demonstrate the methods although higher resolution
+data could be used.
+<!-- An MSOA can cover a wide area, especially in rural areas.  -->
+<!-- Issues with the stats and mode share can arise from this (eg Wynyard; Cambridge - Great Kneighton v Trumpington Meadows) -->
+We developed new methods to ‘disaggregate’ origin-destination data,
+enabling a greater diversity of destinations within a single MSOA zone,
+as illustrated in the figure below. <!-- todo: Needs caption - RL. -->
 
-We chose to focus on three modes of travel - walking, cycling and
-car/van driving. Walking and cycling represent active travel. Car/van
-driving is the most frequent mode of travel across the UK, and one of
-the most damaging in environmental and health terms. A key policy aim is
-to replace journeys by car/van with walking or cycling.
+![](https://user-images.githubusercontent.com/1825120/110860616-e608e980-82b4-11eb-815e-6ee51bb4f6f6.png)
 
-Generation of large and small study areas. From OD pairs to desire
-lines. Limitation of restricting analysis to these study areas.
+<!-- We chose to focus on three modes of travel - walking, cycling and car/van driving. -->
+<!-- Walking and cycling represent active travel. -->
+<!-- Car/van driving is the most frequent mode of travel across the UK, and one of the most damaging in environmental and health terms. -->
+<!-- A key policy aim is to replace journeys by car/van with walking or cycling. -->
+<!-- Generation of large and small study areas. -->
+<!-- From OD pairs to desire lines. -->
+<!-- Limitation of restricting analysis to these study areas. -->
 
 ## 2.3 Journey routing and road characteristics
 
 Having obtained data on commute destinations and modes of travel, the
-next step is to identify the routes on the local road network that we
-expect these journeys to follow. For all desire lines lying within the
-large study area around each site, we generated cycling and walking
-routes for the journeys to work. We also combined the individual routes
-into a series of route networks.
+next step was to identify the routes on the transport network. For all
+desire lines lying within the large study area around each site, we
+generated cycling and walking routes for the journeys to work. We also
+combined the individual routes into a series of route networks.
 
 For cycle journeys to work, we used a set of algorithms created by
-CycleStreets.net(link). Three algorithms are available, representing
-fast, balanced and quiet routes. For the fast routes, journey times are
-minimised. For the quiet routes, a ‘quietness’ parameter is maximised,
-to avoid routes that follow busy roads. The balanced routes represent an
-intermediate between the fast and quiet approaches.  
+CycleStreets.net. <!-- Todo: add link --> Three routing options are
+available, representing fast, balanced and quiet routes. For the fast
+routes, journey times are minimised. For the quiet routes, a ‘quietness’
+parameter is maximised, to avoid routes that follow busy roads. The
+balanced routes represent an intermediate between the fast and quiet
+approaches.  
 Factors assessed during the routing include road type, cycle path width
 and surface quality, barriers and obstructions, signage and route
 legibility, among others
@@ -180,7 +187,7 @@ introduction of dedicated cycle infrastructure along the line of the
 fast route would likely help to improve cycle accessibility.
 
 For journeys to work on foot, we used the Open Source Routing Machine
-(OSRM) routing engine…..
+(OSRM) routing engine. <!-- todo: add link -->
 
 In addition to the commuter journeys, we also generated routes for
 journeys from each site to the nearest town centre. This included both
@@ -207,7 +214,7 @@ these we can see the total number of journeys on each road segment,
 which can be analysed alongside segment level data on road busyness and
 gradient.
 
-Simon’s LTN work
+<!-- Todo: add Simon's LTN work -->
 
 ## 2.4 Mode shift scenarios
 
@@ -233,10 +240,11 @@ Baseline scenario. We also assumed that the journey destinations and the
 total volume of travel remains the same as in the Baseline scenario.
 
 To generate the increased cycle uptake in Go Active, we used the ‘Go
-Dutch’ cycling uptake function from the Propensity to Cycle Tool (ref).
-This represents the proportion of journeys that would be undertaken by
-bicycle if cycle mode share corresponded with average cycling levels in
-the Netherlands. This function controls for route length and hilliness.
+Dutch’ cycling uptake function from the Propensity to Cycle Tool.
+<!-- Todo: add reference. --> This represents the proportion of journeys
+that would be undertaken by bicycle if cycle mode share corresponded
+with average cycling levels in the Netherlands. This function controls
+for route length and hilliness.
 
 To generate the increased walking uptake in Go Active, we used a set of
 simple estimations. For journeys &lt;= 2.0 km in length we assumed a
@@ -376,18 +384,18 @@ also comprise a smaller proportion of the short journeys.
 
 ![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png)![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/chapelford/mode-split-base.png)
 
-Show route and route network maps for commutes only, with line width
-representing usage, and a single colour.
+<!-- Show route and route network maps for commutes only, with line width representing usage, and a single colour. -->
+<!-- ## How case study sites compare with existing residential areas -->
+<!-- Compare sites to older areas and to local/regional/national averages. -->
+<!-- Why do they differ?  -->
+<!-- - Urban/rural divide -->
+<!-- - existing travel patterns -->
+<!-- - site design -->
+<!-- - surrounding area design -->
+<!-- - lack of connectivity  -->
+<!-- - lack of walkable destinations etc -->
 
-## 3.2 How case study sites compare with existing residential areas
-
-Compare sites to older areas and to local/regional/national averages.
-
-Why do they differ? - Urban/rural divide - existing travel patterns -
-site design - surrounding area design - lack of connectivity - lack of
-walkable destinations etc
-
-## 3.3 Travel to town centres
+## 3.2 Travel to town centres
 
 Measured on the fast cycle route network, the median distance from our
 case study sites to the nearest town centre is 3.2 km. Just three sites
@@ -401,13 +409,10 @@ cycleable for some people. However, the local roads appear so
 inhospitable to cycling that the fast cycling route follows a circuitous
 path of almost 24 km in length.
 
-It must be recognised that some smaller towns may be excluded from our
-town centre dataset, so a degree of local knowledge is useful in
-interpreting these data.
+<!-- It must be recognised that some smaller towns may be excluded from our town centre dataset, so a degree of local knowledge is useful in interpreting these data. -->
+<!-- Distance to town centre - histogram -->
 
-Distance to town centre - histogram
-
-## 3.4 Potential improvements for active travel - The Go Active scenario
+## 3.3 Potential improvements for active travel - The Go Active scenario
 
 Assuming existing travel patterns remain the same, in terms of the
 locations of workplaces or other destinations, a key question is what
@@ -456,6 +461,8 @@ from the Baseline to the Go Active scenario, is at Dickens Heath, where
 cycling mode share increases 2000%, from 1% to 20%. The mean
 proportional increase in cycling across all sites is 700%.
 
+<!-- Todo: add correct figure reference -->
+
 Figure xx shows the Baseline and Go Active scenarios for Dickens Heath.
 We can see that in 2011, 82% of commutes here were by car/van drivers,
 but many of these could potentially switch to cycling, if sufficient
@@ -463,77 +470,56 @@ investment was made into safe, convenient cycle routes.
 
 ![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png)![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png)
 
-Proportion of car/van drivers that switch modes under Go Active -
-explain mapped v total %. Impact of site size and the reason for
-estimating active travel mode shift outside the study area. Explain that
-this isn’t included in the infographics.
+# 4 Additional links and reading
 
-Active travel mode share Baseline v Go Active. XY plot of baseline and
-Go Active mode shares
+For details on how to use the tool see the [ActDev
+Manual](https://actdev.cyipt.bike/manual/).
 
-Driving mode share Baseline v Go Active XY plot of baseline and Go
-Active mode shares
+For slides on the tool see [slides presented at the ActDev
+Workshop](https://www.robinlovelace.net/presentations/actdev-slides.html).
 
-Why do some sites see greater absolute or relative change than other
-sites? (% of short journeys? % who travel by other modes?) Explain that
-we don’t capture everything, just potential for mode shift from driving.
+To see the source code underlying the tool, see
+<https://github.com/cyipt/actdev>.
 
-## 3.5 Barriers and opportunities for increased active travel uptake
-
-Circuity and busyness of routes to key destinations
-
-Why is this important? Residents put off walking or cycling if they
-can’t find a route where they feel safe, or if such routes are much
-longer and slower than it would be to drive.
-
-Show route and route network maps, with colour representing busyness.
-
-Explain the clockface graphics
-
-![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/gg_distance_busyness.png)
-
-Busyness
-
-![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/gg_busyness_dartboard.png)
-
-## 3.6 Site layouts and the permeability of site boundaries
-
-Compare in-site circuity of the 3 modes.
-
-![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/in-site-metrics.png)
-
-Crossing points along site boundary
-
-# 4 The web tool
-
-## 4.1 Intended audience
-
-Users can typically be broken down into three groups:
-
-1.  Those interested in planning and transport policy issues at a
-    national level, such as Central Government officers.
-
-2.  Those interested in planning and transport issues at a local or
-    regional level, including policy implementation, site establishment
-    and site assessment. This may include Local Government officers,
-    developers and consultants.
-
-3.  Campaigners and advocates.
-
-## 4.2 National level
-
-## 4.3 Site level
-
-Describe the interface components
-
-# 5 Conclusion
-
-## 5.1 Next steps
-
-A 2 page scoping of the next steps
+<!-- Proportion of car/van drivers that switch modes under Go Active - explain mapped v total %. -->
+<!-- Impact of site size and the reason for estimating active travel mode shift outside the study area. -->
+<!-- Explain that this isn't included in the infographics. -->
+<!-- Active travel mode share Baseline v Go Active.  -->
+<!-- XY plot of baseline and Go Active mode shares -->
+<!-- Driving mode share Baseline v Go Active -->
+<!-- XY plot of baseline and Go Active mode shares -->
+<!-- Why do some sites see greater absolute or relative change than other sites? (% of short journeys? % who travel by other modes?) -->
+<!-- Explain that we don't capture everything, just potential for mode shift from driving. -->
+<!-- ## Barriers and opportunities for increased active travel uptake -->
+<!-- Circuity and busyness of routes to key destinations -->
+<!-- Why is this important? -->
+<!-- Residents put off walking or cycling if they can't find a route where they feel safe, or if such routes are much longer and slower than it would be to drive. -->
+<!-- Show route and route network maps, with colour representing busyness. -->
+<!-- Explain the clockface graphics -->
+<!-- Busyness -->
+<!-- ## Site layouts and the permeability of site boundaries -->
+<!-- Compare in-site circuity of the 3 modes. -->
+<!-- Crossing points along site boundary -->
+<!-- # The web tool -->
+<!-- ## Intended audience -->
+<!-- Users can typically be broken down into three groups: -->
+<!-- 1) Those interested in planning and transport policy issues at a national level, such as Central Government officers. -->
+<!-- 2) Those interested in planning and transport issues at a local or regional level, including policy implementation, site establishment and site assessment.  -->
+<!-- This may include Local Government officers, developers and consultants. -->
+<!-- 3) Campaigners and advocates. -->
+<!-- ## National level -->
+<!-- ## Site level -->
+<!-- Describe the interface components -->
+<!-- # Conclusion -->
+<!-- ## Next steps -->
+<!-- A 2 page scoping of the next steps -->
 
 [1] 
 <https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy-cwis-report-to-parliament>
 
 [2] 
 <https://www.gov.uk/government/collections/introduction-to-the-affordable-homes-programme-2021-2026>
+
+[3]  See the 3<sup>rd</sup> report from the Department for Transport
+funded SaferActive report for details:
+<https://saferactive.github.io/trafficalmr/articles/report3.html.x>\`
