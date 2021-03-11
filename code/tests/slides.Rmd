@@ -71,7 +71,7 @@ Publicly available tool with maps and data on active travel levels, potential an
 
 ## Levels of analysis
 
-[](https://user-images.githubusercontent.com/1825120/110673378-9ea52f00-81c8-11eb-9822-58d44e1ecae2.png)
+![](https://user-images.githubusercontent.com/1825120/110673378-9ea52f00-81c8-11eb-9822-58d44e1ecae2.png)
 
 ---
 
@@ -153,14 +153,31 @@ See https://actdev.cyipt.bike/
 
 ## Core ActDev Layers
 
+See https://actdev.cyipt.bike/manual/
+
+![](https://user-images.githubusercontent.com/1825120/110682147-876b3f00-81d2-11eb-96e9-b86203ec250e.png)
+
 ---
 
 ## Contextual layers
 
 
+
+![](https://user-images.githubusercontent.com/1825120/110693965-f4390600-81df-11eb-8d7a-c37ea0e23f1f.png)
+
+---
+
+## The A/B Street tool
+
+![](https://user-images.githubusercontent.com/1825120/110777940-9d701280-8259-11eb-9c17-c56f5b709c83.gif)
+
 ---
 
 ## Using the tool to assess site location
+
+![](https://user-images.githubusercontent.com/1825120/110680440-85a07c00-81d0-11eb-9658-7f303e72372f.png)
+
+???
 
 Trip patterns
 
@@ -174,6 +191,10 @@ Trip patterns
 
 ## Using the tool to assess (and improve) walking and cycling routes
 
+![](https://user-images.githubusercontent.com/1825120/110777119-ad3b2700-8258-11eb-87f9-553449faa757.png)
+
+???
+
 Joey
 
 - Busyness levels
@@ -185,7 +206,7 @@ Joey
 
 ---
 
-# Modelling change in transport systems
+# Modelling change: scenarios
 
 ![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png)
 
@@ -200,6 +221,12 @@ Joey
 ???
 
 - New paper, Lovelace et al (2020) describes the emergence and possibilities for 'open access models'
+
+---
+
+## Live demo of the tool
+
+![](https://user-images.githubusercontent.com/1825120/110671502-79afbc80-81c6-11eb-9dc5-52046b1d04c8.gif)
 
 ---
 
