@@ -2,10 +2,14 @@
 
 # 1 Overview of the tool
 
-The ActDev tool is a prototype tool to help the planning system better
-account for and support sustainable travel. The aim is to demonstrate
-what is possible with new datasets and methods and to make the case for
-a complete nationally available tool.
+The ActDev tool is a prototype web application to strengthen the
+evidence base on the performance of developments in terms of active
+travel provision and potential. The tool is part of a [UK Research and
+Innovation](https://www.ukri.org/) funded project which aims to
+demonstrate what is possible with new datasets and methods. The wider
+aim is to make case for evidence-based tools for assessing and improving
+provision for active travel associated with new developments nationwide,
+at every stage in the planning process.
 
 Currently the tool only provides data for 35 sites, as outlined in the
 [ActDev report](https://actdev.cyipt.bike/report/). This manual
