@@ -58,7 +58,7 @@ b) For known planned/existing development sites, provide additional analysis to 
 
 c) Makes the case for further work to create an interactive web application (including the underlying evolving evidence base) to do the above but on a national scale.
 
-As oulined below, we believe we have achieved each of these objectives with the publication of the prototype ActDev tool.
+As outlined below, we believe we have achieved each of these objectives with the publication of the prototype ActDev tool.
 
 # Project Components 
 
@@ -101,7 +101,9 @@ We have high degree of knowledge of employment locations through the use of cens
 
 ## Demographic and travel data
 
-Travel to work comprises x% of total travel (ref).
+Travel to work accounted for [around 20%](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/877039/commuting-in-england-1988-2015.pdf) of total UK travel by distance before the coronavirus pandemic led working from home levels to increase from around 5% to 40% of the workforce.^[
+See the 3^rd^ report from the Department for Transport funded SaferActive report for details: https://saferactive.github.io/trafficalmr/articles/report3.html.x`
+]
 These journeys form the core of our investigation, because, unlike most other journey types, the origins and destinations are comprehensively understood and recorded, with complete national coverage, in the 2011 Census (ref).
 We used commute data which disaggregates the points of origin and destination as OD pairs at the Medium Super Output Area (MSOA) level.
 As well as the geographic location of origin and destination we can also determine the journey distance, and crucially, information is available on the mode of travel.
@@ -112,7 +114,6 @@ Some of our case study sites were already partially complete by that date, meani
 However, in most cases the census data is best seen as an indication of travel patterns in the local area surrounding a site, rather than a reflection of the site itself.
 
 An MSOA can cover a wide area, especially in rural areas. 
-
 Issues with the stats and mode share can arise from this (eg Wynyard; Cambridge - Great Kneighton v Trumpington Meadows)
 
 We chose to focus on three modes of travel - walking, cycling and car/van driving.
