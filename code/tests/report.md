@@ -1,24 +1,43 @@
 # 1 Introduction
 
-bringing together 4 datasets
+The ActDev project was created to address a gap in the evidence-base
+needed for a sustainable future. Transport and planning policy areas
+have tended to be dealt with in isolation, despite the clear linkages
+between them. New housing development sites that are within walking and
+cycling distance to work, public transport links and other key trip
+attractors can help meet a range of policy objectives, not least the
+government’s target of doubling cycling by 2025 and commitment to
+becoming zero carbon by 2050.
 
-## 1.1 The need for the tool
+<!-- ## The need for the tool -->
 
-Two key challenges - sustainable transport and housing crisis.
+The project sits at the interface between two major challenges: the
+pressing need for sustainable transport (which can tackle a range of
+issues from physical inactivity and obesity to air pollution)[1] and
+affordable housing[2].
 
-Human health, decarbonisation, air pollution and the need to increase
-walking and cycling.
+<!-- Human health, decarbonisation, air pollution and the need to increase walking and cycling. -->
+<!-- Need for affordable housing -->
+<!-- State of new homes in England -->
+<!-- TfNH reports -->
+<!-- Moving in the wrong direction, towards car dependency. -->
+<!-- ## Policy landscape -->
+<!-- White paper -->
+<!-- Gear change and LTN1/20 -->
+<!-- Housing algorithm thrown out -->
+<!-- 5 year housing land supply and the Call For Sites process -->
+<!-- Site sustainability assessments -->
 
-Need for affordable housing State of new homes in England TfNH reports
-Moving in the wrong direction, towards car dependency.
+The 4 month project was funded by the [UK Research and
+Innovation](https://www.ukri.org/) to demonstrate what is possible with
+new datasets and methods to make progress in this area. The wider aim is
+to make case for evidence-based tools for assessing and improving
+provision for active travel associated with new developments nationwide,
+at every stage in the planning process. This report outlines the context
+and methods underlying the report. For information on how to use the
+tool, see the [ActDev Manual](https://actdev.cyipt.bike/manual/).
 
-## 1.2 Policy landscape
-
-White paper Gear change and LTN1/20 Housing algorithm thrown out 5 year
-housing land supply and the Call For Sites process Site sustainability
-assessments
-
-## 1.3 Aims and objectives
+## 1.1 Aims and objectives
 
 We aimed to create a tool which:
 
@@ -501,12 +520,14 @@ Users can typically be broken down into three groups:
 
 Describe the interface components
 
-## 4.4 A/B street interface
-
-Describe the key features.
-
 # 5 Conclusion
 
 ## 5.1 Next steps
 
 A 2 page scoping of the next steps
+
+[1] 
+<https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy-cwis-report-to-parliament>
+
+[2] 
+<https://www.gov.uk/government/collections/introduction-to-the-affordable-homes-programme-2021-2026>

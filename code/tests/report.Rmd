@@ -3,6 +3,7 @@ title: "ActDev Report"
 author: "<br>Robin Lovelace, Joey Talbot (University of Leeds)<br>Martin Lucas-Smith, Simon Nuttall (CycleStreets)<br>Andrew Speakman (PlanIt)<br>Patrick Johansson<br>Dustin Carlino (A/B Street)"
 date: "26/02/2021"
 output:
+   # bookdown::html_document2:
    bookdown::markdown_document2:
      number_sections: true
 ---
@@ -14,26 +15,37 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Introduction
 
-bringing together 4 datasets
+The ActDev project was created to address a gap in the evidence-base needed for a sustainable future.
+Transport and planning policy areas have tended to be dealt with in isolation, despite the clear linkages between them.
+New housing development sites that are within walking and cycling distance to work, public transport links and other key trip attractors can help meet a range of policy objectives, not least the government's target of doubling cycling by 2025 and commitment to becoming zero carbon by 2050.
 
-## The need for the tool
 
-Two key challenges - sustainable transport and housing crisis.
+<!-- ## The need for the tool -->
+The project sits at the interface between two major challenges: the pressing need for sustainable transport (which can tackle a range of issues from physical inactivity and obesity to air pollution)^[
+https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy-cwis-report-to-parliament
+] and affordable housing^[
+https://www.gov.uk/government/collections/introduction-to-the-affordable-homes-programme-2021-2026
+].
 
-Human health, decarbonisation, air pollution and the need to increase walking and cycling.
+<!-- Human health, decarbonisation, air pollution and the need to increase walking and cycling. -->
 
-Need for affordable housing
-State of new homes in England
-TfNH reports
-Moving in the wrong direction, towards car dependency.
+<!-- Need for affordable housing -->
+<!-- State of new homes in England -->
+<!-- TfNH reports -->
+<!-- Moving in the wrong direction, towards car dependency. -->
 
-## Policy landscape
+<!-- ## Policy landscape -->
 
-White paper
-Gear change and LTN1/20
-Housing algorithm thrown out
-5 year housing land supply and the Call For Sites process
-Site sustainability assessments
+<!-- White paper -->
+<!-- Gear change and LTN1/20 -->
+<!-- Housing algorithm thrown out -->
+<!-- 5 year housing land supply and the Call For Sites process -->
+<!-- Site sustainability assessments -->
+
+The 4 month project was funded by the [UK Research and Innovation](https://www.ukri.org/) to demonstrate what is possible with new datasets and methods to make progress in this area.
+The wider aim is to make case for evidence-based tools for assessing and improving provision for active travel associated with new developments nationwide, at every stage in the planning process.
+This report outlines the context and methods underlying the report.
+For information on how to use the tool, see the [ActDev Manual](https://actdev.cyipt.bike/manual/).
 
 ## Aims and objectives
 
