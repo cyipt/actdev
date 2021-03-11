@@ -20,6 +20,14 @@ available at
 ‘sites’ corresponding to the site name), and the A/B Street traffic
 simulation tool.
 
+This manual is aimed at people who have an understanding of available
+datasets to support evidence-based planning and who want to use the
+tool, either to assess a particular site or more broadly to understand
+the potential of tool that was available for sites nationwide. For a
+broader introduction to the tool see slides
+[here](https://www.robinlovelace.net/presentations/actdev-slides.html#1)
+and the [ActDev report](https://actdev.cyipt.bike/report/).
+
 # 2 The landing page
 
 The landing page provides an overview of the sites. In the prototype
@@ -115,6 +123,7 @@ The key elements of the map element to the right of Figure
 ### 3.1.1 Desire lines
 
 ![](https://user-images.githubusercontent.com/1825120/110680868-0d868600-81d1-11eb-9342-62461b222b60.png)
+
 The desire lines layer shows the shortest path between origins on the
 site and destinations. The layer can be selected by clicking on the
 ‘Desire lines’ toggle in the left panel.
@@ -138,12 +147,14 @@ lines layer. There are a number of route options shown in the Routes
 drop-down menu:
 
 ![](https://user-images.githubusercontent.com/1825120/110682147-876b3f00-81d2-11eb-96e9-b86203ec250e.png)
-- Walking routes, showing likely walking routes according an online
-routing service - Cycling - quiet, showing routes that take off road
-paths and avoid busy roads wherever possible - Cycling - balanced,
-showing cycling routes from CycleStreets which aim to find a balance
-between speed and quietness - Cycling - fast, direct routes from
-CycleStreets
+
+-   Walking routes, showing likely walking routes according an online
+    routing service
+-   Cycling - quiet, showing routes that take off road paths and avoid
+    busy roads wherever possible
+-   Cycling - balanced, showing cycling routes from CycleStreets which
+    aim to find a balance between speed and quietness
+-   Cycling - fast, direct routes from CycleStreets
 
 ### 3.1.3 Route network
 
