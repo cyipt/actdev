@@ -17,7 +17,7 @@ percent_commute_cycle_base,percentage who commute by bicycle in baseline scenari
 percent_commute_drive_base,percentage who commute as car/van drivers in baseline scenario,Driving mode share
 percent_commute_bus_base,percentage who commute by bus in baseline scenario,Bus mode share
 percent_commute_rail_base,percentage who commute by train or light rail in baseline scenario,Rail mode share
-percent_commute_other_base,percentage who commute by taxi, motorbike or other mode or as car/van passengers in baseline scenario,Other mode share
+percent_commute_other_base,"percentage who commute by taxi, motorbike or other mode or as car/van passengers in baseline scenario",Other mode share
 circuity_fast_cycle,mean circuity of the commute/town fast cycle routes (across the entire length of the routes),Circuity of cycle routes from the site
 circuity_walk,mean circuity of the commute/town walking routes (across the entire length of the routes),Circuity of walking routes from the site
 busyness_fast_cycle,mean road busyness of the commute/town fast cycle routes (across the entire length of the routes),Road busyness of cycle routes from the site
