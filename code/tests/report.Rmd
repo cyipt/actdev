@@ -26,6 +26,7 @@ https://www.gov.uk/government/publications/cycling-and-walking-investment-strate
 ] and affordable housing^[
 https://www.gov.uk/government/collections/introduction-to-the-affordable-homes-programme-2021-2026
 ].
+It builds on the previous ACTON project which outlined available datasets with reference to four case study sites in West Yorkshire (see [cyipt.github.io/acton](https://cyipt.github.io/acton/articles/the-acton-project.html) for details).
 
 <!-- Human health, decarbonisation, air pollution and the need to increase walking and cycling. -->
 
@@ -42,31 +43,33 @@ https://www.gov.uk/government/collections/introduction-to-the-affordable-homes-p
 <!-- 5 year housing land supply and the Call For Sites process -->
 <!-- Site sustainability assessments -->
 
-The 4 month project was funded by the [UK Research and Innovation](https://www.ukri.org/) to demonstrate what is possible with new datasets and methods to make progress in this area.
-The wider aim is to make case for evidence-based tools for assessing and improving provision for active travel associated with new developments nationwide, at every stage in the planning process.
+## Aims and objectives
+
+The aim of the 4 month ActDev project, which was funded by the [UK Research and Innovation](https://www.ukri.org/) in December 2020, was to demonstrate what is possible with new datasets and methods to help people working in the planning system to support walking and cycling uptake.
+The wider aim was to make case for evidence-based tools for assessing and improving provision for active travel associated with new developments nationwide, at every stage in the planning process.
 This report outlines the context and methods underlying the report.
 For information on how to use the tool, see the [ActDev Manual](https://actdev.cyipt.bike/manual/).
 
-## Aims and objectives
-
-We aimed to create a tool which:
+The specific objectives were to create an actionable evidence base:
 
 a) Provides a rating for the level of active travel provision (cycling and walking) between development sites and key services, to determine whether a location would be or is acceptable from health perspectives.
 
-b) For known planned/existing development sites, the tool will provide additional analysis to inform specific improvements that could be made in active travel provision and proximity of key services within walking and cycling distance.
+b) For known planned/existing development sites, provide additional analysis to inform specific improvements that could be made in active travel provision and proximity of key services within walking and cycling distance.
 
-c) makes the case for further work to create an interactive web application (including the underlying evolving evidence base) to do the above but on a national scale.
+c) Makes the case for further work to create an interactive web application (including the underlying evolving evidence base) to do the above but on a national scale.
+
+As oulined below, we believe we have achieved each of these objectives with the publication of the prototype ActDev tool.
 
 # Project Components 
 
-## Planning data
+<!-- ## Planning data -->
 
-Use Andrew's text
+<!-- Use Andrew's text -->
 
-Choice of case study sites
-Site populations, state of completion - reference TfNH
+<!-- Choice of case study sites -->
+<!-- Site populations, state of completion - reference TfNH -->
 
-Use of 35 sites to pin down PlanIt large criteria  
+<!-- Use of 35 sites to pin down PlanIt large criteria   -->
 
 ## Access to local services
 

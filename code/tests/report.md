@@ -14,7 +14,11 @@ becoming zero carbon by 2050.
 The project sits at the interface between two major challenges: the
 pressing need for sustainable transport (which can tackle a range of
 issues from physical inactivity and obesity to air pollution)[1] and
-affordable housing[2].
+affordable housing[2]. It builds on the previous ACTON project which
+outlined available datasets with reference to four case study sites in
+West Yorkshire (see
+[cyipt.github.io/acton](https://cyipt.github.io/acton/articles/the-acton-project.html)
+for details).
 
 <!-- Human health, decarbonisation, air pollution and the need to increase walking and cycling. -->
 <!-- Need for affordable housing -->
@@ -28,45 +32,47 @@ affordable housing[2].
 <!-- 5 year housing land supply and the Call For Sites process -->
 <!-- Site sustainability assessments -->
 
-The 4 month project was funded by the [UK Research and
-Innovation](https://www.ukri.org/) to demonstrate what is possible with
-new datasets and methods to make progress in this area. The wider aim is
-to make case for evidence-based tools for assessing and improving
-provision for active travel associated with new developments nationwide,
-at every stage in the planning process. This report outlines the context
-and methods underlying the report. For information on how to use the
-tool, see the [ActDev Manual](https://actdev.cyipt.bike/manual/).
-
 ## 1.1 Aims and objectives
 
-We aimed to create a tool which:
+The aim of the 4 month ActDev project, which was funded by the [UK
+Research and Innovation](https://www.ukri.org/) in December 2020, was to
+demonstrate what is possible with new datasets and methods to help
+people working in the planning system to support walking and cycling
+uptake. The wider aim was to make case for evidence-based tools for
+assessing and improving provision for active travel associated with new
+developments nationwide, at every stage in the planning process. This
+report outlines the context and methods underlying the report. For
+information on how to use the tool, see the [ActDev
+Manual](https://actdev.cyipt.bike/manual/).
+
+The specific objectives were to create an actionable evidence base:
 
 1.  Provides a rating for the level of active travel provision (cycling
     and walking) between development sites and key services, to
     determine whether a location would be or is acceptable from health
     perspectives.
 
-2.  For known planned/existing development sites, the tool will provide
-    additional analysis to inform specific improvements that could be
-    made in active travel provision and proximity of key services within
-    walking and cycling distance.
+2.  For known planned/existing development sites, provide additional
+    analysis to inform specific improvements that could be made in
+    active travel provision and proximity of key services within walking
+    and cycling distance.
 
-3.  makes the case for further work to create an interactive web
+3.  Makes the case for further work to create an interactive web
     application (including the underlying evolving evidence base) to do
     the above but on a national scale.
 
+As oulined below, we believe we have achieved each of these objectives
+with the publication of the prototype ActDev tool.
+
 # 2 Project Components
 
-## 2.1 Planning data
+<!-- ## Planning data -->
+<!-- Use Andrew's text -->
+<!-- Choice of case study sites -->
+<!-- Site populations, state of completion - reference TfNH -->
+<!-- Use of 35 sites to pin down PlanIt large criteria   -->
 
-Use Andrew’s text
-
-Choice of case study sites Site populations, state of completion -
-reference TfNH
-
-Use of 35 sites to pin down PlanIt large criteria
-
-## 2.2 Access to local services
+## 2.1 Access to local services
 
 When choosing a development site, a key consideration is proximity to
 local services such as shops, schools, parks, and other community
@@ -109,7 +115,7 @@ Travel to work is one of the most frequent journey purposes. We have
 high degree of knowledge of employment locations through the use of
 census data, as described in the following section.
 
-## 2.3 Demographic and travel data
+## 2.2 Demographic and travel data
 
 Travel to work comprises x% of total travel (ref). These journeys form
 the core of our investigation, because, unlike most other journey types,
@@ -144,7 +150,7 @@ to replace journeys by car/van with walking or cycling.
 Generation of large and small study areas. From OD pairs to desire
 lines. Limitation of restricting analysis to these study areas.
 
-## 2.4 Journey routing and road characteristics
+## 2.3 Journey routing and road characteristics
 
 Having obtained data on commute destinations and modes of travel, the
 next step is to identify the routes on the local road network that we
@@ -203,7 +209,7 @@ gradient.
 
 Simon’s LTN work
 
-## 2.5 Mode shift scenarios
+## 2.4 Mode shift scenarios
 
 For each site, we generated two scenarios, Baseline and Go Active, as
 illustrated in Figure <a href="#fig:scenario-overview">2.1</a>. The 2011
@@ -248,7 +254,7 @@ the 2011 Census. The bands represent the range within which the majority
 of origin-destination pairs fall, from the 20th to the 80th percentile.
 </p>
 
-## 2.6 Within-site metrics
+## 2.5 Within-site metrics
 
 The measures discussed so far relate to journeys to work or to other
 destinations. The majority of the length of these journeys will take
@@ -268,7 +274,7 @@ constrained the points to be on the road network itself, preventing
 cycle and walking route origins and destinations from spawning on
 footpaths.
 
-## 2.7 Traffic simulation
+## 2.6 Traffic simulation
 
 [A/B Street](abstreet.org) is an open source traffic simulator, designed
 to explore how gradual changes to existing infrastructure can be
