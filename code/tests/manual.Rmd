@@ -8,6 +8,8 @@ output:
      toc: FALSE
 ---
 
+<!-- Note: edits should be made to the .Rmd version of this file -->
+
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
@@ -153,3 +155,5 @@ If you would like to provide specific technical feedback or provide reproducible
 
 - In the [actdev-ui issue tracker](https://github.com/cyipt/actdev-ui/issues) if it is a bug associated with the website
 - In the [actdev issue tracker](https://github.com/cyipt/actdev/issues) if you have a specific technical suggestion or would like to report a bug with the data
+
+To edit this manual, click [here](https://github.com/cyipt/actdev/edit/main/code/tests/manual.Rmd) (requires a GitHub account). 

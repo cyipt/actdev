@@ -1,3 +1,5 @@
+<!-- Note: edits should be made to the .Rmd version of this file -->
+
 # 1 Overview of the tool
 
 The ActDev tool is a prototype tool to help the planning system better
@@ -273,3 +275,7 @@ reproducible bugs, you can do so (requires a GitHub account):
     tracker](https://github.com/cyipt/actdev/issues) if you have a
     specific technical suggestion or would like to report a bug with the
     data
+
+To edit this manual, click
+[here](https://github.com/cyipt/actdev/edit/main/code/tests/manual.Rmd)
+(requires a GitHub account).
