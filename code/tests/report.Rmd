@@ -90,19 +90,20 @@ From this it was noted that many such applications included key words (such as �
 Subsequently a new set of rules was developed within PlanIt to extract the key words and a new ‘n_dwellings’ field. 
 These were then used as additional proxy indicators of development scale within the process for deriving the ‘app_size’ classification (specifically ‘n_dwellings’ more than 40 indicating ‘Large’ and more than 10 indicating ‘Medium’).
 
-The distribution of ‘n_dwellings’ values found in the sample of 6400 applications is illustrated below:
+The resulting changes raised the proportion of ‘Large’ applications within our case study sites from 3% to 11% and reduced ‘Medium’ applications from 10% to 8%.
+Note the percentage of Large applications in this sample of 6400 across the 35 sites can be contrasted with the percentage across the UK as a whole (15.7 million applications), of which 1.3% are Large.
 
-```{r large-apps, fig.cap="Number of dwellings identified in planning applications within the 35 case study sites"}
-knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/large-apps.png")
-```
+<!-- The distribution of ‘n_dwellings’ values found in the sample of 6400 applications is illustrated below: -->
 
-The resulting changes raised the proportion of ‘Large’ applications from 3% to 11% and reduced  ‘Medium’ applications from 10% to 8% :
+<!-- ```{r large-apps, fig.cap="Number of dwellings identified in planning applications within the 35 case study sites"} -->
+<!-- knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/large-apps.png") -->
+<!-- ``` -->
 
-```{r app-size, fig.cap="Classification of the size of planning applications within the 35 case study sites"}
-knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/app-size.png")
-```
 
-Note the percentage of Large (11%) applications in the sample of 6400  across these 35 sites can be contrasted with the percentage across the UK (15.7 million applications)  of which 1.3% are Large.
+
+<!-- ```{r app-size, fig.cap="Classification of the size of planning applications within the 35 case study sites"} -->
+<!-- knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/app-size.png") -->
+<!-- ``` -->
 
 ## Access to local services
 
@@ -241,7 +242,7 @@ This constrained the points to be on the road network itself, preventing cycle a
 
 ## Traffic simulation
 
-[A/B Street](abstreet.org) is an open source traffic simulator, designed to explore how gradual changes to existing infrastructure can be modified to reduce dependency on motor vehicles. It uses OpenStreetMap and many heuristics to build a detailed model of roads, intersections, parking lots, and buildings, including traffic signal timing, turn restrictions, and individual lanes. It simulates the movement of individual people as pedestrians, cyclists, car drivers, and public transit riders, using schedules input from travel demand models such as the one developed as part of this project. The user of A/B Street can modify the map by reconfiguring lanes (like transforing street parking into a bike lane), modifying traffic signal timing (like introducing a protected right turn stage), and setting access restrictions (to model low traffic neighborhoods). The same simulated people repeat their schedules, subject to the changed map, and the user can explore the effects on individual people, or compare aggregate results.
+[A/B Street](https://github.com/a-b-street/abstreet#ab-street) is an open source traffic simulator, designed to explore how gradual changes to existing infrastructure can be modified to reduce dependency on motor vehicles. It uses OpenStreetMap and many heuristics to build a detailed model of roads, intersections, parking lots, and buildings, including traffic signal timing, turn restrictions, and individual lanes. It simulates the movement of individual people as pedestrians, cyclists, car drivers, and public transit riders, using schedules input from travel demand models such as the one developed as part of this project. The user of A/B Street can modify the map by reconfiguring lanes (like transforing street parking into a bike lane), modifying traffic signal timing (like introducing a protected right turn stage), and setting access restrictions (to model low traffic neighborhoods). The same simulated people repeat their schedules, subject to the changed map, and the user can explore the effects on individual people, or compare aggregate results.
 
 A/B Street aims to engage citizens with local transportation planning by making it as easy as possible to imagine how changes might affect a person’s commute. It could be used by city authorities to interactively communicate proposed and ongoing projects; by the general public to explore and submit ideas for improving their community; and by advocacy groups to educate people about options for reducing automobile dependency.
 
@@ -287,7 +288,7 @@ Combining the commute modes and distances, and using a standardised set of dista
 In this figure we compare commutes at Great Kneighton with those at Chapelford.
 We can see that walking and cycling mostly occurs in the shorter distance bands. At Chapelford the median commute distance is higher than at Great Kneighton, and active modes also comprise a smaller proportion of the short journeys.
 
-```{r baseline, fig.cap = "Commutes by mode and distance, baseline scenario, at Great Kneighton (above) and Chapelford (below)"}
+```{r baseline}
 # knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
 # https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png
 knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png")
@@ -354,7 +355,7 @@ The mean proportional increase in cycling across all sites is 700%.
 
 Figure \@ref(fig:go-active) shows the Baseline and Go Active scenarios for Dickens Heath. We can see that in 2011, 82% of commutes here were by car/van drivers, but many of these could potentially switch to cycling, if sufficient investment was made into safe, convenient cycle routes. 
 
-```{r go-active, fig.cap = "Commutes by mode and distance from Dickens Heath, baseline (above) and Go Active (below) scenarios"}
+```{r go-active}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")
 knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png")
 knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png")

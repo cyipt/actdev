@@ -123,27 +123,20 @@ process for deriving the ‘app\_size’ classification (specifically
 ‘n\_dwellings’ more than 40 indicating ‘Large’ and more than 10
 indicating ‘Medium’).
 
-The distribution of ‘n\_dwellings’ values found in the sample of 6400
-applications is illustrated below:
+The resulting changes raised the proportion of ‘Large’ applications
+within our case study sites from 3% to 11% and reduced ‘Medium’
+applications from 10% to 8%. Note the percentage of Large applications
+in this sample of 6400 across the 35 sites can be contrasted with the
+percentage across the UK as a whole (15.7 million applications), of
+which 1.3% are Large.
 
-<img src="https://raw.githubusercontent.com/cyipt/actdev/main/large-apps.png" alt="Number of dwellings identified in planning applications within the 35 case study sites"  />
-<p class="caption">
-Figure 2.1: Number of dwellings identified in planning applications
-within the 35 case study sites
-</p>
-
-The resulting changes raised the proportion of ‘Large’ applications from
-3% to 11% and reduced ‘Medium’ applications from 10% to 8% :
-
-<img src="https://raw.githubusercontent.com/cyipt/actdev/main/app-size.png" alt="Classification of the size of planning applications within the 35 case study sites"  />
-<p class="caption">
-Figure 2.2: Classification of the size of planning applications within
-the 35 case study sites
-</p>
-
-Note the percentage of Large (11%) applications in the sample of 6400
-across these 35 sites can be contrasted with the percentage across the
-UK (15.7 million applications) of which 1.3% are Large.
+<!-- The distribution of ‘n_dwellings’ values found in the sample of 6400 applications is illustrated below: -->
+<!-- ```{r large-apps, fig.cap="Number of dwellings identified in planning applications within the 35 case study sites"} -->
+<!-- knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/large-apps.png") -->
+<!-- ``` -->
+<!-- ```{r app-size, fig.cap="Classification of the size of planning applications within the 35 case study sites"} -->
+<!-- knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/app-size.png") -->
+<!-- ``` -->
 
 ## 2.2 Access to local services
 
@@ -219,11 +212,11 @@ data could be used.
 <!-- Issues with the stats and mode share can arise from this (eg Wynyard; Cambridge - Great Kneighton v Trumpington Meadows) -->
 We developed new methods to ‘disaggregate’ origin-destination data,
 enabling a greater diversity of destinations within a single MSOA zone,
-as illustrated in Figure <a href="#fig:disag">2.3</a> below.
+as illustrated in Figure <a href="#fig:disag">2.1</a> below.
 
 <img src="https://user-images.githubusercontent.com/1825120/110860616-e608e980-82b4-11eb-815e-6ee51bb4f6f6.png" alt="Desire lines for commuter journeys from Leeds Climate Innovation District, following disaggregation of origin-destination data to represent multiple origin and destination points within each MSOA zone"  />
 <p class="caption">
-Figure 2.3: Desire lines for commuter journeys from Leeds Climate
+Figure 2.1: Desire lines for commuter journeys from Leeds Climate
 Innovation District, following disaggregation of origin-destination data
 to represent multiple origin and destination points within each MSOA
 zone
@@ -299,7 +292,7 @@ gradient.
 ## 2.5 Mode shift scenarios
 
 For each site, we generated two scenarios, Baseline and Go Active, as
-illustrated in Figure <a href="#fig:scenario-overview">2.4</a>. The 2011
+illustrated in Figure <a href="#fig:scenario-overview">2.2</a>. The 2011
 Census journey to work data represents baseline conditions. For the
 Baseline scenario, we simply adjusted this data to represent the
 population, at completion, of the chosen residential development site,
@@ -332,11 +325,11 @@ walking mode share 30% above baseline levels; for journeys of 2.0 - 2.5
 km length, walking mode share was increased by 20%; for 2.5 - 3.0 km by
 10%; and for 3.0 - 6.0 km by 5%. In future work we plan to refine the
 uptake model, which is illustrated in Figure
-<a href="#fig:scenario-overview">2.4</a>.
+<a href="#fig:scenario-overview">2.2</a>.
 
 <img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png" alt="Overview of the uptake model underlying the Go Active scenario compared with the Baseline scenario which is based on data from the 2011 Census. The bands represent the range within which the majority of origin-destination pairs fall, from the 20th to the 80th percentile." width="80%" />
 <p class="caption">
-Figure 2.4: Overview of the uptake model underlying the Go Active
+Figure 2.2: Overview of the uptake model underlying the Go Active
 scenario compared with the Baseline scenario which is based on data from
 the 2011 Census. The bands represent the range within which the majority
 of origin-destination pairs fall, from the 20th to the 80th percentile.
@@ -364,21 +357,22 @@ footpaths.
 
 ## 2.7 Traffic simulation
 
-[A/B Street](abstreet.org) is an open source traffic simulator, designed
-to explore how gradual changes to existing infrastructure can be
-modified to reduce dependency on motor vehicles. It uses OpenStreetMap
-and many heuristics to build a detailed model of roads, intersections,
-parking lots, and buildings, including traffic signal timing, turn
-restrictions, and individual lanes. It simulates the movement of
-individual people as pedestrians, cyclists, car drivers, and public
-transit riders, using schedules input from travel demand models such as
-the one developed as part of this project. The user of A/B Street can
-modify the map by reconfiguring lanes (like transforing street parking
-into a bike lane), modifying traffic signal timing (like introducing a
-protected right turn stage), and setting access restrictions (to model
-low traffic neighborhoods). The same simulated people repeat their
-schedules, subject to the changed map, and the user can explore the
-effects on individual people, or compare aggregate results.
+[A/B Street](https://github.com/a-b-street/abstreet#ab-street) is an
+open source traffic simulator, designed to explore how gradual changes
+to existing infrastructure can be modified to reduce dependency on motor
+vehicles. It uses OpenStreetMap and many heuristics to build a detailed
+model of roads, intersections, parking lots, and buildings, including
+traffic signal timing, turn restrictions, and individual lanes. It
+simulates the movement of individual people as pedestrians, cyclists,
+car drivers, and public transit riders, using schedules input from
+travel demand models such as the one developed as part of this project.
+The user of A/B Street can modify the map by reconfiguring lanes (like
+transforing street parking into a bike lane), modifying traffic signal
+timing (like introducing a protected right turn stage), and setting
+access restrictions (to model low traffic neighborhoods). The same
+simulated people repeat their schedules, subject to the changed map, and
+the user can explore the effects on individual people, or compare
+aggregate results.
 
 A/B Street aims to engage citizens with local transportation planning by
 making it as easy as possible to imagine how changes might affect a
@@ -463,17 +457,7 @@ shorter distance bands. At Chapelford the median commute distance is
 higher than at Great Kneighton, and active modes also comprise a smaller
 proportion of the short journeys.
 
-<img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png" alt="Commutes by mode and distance, baseline scenario, at Great Kneighton (above) and Chapelford (below)"  />
-<p class="caption">
-Figure 3.1: Commutes by mode and distance, baseline scenario, at Great
-Kneighton (above) and Chapelford (below)
-</p>
-
-<img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/chapelford/mode-split-base.png" alt="Commutes by mode and distance, baseline scenario, at Great Kneighton (above) and Chapelford (below)"  />
-<p class="caption">
-Figure 3.2: Commutes by mode and distance, baseline scenario, at Great
-Kneighton (above) and Chapelford (below)
-</p>
+![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png)![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/chapelford/mode-split-base.png)
 
 <!-- Show route and route network maps for commutes only, with line width representing usage, and a single colour. -->
 <!-- ## How case study sites compare with existing residential areas -->
@@ -558,17 +542,7 @@ Baseline and Go Active scenarios for Dickens Heath. We can see that in
 could potentially switch to cycling, if sufficient investment was made
 into safe, convenient cycle routes.
 
-<img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png" alt="Commutes by mode and distance from Dickens Heath, baseline (above) and Go Active (below) scenarios"  />
-<p class="caption">
-Figure 3.3: Commutes by mode and distance from Dickens Heath, baseline
-(above) and Go Active (below) scenarios
-</p>
-
-<img src="https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png" alt="Commutes by mode and distance from Dickens Heath, baseline (above) and Go Active (below) scenarios"  />
-<p class="caption">
-Figure 3.4: Commutes by mode and distance from Dickens Heath, baseline
-(above) and Go Active (below) scenarios
-</p>
+![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png)![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png)
 
 # 4 Additional links and reading
 
