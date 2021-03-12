@@ -19,3 +19,10 @@ piggyback::pb_download_url(file = "od_data.csv", repo = "cyipt/actdev")
 u = "https://s3-eu-west-1.amazonaws.com/statistics.digitalresources.jisc.ac.uk/dkan/files/FLOW/wu03uk_v3/wu03uk_v3.csv"
 od_data_dk = readr::read_csv(u)
 nrow(od_data) / nrow(od_data_dk)
+
+
+# % active travel nationwide
+(sum(zones_core$bicycle) + sum(zones_core$foot)) / sum(zones_core$all)
+# 14% walking
+mean((zones_core$bicycle + zones_core$foot) / zones_core$all)
+
