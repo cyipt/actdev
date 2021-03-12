@@ -62,20 +62,53 @@ As outlined below, we believe we have achieved each of these objectives with the
 
 # Project Components 
 
-<!-- ## Planning data -->
+To act as case studies for the project, we chose 35 large residential development sites, representing a range of types of development including urban extensions, urban regeneration schemes and new settlements such as proposed Garden Villages. 
+These included developments that were completed, alongside others that were in progress or had not yet reached construction.
+Further information about the majority of the selected sites can be found in two Transport for New Homes reports; the [Project Summary and Recommendations July 2018](https://www.transportfornewhomes.org.uk/wp-content/uploads/2018/07/transport-for-new-homes-summary-web.pdf) and [Garden Villages and Garden Towns: Visions and Reality](https://www.transportfornewhomes.org.uk/wp-content/uploads/2020/06/garden-village-visions.pdf).
 
-<!-- Use Andrew's text -->
+## Planning data
 
-<!-- Choice of case study sites -->
-<!-- Site populations, state of completion - reference TfNH -->
+[UK Planit](https://www.planit.org.uk) is a national database of planning applications based on scraping and aggregating data from the websites of more than 400 planning authorities. 
+It is an important data source for the ActDev project and as part of the project the ability to search across the full national dataset has been upgraded.
 
-<!-- Use of 35 sites to pin down PlanIt large criteria   -->
+As part of previous work on the national planning dataset it was found that there was no standardised indication of the type or size of a development which is being planned.  
+Consequently an ‘app_size’ classification was added to the the PlanIt database with the aim of flagging large scale strategic residential developments as ‘Large’ and other residential developments with >10 dwellings as ‘Medium’. 
+
+The classification rules for ‘app_size’ used three sources of indirect proxy indicators for larger scale developments: 
+
+1. The number of documents associated with the application (more than 100 indicating a larger development), 
+
+2. The number of days before a decision is taken (more than 8 weeks indicating wide community interest), 
+
+3. And the type of an application (environmental impact assessments often being associated with large developments). 
+
+Using these three indicators a crude classification was made, although it was known that many applications of interest were being missed.
+
+As part of the ActDev project, we used our 35 case study sites to further improve the derivation of the ‘app_size’ field within PlanIt. 
+All planning applications (approx. 6400) within the 35 areas were reviewed and compared against existing classifications and known missing cases. 
+From this it was noted that many such applications included key words (such as ‘garden village’) and often a number of prospective residences in the ‘description’ field (eg ‘2,300 new mixed-tenure dwellings’). 
+Subsequently a new set of rules was developed within PlanIt to extract the key words and a new ‘n_dwellings’ field. 
+These were then used as additional proxy indicators of development scale within the process for deriving the ‘app_size’ classification (specifically ‘n_dwellings’ more than 40 indicating ‘Large’ and more than 10 indicating ‘Medium’).
+
+The distribution of ‘n_dwellings’ values found in the sample of 6400 applications is illustrated below:
+
+```{r large-apps, fig.cap="Number of dwellings identified in planning applications within the 35 case study sites"}
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/large-apps.png")
+```
+
+The resulting changes raised the proportion of ‘Large’ applications from 3% to 11% and reduced  ‘Medium’ applications from 10% to 8% :
+
+```{r app-size, fig.cap="Classification of the size of planning applications within the 35 case study sites"}
+knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/app-size.png")
+```
+
+Note the percentage of Large (11%) applications in the sample of 6400  across these 35 sites can be contrasted with the percentage across the UK (15.7 million applications)  of which 1.3% are Large.
 
 ## Access to local services
 
 When choosing a development site, a key consideration is proximity to local services such as shops, schools, parks, and other community facilities.
-Nationally, access to a range of services has been quantified through the Department for Transport's Journey Time Statistics.
-<!-- (link).  -->
+Nationally, access to a range of services has been quantified through the Department for Transport's [Journey Time Statistics](https://www.gov.uk/government/collections/journey-time-statistics).
+
 These record the average journey times to the closest food store, primary school, secondary school, further education college, pharmacy, GP surgery, hospital, and town centre, at the Lower Super Output Area (LSOA) level.
 These LSOA level averages are derived from the mean of the journey times from each Output Area within the LSOA.
 
@@ -118,10 +151,9 @@ However, in most cases the census data is best seen as an indication of travel p
 We used MSOA data to demonstrate the methods although higher resolution data could be used.
 <!-- An MSOA can cover a wide area, especially in rural areas.  -->
 <!-- Issues with the stats and mode share can arise from this (eg Wynyard; Cambridge - Great Kneighton v Trumpington Meadows) -->
-We developed new methods to 'disaggregate' origin-destination data, enabling a greater diversity of destinations within a single MSOA zone, as illustrated in the figure below.
-<!-- todo: Needs caption - RL. -->
+We developed new methods to 'disaggregate' origin-destination data, enabling a greater diversity of destinations within a single MSOA zone, as illustrated in Figure \@ref(fig:disag) below.
 
-```{r}
+```{r disag, fig.cap="Desire lines for commuter journeys from Leeds Climate Innovation District, following disaggregation of origin-destination data to represent multiple origin and destination points within each MSOA zone"}
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/110860616-e608e980-82b4-11eb-815e-6ee51bb4f6f6.png")
 ```
 
@@ -141,8 +173,7 @@ Having obtained data on commute destinations and modes of travel, the next step 
 For all desire lines lying within the large study area around each site, we generated cycling and walking routes for the journeys to work.
 We also combined the individual routes into a series of route networks. 
 
-For cycle journeys to work, we used a set of algorithms created by CycleStreets.net.
-<!-- Todo: add link -->
+For cycle journeys to work, we used a set of algorithms created by [CycleStreets.net](https://www.cyclestreets.net/).
 Three routing options are available, representing fast, balanced and quiet routes.
 For the fast routes, journey times are minimised.
 For the quiet routes, a 'quietness' parameter is maximised, to avoid routes that follow busy roads.
@@ -153,8 +184,7 @@ The gradient of route segments is also taken into account.
 It is useful to have these three different versions of the cycle routes, because this can reveal places where for example a direct road may link to a destination, but may be too busy for most people to consider cycling along it.
 If the 'quiet route' to a given destination is considerably longer than the 'fast route', it suggests that the introduction of dedicated cycle infrastructure along the line of the fast route would likely help to improve cycle accessibility.
 
-For journeys to work on foot, we used the Open Source Routing Machine (OSRM) routing engine.
-<!-- todo: add link -->
+For journeys to work on foot, we used the [Open Source Routing Machine](http://project-osrm.org/) (OSRM) routing engine.
 
 In addition to the commuter journeys, we also generated routes for journeys from each site to the nearest town centre.
 This included both walking and cycling routes, as long as the town centre was within 6 km of the site.
@@ -183,8 +213,7 @@ We calculated this increased uptake purely in terms of a switch from car/van dri
 Other modes of travel such as bus and rail were kept constant, and no change was made to journeys that already took place by foot or bicycle in the Baseline scenario.
 We also assumed that the journey destinations and the total volume of travel remains the same as in the Baseline scenario.
 
-To generate the increased cycle uptake in Go Active, we used the 'Go Dutch' cycling uptake function from the Propensity to Cycle Tool.
-<!-- Todo: add reference. -->
+To generate the increased cycle uptake in Go Active, we used the 'Go Dutch' cycling uptake function from the [Propensity to Cycle Tool](https://www.pct.bike/).
 This represents the proportion of journeys that would be undertaken by bicycle if cycle mode share corresponded with average cycling levels in the Netherlands.
 This function controls for route length and hilliness.
 
@@ -254,11 +283,11 @@ We expect to see a strong relationship between the distance travelled to work an
 For the vicinity of each site, we used the 2011 Census data to calculate the median commute distance.
 This ranges from 1.7 km at Taunton Firepool to 16.0 km at Culm Garden Village, with a mean of 7.9 km.
 
-Combining the commute modes and distances, and using a standardised set of distance bands, we can further interrogate the travel to work data, as seen in Figure xx. 
+Combining the commute modes and distances, and using a standardised set of distance bands, we can further interrogate the travel to work data, as seen in Figure \@ref(fig:baseline). 
 In this figure we compare commutes at Great Kneighton with those at Chapelford.
 We can see that walking and cycling mostly occurs in the shorter distance bands. At Chapelford the median commute distance is higher than at Great Kneighton, and active modes also comprise a smaller proportion of the short journeys.
 
-```{r}
+```{r baseline, fig.cap = "Commutes by mode and distance, baseline scenario, at Great Kneighton (above) and Chapelford (below)"}
 # knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
 # https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png
 knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png")
@@ -322,10 +351,10 @@ Proportional increases in cycling between the two scenarios are much greater tha
 The greatest proportional increase in cycling, from the Baseline to the Go Active scenario, is at Dickens Heath, where cycling mode share increases 2000%, from 1% to 20%.
 The mean proportional increase in cycling across all sites is 700%.
 
-<!-- Todo: add correct figure reference -->
-Figure xx shows the Baseline and Go Active scenarios for Dickens Heath. We can see that in 2011, 82% of commutes here were by car/van drivers, but many of these could potentially switch to cycling, if sufficient investment was made into safe, convenient cycle routes. 
 
-```{r}
+Figure \@ref(fig:go-active) shows the Baseline and Go Active scenarios for Dickens Heath. We can see that in 2011, 82% of commutes here were by car/van drivers, but many of these could potentially switch to cycling, if sufficient investment was made into safe, convenient cycle routes. 
+
+```{r go-active, fig.cap = "Commutes by mode and distance from Dickens Heath, baseline (above) and Go Active (below) scenarios"}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")
 knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png")
 knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png")
