@@ -284,8 +284,8 @@ We expect to see a strong relationship between the distance travelled to work an
 For the vicinity of each site, we used the 2011 Census data to calculate the median commute distance.
 This ranges from 1.7 km at Taunton Firepool to 16.0 km at Culm Garden Village, with a mean of 7.9 km.
 
-Combining the commute modes and distances, and using a standardised set of distance bands, we can further interrogate the travel to work data, as seen in Figure \@ref(fig:baseline). 
-In this figure we compare commutes at Great Kneighton with those at Chapelford.
+Combining the commute modes and distances, and using a standardised set of distance bands, we can further interrogate the travel to work data, as seen in the figure below. 
+In this figure we compare commutes at Great Kneighton (above) with those at Chapelford (below).
 We can see that walking and cycling mostly occurs in the shorter distance bands. At Chapelford the median commute distance is higher than at Great Kneighton, and active modes also comprise a smaller proportion of the short journeys.
 
 ```{r baseline}
@@ -353,7 +353,7 @@ The greatest proportional increase in cycling, from the Baseline to the Go Activ
 The mean proportional increase in cycling across all sites is 700%.
 
 
-Figure \@ref(fig:go-active) shows the Baseline and Go Active scenarios for Dickens Heath. We can see that in 2011, 82% of commutes here were by car/van drivers, but many of these could potentially switch to cycling, if sufficient investment was made into safe, convenient cycle routes. 
+The following figure shows the Baseline (above) and Go Active (below) scenarios for Dickens Heath. We can see that in 2011, 82% of commutes here were by car/van drivers, but many of these could potentially switch to cycling, if sufficient investment was made into safe, convenient cycle routes. 
 
 ```{r go-active}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")

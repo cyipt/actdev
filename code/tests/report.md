@@ -450,12 +450,12 @@ a mean of 7.9 km.
 
 Combining the commute modes and distances, and using a standardised set
 of distance bands, we can further interrogate the travel to work data,
-as seen in Figure <a href="#fig:baseline"><strong>??</strong></a>. In
-this figure we compare commutes at Great Kneighton with those at
-Chapelford. We can see that walking and cycling mostly occurs in the
-shorter distance bands. At Chapelford the median commute distance is
-higher than at Great Kneighton, and active modes also comprise a smaller
-proportion of the short journeys.
+as seen in the figure below. In this figure we compare commutes at Great
+Kneighton (above) with those at Chapelford (below). We can see that
+walking and cycling mostly occurs in the shorter distance bands. At
+Chapelford the median commute distance is higher than at Great
+Kneighton, and active modes also comprise a smaller proportion of the
+short journeys.
 
 ![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png)![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/chapelford/mode-split-base.png)
 
@@ -536,11 +536,11 @@ from the Baseline to the Go Active scenario, is at Dickens Heath, where
 cycling mode share increases 2000%, from 1% to 20%. The mean
 proportional increase in cycling across all sites is 700%.
 
-Figure <a href="#fig:go-active"><strong>??</strong></a> shows the
-Baseline and Go Active scenarios for Dickens Heath. We can see that in
-2011, 82% of commutes here were by car/van drivers, but many of these
-could potentially switch to cycling, if sufficient investment was made
-into safe, convenient cycle routes.
+The following figure shows the Baseline (above) and Go Active (below)
+scenarios for Dickens Heath. We can see that in 2011, 82% of commutes
+here were by car/van drivers, but many of these could potentially switch
+to cycling, if sufficient investment was made into safe, convenient
+cycle routes.
 
 ![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png)![](https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png)
 
