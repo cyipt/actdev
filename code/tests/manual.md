@@ -191,9 +191,9 @@ surrounding the site, divided up into concentric rings of 1, 3 and 6 km
 in radius, with the centrepoint in the centre of the site.
 
 The figure below shows the busyness of the roads in the fast cycle route
-network, in zones around Great Kneighton, Cambridge.
+network, in zones around Handforth Garden Village.
 
-![](https://user-images.githubusercontent.com/361423/110861327-e48bf100-82b5-11eb-94f9-6d94f42ce806.png)
+![](https://user-images.githubusercontent.com/361423/110861560-3af92f80-82b6-11eb-9a49-1725cac32b23.png)
 
 ## 3.4 Journey times
 
