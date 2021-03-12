@@ -291,8 +291,10 @@ We can see that walking and cycling mostly occurs in the shorter distance bands.
 ```{r baseline}
 # knitr::include_graphics("https://user-images.githubusercontent.com/1825120/109196812-19675680-7794-11eb-88c6-05ed58365f6e.png")
 # https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png
-knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png")
-knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/chapelford/mode-split-base.png")
+knitr::include_graphics(c(
+  "https://raw.githubusercontent.com/cyipt/actdev/main/data-small/great-kneighton/mode-split-base.png", 
+  "https://raw.githubusercontent.com/cyipt/actdev/main/data-small/chapelford/mode-split-base.png"
+  ))
 ```
 
 <!-- Show route and route network maps for commutes only, with line width representing usage, and a single colour. -->
@@ -357,8 +359,9 @@ The following figure shows the Baseline (above) and Go Active (below) scenarios 
 
 ```{r go-active}
 # knitr::include_graphics("https://rstudio.robinlovelace.net/s/5c3af025296bd766026a1/files/actdev/data-small/allerton-bywater/mode-split-goactive.png")
-knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png")
-knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png")
+knitr::include_graphics(c(
+  "https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-base.png", 
+  "https://raw.githubusercontent.com/cyipt/actdev/main/data-small/dickens-heath/mode-split-goactive.png"))
 ```
 
 # Additional links and reading
