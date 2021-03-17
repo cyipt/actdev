@@ -27,16 +27,54 @@ Potential usership for actionable tools to assess whether new developments will 
 
 Reference Megan Streb's work if possible? (or mention the underlying themes)
 
+In the UK, transport and planning policy areas have typically been dealt with in isolation, despite the clear linkages between them.
+New housing development sites that are within walking and cycling distance of work, public transport links and other key trip attractors can help meet a range of policy objectives, not least the government's target of doubling cycling by 2025 and commitment to becoming zero carbon by 2050.
+
+We are at the interface between two major challenges: the pressing need for sustainable transport (which can tackle a range of issues from physical inactivity and obesity to air pollution)^[
+https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy-cwis-report-to-parliament
+] and affordable housing (ref).
+These needs are widely recognised, yet there are a lack of consistent methods to enable the integration of transport and planning.
+
+## The importance of time
+
+For any analysis of active travel potential to have genuine impact on both site location and design, it must occur at the earliest possible stage of the planning process, and feed into the selection of sites to be taken forward in the Local Plan.
+It is thus important that tools and methods for assessing active travel can be applied to any location, including sites that have not yet been built and locations where a planning application has not yet been made. 
+
+The creation of new infrastructure or services to support active travel must also happen at an early stage in site construction.  
+On an individual level, travel behaviours are most likely to change at the onset of major life events such as moving house or starting a new job (ref).
+It is thus important that the capacity for sustainable travel is built into new residential developments from as soon as the first homes are occupied, rather than being added on several years later.
+If new developments do not support walking, cycling and public transport from the outset, this risks baking in car dependency.
+It could also contribute towards inequality of access for the vulnerably housed/employed (ref)...
+
+However, it is also beneficial for methods to be applicable to existing sites.
+This can reveal how close active travel levels at a site are to their theoretical potential, and where there may be barriers or opportunities to improve walking and cycling access. 
+It could also enable the longitudinal use of these methods to assess changing conditions pre- and post-construction.
+
+## Expected users
+
+We anticipate that scalable methods to systematically assess the walking and cycling potential of new residential developments will be of interest to a wide range of stakeholders working at local, regional and national levels.
+This could include researchers, transport and planning officers, developers, advocates, and policy advisors.
+
+## Objectives
+
+The methods described here tackle four overarching objectives.
+Firstly, to improve our ability to analyse planning data relating to new residential developments at a national level. 
+Secondly, to assess the location of development sites in terms of existing and potential suitability for active travel.
+Thirdly, to identify potential barriers for walking and cycling in the area surrounding a site, and ways in which those barriers could be overcome.
+Fourthly, where possible, to assess the suitability for active travel of the internal layout of a site and its direct connectivity to surrounding neighbourhoods.
+
 # Methods
 
-Describe the prototype tool - adapt text from the report
+The methods described below are used in a [prototype web tool](https://actdev.cyipt.bike/) which is currently available for 35 case study sites across England.
+With further development, these methods could be applied nationwide.
 
 ## Selection of case study sites
 
 As case studies, we chose 35 large residential development sites.
-These were selected to represent a diverse range of types of development including urban extensions, urban regeneration schemes and new settlements such as proposed Garden Villages. 
+We focus on large sites, mainly with >1000 new homes.
+They were selected to represent a diverse range of types of development including urban extensions, urban regeneration schemes and new settlements such as proposed Garden Villages. 
 The majority of the sites have been profiled as part of two Transport for New Homes reports; the [Project Summary and Recommendations July 2018](https://www.transportfornewhomes.org.uk/wp-content/uploads/2018/07/transport-for-new-homes-summary-web.pdf) and [Garden Villages and Garden Towns: Visions and Reality](https://www.transportfornewhomes.org.uk/wp-content/uploads/2020/06/garden-village-visions.pdf), providing a wide range of background information. 
-In most of these sites construction currently remains in progress, while a small number were completed prior to 2021, and others had not yet reached the construction phase.
+In most of these sites construction remains in progress as of early 2021, while a small number were completed prior to 2021, and others had not yet reached the construction phase.
 
 ## Planning data
 
@@ -63,6 +101,8 @@ From this it was noted that many such applications included key words (such as �
 Subsequently a new set of rules was developed within PlanIt to extract the key words and a new ‘n_dwellings’ field. 
 These were then used as additional proxy indicators of development scale within the process for deriving the ‘app_size’ classification (specifically ‘n_dwellings’ more than 40 indicating ‘Large’ and more than 10 indicating ‘Medium’).
 
+## JTS and accessibility?
+
 ## Demographic and travel data
 
 In the UK, the best available travel information at high levels of geographic resolution is the 2011 Census travel to work origin-destination (OD) data, which formed a foundation of the analysis.
@@ -71,7 +111,7 @@ We used MSOA data to demonstrate the methods although higher resolution data cou
 
 Converting the OD data to desire lines, we used their Euclidean distances and number of journeys to demarcate a study area around each site. 
 The study area incorporated all desire lines with length <= 20 km where the number of journeys by foot, bicycle and car/van drivers met a threshold value. 
-The threshold value was set as the $t = n / 250$ where t is the threshold value and n is the number of dwellings when complete within the site.
+The threshold value was set as $t = d / 250$, where $t$ is the threshold value and $d$ is the number of dwellings the site will contain at completion.
 
 ## Disaggregation of OD data
 
@@ -98,12 +138,12 @@ We also combined the individual routes into a series of route networks.
 For cycle journeys to work, we used a set of algorithms created by [CycleStreets.net](https://www.cyclestreets.net/).
 Three routing options are available, representing fast, balanced and quiet routes.
 For the fast routes, journey times are minimised.
-For the quiet routes, a 'quietness' parameter is maximised, to avoid routes that follow busy roads.
+For the quiet routes, a parameter representing cycleability is maximised.
+This typically generates routes that avoid following busy roads.
 The balanced routes represent an intermediate between the fast and quiet approaches.  
-Factors assessed during the routing include road type, cycle path width and surface quality, barriers and obstructions, signage and route legibility, among others (https://www.cyclestreets.net/api/v1/journey/).
-The gradient of route segments is also taken into account.
+Factors contributing to the cycleability parameter include road type, cycle path width and surface quality, barriers and obstructions, signage and route legibility, and the gradient of route segments (https://www.cyclestreets.net/api/v1/journey/).
 
-It is useful to have these three different versions of the cycle routes, because this can reveal places where for example a direct road may link to a destination, but may be too busy for most people to consider cycling along it.
+It is useful to have these three different versions of the cycle routes, because this can reveal places where for example a direct road may link to a destination, but its cycleability may be too poor for most people to consider using it.
 If the 'quiet route' to a given destination is considerably longer than the 'fast route', it suggests that the introduction of dedicated cycle infrastructure along the line of the fast route would likely help to improve cycle accessibility.
 
 For journeys to work on foot, we used the [Open Source Routing Machine](http://project-osrm.org/) (OSRM) routing engine.
@@ -114,10 +154,8 @@ There is no data available on the number of journeys residents make to their nea
 Many of these journeys are likely to involve going to the town centre, either as a destination or as a means of accessing further travel.
 We therefore made a simple assumption that the number of journeys to the nearest town centre are equal to the total number of commuter journeys from a site.
 
-The generation of the routes allows estimation of parameters such as route length, duration, mean busyness, maximum busyness, mean gradient and maximum gradient. 
-The next step was to combine the routes into a route network.
-We produced separate route networks for walking routes, fast cycle routes, balanced cycle routes, and quiet cycle routes.
-With these we can see the total number of journeys on each road segment, which can be analysed alongside segment level data on road busyness and gradient. 
+The generation of the cycle routes allows estimation of route length, weighted mean cycleability of route segments, minimum route segment cycleability, weighted mean gradient of route segments, and maximum route segment gradient. 
+The generation of the walking routes allow estimation of route length and duration.
 
 ## Mode shift scenarios
 
@@ -125,43 +163,58 @@ For each site, we generated two scenarios, Baseline and Go Active, as illustrate
 The 2011 Census journey to work data represents baseline conditions. 
 For the Baseline scenario, we simply adjusted this data to represent the population, at completion, of the chosen residential development site, rather than the population of the MSOA(s) that the site lies within.
 For any given OD pair and mode: 
-Baseline trips = 2011 Census trips from local MSOA(s) / 2011 MSOA population(s) * Number of dwellings at completion * Mean household size
-The data for MSOA population(s) and mean household size both represent total population, rather than population of working age.
+
+$$T_b = T_m / P_m * d * hs$$
+where $T_b$ is the number of trips in the baseline scenario; $T_m$ is the number of trips from the MSOA(s) the site lies within, according to the 2011 Census; $P_m$ is the total population in 2011 of the MSOA(s) the site lies within; $d$ is the number of dwellings the site will contain at completion; and $hs$ is the mean UK household size.
 
 The Go Active scenario represents the potential for increased uptake of walking and cycling, in the presence of high quality infrastructure and sustained investment.
 We calculated this increased uptake purely in terms of a switch from car/van driving to walking or cycling.
 Other modes of travel such as bus and rail were kept constant, and no change was made to journeys that already took place by foot or bicycle in the Baseline scenario.
 We also assumed that the journey destinations and the total volume of travel remains the same as in the Baseline scenario.
 
-To generate the increased cycle uptake in Go Active, we used the 'Go Dutch' cycling uptake function from the [Propensity to Cycle Tool](https://www.pct.bike/).
+To generate the increased cycle uptake in Go Active, we used the 'Go Dutch' cycling uptake function from the [Propensity to Cycle Tool](https://www.pct.bike/) (Lovelace et al 2017).
 This represents the proportion of journeys that would be undertaken by bicycle if cycle mode share corresponded with average cycling levels in the Netherlands.
 This function controls for route length and hilliness.
 
 To generate the increased walking uptake in Go Active, we used a set of simple estimations.
 For journeys <= 2.0 km in length we assumed a walking mode share 30% above baseline levels; for journeys of 2.0 - 2.5 km length, walking mode share was increased by 20%; for 2.5 - 3.0 km by 10%; and for 3.0 - 6.0 km by 5%.
-In future work we plan to refine the uptake model, which is illustrated in Figure \@ref(fig:scenario-overview).
+The application of this uptake model nationwide is illustrated in Figure \@ref(fig:scenario-overview).
 
 ```{r scenario-overview, fig.cap="Overview of the uptake model underlying the Go Active scenario compared with the Baseline scenario which is based on data from the 2011 Census. The bands represent the range within which the majority of origin-destination pairs fall, from the 20th to the 80th percentile.", out.width="80%"}
 # knitr::include_graphics("https://raw.githubusercontent.com/cyipt/actdev/main/data-small/scenario-overview.png")
 knitr::include_graphics("../../data-small/scenario-overview.png")
 ```
 
+## Analysis of routes and route networks
+
+To calculate the total flows per mode along each route segment, we combined the routes into a route network, producing separate route networks for walking routes, fast cycle routes, balanced cycle routes, and quiet cycle routes.
+It is then possible to analyse these flows alongside other segment level data. 
+Using a clockface-style zoning system, we divided the surroundings of each site into a number of zones. 
+Within each zone, we calculated the mean cycleability of route segments from the fast, balanced and quiet cycle route networks, weighted by distance travelled.
+We also assessed the circuity of the walking and cycling routes, calculating mean circuity of routes passing through each zone, weighted by distance travelled within the zone.
+The zonal values generated can be overlaid on a map, together with the routes or route networks.
+
 ## Within-site metrics
 
 The measures discussed so far relate to journeys to work or to other destinations.
-The majority of the length of these journeys will take place outside the boundaries of any particular new residential development.
+The majority of the length of these journeys will take place outside the boundaries of any given new residential development.
 However we also wanted to investigate the internal layout of the sites themselves.
 In particular, the circuity of routes within a site can reveal features relating to the design of the site.
-The comparative circuity of routes by foot, by bicycle and by car can be assessed.
+Low circuity suggests direct routes and legible street patterns that are easy to navigate.
+The comparative circuity of routes by foot, by bicycle and by car can also be used as an index of filtered permeability (ref).
 
-To do this, we generated cycling, walking and driving routes for a set of journeys between 20 random points within each site.
-We routed these journeys using OSRM.
-Having obtained the sets of random points, we first generated the driving journeys, then reset the exact origin and destination points based on the results of this routing.
-This constrained the points to be on the road network itself, preventing cycle and walking route origins and destinations from spawning on footpaths.
+To assess in-site circuity, we created 20 pairs of random origin and destination points within each site.
+We generated driving routes for journeys between each pair of points, then reset the point locations based on the results of this routing.
+This constrained the points to be directly on the road network, preventing walking and cycle route origins and destinations from spawning on nearby footpaths.
+We then generated walking and cycle routes for journeys between each pair of points.
+For comparability, these journeys were all routed using OSRM.
+The mean circuity of the walking, cycle and driving routes in each site could then be calculated and compared to one another. 
+
+To assess the links across site boundaries, we also calculated the number of unique locations where walking and cycling routes crossed the boundary of each site. 
 
 # Results
 
-## Planning data
+## Analysis of planning data
 
 PlanIt Large applications nationwide
 
@@ -195,7 +248,7 @@ However, in most cases the census data is best seen as an indication of travel p
 
 Potential for change
 
-Zoned (and overall) route-based measures of circuity and cycleability / walkability 
+Zoned (and overall) route-based measures of circuity and cycleability. 
 
 LTN mapping?
 
@@ -215,7 +268,8 @@ Importance of time
 
 Additional analysis possible 
 - POIs
+- circuity using random points either side of site boundary
 
 # Conclusion
 
-open source
+importance of open source
