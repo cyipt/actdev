@@ -1,6 +1,6 @@
 ---
 title: "Methods to assess the active travel potential of new residential developments"
-author: "Joey Talbot"
+author: "Robin Lovelace, Joey Talbot, Martin Lucas-Smith, Simon Nuttall, Andrew Speakman, Patrick Johansson, Dustin Carlino and Nikee Groot"
 date: "16/03/2021"
 # output: pdf_document
 # output: bookdown::html_document2
