@@ -12,7 +12,7 @@ set.seed(42) # for deterministic builds
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 if(!exists("site_name")) { # assume all presets loaded if site_name exists
-  site_name = "tyersal-lane"   # which site to look at (can change)
+  site_name = "exeter-red-cow-village"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   max_length = 20000 # maximum length of desire lines in m
   household_size = 2.3 # mean UK household size at 2011 census
@@ -119,7 +119,7 @@ desire_lines_combined = desire_lines_combined %>%
     pwalk_base = foot/trimode_base,
     pcycle_base = bicycle/trimode_base,
     pdrive_base = car_driver/trimode_base
-    )
+  )
 desire_lines_combined[is.na(desire_lines_combined)] = 0
 
 desire_lines_combined = desire_lines_combined %>% 
@@ -140,7 +140,7 @@ desire_lines_rounded = desire_lines_combined %>%
   mutate(
     across(all_base:other, smart.round),
     trimode_base = walk_base + cycle_base + drive_base
-    ) %>% 
+  ) %>% 
   filter(trimode_base > 0)
 
 desire_lines_20km = desire_lines_rounded %>% 
@@ -168,90 +168,10 @@ desire_lines_many = desire_lines_many %>%
 # for future reference when creating the abstr scenarios
 saveRDS(desire_lines_many, file.path(path, "desire_lines_many.Rds"))
 
-if(!exists("disaggregate_desire_lines"))
+if(!exists("disaggregate_desire_lines")){
   disaggregate_desire_lines = FALSE
-
-if(disaggregate_desire_lines && nrow(desire_lines_many) < 20) {
-  zones_many = zones_msoa_national %>% filter(geo_code %in% desire_lines_many$geo_code2)
-  centroids_lsoa_national = pct::get_pct(layer = "c", national = TRUE)
-  zones_lsoa_national = pct::get_pct(layer = "z", national = TRUE)
-  centroids_lsoa_many = centroids_lsoa_national[zones_many, ]
-  zones_lsoa_many = centroids_lsoa_national %>% filter(geo_code %in% centroids_lsoa_many$geo_code)
-  desire_lines_many_min = desire_lines_many %>% select(geo_code1:drive_base) %>% sf::st_drop_geometry()
-  n_lines = max(nrow(desire_lines_many), 20) # minimum of 20 desire lines
-  p = sum(desire_lines_many_min$all_base) / n_lines
-  z = rbind(
-    zones_many %>% select(geo_code),
-    site %>% transmute(geo_code = site$site_name)
-  )
-  g = c(
-    sf::st_sample(zones_many, rep(20, nrow(zones_many))),
-    sf::st_sample(site, 20)
-    )
-  d = data.frame(id = paste0("i", 1:length(g)))
-  sp = sf::st_sf(d, g)
-  # mapview::mapview(sp) + mapview::mapview(z)
-  desire_lines_many_min$geo_code1 = site$site_name
-  trip_attractors = sf::read_sf(file.path(path, "trip_attractors.geojson"))
-  houses = sf::read_sf(file.path(path, "site_buildings.geojson"))
-  houses_in_site = houses[site, , op = sf::st_within]
-  
-  if(nrow(houses_in_site) == 0) {
-    message("No houses in site, sampling them.")
-    n_houses_to_generate = 20
-    new_house_centroids = sf::st_sample(site, size = n_houses_to_generate)
-    new_house_polys = stplanr::geo_buffer(new_house_centroids, dist = 8, nQuadSegs = 1)
-    plot(new_house_polys)
-    new_houses = sf::st_sf(
-      data.frame(osm_way_id = rep(NA, n_houses_to_generate), building = "residential"),
-      geometry = new_house_polys
-      )
-    houses = rbind(houses, new_houses)
-  } 
-  # mapview::mapview(houses) + mapview::mapview(site) # check houses in site
-  # mapview::mapview(houses_in_site) + mapview::mapview(site) # check houses in site
-  sz = rbind(trip_attractors, houses)
-  sz[[1]] = paste0("i", 1:nrow(sz))
-  zones_with_buildings = z[sz, ]
-  zones_without_buildings = z %>% filter(!geo_code %in% zones_with_buildings$geo_code)
-  n_without = nrow(zones_without_buildings)
-  if(n_without > 0) {
-    message("Randomly selecting destinations")
-    n_buildings_per_zone = rep(10, n_without)
-    p_sample = sf::st_sample(zones_without_buildings, n_buildings_per_zone)
-    d = sz %>% sf::st_drop_geometry() %>% sample_n(length(p_sample), replace = TRUE)
-    d$osm_way_id = paste0("synthetic", 1:length(p_sample))
-    b = sf::st_sf(d, geometry = stplanr::geo_buffer(p_sample, dist = 50))
-    sz = rbind(sz, b)
-  }
-  
-  # mapview::mapview(sz) + mapview::mapview(zones_with_buildings) +
-    # mapview::mapview(zones_without_buildings) +
-    # mapview::mapview(desire_lines_many)
-    # mapview::mapview(desire_lines_disag)
-  
-  # Route to random points:
-  # desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subpoints = sp, population_per_od = p)
-  # Route to buildings:
-  desire_lines_disag = od_disaggregate(od = desire_lines_many_min, z = z, subzones = sz, population_per_od = p)
-  
-  desire_lines_many = desire_lines_disag %>% 
-    mutate(
-      pwalk_base = walk_base/trimode_base,
-      pcycle_base = cycle_base/trimode_base,
-      pdrive_base = drive_base/trimode_base
-    ) 
-  desire_lines_many$length = stplanr::geo_length(desire_lines_many)
-  names(desire_lines_many)[1:2] = names(od_site)[1:2]
-  
-  # # sanity tests  
-  # sum(desire_lines_many$all_base) == sum(desire_lines_disag$all_base)
-  # sum(desire_lines_many$walk_base) == sum(desire_lines_disag$walk_base)
-  # library(tmap)
-  # tmap_mode("view")
-  # qtm(desire_lines_disag) + qtm(site)
-  
 }
+
 
 # Create routes and generate Go Dutch scenario ---------------------
 obj = desire_lines_many %>% select(-length)
@@ -307,7 +227,7 @@ routes_fast_summarised = routes_fast %>%
     trimode_base = mean(trimode_base),
     cycle_base = mean(cycle_base),
     cycle_godutch = mean(cycle_godutch)
-    )
+  )
 routes_fast_summarised = routes_fast_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
@@ -344,7 +264,7 @@ routes_balanced_summarised = routes_balanced %>%
     trimode_base = mean(trimode_base),
     cycle_base = mean(cycle_base),
     cycle_godutch = mean(cycle_godutch)
-    )
+  )
 routes_balanced_summarised = routes_balanced_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
@@ -380,7 +300,7 @@ routes_quiet_summarised = routes_quiet %>%
     trimode_base = mean(trimode_base),
     cycle_base = mean(cycle_base),
     cycle_godutch = mean(cycle_godutch)
-    )
+  )
 routes_quiet_summarised = routes_quiet_summarised %>% 
   mutate(cycle_godutch = smart.round(cycle_godutch))
 
@@ -469,7 +389,7 @@ fast_town = route_fast_town %>%
     max_busyness = max(busyness),
     pcycle_godutch = cycle_godutch / trimode_base,
     across(where(is.numeric), round, 6)
-    ) %>% 
+  ) %>% 
   select(site_name, town_name, all_base, trimode_base, cycle_base, cycle_godutch, distances, 
          # time, speed, 
          length, gradient_smooth, mean_gradient, max_gradient, busyness, mean_busyness, max_busyness, pcycle_godutch)
@@ -512,7 +432,7 @@ fast_town_cutdown = fast_town %>%
 routes_fast_combined = bind_rows(
   routes_fast_cutdown %>% mutate(purpose = "commute"),
   fast_town_cutdown %>% mutate(purpose = "town")
-  )
+)
 
 routes_fast_entire = routes_fast_combined %>% 
   group_by(geo_code1, geo_code2, purpose, length, mean_gradient, max_gradient, mean_busyness, max_busyness, all_base, trimode_base, cycle_base, cycle_godutch, pcycle_godutch) %>% 
@@ -695,7 +615,7 @@ desire_line_town = desire_line_town %>%
     pwalk_godutch = walk_godutch / trimode_base,
     pcycle_godutch = cycle_godutch / trimode_base
     
-    ) %>% 
+  ) %>% 
   rename(geo_code1 = site_name, geo_code2 = town_name) %>%
   select(geo_code1, geo_code2, purpose, all_base, trimode_base, walk_base, cycle_base, drive_base, length, walk_godutch, pwalk_godutch, cycle_godutch, pcycle_godutch)
 
@@ -707,9 +627,9 @@ desire_lines_final = bind_rows(
   mutate_if(is.numeric, round)
 
 if(any(grepl(pattern = "agg", x = names(desire_lines_final)))) {
- desire_lines_final = desire_lines_final %>% 
-   mutate(geo_code1 = o_agg, geo_code2 = d_agg) %>% 
-   select(-matches("agg"))
+  desire_lines_final = desire_lines_final %>% 
+    mutate(geo_code1 = o_agg, geo_code2 = d_agg) %>% 
+    select(-matches("agg"))
 }
 
 desire_lines_final$purpose[is.na(desire_lines_final$purpose)] = "commute"
@@ -728,7 +648,7 @@ desire_lines_final = desire_lines_final %>%
   mutate(
     trimode_base = walk_base + cycle_base + drive_base,
     drive_godutch = pmax(trimode_base - (cycle_godutch + walk_godutch), 0)
-    ) 
+  ) 
 
 
 # Sanity tests for scenarios ----------------------------------------------
