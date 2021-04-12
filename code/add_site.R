@@ -50,4 +50,4 @@ if(!exists("sites")) {
 #Merge new case study with existing case studies
 sites = rbind(sites,site)
 
-### Next steps: run build.r script
+### Next steps: Run build.r script and generate case study contents
