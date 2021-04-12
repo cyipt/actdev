@@ -2,7 +2,7 @@ library(tidyverse)
 library(sf)
 library(stplanr)
 
-# setwd("~/cyipt/actdev") # run this script from the actdev folder
+# Note: run this after running the first lines in the code/build.R script
 
 smart.round = function(x) {
   y = floor(x)
@@ -18,14 +18,15 @@ zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = 
 sf::st_crs(zones_msoa_national)
 st_precision(zones_msoa_national) = 1000000
 
-if(file.exists("od.Rds")) 
-  od = readRDS("od.Rds") else
-    od = pct::get_od()
-# saveRDS(od, "od.Rds")
-
+if(file.exists("od.Rds")) {
+  od = readRDS("od.Rds")
+  } else {
+  od = pct::get_od()
+  saveRDS(od, "od.Rds")
+}
 
 if(!exists("sites")) {
-  u = "https://github.com/cyipt/actdev/releases/download/0.1.1/all-sites.geojson"
+  u = "data-small/all-sites.geojson"
   sites = sf::st_read(u)
 }
 
@@ -44,6 +45,7 @@ msoa_pops = msoa_pops %>%
   select(geo_code1 = Code, msoa_population = "All Ages")
 
 # estimated site populations
+names(sites)
 site_pops = sites %>% 
   st_drop_geometry() %>% 
   mutate(site_population = dwellings_when_complete * household_size)
@@ -79,7 +81,12 @@ i = all_jts_tables[1]
 for(i in all_jts_tables){
   year = 2017
   f = paste0(i, "-", year, ".geojson")
-  if(! file.exists(f)) piggyback::pb_download(f, tag = "0.1.2")
+  if(! file.exists(f)) {
+    # piggyback::pb_download(f, tag = "0.1.2") # requires piggyback set-up
+    # piggyback::pb_download_url(f, tag = "0.1.2") # requires piggyback set-up
+    f_url = paste0("https://github.com/cyipt/actdev/releases/download/0.1.2/", f)
+    download.file(url = f_url, destfile = f)
+    }
   f2 = sf::read_sf(f)
   assign(i, f2)
   rm(f2)
