@@ -2,15 +2,12 @@
 
 ## Note: Run this file first 
 
-# Create new directory for case study
-dir.create("data-small/exeter-red-cow-village")
-
 # Download geojson polygon of case study area from http://geojson.io/ 
 ## Note: Ensure file is saved in the new working directory
-site = sf::read_sf("data-small/exeter-red-cow-village/exeter-red-cow-village.geojson") 
+# site = sf::read_sf("data-small/exeter-red-cow-village/exeter-red-cow-village.geojson") 
 
 #Create new site data.frame
-                                                        # TODO: should have these columns prepopulated
+# TODO: should have these columns prepopulated
 site$site_name = "exeter-red-cow-village"
 site$full_name = "Exeter Red Cow Village (Liveable Exeter)"
 site$main_local_authority = "Mid Devon"

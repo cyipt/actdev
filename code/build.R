@@ -8,25 +8,44 @@ household_size = 2.3 # mean UK household size at 2011 census
 min_flow_routes = 10 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
+new_site = TRUE
+data_dir = "data-small" # for test sites
 
 # If new site has been added use the rbind version of sites
-
 if(!exists("sites")){
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
-
 source("code/build-setup.R") # national data
 
-# build aggregate scenarios ----------------------------------------------
-# site_names_to_build = "kidbrooke-village"
-set.seed(2021) # reproducibility
-site_names_to_build = sites %>% 
-  filter(str_detect(string = site_name, pattern = "exeter-red-cow-village"))
-  # filter(str_detect(string = site_name, pattern = "kneighton|allert|pound")) %>%
-  #pull(site_name)
+if(new_site) {
+  # read-in new site that must have the following fields (NAs allowed):
+  # dwellings_when_complete, site_name and full_name are necessary
+  # [1] "site_name"               "full_name"               "main_local_authority"   
+  # [4] "is_complete"             "dwellings_when_complete" "planning_url"           
+  # [7] "geometry"  
+  site = sf::read_sf("new_site.geojson")
+  site_names_to_build = site$site_name
+  path = file.path(data_dir, site_names_to_build)
+  dir.create(path)
+  new_cols = sf::st_drop_geometry(sites[1, ])
+  new_cols = new_cols[setdiff(names(sites), names(site))]
+  new_cols[] = NA
+  sites = rbind(
+    sites,
+    sf::st_sf(
+      cbind(sf::st_drop_geometry(site), new_cols),
+      geometry = site$geometry
+      )
+  )
+} else {
+  site_names_to_build = sites %>% 
+    filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))
+}
 
-data_dir = "data-small" # for test sites
-disaggregate_desire_lines = TRUE
+# build aggregate scenarios ----------------------------------------------
+set.seed(2021) # reproducibility
+disaggregate_desire_lines = FALSE
+
 for(site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({

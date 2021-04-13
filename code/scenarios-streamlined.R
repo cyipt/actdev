@@ -6,14 +6,13 @@ library(stplanr)
 remotes::install_github("itsleeds/od")
 library(od)
 
-set.seed(42) # for deterministic builds
-
 # set-up and parameters ---------------------------------------------------
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
 if(!exists("site_name")) { # assume all presets loaded if site_name exists
   site_name = "exeter-red-cow-village"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
+  path = file.path(data_dir, site_name)
   max_length = 20000 # maximum length of desire lines in m
   household_size = 2.3 # mean UK household size at 2011 census
   min_flow_routes = 10 # threshold above which OD pairs are included
@@ -35,13 +34,7 @@ min_flow_routes = mean(sites$dwellings_when_complete / 250)
 
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
-message("Building for ", site$site_name)
-
-path = file.path(data_dir, site_name)
-# dir.create(path = path)
-
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
-
 zones_touching_site$overlap_size = units::drop_units(st_area(zones_touching_site))
 zones_touching_site = zones_touching_site %>% 
   filter(overlap_size > 10000) %>% 
