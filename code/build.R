@@ -36,6 +36,16 @@ for(site_name in site_names_to_build) {
   })
 }
 
+# Add jts data ------------------------------------------------------------
+for(site_name in site_names_to_build) {
+  message("Building for ", site_name)
+  suppressMessages({
+    suppressWarnings({
+      source("code/add_jts.R")
+    })
+  })
+}
+
 # Add json files for abstreet ---------------------------------------------
 # should the build process add a background traffic scenario? (WIP)
 build_background_traffic = FALSE
