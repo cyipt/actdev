@@ -15,7 +15,6 @@ data_dir = "data-small" # for test sites
 if(!exists("sites")){
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
-source("code/build-setup.R") # national data
 
 if(new_site) {
   # read-in new site that must have the following fields (NAs allowed):
@@ -41,6 +40,8 @@ if(new_site) {
   site_names_to_build = sites %>% 
     filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))
 }
+
+source("code/build-setup.R") # national data
 
 # build aggregate scenarios ----------------------------------------------
 set.seed(2021) # reproducibility
