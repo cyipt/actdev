@@ -188,6 +188,7 @@ sf::write_sf(trip_attractors, dsn)
 # sites_df$n_origin_buildings = NA
 # sites_df$n_destination_buildings = NA
 sites_df = readr::read_csv("data-small/sites_df_abstr.csv")
+#error in merging rows for a new site
 sites_df$n_origin_buildings[j] = nrow(houses)
 sites_df$n_destination_buildings = nrow(buildings_in_zones)
 readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")

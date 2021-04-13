@@ -19,7 +19,9 @@ library(tmap)
 # setwd("~/cyipt/actdev/")
 
 if(!exists("site_name")) site_name = "great-kneighton"
-sites = sf::read_sf("data-small/all-sites.geojson")
+if(!exists("sites")){
+  sites = sf::read_sf("data-small/all-sites.geojson")
+}
 site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
 

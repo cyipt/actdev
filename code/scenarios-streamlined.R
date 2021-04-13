@@ -68,6 +68,7 @@ desire_lines_site = desire_lines_site %>%
 # for both MSOAs and development sites, these are entire populations, not commuter populations
 desire_lines_site = inner_join(desire_lines_site, msoa_pops)
 desire_lines_site = inner_join(desire_lines_site, site_pops)
+
 site_population = unique(desire_lines_site$site_population)
 unique_msoa_pops = desire_lines_site %>% 
   st_drop_geometry() %>% 

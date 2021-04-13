@@ -116,45 +116,45 @@ names(zones_db)
 summary(zones_db)
 
 # Cirquity walking --------------------------------------------------------
-# routes_walk
-# routes_walk$walk_base[routes_walk$walk_base == 0] = 1
-# routes_walk_joined = inner_join(
-#   routes_walk,
-#   desire_lines %>% sf::st_drop_geometry() %>% select(matches("geo_code"), length)
-# ) %>%
-#   mutate(circuity = distance / length)
-# mapview::mapview(routes_walk_joined["circuity"])
-# 
-# routes_walk_split = stplanr::line_breakup(l = routes_walk_joined, z = zones_concentric)
-# routes_walk_split$length_segment = stplanr::geo_length(routes_walk_split)
-# mapview::mapview(routes_walk_split["circuity"]) + zones_concentric
-# routes_walk_diversion = routes_walk_split %>%
-#   sf::st_centroid() %>%
-#   # idea: add total trips or godutch in Phase II
-#   mutate(walk_distance_base = walk_base * length_segment) %>%
-#   select(circuity, walk_distance_base)
-# 
-# zone_df_walk = sf::st_join(
-#   routes_walk_diversion,
-#   zones_concentric %>% select(label)
-# )
-# # plot(zone_df_walk)
-# mapview::mapview(zone_df_walk) + zones_concentric
-# 
-# zone_df_to_join = zone_df_walk %>%
-#   sf::st_drop_geometry() %>%
-#   group_by(label) %>%
-#   summarise(circuity_walk = weighted.mean(circuity, walk_distance_base))
-# 
-# # EXCLUDED WALKING ROUTES BECAUSE OF BUG THAT MEANS `ROUTES_WALK_JOINED` HAS NO CONTENTS
-# zones_db = left_join(zones_db, zone_df_to_join)
-# mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
+routes_walk
+routes_walk$walk_base[routes_walk$walk_base == 0] = 1
+routes_walk_joined = inner_join(
+  routes_walk,
+  desire_lines %>% sf::st_drop_geometry() %>% select(matches("geo_code"), length)
+) %>%
+  mutate(circuity = distance / length)
+mapview::mapview(routes_walk_joined["circuity"])
+#
+routes_walk_split = stplanr::line_breakup(l = routes_walk_joined, z = zones_concentric)
+routes_walk_split$length_segment = stplanr::geo_length(routes_walk_split)
+mapview::mapview(routes_walk_split["circuity"]) + zones_concentric
+routes_walk_diversion = routes_walk_split %>%
+  sf::st_centroid() %>%
+  # idea: add total trips or godutch in Phase II
+  mutate(walk_distance_base = walk_base * length_segment) %>%
+  select(circuity, walk_distance_base)
 
-# mapview::mapview(zones_db["busyness_cycle_base"]) +
-#   mapview::mapview(routes_fast_cents)
-# mapview::mapview(zones_db["busyness_cycle_dutch"])
-# mapview::mapview(zones_db["quietness_diversion"])
-# plot(zones_db[-c(1:3)])
+zone_df_walk = sf::st_join(
+  routes_walk_diversion,
+  zones_concentric %>% select(label)
+)
+plot(zone_df_walk)
+mapview::mapview(zone_df_walk) + zones_concentric
+
+zone_df_to_join = zone_df_walk %>%
+  sf::st_drop_geometry() %>%
+  group_by(label) %>%
+  summarise(circuity_walk = weighted.mean(circuity, walk_distance_base))
+
+# # EXCLUDED WALKING ROUTES BECAUSE OF BUG THAT MEANS `ROUTES_WALK_JOINED` HAS NO CONTENTS
+zones_db = left_join(zones_db, zone_df_to_join)
+mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
+
+mapview::mapview(zones_db["busyness_cycle_base"]) +
+  mapview::mapview(routes_fast_cents)
+mapview::mapview(zones_db["busyness_cycle_dutch"])
+mapview::mapview(zones_db["quietness_diversion"])
+#plot(zones_db[-c(1:3)])
 
 sf::st_precision(zones_db) = 10000
 zones_db = zones_db %>% 
