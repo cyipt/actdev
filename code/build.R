@@ -8,17 +8,24 @@ household_size = 2.3 # mean UK household size at 2011 census
 min_flow_routes = 10 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
-sites = sf::read_sf("data-small/all-sites.geojson")
+
+# If new site has been added use the rbind version of sites
+
+if(exists("sites")){
+  sites = sites
+} else {
+  sites = sf::read_sf("data-small/all-sites.geojson")
+}
+
 source("code/build-setup.R") # national data
 
 # build aggregate scenarios ----------------------------------------------
 # site_names_to_build = "kidbrooke-village"
 set.seed(2021) # reproducibility
 site_names_to_build = sites %>% 
-  # uncomment the following lines to omit of test for subset of sites
-  # filter(!str_detect(string = site_name, pattern = "tyersal")) %>%
+  filter(str_detect(string = site_name, pattern = "exeter-red-cow-village"))
   # filter(str_detect(string = site_name, pattern = "kneighton|allert|pound")) %>%
-  pull(site_name)
+  #pull(site_name)
 
 data_dir = "data-small" # for test sites
 disaggregate_desire_lines = TRUE

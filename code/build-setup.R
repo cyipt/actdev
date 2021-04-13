@@ -85,7 +85,7 @@ for(i in all_jts_tables){
     # piggyback::pb_download(f, tag = "0.1.2") # requires piggyback set-up
     # piggyback::pb_download_url(f, tag = "0.1.2") # requires piggyback set-up
     f_url = paste0("https://github.com/cyipt/actdev/releases/download/0.1.2/", f)
-    download.file(url = f_url, destfile = f)
+    download.file(url = f_url, destfile = f, mode = "wb")
     }
   f2 = sf::read_sf(f)
   assign(i, f2)
