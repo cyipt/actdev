@@ -171,7 +171,9 @@ saveRDS(desire_lines_many, file.path(path, "desire_lines_many.Rds"))
 if(!exists("disaggregate_desire_lines")){
   disaggregate_desire_lines = FALSE
 }
-
+if(disaggregate_desire_lines) {
+  source("code/disaggregate.R")
+}
 
 # Create routes and generate Go Dutch scenario ---------------------
 obj = desire_lines_many %>% select(-length)

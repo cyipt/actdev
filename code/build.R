@@ -11,9 +11,7 @@ large_area_buffer = 500
 
 # If new site has been added use the rbind version of sites
 
-if(exists("sites")){
-  sites = sites
-} else {
+if(!exists("sites")){
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
 
