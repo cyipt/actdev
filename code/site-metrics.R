@@ -19,7 +19,7 @@ library(sf)
 # 
 # sites = sf::read_sf("data-small/all-sites.geojson")
 # sites_join = inner_join(sites,sites_df %>% select(-dwellings_when_complete))
-sites_join = sf::read_sf("data-small/all-sites.geojson")
+sites_join = sites
 
 #get msoas nationally
 zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = "z")
@@ -234,4 +234,4 @@ file.remove("data-small/all-sites.geojson")
 file.remove("all-sites.geojson")
 sf::write_sf(sites_join,"data-small/all-sites.geojson")
 sf::write_sf(sites_join,"all-sites.geojson")
-piggyback::pb_upload("all-sites.geojson", tag = "0.1.1")
+#piggyback::pb_upload("all-sites.geojson", tag = "0.1.1")

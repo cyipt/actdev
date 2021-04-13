@@ -126,6 +126,13 @@ for(site_name in site_names_to_build) {
   })
 }
 
+
+# Populate site metrics for new site --------------------------------------
+
+if(new_site){
+  source("code/site-metrics.R")
+}
+
 # Update site.geojson files -----------------------------------------------
 
 all_sites = sf::read_sf("data-small/all-sites.geojson")
