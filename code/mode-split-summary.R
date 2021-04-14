@@ -154,6 +154,8 @@ if (new_site = TRUE) {
   mode_share_sites_baseline$other_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$other_base)
 }
 
+mode_share_sites_baseline = arrange(mode_share_sites_baseline,site_name)
+
 file.remove(mode_share_site_path_baseline)
 readr::write_csv(mode_share_sites_baseline,mode_share_site_path_baseline)
 
@@ -171,6 +173,8 @@ if (new_site = TRUE) {
   mode_share_sites_goactive$drive_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$drive_goactive)
   mode_share_sites_goactive$other_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$other_goactive)
 }
+
+mode_share_sites_goactive = arrange(mode_share_sites_goactive,site_name)
 
 file.remove(mode_share_site_path_goactive)
 readr::write_csv(mode_share_sites_goactive,mode_share_site_path_goactive)
