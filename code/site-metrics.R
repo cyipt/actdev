@@ -228,10 +228,13 @@ sites_join$planning_url[sites_join$site_name == "wynyard"] = "https://www.develo
 sites_join$planning_url[sites_join$site_name == "taunton-firepool"] = "https://www3.somersetwestandtaunton.gov.uk/asp/webpages/plan/PlAppDets.asp?casefullref=38/99/0394"
 sites_join$planning_url[sites_join$site_name == "taunton-garden"] = "https://www3.somersetwestandtaunton.gov.uk/asp/webpages/plan/PlAppDets.asp?casefullref=48/05/0072"
 sites_join$planning_url[sites_join$site_name == "great-kneighton"] =  "https://applications.greatercambridgeplanning.org/online-applications/applicationDetails.do?activeTab=documents&keyVal=JJ9E18DX03Q00"
-  
+
+sites_join = arrange(sites_join,site_name)  
 
 file.remove("data-small/all-sites.geojson")
 file.remove("all-sites.geojson")
+file.remove("data-small/all-sites.csv")
+write_csv(sites_join, "data-small/all-sites.csv")
 sf::write_sf(sites_join,"data-small/all-sites.geojson")
 sf::write_sf(sites_join,"all-sites.geojson")
 #piggyback::pb_upload("all-sites.geojson", tag = "0.1.1")
