@@ -4,7 +4,7 @@ library(tidyverse)
 library(ggplot2)
 library(sf)
 
-if(!exists("site_name")) site_name = "great-kneighton"
+if(!exists("site_name")) site_name = "wynyard"
 
 path = file.path("data-small", site_name)
 all_od = read_csv(file.path(path, "all-census-od.csv"))
