@@ -1,5 +1,5 @@
 library(tidyverse)
-remotes::install_github("zonebuilders/zonebuilder") 
+# remotes::install_github("zonebuilders/zonebuilder") 
 list.files("data-small")
 if(!exists("site_name")) site_name = "great-kneighton"
 sites = sf::read_sf("data-small/all-sites.geojson")

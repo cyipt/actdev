@@ -143,7 +143,7 @@ readr::write_csv(mode_split_all, file = dsn)
 mode_share_site_path_baseline = file.path("data-small/mode-share-sites-baseline.csv")
 mode_share_sites_baseline = read.csv(mode_share_site_path_baseline)
 
-if (new_site = TRUE) {
+if (new_site) {
   new_mode_share = data.frame(site_name,sum(mode_split_all$walk_base),sum(mode_split_all$cycle_base),sum(mode_split_all$drive_base),sum(mode_split_all$other_base))
   names(new_mode_share) <- c("site_name","walk_base","cycle_base","drive_base","other_base")
   mode_share_sites_baseline = rbind(mode_share_sites_baseline,new_mode_share)
@@ -163,7 +163,7 @@ readr::write_csv(mode_share_sites_baseline,mode_share_site_path_baseline)
 mode_share_site_path_goactive = file.path("data-small/mode-share-sites-goactive.csv")
 mode_share_sites_goactive = read.csv(mode_share_site_path_goactive)
 
-if (new_site = TRUE) {
+if (new_site) {
   new_mode_share_active = data.frame("northwick-park",sum(mode_split_all$walk_goactive),sum(mode_split_all$cycle_goactive),sum(mode_split_all$drive_goactive),sum(mode_split_all$other_goactive))
   names(new_mode_share_active) <- c("site_name","walk_active","cycle_active","drive_active","other_active")
   mode_share_sites_goactive = rbind(mode_share_sites_goactive,new_mode_share_active)

@@ -13,11 +13,6 @@ if(!exists("site_name")) { # assume all presets loaded if site_name exists
   site_name = "exeter-red-cow-village"   # which site to look at (can change)
   data_dir = "data-small" # for test sites
   path = file.path(data_dir, site_name)
-  max_length = 20000 # maximum length of desire lines in m
-  household_size = 2.3 # mean UK household size at 2011 census
-  min_flow_routes = 10 # threshold above which OD pairs are included
-  region_buffer_dist = 2000
-  large_area_buffer = 500
 }
 
 if(!exists("centroids_msoa")) {
@@ -30,8 +25,10 @@ summary(sites$dwellings_when_complete)
 summary(sites$dwellings_when_complete) # 2500
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 270    1291    2280    2680    4200    6900 
-min_flow_routes = mean(sites$dwellings_when_complete / 250)
-
+if(!exists("min_flow_routes")) {
+  min_flow_routes = mean(sites$dwellings_when_complete / 500)
+}
+  
 # Select site of interest -------------------------------------------------
 site = sites[sites$site_name == site_name, ]
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
@@ -148,7 +145,10 @@ desire_lines_bounding = desire_lines_20km %>%
 
 # Large study area MSOAs --------------------------------------------------
 large_study_area = sf::st_convex_hull(sf::st_union(desire_lines_bounding))
-large_study_area = stplanr::geo_buffer(large_study_area, dist = large_area_buffer)
+large_study_area = large_study_area %>% 
+  sf::st_transform(27700) %>%  # use local projected CRS
+  sf::st_buffer(dist = large_area_buffer) %>% 
+  sf::st_transform(4326)
 
 dsn = file.path(data_dir, site_name, "large-study-area.geojson")
 if(file.exists(dsn)) file.remove(dsn)
