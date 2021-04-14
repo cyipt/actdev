@@ -132,20 +132,36 @@ Nearly there! Finally we need to specify a co-ordinate reference system. To do t
 
 If it does, great, hover over the save button on the left hand side of [GeoJSON.io](http://geojson.io/) and click on the ```GeoJSON``` option. 
 
-Once your file is downloaded, please refer back to the schema to ensure the file is following the specification. If everything looks good, move the file to the ActDev folder on your local machine.
+Once your file is downloaded, please refer back to the schema to ensure the file is following the specification.
 
 
 ### Step 2) Cloning the ActDev project
 
-The [https://github.com/cyipt/actdev](ActDev) repository obtains all of the files necessary to add a new site. If you don't have R or R-Studio installed on your machine,  before proceeding. 
+The [ActDev](https://github.com/cyipt/actdev) repository obtains all of the scripts and datasets necessary to add a new site. There are various ways to clone the [repository](https://github.com/cyipt/actdev):
 
-You can download the [https://github.com/cyipt/actdev](repository) by either clicking the green ```code``` button or by running ```gh repo clone cyipt/actdev``` in your terminal or command prompt. When the project is download, open it up and navigate yourself to the ```build.r``` file.
+- git terminal
+
+```bash
+git clone https://github.com/cyipt/actdev.git
+```
+
+- GitHub Desktop
+
+![](github-desktop.png)
+
+Once downloaded, open the ActDev R-Studio project on your machine and navigate to the ```build.r``` file. Now, go ahead and move your downloaded GeoJSON file to the ```actdev``` folder.
+
+![](r-studio-act-dev.png)
+
+### Step 3) Running analysis 
+
+ActDev works through an ecosystem of R-Scripts that are respectively run through the ```build.r``` file.
 
 
-### Step 3) Running analysis
+Lets begin by running the first section of code. In this code chunk the build script loads the required libraries needed for analysis and initiates set up variables for the build. 
 
-To start the analysis run the following section of code, but ensure you change line 25 to the name of your GeoJSON file.
-
+<details>
+<summary> <b>First code chunk</b> </summary>
 ```r
 # Aim: create geojson data for ui for all sites
 
@@ -159,12 +175,28 @@ region_buffer_dist = 2000
 large_area_buffer = 500
 new_site = TRUE
 data_dir = "data-small" # for test sites
+```
+</details>
+</br>
+Next the build.r script loads all existing sites in the ActDev project.
 
+<details>
+<summary> <b>Second code chunk</b> </summary>
+```r
 # If new site has been added use the rbind version of sites
 if(!exists("sites")){
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
+```
+</details>
+</br>
+Now its time to load in the newsite GeoJSON file. This chunk of code will load the GeoJSON file, transform it to include all columns needed for analysis, and then merge it with the existing data frame of sites. 
 
+*Make sure to change* ```site = sf::read_sf("new_site.geojson")``` *to your filename* 
+
+<details>
+<summary> <b>Third code chunk</b> </summary>
+```r
 if(new_site) {
   # read-in new site that must have the following fields (NAs allowed):
   # dwellings_when_complete, site_name and full_name are necessary
@@ -189,13 +221,23 @@ if(new_site) {
   site_names_to_build = sites %>% 
     filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))
 }
+```
+</details>
+</br>
+After completion, you should be able to see your new site at the bottom of the ```sites``` data object.
+Before you are able to run the analysis you will need to run the ```build-setup.r``` script, this will load all of the neccesary datasets, libraries and variables needed to run the analysis. This will take a few minutes.
 
+<details>
+<summary> <b>Fourth code chunk</b> </summary>
+```r
 source("code/build-setup.R") # national data
 ```
+</deatils>
+</br>
+Following this, the analysis begins. To start with run the following chunks to create commute OD desire lines for the site and  calculate journey time statistics for the site and its neighboring LSOAs. This should take a minute or so.
 
-This section will create a new dataframe for the new site and merge it with the existing sites. Following this, it will download all of the datasets required for analysis. This might take a few minutes.
-
-Once this is done, you can run the following code segments. These scripts allow for OD desire lines to be generated and to calculate journey time statsitics for the site and its neighbouring LSOAs. This should take a minute or so.
+<details>
+<summary> <b>Fifth code chunk</b> </summary>
 ```r
 # build aggregate scenarios ----------------------------------------------
 set.seed(2021) # reproducibility
@@ -220,8 +262,9 @@ for(site_name in site_names_to_build) {
   })
 }
 ```
-
-After completion, you are ready to run the next batch of scripts. However, do not run 
+</details>
+</br>
+After completion, you are ready to run the next batch of scripts. However, **do not run** 
 
 ```r
 # Add json files for abstreet ---------------------------------------------
@@ -243,6 +286,8 @@ as this has not been configured for new sites yet.
 
 The next batch of scripts to run are the following:
 
+<details>
+<summary> <b>Sixth code chunk</b> </summary>
 ```r
 # Generate 'clockboard' data ----------------------------------------------
 
@@ -297,8 +342,15 @@ if(new_site){
   source("code/site-metrics.R")
 }
 ```
+</details>
+</br>
+Tada! Analysis complete!. 
 
-Upon completion all of the neccesary scripts will have run. In your global environment you should find an object called ```sites_join``` which contains your new site and the respective emperical data from the scripts. You should also see a new folder in ```actdev/data-small``` with your sites name, this folder should contain 31 items. 
+In your global environment you should find an object called ```sites_join``` which contains all new sites, including  your new site. The table should be populated with the respective empirical data from the analysis. 
 
-With this complete, you are ready to create a PR.
+You should also see a new folder in ```actdev/data-small``` with your sites name, this folder should contain 31 items. 
+
+### Step 3) Create pull request
+
+
 
