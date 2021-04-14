@@ -4,7 +4,7 @@
 #### Tutorial time: 10 minutes
 #### Tutorial difficulty: Easy
 
-## Section 1 Introduction 
+# Section 1 Introduction 
 
 ActDev is an emperical based web and data tool to enable planners, researchers and the general public to easily calculate active travel provision and potential. The project aims to boost local walking and cycling levels while preventing car dependency. Adding a new site to ActDev is truly very simple, even for those without coding experience. The following tutorial outlines each step in order to add a new site to the project using R and R-Studio, however, if the mere sight of code and a terminal petrify you, please create an [https://github.com/cyipt/actdev/issues](issue) on our Github and one of our maintainers will happily assist you.
 
@@ -37,7 +37,7 @@ The ActDev tools is for **everyone**. ActDev is open source and has a small comm
 - The inquisitive general public who wish to know more about a housing development, possibly before purchase
 
 
-## Section 2 Adding a new site
+# Section 2 Adding a new site
 
 ### 2.1 Outlining a new site with GeoJSON
 
@@ -153,7 +153,7 @@ Once downloaded, open the ActDev R-Studio project on your machine and navigate t
 
 ![](r-studio-act-dev.png)
 
-### Step 3) Running analysis 
+# Step 3) Run analysis 
 
 ActDev works through an ecosystem of R-Scripts that are respectively run through the ```build.r``` file.
 
@@ -232,7 +232,7 @@ Before you are able to run the analysis you will need to run the ```build-setup.
 ```r
 source("code/build-setup.R") # national data
 ```
-</deatils>
+</details>
 </br>
 Following this, the analysis begins. To start with run the following chunks to create commute OD desire lines for the site and  calculate journey time statistics for the site and its neighboring LSOAs. This should take a minute or so.
 
@@ -284,7 +284,7 @@ for(site_name in site_names_to_build) {
 
 as this has not been configured for new sites yet.
 
-The next batch of scripts to run are the following:
+The next batch of scripts to run create zones, infographics, mode-split summary statistics and site metrics for your new site.
 
 <details>
 <summary> <b>Sixth code chunk</b> </summary>
@@ -352,5 +352,8 @@ You should also see a new folder in ```actdev/data-small``` with your sites name
 
 ### Step 3) Create pull request
 
+Given everything has run smoothly, you can now submit a pull-request to add the site to the ActDev project. Using either the git terminal or GitHub Desktop push your changes.
 
+Once pushed, return back to the [https://github.com/cyipt/actdev/issues](ActDev GitHub) where you should see a **Create Pull Request** button.  
 
+# Section 5 Final remarks 
