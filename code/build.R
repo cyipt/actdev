@@ -136,6 +136,7 @@ if(new_site){
 # Update site.geojson files -----------------------------------------------
 
 all_sites = sf::read_sf("data-small/all-sites.geojson")
+
 for(site_name in site_names_to_build) {
   message("Building for ", site_name)
   f = file.path("data-small", site_name, "site.geojson")
