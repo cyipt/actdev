@@ -4,7 +4,7 @@ library(tidyverse)
 library(ggplot2)
 library(sf)
 
-if(!exists("site_name")) site_name = "wynyard"
+if(!exists("site_name")) site_name = "great-kneighton"
 
 path = file.path("data-small", site_name)
 all_od = read_csv(file.path(path, "all-census-od.csv"))
@@ -138,25 +138,40 @@ file.remove(dsn)
 readr::write_csv(mode_split_all, file = dsn)
 
 # Update aggregate mode-split data for new site
-#baseline
+
+#baseline scenario
 mode_share_site_path_baseline = file.path("data-small/mode-share-sites-baseline.csv")
 mode_share_sites_baseline = read.csv(mode_share_site_path_baseline)
 
-mode_share_sites_baseline$walk_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$walk_base)
-mode_share_sites_baseline$cycle_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$cycle_base)
-mode_share_sites_baseline$drive_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$drive_base)
-mode_share_sites_baseline$other_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$other_base)
+if (new_site = TRUE) {
+  new_mode_share = data.frame(site_name,sum(mode_split_all$walk_base),sum(mode_split_all$cycle_base),sum(mode_split_all$drive_base),sum(mode_split_all$other_base))
+  names(new_mode_share) <- c("site_name","walk_base","cycle_base","drive_base","other_base")
+  mode_share_sites_baseline = rbind(mode_share_sites_baseline,new_mode_share)
+} else {
+  mode_share_sites_baseline$walk_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$walk_base)
+  mode_share_sites_baseline$cycle_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$cycle_base)
+  mode_share_sites_baseline$drive_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$drive_base)
+  mode_share_sites_baseline$other_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$other_base)
+}
+
 file.remove(mode_share_site_path_baseline)
 readr::write_csv(mode_share_sites_baseline,mode_share_site_path_baseline)
 
-#go active
+#go active scenario
 mode_share_site_path_goactive = file.path("data-small/mode-share-sites-goactive.csv")
 mode_share_sites_goactive = read.csv(mode_share_site_path_goactive)
 
-mode_share_sites_goactive$walk_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$walk_goactive)
-mode_share_sites_goactive$cycle_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$cycle_goactive)
-mode_share_sites_goactive$drive_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$drive_goactive)
-mode_share_sites_goactive$other_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$other_goactive)
+if (new_site = TRUE) {
+  new_mode_share_active = data.frame("northwick-park",sum(mode_split_all$walk_goactive),sum(mode_split_all$cycle_goactive),sum(mode_split_all$drive_goactive),sum(mode_split_all$other_goactive))
+  names(new_mode_share_active) <- c("site_name","walk_active","cycle_active","drive_active","other_active")
+  mode_share_sites_goactive = rbind(mode_share_sites_goactive,new_mode_share_active)
+} else {
+  mode_share_sites_goactive$walk_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$walk_goactive)
+  mode_share_sites_goactive$cycle_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$cycle_goactive)
+  mode_share_sites_goactive$drive_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$drive_goactive)
+  mode_share_sites_goactive$other_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$other_goactive)
+}
+
 file.remove(mode_share_site_path_goactive)
 readr::write_csv(mode_share_sites_goactive,mode_share_site_path_goactive)
 
