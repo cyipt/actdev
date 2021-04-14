@@ -1,36 +1,52 @@
+<title> Adding a new site to ActDev </title>
+
 # Adding a new site to ActDev
+#### Tutorial time: 10 minutes
+#### Tutorial difficulty: Easy
 
-## Begingings
+## Section 1 Introduction 
 
-What does a sustainable housing development look like? How can we ensure new housing developments cultivate an active travel culutre and prevent car dependency? 
-These are important questions, which will fundamentally impact the decarbonisation ambitions of global governments, while also fostering a healthy and economically resilient local community.  A new housing development can be regarded as sustainable only when these questions are considered and empirically measured. The aim of the ActDev project is to provide evidence on active travel provision and potential in and around planned and proposed development sites. The project started due to a lack of empirically based tools currently existing for active travel performance for new developments. 
-
-This tutorial will provide an overview on how to add a new site to the ActDev project.
+ActDev is an emperical based web and data tool to enable planners, researchers and the general public to easily calculate active travel provision and potential. The project aims to boost local walking and cycling levels while preventing car dependency. Adding a new site to ActDev is truly very simple, even for those without coding experience. The following tutorial outlines each step in order to add a new site to the project using R and R-Studio, however, if the mere sight of code and a terminal petrify you, please create an [https://github.com/cyipt/actdev/issues](issue) on our Github and one of our maintainers will happily assist you.
 
 
-## Who is the tool for? 
+## 1.1 Learning outcomes:
 
-The ActDev tools is for *everyone*. ActDev is and always will be open source and has a small community of researchers and developers who maintain it regularly. The ActDev web tool is built for, but not limited to:
+By the end of this tutorial you should be able to:
+
+- Understand how the ActDev data science Tool functions
+- Load and undertake analysis for a new housing site
+- Submit a pull request to add the new site to the [https://actdev.cyipt.bike/](ActDev web tool)
+
+
+## 1.2 Prerequisites:
+
+Before continuing with this tutorial, please ensure you have the following:
+
+- A [https://github.com/](GitHub) account
+- R and R-Studio installed on your local machine
+
+*If you are new to R, please follow this [https://rstudio-education.github.io/hopr/starting.html](tutorial)*
+
+
+## 1.3 Who is the tool for? 
+
+The ActDev tools is for **everyone**. ActDev is open source and has a small community of researchers and programmers who maintain it regularly. The ActDev web tool is built for, but not limited to:
 
 - Planners who are working on new housing developments
 - Local governments who are interested in the active transport provision of their constituency
 - The inquisitive general public who wish to know more about a housing development, possibly before purchase
 
 
-## Adding a new site
+## Section 2 Adding a new site
 
-Ok, lets get started. Adding a new site to ActDev is truly very simple, even for those without coding experience. The following tutorial outlines each step in order to add a new site to the project using R and R-Studio, however, if the mere sight of code and a terminal petrify you, please contact one of our developers who will happily add the site for you.
+### 2.1 Outlining a new site with GeoJSON
 
-### Step 1) Create a new site GeoJSON
 For those unfamiliar with GeoJSON, it is simply an open standard format which represents simple geographical features and their non-spatial attributes. The ActDev project makes use of GeoJSON in order to automate analysis and visualization. 
 
-To kick things off go to [GeoJSON.io](http://geojson.io/) and create a polygon of your site. Once done, it should something like below.
+In order to add a new site to ActDev, a GeoJSON file matching the ActDev schema is needed. By definition, the ActDev schema is composed of three core elements: ```co-ordinate reference system```,```non-spatial features``` and ```geometry```. An example of the ActDev schema can be found below:
 
-![polygon of new site](site-geojson.png)
-
-The ActDev project specifies a certain GeoJSON schema which must be complied with. An example of this schema is bellow.  
-
-**ActDev new site Schema**
+<details>
+<summary> <b>Example of ActDev GeoJSON Schema</b> </summary>
 
 ```json
 {
@@ -90,7 +106,15 @@ The ActDev project specifies a certain GeoJSON schema which must be complied wit
 }
 ```
 
-As we can see, the schema differs from what you see in the code editor with [GeoJSON.io](http://geojson.io/). However we can easily change this. First we need to add the the non-spatial attributes to the properties feature in the GeoJSON . These include:
+</details>
+</br>
+
+To kick things off, go to [GeoJSON.io](http://geojson.io/) and create a polygon of your site.
+
+![](geojson-polygon.gif)
+
+
+Awesome, we now have the geometry for our site. Next we should add the non-spatial attributes to the properties feature in the GeoJSON. We can do this using the [GeoJSON.io](http://geojson.io/) editor on the right hand side. The non-spatial attributes we need to add are:
 
 - ```site_name``` (name of the site in lowercase, using - as spaces)
 - ```full_name``` (full name of the site)
@@ -99,12 +123,12 @@ As we can see, the schema differs from what you see in the code editor with [Geo
 - ```dwellings_when_complete``` (total number of dwellings once the site is complete)
 - ```planning_url``` (link to the planning url of the site)
 
+![](geojson-features.gif)
 
-Once you have done this, your [GeoJSON.io](http://geojson.io/) editor should look something like this:
-![polygon of new site with properties](site-geojson-properties.png)
 
-Finally, you need to specify a co-ordinate reference system. To do this, you can copy the nine lines of the schema and place it at the top of your file just before ```"features": [``` . Once this is done your editor should look something like this:
-![polygon of new site with properties](site-geojson-coords.png)
+Nearly there! Finally we need to specify a co-ordinate reference system. To do this, you can copy the first nine lines from the schema and paste it at the top of your file just before ```"features": [``` . Once this is done your editor should look something like this:
+
+![](site-geojson-coords.png)
 
 If it does, great, hover over the save button on the left hand side of [GeoJSON.io](http://geojson.io/) and click on the ```GeoJSON``` option. 
 
@@ -113,7 +137,7 @@ Once your file is downloaded, please refer back to the schema to ensure the file
 
 ### Step 2) Cloning the ActDev project
 
-The [https://github.com/cyipt/actdev](ActDev) repository obtains all of the files necessary to add a new site. If you don't have R or R-Studio installed on your machine, please follow this [https://rstudio-education.github.io/hopr/starting.html(tutorial) before proceeding. 
+The [https://github.com/cyipt/actdev](ActDev) repository obtains all of the files necessary to add a new site. If you don't have R or R-Studio installed on your machine,  before proceeding. 
 
 You can download the [https://github.com/cyipt/actdev](repository) by either clicking the green ```code``` button or by running ```gh repo clone cyipt/actdev``` in your terminal or command prompt. When the project is download, open it up and navigate yourself to the ```build.r``` file.
 
