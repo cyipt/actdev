@@ -1,10 +1,5 @@
 library(tidyverse)
 # remotes::install_github("zonebuilders/zonebuilder") 
-list.files("data-small")
-if(!exists("site_name")) site_name = "great-kneighton"
-sites = sf::read_sf("data-small/all-sites.geojson")
-site = sites[sites$site_name == site_name, ]
-path = file.path("data-small", site_name)
 
 # input data: we should probably have naming conventions for these
 list.files(path)
@@ -150,11 +145,11 @@ zone_df_to_join = zone_df_walk %>%
 zones_db = left_join(zones_db, zone_df_to_join)
 mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
 
-mapview::mapview(zones_db["busyness_cycle_base"]) +
-  mapview::mapview(routes_fast_cents)
-mapview::mapview(zones_db["busyness_cycle_dutch"])
-mapview::mapview(zones_db["quietness_diversion"])
-#plot(zones_db[-c(1:3)])
+# mapview::mapview(zones_db["busyness_cycle_base"]) +
+#   mapview::mapview(routes_fast_cents)
+# mapview::mapview(zones_db["busyness_cycle_dutch"])
+# mapview::mapview(zones_db["quietness_diversion"])
+# plot(zones_db[-c(1:3)])
 
 sf::st_precision(zones_db) = 10000
 zones_db = zones_db %>% 
@@ -170,3 +165,4 @@ if(file.exists(db_file)) file.remove(db_file)
 sf::write_sf(zones_db, db_file)
 
 # head(readLines("data-small/great-kneighton/dartboard.geojson"))
+

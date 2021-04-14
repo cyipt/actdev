@@ -16,15 +16,6 @@ library(tidyverse)
 library(stplanr)
 library(tmap)
 
-# setwd("~/cyipt/actdev/")
-
-if(!exists("site_name")) site_name = "great-kneighton"
-if(!exists("sites")){
-  sites = sf::read_sf("data-small/all-sites.geojson")
-}
-site = sites[sites$site_name == site_name, ]
-path = file.path("data-small", site_name)
-
 if(site$is_complete != "no") {
 # input data: we should probably have naming conventions for these
 # list.files(path)

@@ -5,7 +5,7 @@ library(sf)
 library(stplanr)
 max_length = 20000 # maximum length of desire lines in m
 household_size = 2.3 # mean UK household size at 2011 census
-min_flow_routes = 10 # threshold above which OD pairs are included
+min_flow_routes = 2 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
 new_site = TRUE
@@ -22,7 +22,8 @@ if(new_site) {
   # [1] "site_name"               "full_name"               "main_local_authority"   
   # [4] "is_complete"             "dwellings_when_complete" "planning_url"           
   # [7] "geometry"  
-  site = sf::read_sf("new_site.geojson")
+  site = sf::read_sf("map.geojson")
+  # sf::st_crs(site) = 4326
   site_names_to_build = site$site_name
   path = file.path(data_dir, site_names_to_build)
   dir.create(path)
@@ -55,6 +56,8 @@ for(site_name in site_names_to_build) {
     })
   })
 }
+# check the output by uncommenting this line:
+# mapview::mapview(desire_lines_many)
 
 # Add jts data ------------------------------------------------------------
 for(site_name in site_names_to_build) {
@@ -81,7 +84,6 @@ for(site_name in site_names_to_build) {
 }
 
 # Generate 'clockboard' data ----------------------------------------------
-
 source("code/tests/color_palette.R")
 
 for(site_name in site_names_to_build) {
@@ -125,7 +127,6 @@ for(site_name in site_names_to_build) {
     })
   })
 }
-
 
 # Populate site metrics for new site --------------------------------------
 
