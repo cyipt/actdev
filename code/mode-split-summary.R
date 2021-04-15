@@ -153,16 +153,13 @@ if (new_site) {
   mode_share_sites_baseline$drive_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$drive_base)
   mode_share_sites_baseline$other_base[mode_share_sites_baseline$site_name == site_name] = sum(mode_split_all$other_base)
 }
-
 mode_share_sites_baseline = arrange(mode_share_sites_baseline,site_name)
-
 file.remove(mode_share_site_path_baseline)
-readr::write_csv(mode_share_sites_baseline,mode_share_site_path_baseline)
+readr::write_csv(mode_share_sites_baseline, mode_share_site_path_baseline)
 
 #go active scenario
 mode_share_site_path_goactive = file.path("data-small/mode-share-sites-goactive.csv")
 mode_share_sites_goactive = read.csv(mode_share_site_path_goactive)
-
 if (new_site) {
   new_mode_share_active = data.frame(site_name, sum(mode_split_all$walk_goactive),sum(mode_split_all$cycle_goactive),sum(mode_split_all$drive_goactive),sum(mode_split_all$other_goactive))
   names(new_mode_share_active) <- c("site_name","walk_active","cycle_active","drive_active","other_active")
@@ -173,7 +170,6 @@ if (new_site) {
   mode_share_sites_goactive$drive_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$drive_goactive)
   mode_share_sites_goactive$other_active[mode_share_sites_goactive$site_name == site_name] = sum(mode_split_all$other_goactive)
 }
-
 mode_share_sites_goactive = arrange(mode_share_sites_goactive,site_name)
 
 file.remove(mode_share_site_path_goactive)

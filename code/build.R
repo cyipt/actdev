@@ -22,7 +22,7 @@ if(new_site) {
   # [1] "site_name"               "full_name"               "main_local_authority"   
   # [4] "is_complete"             "dwellings_when_complete" "planning_url"           
   # [7] "geometry"  
-  site = sf::read_sf("lockleaze.geojson")
+  site = sf::read_sf("map.geojson")
   sf::st_crs(site) = 4326
   site_names_to_build = site$site_name
   path = file.path(data_dir, site_names_to_build)
@@ -42,6 +42,7 @@ if(new_site) {
     filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))
 }
 
+source("code/load_jts.R") # national data if not loaded (takes some time)
 source("code/build-setup.R") # national data
 
 # build aggregate scenarios ----------------------------------------------

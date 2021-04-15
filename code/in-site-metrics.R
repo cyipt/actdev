@@ -16,7 +16,6 @@ library(tidyverse)
 library(stplanr)
 library(tmap)
 
-if(site$is_complete != "no") {
 # input data: we should probably have naming conventions for these
 # list.files(path)
 site_area = sf::read_sf(file.path(path, "site.geojson"))
@@ -118,5 +117,3 @@ write_csv(in_site, dsn)
 # Todo: rbind all route lines and create a legend that contains circuity values.
 
 # Approach 2: use data from osmextract ------------------------------------
-
-}
