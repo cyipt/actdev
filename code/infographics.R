@@ -1,8 +1,6 @@
 library(tidyverse)
 
 if(!exists("site_name")) site_name = "great-kneighton"
-sites = sf::read_sf("data-small/all-sites.geojson")
-site = sites[sites$site_name == site_name, ]
 path = file.path("data-small", site_name)
 
 # input data: we should probably have naming conventions for these
@@ -69,8 +67,7 @@ ggplot2::ggsave(file.path(path, "gg_distance_busyness.png"), gg_distance_busynes
 
 library(tidyverse)
 
-site_name_char = "great-kneighton"
-sites = sf::read_sf("data-small/all-sites.geojson")
+site_name_char = site_name
 
 zones_db = sf::read_sf(file.path(path, "dartboard.geojson"))	
 
