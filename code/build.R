@@ -139,7 +139,6 @@ if(new_site){
   })
 }
 file.remove("data-small/all-sites.geojson")
-file.remove("all-sites.geojson")
 
 # Save and sanity check data -----------------------------------------------
 
