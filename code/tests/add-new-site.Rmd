@@ -346,14 +346,31 @@ Tada! Thats it, analysis complete!.
 
 In your global environment you should find an object called ```sites_join``` which contains all new sites, including  your new site. The table should be populated with the respective empirical data from the analysis for all sites. 
 
-You should also see a new folder in ```actdev/data-small``` with your sites name. This folder should contain 31 items. 
+You should also see a new folder in ```actdev/data-small``` with your sites name.
 
 ### Step 3) Create pull request
 
-Given everything has run smoothly, you can now submit a pull-request to add the site to the ActDev project. Using either the git terminal or GitHub Desktop push your changes.
+Given everything has run smoothly, you can now submit a pull-request to add the site to the ActDev project. 
 
-Once pushed, return back to the [https://github.com/cyipt/actdev/issues](ActDev GitHub) where you should see a **Create Pull Request** button. At this point, one of our maintainers will review your changes and merge the new site if everything is in working order. 
+Using either the git terminal or
+```bash 
+git add -A
+git commit -am 'New site: NEW_SITE_NAME'
+git push
+```
+GitHub Desktop push your changes. Once pushed, return back to the [https://github.com/cyipt/actdev/issues](ActDev GitHub) where you should see a **Create Pull Request** button. At this point, one of our maintainers will review your changes and merge the new site if everything is in working order. 
 
+# Section Conclusions
+
+## If things aren't working...
+
+Sometimes things break. This can be annoying, but don't be disheartened we can fix it. If you run into any issues while trying to add a site please create an issue on the [https://github.com/cyipt/actdev/issues](ActDev GitHub) and one of our maintainers will assist you in debugging.
+
+## If things are working...
+
+Congrats! You have contributed to an open source national infrastructure tool which will support active travel uptake. Feel free to add more sites, improvements to the code base, or feature requests on the [https://github.com/cyipt/actdev/issues](ActDev GitHub). 
+
+Once your new site is live, we would be greatful if you could promote through social media and share with us your experience in adding a new site.  
 
 
  
