@@ -137,8 +137,22 @@ if(new_site){
     })
   })
 }
+file.remove("data-small/all-sites.geojson")
+file.remove("all-sites.geojson")
 
-# Update site.geojson files -----------------------------------------------
+# Save and sanity check data -----------------------------------------------
 
-all_sites = sf::read_sf("data-small/all-sites.geojson")
+write_csv(sites_join, "data-small/all-sites.csv")
+sf::write_sf(sites_join,"data-small/all-sites.geojson")
+
+mode_share_baseline = read.csv("data-small/mode-share-sites-baseline.csv")
+mode_share_goactive = read.csv("data-small/mode-share-sites-goactive.csv")
+summary(sanity1 <- mode_share_baseline$site_name == sites_join$site_name)
+summary(sanity2 <- mode_share_goactive$site_name == sites_join$site_name)
+mode_share_goactive$site_name[!sanity2]
+setdiff(mode_share_goactive$site_name, sites_join$site_name)
+all(sanity1)
+all(sanity2)
+
+# Then in Git do git add -A, commit and push
 

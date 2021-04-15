@@ -164,7 +164,7 @@ mode_share_site_path_goactive = file.path("data-small/mode-share-sites-goactive.
 mode_share_sites_goactive = read.csv(mode_share_site_path_goactive)
 
 if (new_site) {
-  new_mode_share_active = data.frame("northwick-park",sum(mode_split_all$walk_goactive),sum(mode_split_all$cycle_goactive),sum(mode_split_all$drive_goactive),sum(mode_split_all$other_goactive))
+  new_mode_share_active = data.frame(site_name, sum(mode_split_all$walk_goactive),sum(mode_split_all$cycle_goactive),sum(mode_split_all$drive_goactive),sum(mode_split_all$other_goactive))
   names(new_mode_share_active) <- c("site_name","walk_active","cycle_active","drive_active","other_active")
   mode_share_sites_goactive = rbind(mode_share_sites_goactive,new_mode_share_active)
 } else {

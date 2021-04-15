@@ -231,11 +231,4 @@ sites_join$planning_url[sites_join$site_name == "great-kneighton"] =  "https://a
 
 sites_join = arrange(sites_join,site_name)  
 
-file.remove("data-small/all-sites.geojson")
-file.remove("all-sites.geojson")
-file.remove("data-small/all-sites.csv")
-
-write_csv(sites_join, "data-small/all-sites.csv")
-sf::write_sf(sites_join,"data-small/all-sites.geojson")
-sf::write_sf(sites_join,"all-sites.geojson")
-#piggyback::pb_upload("all-sites.geojson", tag = "0.1.1")
+# See build.R script for saving the results and pushing
