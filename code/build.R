@@ -155,4 +155,6 @@ all(sanity1)
 all(sanity2)
 
 # Then in Git do git add -A, commit and push
-
+# git add -A
+# git commit -am 'Update sites'
+# git push
