@@ -174,7 +174,7 @@ library(sf)
 library(stplanr)
 max_length = 20000 # maximum length of desire lines in m
 household_size = 2.3 # mean UK household size at 2011 census
-min_flow_routes = 10 # threshold above which OD pairs are included
+min_flow_routes = 2 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
 new_site = TRUE
@@ -195,13 +195,18 @@ Now its time to load in the GeoJSON file we just created. The following section 
 *Make sure to change* ```site = sf::read_sf("new_site.geojson")``` *to your filename* 
 
 ```{r eval=FALSE}
+# If new site has been added use the rbind version of sites
+if(!exists("sites")){
+  sites = sf::read_sf("data-small/all-sites.geojson")
+}
+
 if(new_site) {
   # read-in new site that must have the following fields (NAs allowed):
   # dwellings_when_complete, site_name and full_name are necessary
   # [1] "site_name"               "full_name"               "main_local_authority"   
   # [4] "is_complete"             "dwellings_when_complete" "planning_url"           
   # [7] "geometry"  
-  site = sf::read_sf("new_site.geojson") # change this to the file name you downloaded from geojson.io
+  site = sf::read_sf("kergilliack.geojson")
   sf::st_crs(site) = 4326
   site_names_to_build = site$site_name
   path = file.path(data_dir, site_names_to_build)
@@ -226,6 +231,7 @@ After completion, you should be able to see your new site at the bottom of the `
 Before you are able to run the analysis, you will need to run the ```build-setup.r``` script, this will load all of the necessary datasets, libraries and variables needed to run the analysis efficiently. This will take a few minutes, so go put a brew on.
 
 ```{r eval=FALSE}
+source("code/load_jts.R") # national data if not loaded (takes some time)
 source("code/build-setup.R") # national data
 ```
 
@@ -244,6 +250,9 @@ for(site_name in site_names_to_build) {
     })
   })
 }
+
+# check the output by uncommenting this line:
+# mapview::mapview(desire_lines_many)
 
 # Add jts data ------------------------------------------------------------
 for(site_name in site_names_to_build) {
