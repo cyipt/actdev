@@ -234,6 +234,7 @@ sites_join = arrange(sites_join,site_name)
 file.remove("data-small/all-sites.geojson")
 file.remove("all-sites.geojson")
 file.remove("data-small/all-sites.csv")
+
 write_csv(sites_join, "data-small/all-sites.csv")
 sf::write_sf(sites_join,"data-small/all-sites.geojson")
 sf::write_sf(sites_join,"all-sites.geojson")

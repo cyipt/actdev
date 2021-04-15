@@ -22,7 +22,7 @@ if(new_site) {
   # [1] "site_name"               "full_name"               "main_local_authority"   
   # [4] "is_complete"             "dwellings_when_complete" "planning_url"           
   # [7] "geometry"  
-  site = sf::read_sf("water-lane.geojson")
+  site = sf::read_sf("lockleaze.geojson")
   sf::st_crs(site) = 4326
   site_names_to_build = site$site_name
   path = file.path(data_dir, site_names_to_build)
