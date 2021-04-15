@@ -2,7 +2,7 @@
 title: "Adding new site to ActDev"
 author: "Nathanael Sheehan"
 date: "15/04/2021"
-output: html_document
+output: md_document
 ---
 
 #### Tutorial time: 10 minutes
