@@ -30,6 +30,7 @@ if(!exists("min_flow_routes")) {
 }
   
 # Select site of interest -------------------------------------------------
+site = sites[sites$site_name == site_name, ]
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 zones_touching_site$overlap_size = units::drop_units(st_area(zones_touching_site))
 zones_touching_site = zones_touching_site %>% 

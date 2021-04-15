@@ -1,8 +1,8 @@
 # Aim: demonstrate disaggregating polygons for #24
 
-remotes::install_github("itsleeds/od")
-remotes::install_github("ITSLeeds/pct")
-remotes::install_github("a-b-street/abstr")
+# remotes::install_github("itsleeds/od")
+# remotes::install_github("ITSLeeds/pct")
+# remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
@@ -12,7 +12,7 @@ if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
 } 
 j = sites$site_name == site_name
-site = sites[j, ]
+# site = sites[j, ] # commented out, todo: delete
 path = file.path("data-small", site_name)
 # set seed for reproducibility
 set.seed(2021)

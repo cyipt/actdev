@@ -15,6 +15,8 @@ data_dir = "data-small" # for test sites
 if(!exists("sites")){
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
+# check sites:
+mapview::mapview(sites)
 
 if(new_site) {
   # read-in new site that must have the following fields (NAs allowed):
@@ -43,7 +45,7 @@ if(new_site) {
 }
 
 source("code/load_jts.R") # national data if not loaded (takes some time)
-source("code/build-setup.R") # national data
+source("code/build-setup.R") # national data, updates summary pops
 
 # build aggregate scenarios ----------------------------------------------
 set.seed(2021) # reproducibility
@@ -72,17 +74,17 @@ for(site_name in site_names_to_build) {
 
 # Add json files for abstreet ---------------------------------------------
 # should the build process add a background traffic scenario? (WIP)
-build_background_traffic = FALSE
-# site_directories = list.dirs(data_dir)[-1]
-# site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
-for(site_name in site_names_to_build) {
-  message("Building for ", site_name)
-  suppressMessages({
-    suppressWarnings({
-      source("code/abstr-scenarios.R")
-    })
-  })
-}
+# build_background_traffic = FALSE
+# # site_directories = list.dirs(data_dir)[-1]
+# # site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
+# for(site_name in site_names_to_build) {
+#   message("Building for ", site_name)
+#   suppressMessages({
+#     suppressWarnings({
+#       source("code/abstr-scenarios.R")
+#     })
+#   })
+# }
 
 # Generate 'clockboard' data ----------------------------------------------
 source("code/tests/color_palette.R")
@@ -120,15 +122,17 @@ for(site_name in site_names_to_build) {
 
 # Generate in site metrics  ----------------------------------------------
 
-for(site_name in site_names_to_build) {
-  message("Building for ", site_name)
-  suppressMessages({
-    suppressWarnings({
-      source("code/in-site-metrics.R")
+# Todo: test running this in unbuilt sites
+if(site$is_complete == "no") {
+  for(site_name in site_names_to_build) {
+    message("Building for ", site_name)
+    suppressMessages({
+      suppressWarnings({
+        source("code/in-site-metrics.R")
+      })
     })
-  })
+  }
 }
-
 # Populate site metrics for new site --------------------------------------
 
 if(new_site){
@@ -138,11 +142,11 @@ if(new_site){
     })
   })
 }
-file.remove("data-small/all-sites.geojson")
 
 # Save and sanity check data -----------------------------------------------
 
-write_csv(sites_join, "data-small/all-sites.csv")
+write_csv(sf::st_drop_geometry(sites_join), "data-small/all-sites.csv")
+file.remove("data-small/all-sites.geojson")
 sf::write_sf(sites_join,"data-small/all-sites.geojson")
 
 mode_share_baseline = read.csv("data-small/mode-share-sites-baseline.csv")
