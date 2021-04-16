@@ -1,60 +1,71 @@
----
-title: "Adding new site to ActDev"
-author: "Nathanael Sheehan"
-date: "15/04/2021"
-output:
-  md_document:
-    variant: markdown_github
----
-
 #### Tutorial time: 10 minutes
+
 #### Tutorial difficulty: Easy
 
-# Section 1 Introduction 
+# Section 1 Introduction
 
-[ActDev](https://actdev.cyipt.bike/) is an empirical based web and data tool to enable planners, researchers and the general public to easily calculate active travel provision and potential. The project aims to boost local walking and cycling levels while preventing car dependency. Adding a new site to ActDev can be done even if you don't have experience with computer programming. The following tutorial outlines each step in order to add a new site to the project using R and R-Studio, however, if the mere sight of code and a terminal petrify you, please create an [issue](https://github.com/cyipt/actdev/issues) on our Github and one of our maintainers will happily assist you.
-
+[ActDev](https://actdev.cyipt.bike/) is an empirical based web and data
+tool to enable planners, researchers and the general public to easily
+calculate active travel provision and potential. The project aims to
+boost local walking and cycling levels while preventing car dependency.
+Adding a new site to ActDev can be done even if you don’t have
+experience with computer programming. The following tutorial outlines
+each step in order to add a new site to the project using R and
+R-Studio, however, if the mere sight of code and a terminal petrify you,
+please create an [issue](https://github.com/cyipt/actdev/issues) on our
+Github and one of our maintainers will happily assist you.
 
 ## 1.1 Learning outcomes:
 
 By the end of this tutorial you should be able to:
 
-- Understand the various components involved with ActDev
-- Load and undertake analysis for a new housing site
-- Push new site data and create a pull request 
-
+-   Understand the various components involved with ActDev
+-   Load and undertake analysis for a new housing site
+-   Push new site data and create a pull request
 
 ## 1.2 Prerequisites:
 
-Before continuing with this tutorial, please ensure you have the following:
+Before continuing with this tutorial, please ensure you have the
+following:
 
-- A [https://github.com/](GitHub) account
-- R and R-Studio installed on your local machine
+-   A [https://github.com/](GitHub) account
+-   R and R-Studio installed on your local machine
 
-*If you are new to R, please follow this [https://rstudio-education.github.io/hopr/starting.html](tutorial)*
+*If you are new to R, please follow this
+[https://rstudio-education.github.io/hopr/starting.html](tutorial)*
 
+## 1.3 Who is the tool for?
 
-## 1.3 Who is the tool for? 
+ActDev tools are for **everyone**. ActDev is open source and has a small
+community of researchers and programmers who maintain it regularly. The
+ActDev web tool is built for, but not limited to:
 
-ActDev tools are for **everyone**. ActDev is open source and has a small community of researchers and programmers who maintain it regularly. The ActDev web tool is built for, but not limited to:
-
-- Planners working on new housing developments
-- Local governments who are interested in active transport provision of their constituency
-- The inquisitive general public who wish to know more about a housing development and active travel in thier local area.
-
+-   Planners working on new housing developments
+-   Local governments who are interested in active transport provision
+    of their constituency
+-   The inquisitive general public who wish to know more about a housing
+    development and active travel in thier local area.
 
 # Section 2 Adding a new site
 
 ### 2.1 Outlining a new site with GeoJSON
 
-For those unfamiliar with GeoJSON, it is simply an open standard format which represents simple geographical features and their non-spatial attributes. The ActDev project makes use of GeoJSON in order to automate analysis and visualization. 
+For those unfamiliar with GeoJSON, it is simply an open standard format
+which represents simple geographical features and their non-spatial
+attributes. The ActDev project makes use of GeoJSON in order to automate
+analysis and visualization.
 
-In order to add a new site to ActDev, a GeoJSON file matching the ActDev schema is needed. By definition, the ActDev schema is composed of two core elements: ```non-spatial features``` and ```geometry```. An example of the ActDev schema can be found below:
+In order to add a new site to ActDev, a GeoJSON file matching the ActDev
+schema is needed. By definition, the ActDev schema is composed of two
+core elements: `non-spatial features` and `geometry`. An example of the
+ActDev schema can be found below:
 
 <details>
-<summary> <b>Example of ActDev GeoJSON Schema</b> </summary>
+<summary>
+<b>Example of ActDev GeoJSON Schema</b>
+</summary>
 
-```json
+``` json
 {
   "type": "FeatureCollection",
   "name": "new_site",
@@ -113,62 +124,71 @@ In order to add a new site to ActDev, a GeoJSON file matching the ActDev schema 
 ```
 
 </details>
+
 </br>
 
-To kick things off, go to [GeoJSON.io](http://geojson.io/) and create a polygon of your site.
+To kick things off, go to [GeoJSON.io](http://geojson.io/) and create a
+polygon of your site.
 
 ![](geojson-polygon.gif)
 
+Awesome, we now have the geometry for our site. Next we should add the
+non-spatial attributes to the properties feature in the GeoJSON. We can
+do this using the [GeoJSON.io](http://geojson.io/) editor on the right
+hand side. The non-spatial attributes we need to add are:
 
-Awesome, we now have the geometry for our site. Next we should add the non-spatial attributes to the properties feature in the GeoJSON. We can do this using the [GeoJSON.io](http://geojson.io/) editor on the right hand side. The non-spatial attributes we need to add are:
-
-
-```json
+``` json
 "site_name": "name of the site in lowercase, using - as spaces e.g. northwick-park",
 "full_name":"full name of the site e.g. Northwick Park Brent",
 "main_local_authority": "primary local authority the site is located in e.g. Brent",
 "is_complete": "Is site complete, partially complete or not compelete e.g. no|yes|partially",
 "dwellings_when_complete": total number of dwellings once the site is complete, not in quotes e.g. 600,
 "planning_url": "link to the planning url of the site e.g. https://www.constructionenquirer.com/2021/04/12/planning-for-1000-homes-at-north-west-london-hospital-site/"
-
 ```
 
 ![](geojson-features.gif)
 
-
-Finito! Now hover over the save button on the left hand side of [GeoJSON.io](http://geojson.io/) and click on the ```GeoJSON``` option. 
-
+Finito! Now hover over the save button on the left hand side of
+[GeoJSON.io](http://geojson.io/) and click on the `GeoJSON` option.
 
 ### Step 2) Cloning the ActDev project
 
-The [ActDev](https://github.com/cyipt/actdev) repository obtains all of the scripts and datasets necessary to add a new site. There are various ways to clone the [repository](https://github.com/cyipt/actdev):
+The [ActDev](https://github.com/cyipt/actdev) repository obtains all of
+the scripts and datasets necessary to add a new site. There are various
+ways to clone the [repository](https://github.com/cyipt/actdev):
 
-- git terminal
+-   git terminal
 
-```bash
+``` bash
 git clone https://github.com/cyipt/actdev.git
 ```
 
-- GitHub Desktop
+-   GitHub Desktop
 
 ![](github-desktop.png)
 
-Once downloaded, open the ActDev R-Studio project and navigate to the ```build.r``` file. Now, go ahead and move your downloaded GeoJSON file to the ```actdev``` folder.
+Once downloaded, open the ActDev R-Studio project and navigate to the
+`build.r` file. Now, go ahead and move your downloaded GeoJSON file to
+the `actdev` folder.
 
 ![](r-studio-act-dev.png)
 
-# Step 3) Run analysis 
+# Step 3) Run analysis
 
-ActDev works through an ecosystem of R-Scripts that are respectively run through the ```build.r``` file.
+ActDev works through an ecosystem of R-Scripts that are respectively run
+through the `build.r` file.
 
-To begin, run this line of code in the R console. This will install all the necessary packages required for analysis.
-```{r eval=FALSE}
+To begin, run this line of code in the R console. This will install all
+the necessary packages required for analysis.
+
+``` r
 remotes::install_github("cyipt/actdev")
 ```
 
-Next, run this code chunk to load the required libraries we just installed and initiate all set up variables for the project. 
+Next, run this code chunk to load the required libraries we just
+installed and initiate all set up variables for the project.
 
-```{r eval=FALSE}
+``` r
 # Aim: create geojson data for ui for all sites
 
 library(tidyverse)
@@ -183,20 +203,25 @@ new_site = TRUE
 data_dir = "data-small" # for test sites
 ```
 
-Next the build.r script loads all existing sites in the ActDev project and saves it to the global enviroment.
+Next the build.r script loads all existing sites in the ActDev project
+and saves it to the global enviroment.
 
-```{r eval=FALSE}
+``` r
 # If new site has been added use the rbind version of sites
 if(!exists("sites")){
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
 ```
 
-Now its time to load in the GeoJSON file we just created. The following section of code will load the GeoJSON file, transform it to include all columns needed for analysis, and then merge it with the existing data frame of sites. 
+Now its time to load in the GeoJSON file we just created. The following
+section of code will load the GeoJSON file, transform it to include all
+columns needed for analysis, and then merge it with the existing data
+frame of sites.
 
-*Make sure to change* ```site = sf::read_sf("new_site.geojson")``` *to your filename* 
+*Make sure to change* `site = sf::read_sf("new_site.geojson")` *to your
+filename*
 
-```{r eval=FALSE}
+``` r
 # If new site has been added use the rbind version of sites
 if(!exists("sites")){
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -229,17 +254,23 @@ if(new_site) {
 }
 ```
 
-After completion, you should be able to see your new site at the bottom of the ```sites``` data object.
-Before you are able to run the analysis, you will need to run the ```build-setup.r``` script, this will load all of the necessary datasets, libraries and variables needed to run the analysis efficiently. This will take a few minutes, so go put a brew on.
+After completion, you should be able to see your new site at the bottom
+of the `sites` data object. Before you are able to run the analysis, you
+will need to run the `build-setup.r` script, this will load all of the
+necessary datasets, libraries and variables needed to run the analysis
+efficiently. This will take a few minutes, so go put a brew on.
 
-```{r eval=FALSE}
+``` r
 source("code/load_jts.R") # national data if not loaded (takes some time)
 source("code/build-setup.R") # national data
 ```
 
-Following this, the analysis can begin! The first two scripts to run enable OD desire lines, routes and journey time statistics to be calculated for the site and its neighboring LSOAs. This should take a minute or so.
+Following this, the analysis can begin! The first two scripts to run
+enable OD desire lines, routes and journey time statistics to be
+calculated for the site and its neighboring LSOAs. This should take a
+minute or so.
 
-```{r eval=FALSE}
+``` r
 # build aggregate scenarios ----------------------------------------------
 set.seed(2021) # reproducibility
 disaggregate_desire_lines = FALSE
@@ -267,9 +298,10 @@ for(site_name in site_names_to_build) {
 }
 ```
 
-After completion, you are ready to run the next batch of scripts. However, **do not run** 
+After completion, you are ready to run the next batch of scripts.
+However, **do not run**
 
-```{r eval=FALSE}
+``` r
 # Add json files for abstreet ---------------------------------------------
 # should the build process add a background traffic scenario? (WIP)
 build_background_traffic = FALSE
@@ -285,11 +317,15 @@ for(site_name in site_names_to_build) {
 }
 ```
 
-as this has not been configured for new sites yet. This script builds the required files needed for an [ABStreet](https://github.com/a-b-street/abstreet) simulation. We hope to get this fixed soon.
+as this has not been configured for new sites yet. This script builds
+the required files needed for an
+[ABStreet](https://github.com/a-b-street/abstreet) simulation. We hope
+to get this fixed soon.
 
-Moving on, the next batch of scripts to run create zones, infographics, mode-split summary statistics and site metrics for your new site.
+Moving on, the next batch of scripts to run create zones, infographics,
+mode-split summary statistics and site metrics for your new site.
 
-```{r eval=FALSE}
+``` r
 # Generate 'clockboard' data ----------------------------------------------
 
 source("code/tests/color_palette.R")
@@ -344,35 +380,52 @@ if(new_site){
 }
 ```
 
-Tada! Thats it, analysis complete!. 
+Tada! Thats it, analysis complete!.
 
-In your global environment you should find an object called ```sites_join``` which contains all new sites, including  your new site. The table should be populated with the respective empirical data from the analysis for all sites. 
+In your global environment you should find an object called `sites_join`
+which contains all new sites, including your new site. The table should
+be populated with the respective empirical data from the analysis for
+all sites.
 
-You should also see a new folder in ```actdev/data-small``` with your sites name.
+You should also see a new folder in `actdev/data-small` with your sites
+name.
 
 ### Step 3) Create pull request
 
-Given everything has run smoothly, you can now submit a pull-request to add the site to the ActDev project. 
+Given everything has run smoothly, you can now submit a pull-request to
+add the site to the ActDev project.
 
 Using either the git terminal or
-```bash 
+
+``` bash
 git add -A
 git commit -am 'New site: NEW_SITE_NAME'
 git push
 ```
-GitHub Desktop push your changes. Once pushed, return back to the [https://github.com/cyipt/actdev/issues](ActDev GitHub) where you should see a **Create Pull Request** button. At this point, one of our maintainers will review your changes and merge the new site if everything is in working order. 
+
+GitHub Desktop push your changes. Once pushed, return back to the
+[https://github.com/cyipt/actdev/issues](ActDev%20GitHub) where you
+should see a **Create Pull Request** button. At this point, one of our
+maintainers will review your changes and merge the new site if
+everything is in working order.
 
 # Section Conclusions
 
-## If things aren't working...
+## If things aren’t working…
 
-Sometimes things break. This can be annoying, but don't be disheartened we can fix it. If you run into any issues while trying to add a site please create an issue on the [https://github.com/cyipt/actdev/issues](ActDev GitHub) and one of our maintainers will assist you in debugging.
+Sometimes things break. This can be annoying, but don’t be disheartened
+we can fix it. If you run into any issues while trying to add a site
+please create an issue on the
+[https://github.com/cyipt/actdev/issues](ActDev%20GitHub) and one of our
+maintainers will assist you in debugging.
 
-## If things are working...
+## If things are working…
 
-Congrats! You have contributed to an open source national infrastructure tool which will support active travel uptake. Feel free to add more sites, improvements to the code base, or feature requests on the [https://github.com/cyipt/actdev/issues](ActDev GitHub). 
+Congrats! You have contributed to an open source national infrastructure
+tool which will support active travel uptake. Feel free to add more
+sites, improvements to the code base, or feature requests on the
+[https://github.com/cyipt/actdev/issues](ActDev%20GitHub).
 
-Once your new site is live, we would be greatful if you could promote through social media and share with us your experience in adding a new site.  
-
-
- 
+Once your new site is live, we would be greatful if you could promote
+through social media and share with us your experience in adding a new
+site.
