@@ -80,14 +80,14 @@ for(site_name in site_names_to_build) {
 build_background_traffic = FALSE
 # site_directories = list.dirs(data_dir)[-1]
 # site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
-for(site_name in site_names_to_build) {
-  message("Building for ", site_name)
-  suppressMessages({
-    suppressWarnings({
-      source("code/abstr-scenarios.R")
-    })
-  })
-}
+# for(site_name in site_names_to_build) {
+#   message("Building for ", site_name)
+#   suppressMessages({
+#     suppressWarnings({
+#       source("code/abstr-scenarios.R")
+#     })
+#   })
+# }
 
 # Generate 'clockboard' data ----------------------------------------------
 source("code/tests/color_palette.R")
@@ -125,6 +125,8 @@ for(site_name in site_names_to_build) {
 
 # Generate in site metrics  ----------------------------------------------
 
+if(site$is_complete != "no") {
+  
 for(site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
@@ -134,6 +136,7 @@ for(site_name in site_names_to_build) {
   })
 }
 
+}
 # Populate site metrics for new site --------------------------------------
 
 if(new_site){
@@ -143,11 +146,11 @@ if(new_site){
     })
   })
 }
-file.remove("data-small/all-sites.geojson")
 
 # Save and sanity check data -----------------------------------------------
 
-write_csv(sites_join, "data-small/all-sites.csv")
+write_csv(sf::st_drop_geometry(sites_join), "data-small/all-sites.csv")
+file.remove("data-small/all-sites.geojson")
 sf::write_sf(sites_join,"data-small/all-sites.geojson")
 
 mode_share_baseline = read.csv("data-small/mode-share-sites-baseline.csv")
