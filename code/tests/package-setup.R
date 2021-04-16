@@ -19,3 +19,8 @@ for(i in pkgs_cran$Package) {
   usethis::use_package(i)
 }
 # github pkgs: add manually
+
+# Alternative simpler approach:
+dput(pkgs_cran$Package)
+
+
