@@ -1,4 +1,9 @@
-# Aim: create geojson data for ui for all sites
+# Aim: Generate data for the ActDev web app and simulation
+
+# Install packages and generate input data/parameters -----------------------
+
+# run the following script from the actdev folder directory to install packages
+source("install-r-package-dependencies.R")
 
 library(tidyverse)
 library(sf)
