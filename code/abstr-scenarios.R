@@ -6,7 +6,7 @@ remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "northwick-park"
+  site_name = "marsh-barton"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
