@@ -6,7 +6,7 @@ remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "exeter-red-cow-village"
+  site_name = "lockleaze"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -271,7 +271,6 @@ abcd = abstr::ab_scenario(
   output_format = "sf"
 )
 
-
 mapview::mapview(abcd)
 
 abcd$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
@@ -302,8 +301,10 @@ abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 file.remove(file.path(path, "scenario-base.json"))
 file.remove(file.path(path, "scenario-godutch.json"))
 
-if(!exists("build_background_traffic"))
+if(!exists("build_background_traffic")){
   build_background_traffic = FALSE
+}
+  
 if(build_background_traffic) {
   # add code to generate background traffic
   # simple visualisation of input data is a starter for 10
