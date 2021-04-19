@@ -6,11 +6,12 @@ remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "poundbury"
+  site_name = "exeter-red-cow-village"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
-} 
+}
+
 j = sites$site_name == site_name
 site = sites[j, ]
 path = file.path("data-small", site_name)
@@ -132,7 +133,7 @@ houses = osm_polygons_in_site %>%
   # filter(building == "residential") %>% # todo: all non-destination buildings?
   select(osm_way_id, building)
 # subset to those in the site
-# mapview::mapview(site) + mapview::mapview(houses)
+mapview::mapview(site) + mapview::mapview(houses)
 
 if(procgen_exists) {
   # quick fix for https://github.com/cyipt/actdev/issues/82
@@ -184,14 +185,23 @@ file.remove(dsn)
 sf::write_sf(trip_attractors, dsn)
 
 # # save summary info (todo: add more columns) ------------------------------
+nrow(buildings_in_zones)
 # sites_df = sites %>% sf::st_drop_geometry()
 # sites_df$n_origin_buildings = NA
 # sites_df$n_destination_buildings = NA
 sites_df = readr::read_csv("data-small/sites_df_abstr.csv")
 #error in merging rows for a new site
-sites_df$n_origin_buildings[j] = nrow(houses)
-sites_df$n_destination_buildings = nrow(buildings_in_zones)
-readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")
+if (new_site) {
+  newdf <- data.frame(site_name = site_name,
+                      dwellings_when_complete = n_dwellings_site,
+                      n_origin_buildings = nrow(houses),
+                      n_destination_buildings = nrow(buildings_in_zones)
+  )
+  
+  sites_df = rbind(newdf,sites_df) %>% arrange(site_name)
+  
+  readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")
+}
 
 # todo: allow setting the population column
 names(desire_lines)

@@ -47,7 +47,7 @@ if(new_site) {
     filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))
 }
 
-source("code/load_jts.R") # national data if not loaded (takes some time)
+source("code/load_jts.R") # national planning data if not loaded (takes some time)
 source("code/build-setup.R") # national data
 
 # build aggregate scenarios ----------------------------------------------
