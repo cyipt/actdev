@@ -6,7 +6,7 @@ remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "lockleaze"
+  site_name = "northwick-park"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -172,7 +172,7 @@ if(n_houses < 5) {
   houses = houses_in_site
 }
 
-# mapview::mapview(houses) + mapview::mapview(site)
+mapview::mapview(houses) + mapview::mapview(site)
 
 dsn = file.path(path, "site_buildings.geojson")
 file.remove(dsn)
