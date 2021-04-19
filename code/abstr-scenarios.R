@@ -6,7 +6,7 @@ remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "water-lane"
+  site_name = "kergilliack"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -133,7 +133,7 @@ houses = osm_polygons_in_site %>%
   # filter(building == "residential") %>% # todo: all non-destination buildings?
   select(osm_way_id, building)
 # subset to those in the site
-mapview::mapview(site) + mapview::mapview(houses)
+#mapview::mapview(site) + mapview::mapview(houses)
 
 if(procgen_exists) {
   # quick fix for https://github.com/cyipt/actdev/issues/82
@@ -174,14 +174,19 @@ if(n_houses < 5) {
 
 mapview::mapview(houses) + mapview::mapview(site)
 
-dsn = file.path(path, "site_buildings.geojson")
-file.remove(dsn)
+if(!new_site){
+  dsn = file.path(path, "site_buildings.geojson")
+  file.remove(dsn)
+}
 sf::write_sf(houses, dsn)
 
 trip_attractors = buildings_in_zones %>% filter(building %in% building_types)
-# mapview::mapview(trip_attractors) # looks good!
-dsn = file.path(path, "trip_attractors.geojson")
-file.remove(dsn)
+#mapview::mapview(trip_attractors) # looks good!
+
+if(!new_site){
+  dsn = file.path(path, "trip_attractors.geojson")
+  file.remove(dsn)
+}
 sf::write_sf(trip_attractors, dsn)
 
 # # save summary info (todo: add more columns) ------------------------------
