@@ -80,14 +80,14 @@ for(site_name in site_names_to_build) {
 build_background_traffic = FALSE
 # site_directories = list.dirs(data_dir)[-1]
 # site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
-# for(site_name in site_names_to_build) {
-#   message("Building for ", site_name)
-#   suppressMessages({
-#     suppressWarnings({
-#       source("code/abstr-scenarios.R")
-#     })
-#   })
-# }
+for(site_name in site_names_to_build) {
+  message("Building for ", site_name)
+  suppressMessages({
+    suppressWarnings({
+      source("code/abstr-scenarios.R")
+    })
+  })
+}
 
 # Generate 'clockboard' data ----------------------------------------------
 source("code/tests/color_palette.R")
