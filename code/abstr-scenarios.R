@@ -272,7 +272,8 @@ abcd = abstr::ab_scenario(
 )
 
 
-# mapview::mapview(abcd)
+mapview::mapview(abcd)
+
 abcd$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
 abtd = abstr::ab_scenario(
   houses,
@@ -297,6 +298,7 @@ table(abbd$mode_go_active)
 abstr::ab_save(abbl, file.path(path, "scenario_base.json"))
 abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 
+#why are we removing these // are they a duplicate?
 file.remove(file.path(path, "scenario-base.json"))
 file.remove(file.path(path, "scenario-godutch.json"))
 
