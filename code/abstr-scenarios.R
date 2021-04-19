@@ -6,7 +6,7 @@ remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "marsh-barton"
+  site_name = "water-lane"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -297,9 +297,10 @@ table(abbd$mode_go_active)
 abstr::ab_save(abbl, file.path(path, "scenario_base.json"))
 abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 
-#why are we removing these // are they a duplicate?
-file.remove(file.path(path, "scenario-base.json"))
-file.remove(file.path(path, "scenario-godutch.json"))
+
+# why are we removing these // are they a duplicate of something? ----------------------
+#file.remove(file.path(path, "scenario-base.json"))
+#file.remove(file.path(path, "scenario-godutch.json"))
 
 if(!exists("build_background_traffic")){
   build_background_traffic = FALSE
