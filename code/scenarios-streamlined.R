@@ -3,7 +3,6 @@
 library(tidyverse)
 library(sf)
 library(stplanr)
-remotes::install_github("itsleeds/od")
 library(od)
 
 # set-up and parameters ---------------------------------------------------
@@ -28,7 +27,7 @@ summary(sites$dwellings_when_complete) # 2500
 if(!exists("min_flow_routes")) {
   min_flow_routes = mean(sites$dwellings_when_complete / 500)
 }
-  
+
 # Select site of interest -------------------------------------------------
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 zones_touching_site$overlap_size = units::drop_units(st_area(zones_touching_site))

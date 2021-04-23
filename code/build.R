@@ -17,44 +17,41 @@ new_site = TRUE
 data_dir = "data-small" # for test sites
 
 # If new site has been added use the rbind version of sites
-if(!exists("sites")){
+if (!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
 
-if(new_site) {
+if (new_site) {
   # read-in new site that must have the following fields (NAs allowed):
   # dwellings_when_complete, site_name and full_name are necessary
-  # [1] "site_name"               "full_name"               "main_local_authority"   
-  # [4] "is_complete"             "dwellings_when_complete" "planning_url"           
-  # [7] "geometry"  
+  # [1] "site_name"               "full_name"               "main_local_authority"
+  # [4] "is_complete"             "dwellings_when_complete" "planning_url"
+  # [7] "geometry"
   site = sf::read_sf("map.geojson")
   sf::st_crs(site) = 4326
   site_names_to_build = site$site_name
+  site_name = site$site_name
   path = file.path(data_dir, site_names_to_build)
   dir.create(path)
-  new_cols = sf::st_drop_geometry(sites[1, ])
+  new_cols = sf::st_drop_geometry(sites[1,])
   new_cols = new_cols[setdiff(names(sites), names(site))]
   new_cols[] = NA
-  sites = rbind(
-    sites,
-    sf::st_sf(
-      cbind(sf::st_drop_geometry(site), new_cols),
-      geometry = site$geometry
-      )
-  )
+  sites = rbind(sites,
+                sf::st_sf(cbind(sf::st_drop_geometry(site), new_cols),
+                          geometry = site$geometry))
 } else {
-  site_names_to_build = sites %>% 
+  site_names_to_build = sites %>%
     filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))
 }
 
-source("code/load_jts.R") # national planning data if not loaded (takes some time)
+source("code/load_jts.R") # national data if not loaded (takes some time)
 source("code/build-setup.R") # national data
 
 # build aggregate scenarios ----------------------------------------------
 set.seed(2021) # reproducibility
 disaggregate_desire_lines = FALSE
 
-for(site_name in site_names_to_build) {
+for (site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
     suppressWarnings({
@@ -66,7 +63,7 @@ for(site_name in site_names_to_build) {
 # mapview::mapview(desire_lines_many)
 
 # Add jts data ------------------------------------------------------------
-for(site_name in site_names_to_build) {
+for (site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
     suppressWarnings({
@@ -80,7 +77,7 @@ for(site_name in site_names_to_build) {
 build_background_traffic = FALSE
 # site_directories = list.dirs(data_dir)[-1]
 # site_names_to_build = gsub(pattern = "data-small/", replacement = "", x = site_directories)
-for(site_name in site_names_to_build) {
+for (site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
     suppressWarnings({
@@ -92,7 +89,7 @@ for(site_name in site_names_to_build) {
 # Generate 'clockboard' data ----------------------------------------------
 source("code/tests/color_palette.R")
 
-for(site_name in site_names_to_build) {
+for (site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
     suppressWarnings({
@@ -103,7 +100,7 @@ for(site_name in site_names_to_build) {
 
 # Generate infographics  ----------------------------------------------
 
-for(site_name in site_names_to_build) {
+for (site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
     suppressWarnings({
@@ -114,7 +111,7 @@ for(site_name in site_names_to_build) {
 
 # Generate mode split summary  ----------------------------------------------
 
-for(site_name in site_names_to_build) {
+for (site_name in site_names_to_build) {
   message("Building for ", site_name)
   suppressMessages({
     suppressWarnings({
@@ -125,21 +122,20 @@ for(site_name in site_names_to_build) {
 
 # Generate in site metrics  ----------------------------------------------
 
-if(site$is_complete != "no") {
-  
-for(site_name in site_names_to_build) {
-  message("Building for ", site_name)
-  suppressMessages({
-    suppressWarnings({
-      source("code/in-site-metrics.R")
+if (site$is_complete != "no") {
+  for (site_name in site_names_to_build) {
+    message("Building for ", site_name)
+    suppressMessages({
+      suppressWarnings({
+        source("code/in-site-metrics.R")
+      })
     })
-  })
-}
-
+  }
+  
 }
 # Populate site metrics for new site --------------------------------------
 
-if(new_site){
+if (new_site) {
   suppressMessages({
     suppressWarnings({
       source("code/site-metrics.R")
@@ -149,14 +145,17 @@ if(new_site){
 
 # Save and sanity check data -----------------------------------------------
 
-write_csv(sf::st_drop_geometry(sites_join), "data-small/all-sites.csv")
+write_csv(sf::st_drop_geometry(sites_join),
+          "data-small/all-sites.csv")
 file.remove("data-small/all-sites.geojson")
-sf::write_sf(sites_join,"data-small/all-sites.geojson")
+sf::write_sf(sites_join, "data-small/all-sites.geojson")
 
 mode_share_baseline = read.csv("data-small/mode-share-sites-baseline.csv")
 mode_share_goactive = read.csv("data-small/mode-share-sites-goactive.csv")
-summary(sanity1 <- mode_share_baseline$site_name == sites_join$site_name)
-summary(sanity2 <- mode_share_goactive$site_name == sites_join$site_name)
+summary(sanity1 <-
+          mode_share_baseline$site_name == sites_join$site_name)
+summary(sanity2 <-
+          mode_share_goactive$site_name == sites_join$site_name)
 mode_share_goactive$site_name[!sanity2]
 setdiff(mode_share_goactive$site_name, sites_join$site_name)
 all(sanity1)

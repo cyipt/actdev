@@ -1,12 +1,10 @@
 # Aim: demonstrate disaggregating polygons for #24
+# 
 
-remotes::install_github("itsleeds/od")
-remotes::install_github("ITSLeeds/pct")
-remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "kergilliack"
+  site_name = "chapeltown-cohousing"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -177,8 +175,9 @@ mapview::mapview(houses) + mapview::mapview(site)
 if(!new_site){
   dsn = file.path(path, "site_buildings.geojson")
   file.remove(dsn)
+  sf::write_sf(houses, dsn)
 }
-sf::write_sf(houses, dsn)
+
 
 trip_attractors = buildings_in_zones %>% filter(building %in% building_types)
 #mapview::mapview(trip_attractors) # looks good!
@@ -186,8 +185,9 @@ trip_attractors = buildings_in_zones %>% filter(building %in% building_types)
 if(!new_site){
   dsn = file.path(path, "trip_attractors.geojson")
   file.remove(dsn)
+  sf::write_sf(trip_attractors, dsn)
 }
-sf::write_sf(trip_attractors, dsn)
+
 
 # # save summary info (todo: add more columns) ------------------------------
 nrow(buildings_in_zones)
