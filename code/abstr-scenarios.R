@@ -1,16 +1,14 @@
 # Aim: demonstrate disaggregating polygons for #24
 
-remotes::install_github("itsleeds/od")
-remotes::install_github("ITSLeeds/pct")
-remotes::install_github("a-b-street/abstr")
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "poundbury"
+  site_name = "chapeltown-cohousing"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
-} 
+}
+
 j = sites$site_name == site_name
 site = sites[j, ]
 path = file.path("data-small", site_name)
@@ -132,7 +130,7 @@ houses = osm_polygons_in_site %>%
   # filter(building == "residential") %>% # todo: all non-destination buildings?
   select(osm_way_id, building)
 # subset to those in the site
-# mapview::mapview(site) + mapview::mapview(houses)
+#mapview::mapview(site) + mapview::mapview(houses)
 
 if(procgen_exists) {
   # quick fix for https://github.com/cyipt/actdev/issues/82
@@ -171,27 +169,43 @@ if(n_houses < 5) {
   houses = houses_in_site
 }
 
-# mapview::mapview(houses) + mapview::mapview(site)
+mapview::mapview(houses) + mapview::mapview(site)
 
-dsn = file.path(path, "site_buildings.geojson")
-file.remove(dsn)
-sf::write_sf(houses, dsn)
+if(!new_site){
+  dsn = file.path(path, "site_buildings.geojson")
+  file.remove(dsn)
+  sf::write_sf(houses, dsn)
+}
+
 
 trip_attractors = buildings_in_zones %>% filter(building %in% building_types)
-# mapview::mapview(trip_attractors) # looks good!
-dsn = file.path(path, "trip_attractors.geojson")
-file.remove(dsn)
-sf::write_sf(trip_attractors, dsn)
+#mapview::mapview(trip_attractors) # looks good!
+
+if(!new_site){
+  dsn = file.path(path, "trip_attractors.geojson")
+  file.remove(dsn)
+  sf::write_sf(trip_attractors, dsn)
+}
+
 
 # # save summary info (todo: add more columns) ------------------------------
+nrow(buildings_in_zones)
 # sites_df = sites %>% sf::st_drop_geometry()
 # sites_df$n_origin_buildings = NA
 # sites_df$n_destination_buildings = NA
 sites_df = readr::read_csv("data-small/sites_df_abstr.csv")
 #error in merging rows for a new site
-sites_df$n_origin_buildings[j] = nrow(houses)
-sites_df$n_destination_buildings = nrow(buildings_in_zones)
-readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")
+if (new_site) {
+  newdf <- data.frame(site_name = site_name,
+                      dwellings_when_complete = n_dwellings_site,
+                      n_origin_buildings = nrow(houses),
+                      n_destination_buildings = nrow(buildings_in_zones)
+  )
+  
+  sites_df = rbind(newdf,sites_df) %>% arrange(site_name)
+  
+  readr::write_csv(sites_df, "data-small/sites_df_abstr.csv")
+}
 
 # todo: allow setting the population column
 names(desire_lines)
@@ -261,8 +275,8 @@ abcd = abstr::ab_scenario(
   output_format = "sf"
 )
 
+mapview::mapview(abcd)
 
-# mapview::mapview(abcd)
 abcd$departure = abstr::ab_time_normal(hr = times$commute$hr, sd = times$commute$sd, n = nrow(abc))
 abtd = abstr::ab_scenario(
   houses,
@@ -287,11 +301,15 @@ table(abbd$mode_go_active)
 abstr::ab_save(abbl, file.path(path, "scenario_base.json"))
 abstr::ab_save(abbld, file.path(path, "scenario_go_active.json"))
 
-file.remove(file.path(path, "scenario-base.json"))
-file.remove(file.path(path, "scenario-godutch.json"))
 
-if(!exists("build_background_traffic"))
+# why are we removing these // are they a duplicate of something? ----------------------
+#file.remove(file.path(path, "scenario-base.json"))
+#file.remove(file.path(path, "scenario-godutch.json"))
+
+if(!exists("build_background_traffic")){
   build_background_traffic = FALSE
+}
+  
 if(build_background_traffic) {
   # add code to generate background traffic
   # simple visualisation of input data is a starter for 10
