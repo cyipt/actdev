@@ -143,7 +143,7 @@ zone_df_to_join = zone_df_walk %>%
 
 # # EXCLUDED WALKING ROUTES BECAUSE OF BUG THAT MEANS `ROUTES_WALK_JOINED` HAS NO CONTENTS
 zones_db = left_join(zones_db, zone_df_to_join)
-mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
+#mapview::mapview(zones_db["circuity_walk"]) + routes_walk_diversion
 
 # mapview::mapview(zones_db["busyness_cycle_base"]) +
 #   mapview::mapview(routes_fast_cents)
