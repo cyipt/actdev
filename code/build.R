@@ -20,7 +20,7 @@ data_dir = "data-small" # for test sites
 if (!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
 }
-
+source("code/add_site.R")
 if (new_site) {
   # read-in new site that must have the following fields (NAs allowed):
   # dwellings_when_complete, site_name and full_name are necessary
@@ -29,6 +29,7 @@ if (new_site) {
   # [7] "geometry"
   site = sf::read_sf("map.geojson")
   sf::st_crs(site) = 4326
+  site$main_local_authority = add_la(site)
   site_names_to_build = site$site_name
   site_name = site$site_name
   path = file.path(data_dir, site_names_to_build)
@@ -38,7 +39,7 @@ if (new_site) {
   new_cols[] = NA
   sites = rbind(sites,
                 sf::st_sf(cbind(sf::st_drop_geometry(site), new_cols),
-                          geometry = site$geometry))
+                          geometry = site$geometry)) %>% arrange(site_name)
 } else {
   site_names_to_build = sites %>%
     filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))

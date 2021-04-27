@@ -126,7 +126,6 @@ Awesome, we now have the geometry for our site. Next we should add the non-spati
 ```json
 "site_name": "name of the site in lowercase, using - as spaces e.g. northwick-park",
 "full_name":"full name of the site e.g. Northwick Park Brent",
-"main_local_authority": "primary local authority the site is located in e.g. Brent",
 "is_complete": "Is site complete, partially complete or not compelete e.g. no|yes|partially",
 "dwellings_when_complete": total number of dwellings once the site is complete, not in quotes e.g. 600,
 "planning_url": "link to the planning url of the site e.g. https://www.constructionenquirer.com/2021/04/12/planning-for-1000-homes-at-north-west-london-hospital-site/"
@@ -275,7 +274,7 @@ for(site_name in site_names_to_build) {
 }
 ```
 
-After completion, you are ready to run the next batch of scripts. However, **do not run** 
+After completion, you are ready to run the next batch of scripts. The next batch of scripts create [ABStreet](https://github.com/a-b-street/abstreet) simulation files, zones, info-graphics, mode-split summary statistics and in-site metrics for the new development.
 
 ```{r eval=FALSE}
 # Add json files for abstreet ---------------------------------------------
@@ -291,13 +290,6 @@ for(site_name in site_names_to_build) {
     })
   })
 }
-```
-
-as this has not been configured for new sites yet. This script builds the required files needed for an [ABStreet](https://github.com/a-b-street/abstreet) simulation. We hope to get this fixed soon.
-
-Moving on, the next batch of scripts to run create zones, infographics, mode-split summary statistics and site metrics for your new site.
-
-```{r eval=FALSE}
 # Generate 'clockboard' data ----------------------------------------------
 
 source("code/tests/color_palette.R")
