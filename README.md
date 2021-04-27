@@ -16,3 +16,8 @@ for a high-level overview.
 
 See the issue tracker for discussion. Contributions of ideas/issues/code
 welcome.
+
+If you would like to add a new site, open an issue on the issue tracker
+and check out our guide on adding new sites
+[here](https://github.com/cyipt/actdev/blob/main/code/tests/add-new-site.md)
+(requires R/RStudio, we can help with this).
