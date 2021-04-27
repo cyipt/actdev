@@ -6,7 +6,7 @@ add_la = function(site) {
                 destfile = 'geojsons/la_boundaries.geojson',
                 method = 'wininet')
   # Read input data
-  la_ew = sf::read_sf("geojsons/la_boundaries.geojson") %>% sf::as_Spatial() %>% sf::st_as_sf()
+  la_ew = sf::read_sf("geojsons/la_boundaries.geojson")
   # Create intersection between site and ONS data
   la_site = sf::st_intersection(la_ew, site)
   site$main_local_authority = la_site$LAD19NM
