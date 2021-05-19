@@ -27,7 +27,7 @@ if (new_site) {
   # [1] "site_name"               "full_name"               "main_local_authority"
   # [4] "is_complete"             "dwellings_when_complete" "planning_url"
   # [7] "geometry"
-  site = sf::read_sf("crick.geojson")
+  site = sf::read_sf("map.geojson")
   sf::st_crs(site) = 4326
   site$main_local_authority = add_la(site)
   site_names_to_build = site$site_name
