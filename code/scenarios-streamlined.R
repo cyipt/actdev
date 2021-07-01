@@ -8,17 +8,6 @@ library(od)
 # set-up and parameters ---------------------------------------------------
 
 # setwd("~/cyipt/actdev") # run this script from the actdev folder
-if(!exists("site_name")) { # assume all presets loaded if site_name exists
-  site_name = "exeter-red-cow-village"   # which site to look at (can change)
-  data_dir = "data-small" # for test sites
-  path = file.path(data_dir, site_name)
-}
-
-if(!exists("centroids_msoa")) {
-  # run the build script if national data is missing
-  source("code/build-setup.R")
-}
-
 # evidence-based way of selecting threshold for desire lines
 summary(sites$dwellings_when_complete) 
 summary(sites$dwellings_when_complete) # 2500
