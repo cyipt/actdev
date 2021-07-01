@@ -301,7 +301,7 @@ if(is.null(routes_walk$distance)) {
 }
 
 routes_walk_save = routes_walk %>% 
-  dplyr::filter(distance <= 6000 & trimode_base > 0) %>%
+  dplyr::filter(distance <= 10000 & trimode_base > 0) %>%
   mutate(
     # pwalk_base = walk_base / trimode_base,
     pwalk_godutch = case_when(	
