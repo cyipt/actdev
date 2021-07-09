@@ -3,7 +3,7 @@
 library(tidyverse)
 
 if(!exists("site_name")) {
-  site_name = "chapeltown-cohousing"
+  site_name = "lcid"
 } 
 if(!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -88,7 +88,7 @@ zone_town = zones %>%
 zone_town_geometry = lwgeom::st_endpoint(tail(desire_lines, 1)) %>% 
   stplanr::geo_buffer(dist = 500) 
 zone_town_sf = sf::st_sf(zone_town, geometry = zone_town_geometry)
-zones_of_interest = rbind(zones_of_interest, zone_town_sf)
+zones_of_interest = rbind(zones_of_interest, zone_town_sf) 
 
 error = FALSE
 tryCatch( {buildings_in_zones = osm_buildings[zones_of_interest, , op = sf::st_within]}
@@ -103,8 +103,9 @@ if(procgen_exists) {
   file.remove(procgen_path)
 }
 
-# mapview::mapview(zones_of_interest) +
-#   mapview::mapview(buildings_in_zones)
+mapview::mapview(zones_of_interest) +
+mapview::mapview(buildings_in_zones)
+
 buildings_in_zones = buildings_in_zones %>%
   select(osm_way_id, building)
 

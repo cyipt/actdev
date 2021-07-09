@@ -8,4 +8,4 @@ cran_pkgs = c("httr", "lwgeom", "mapview", "od", "osmextract", "pct",
               "knitr", "xaringan")
 remotes::install_cran(cran_pkgs)
 remotes::install_github(c("cyipt/acton", "cyipt/actdev"))
-remotes::install_github("a-b-street/abstr", ref = "v0.1.1")
+remotes::install_github("a-b-street/abstr")
