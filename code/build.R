@@ -51,8 +51,6 @@ if (new_site) {
 source("code/load_jts.R") # national data if not loaded (takes some time)
 source("code/build-setup.R") # national data
 
-site_name = "lcid"
-
 # build aggregate scenarios ----------------------------------------------
 set.seed(2021) # reproducibility
 disaggregate_desire_lines = FALSE
