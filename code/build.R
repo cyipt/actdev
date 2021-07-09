@@ -4,7 +4,7 @@
 
 # run the following script from the actdev folder directory to install packages
 source("install-r-package-dependencies.R")
-#Dont yse s2 engine 
+#Dont use s2 engine 
 sf::sf_use_s2(FALSE)
 
 library(tidyverse)
