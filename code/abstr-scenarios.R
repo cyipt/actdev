@@ -3,7 +3,7 @@
 library(tidyverse)
 
 if (!exists("site_name")) {
-  site_name = "lcid"
+  site_name = "cricklewood"
 }
 if (!exists("sites")) {
   sites = sf::read_sf("data-small/all-sites.geojson")
@@ -111,7 +111,7 @@ if (procgen_exists) {
   file.remove(procgen_path)
 }
 
-mapview::mapview(zones_of_interest) +
+#mapview::mapview(zones_of_interest) +
   mapview::mapview(buildings_in_zones)
 
 buildings_in_zones = buildings_in_zones %>%
@@ -259,29 +259,35 @@ abs((
 # mapview::mapview(houses) + mapview::mapview(buildings_in_zones) +
 #   mapview::mapview(desire_lines) + mapview::mapview(zones_of_interest)
 
+od = desire_lines %>% rename(Walk = walk_base, Bike = cycle_base, Drive = drive_base)
+
 abc = abstr::ab_scenario(
-  houses,
-  buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% filter(purpose == "commute" &
-                                           all_base > 0),
-  zones = zones_of_interest,
+  od = od %>% filter(purpose == "commute" &
+                       all_base > 0),
+  zones = site_area,
+  zones_d = zones_of_interest,
+  origin_buildings = houses,
+  destination_buildings = buildings_in_zones,
   scenario = "base",
-  output_format = "sf"
+  output = "sf"
 )
+
 # to debug run: file.edit("~/cyipt/abstr/R/ab_scenario.R")
 
 abc$departure = abstr::ab_time_normal(hr = times$commute$hr,
                                       sd = times$commute$sd,
                                       n = nrow(abc))
 abt = abstr::ab_scenario(
-  houses,
-  buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% filter(purpose == "town"),
-  zones = zones_of_interest,
+  od = od %>% filter(purpose == "town" &
+                       all_base > 0),
+  zones = site_area,
+  zones_d = zones_of_interest,
+  origin_buildings = houses,
+  destination_buildings = buildings_in_zones,
   scenario = "base",
-  output_format = "sf"
+  output = "sf"
 )
-table(abt$mode_base)
+table(abt$mode)
 
 abt$departure = abstr::ab_time_normal(hr = times$town$hr,
                                       sd = times$town$sd,
@@ -290,17 +296,19 @@ abb = rbind(abc, abt)
 rows_equal = nrow(abb) == sum(desire_lines$trimode_base)
 if (!rows_equal)
   stop("Number of trips in scenario different from baseline")
-abbl = abstr::ab_json(abb)
+abbl = abstr::ab_json(abb, scenario_name = "base")
 
+od_active = desire_lines %>% rename(Walk = walk_go_active, Bike = cycle_go_active, Drive = drive_go_active)
 
 abcd = abstr::ab_scenario(
-  houses,
-  buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% filter(purpose == "commute" &
-                                           all_base > 0),
-  zones = zones_of_interest,
+  od = od_active %>% filter(purpose == "commute" &
+                       all_base > 0),
+  zones = site_area,
+  zones_d = zones_of_interest,
+  origin_buildings = houses,
+  destination_buildings = buildings_in_zones,
   scenario = "go_active",
-  output_format = "sf"
+  output = "sf"
 )
 
 mapview::mapview(abcd)
@@ -309,12 +317,13 @@ abcd$departure = abstr::ab_time_normal(hr = times$commute$hr,
                                        sd = times$commute$sd,
                                        n = nrow(abc))
 abtd = abstr::ab_scenario(
-  houses,
-  buildings = buildings_in_zones,
-  desire_lines = desire_lines %>% filter(purpose == "town"),
-  zones = zones_of_interest,
+  od = od_active %>% filter(purpose == "town"),
+  zones = site_area,
+  zones_d = zones_of_interest,
+  origin_buildings = houses,
+  destination_buildings = buildings_in_zones,
   scenario = "go_active",
-  output_format = "sf"
+  output = "sf"
 )
 nrow(abtd) == nrow(abt)
 table(abtd$mode_go_active)
@@ -326,7 +335,7 @@ rows_equal = nrow(abbd) == sum(desire_lines$trimode_base)
 if (!rows_equal)
   stop("Number of trips in scenario different from baseline")
 hist(abbd$departure, breaks = seq(0, 60 * 60 * 24, 60 * 15))
-abbld = abstr::ab_json(abbd, mode_column = "mode_go_active")
+abbld = abstr::ab_json(abbd, scenario_name = "go_active")
 
 table(abb$mode_base)
 table(abbd$mode_go_active)
