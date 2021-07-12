@@ -28,6 +28,11 @@ if(!exists("min_flow_routes")) {
   min_flow_routes = mean(sites$dwellings_when_complete / 500)
 }
 
+if(new_site == FALSE) {
+  path = file.path(data_dir, site_name)
+  site = sf::read_sf(file.path(path, "site.geojson"))
+}
+
 # Select site of interest -------------------------------------------------
 zones_touching_site = zones_msoa_national[site, , op = sf::st_intersects]
 zones_touching_site$overlap_size = units::drop_units(st_area(zones_touching_site))

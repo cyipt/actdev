@@ -4,6 +4,8 @@
 
 # run the following script from the actdev folder directory to install packages
 source("install-r-package-dependencies.R")
+#Dont use s2 engine 
+sf::sf_use_s2(FALSE)
 
 library(tidyverse)
 library(sf)
@@ -13,7 +15,7 @@ household_size = 2.3 # mean UK household size at 2011 census
 min_flow_routes = 2 # threshold above which OD pairs are included
 region_buffer_dist = 2000
 large_area_buffer = 500
-new_site = TRUE
+new_site = FALSE
 data_dir = "data-small" # for test sites
 
 # If new site has been added use the rbind version of sites
@@ -41,8 +43,9 @@ if (new_site) {
                 sf::st_sf(cbind(sf::st_drop_geometry(site), new_cols),
                           geometry = site$geometry)) %>% arrange(site_name)
 } else {
+  #TODO this is returning null
   site_names_to_build = sites %>%
-    filter(str_detect(string = site_name, pattern = "regex-to-rebuild"))
+    filter(str_detect(string = site_name, pattern = "lcid"))
 }
 
 source("code/load_jts.R") # national data if not loaded (takes some time)
