@@ -4,7 +4,7 @@
     {
       "trips": [
         {
-          "departure": 31125,
+          "departure": 311250000,
           "destination": {
             "Position": {
               "longitude": -3.5219,
@@ -25,7 +25,7 @@
     {
       "trips": [
         {
-          "departure": 32334,
+          "departure": 323340000,
           "destination": {
             "Position": {
               "longitude": -3.5188,
@@ -46,7 +46,7 @@
     {
       "trips": [
         {
-          "departure": 31982,
+          "departure": 319820000,
           "destination": {
             "Position": {
               "longitude": -3.5152,
@@ -67,7 +67,7 @@
     {
       "trips": [
         {
-          "departure": 29809,
+          "departure": 298090000,
           "destination": {
             "Position": {
               "longitude": -3.5194,
@@ -88,7 +88,7 @@
     {
       "trips": [
         {
-          "departure": 31099,
+          "departure": 310990000,
           "destination": {
             "Position": {
               "longitude": -3.5185,
@@ -109,7 +109,7 @@
     {
       "trips": [
         {
-          "departure": 30737,
+          "departure": 307370000,
           "destination": {
             "Position": {
               "longitude": -3.5413,
@@ -130,7 +130,7 @@
     {
       "trips": [
         {
-          "departure": 30886,
+          "departure": 308860000,
           "destination": {
             "Position": {
               "longitude": -3.5158,
@@ -151,7 +151,7 @@
     {
       "trips": [
         {
-          "departure": 32574,
+          "departure": 325740000,
           "destination": {
             "Position": {
               "longitude": -3.5164,
@@ -172,7 +172,7 @@
     {
       "trips": [
         {
-          "departure": 30824,
+          "departure": 308240000,
           "destination": {
             "Position": {
               "longitude": -3.5449,
@@ -193,7 +193,7 @@
     {
       "trips": [
         {
-          "departure": 29767,
+          "departure": 297670000,
           "destination": {
             "Position": {
               "longitude": -3.5167,
@@ -214,7 +214,7 @@
     {
       "trips": [
         {
-          "departure": 30691,
+          "departure": 306910000,
           "destination": {
             "Position": {
               "longitude": -3.5395,
@@ -235,7 +235,7 @@
     {
       "trips": [
         {
-          "departure": 30544,
+          "departure": 305440000,
           "destination": {
             "Position": {
               "longitude": -3.5208,
@@ -256,7 +256,7 @@
     {
       "trips": [
         {
-          "departure": 27989,
+          "departure": 279890000,
           "destination": {
             "Position": {
               "longitude": -3.5106,
@@ -277,7 +277,7 @@
     {
       "trips": [
         {
-          "departure": 31689,
+          "departure": 316890000,
           "destination": {
             "Position": {
               "longitude": -3.5415,
@@ -298,7 +298,7 @@
     {
       "trips": [
         {
-          "departure": 31217,
+          "departure": 312170000,
           "destination": {
             "Position": {
               "longitude": -3.5147,
@@ -319,7 +319,7 @@
     {
       "trips": [
         {
-          "departure": 30404,
+          "departure": 304040000,
           "destination": {
             "Position": {
               "longitude": -3.54,
@@ -340,7 +340,7 @@
     {
       "trips": [
         {
-          "departure": 29886,
+          "departure": 298860000,
           "destination": {
             "Position": {
               "longitude": -3.5207,
@@ -361,7 +361,7 @@
     {
       "trips": [
         {
-          "departure": 32354,
+          "departure": 323540000,
           "destination": {
             "Position": {
               "longitude": -3.5414,
@@ -382,7 +382,7 @@
     {
       "trips": [
         {
-          "departure": 31899,
+          "departure": 318990000,
           "destination": {
             "Position": {
               "longitude": -3.5117,
@@ -403,7 +403,7 @@
     {
       "trips": [
         {
-          "departure": 31636,
+          "departure": 316360000,
           "destination": {
             "Position": {
               "longitude": -3.5125,
@@ -424,7 +424,7 @@
     {
       "trips": [
         {
-          "departure": 28985,
+          "departure": 289850000,
           "destination": {
             "Position": {
               "longitude": -3.5165,
@@ -445,7 +445,7 @@
     {
       "trips": [
         {
-          "departure": 31437,
+          "departure": 314370000,
           "destination": {
             "Position": {
               "longitude": -3.5396,
@@ -466,7 +466,7 @@
     {
       "trips": [
         {
-          "departure": 30562,
+          "departure": 305620000,
           "destination": {
             "Position": {
               "longitude": -3.5136,
@@ -487,7 +487,7 @@
     {
       "trips": [
         {
-          "departure": 28767,
+          "departure": 287670000,
           "destination": {
             "Position": {
               "longitude": -3.524,
@@ -508,7 +508,7 @@
     {
       "trips": [
         {
-          "departure": 30033,
+          "departure": 300330000,
           "destination": {
             "Position": {
               "longitude": -3.5459,
@@ -529,7 +529,7 @@
     {
       "trips": [
         {
-          "departure": 31277,
+          "departure": 312770000,
           "destination": {
             "Position": {
               "longitude": -3.5143,
@@ -550,7 +550,7 @@
     {
       "trips": [
         {
-          "departure": 29263,
+          "departure": 292630000,
           "destination": {
             "Position": {
               "longitude": -3.52,
@@ -571,7 +571,7 @@
     {
       "trips": [
         {
-          "departure": 30695,
+          "departure": 306950000,
           "destination": {
             "Position": {
               "longitude": -3.5433,
@@ -592,7 +592,7 @@
     {
       "trips": [
         {
-          "departure": 30692,
+          "departure": 306920000,
           "destination": {
             "Position": {
               "longitude": -3.5162,
@@ -613,7 +613,7 @@
     {
       "trips": [
         {
-          "departure": 29536,
+          "departure": 295360000,
           "destination": {
             "Position": {
               "longitude": -3.5168,
@@ -634,7 +634,7 @@
     {
       "trips": [
         {
-          "departure": 31433,
+          "departure": 314330000,
           "destination": {
             "Position": {
               "longitude": -3.5182,
@@ -655,7 +655,7 @@
     {
       "trips": [
         {
-          "departure": 29690,
+          "departure": 296900000,
           "destination": {
             "Position": {
               "longitude": -3.5472,
@@ -676,7 +676,7 @@
     {
       "trips": [
         {
-          "departure": 28887,
+          "departure": 288870000,
           "destination": {
             "Position": {
               "longitude": -3.5203,
@@ -697,7 +697,7 @@
     {
       "trips": [
         {
-          "departure": 31503,
+          "departure": 315030000,
           "destination": {
             "Position": {
               "longitude": -3.516,
@@ -718,7 +718,7 @@
     {
       "trips": [
         {
-          "departure": 30453,
+          "departure": 304530000,
           "destination": {
             "Position": {
               "longitude": -3.5238,
@@ -739,7 +739,7 @@
     {
       "trips": [
         {
-          "departure": 30038,
+          "departure": 300380000,
           "destination": {
             "Position": {
               "longitude": -3.5169,
@@ -760,7 +760,7 @@
     {
       "trips": [
         {
-          "departure": 28842,
+          "departure": 288420000,
           "destination": {
             "Position": {
               "longitude": -3.5243,
@@ -781,7 +781,7 @@
     {
       "trips": [
         {
-          "departure": 29574,
+          "departure": 295740000,
           "destination": {
             "Position": {
               "longitude": -3.5121,
@@ -802,7 +802,7 @@
     {
       "trips": [
         {
-          "departure": 30059,
+          "departure": 300590000,
           "destination": {
             "Position": {
               "longitude": -3.5189,
@@ -823,7 +823,7 @@
     {
       "trips": [
         {
-          "departure": 29618,
+          "departure": 296180000,
           "destination": {
             "Position": {
               "longitude": -3.5218,
@@ -844,7 +844,7 @@
     {
       "trips": [
         {
-          "departure": 30418,
+          "departure": 304180000,
           "destination": {
             "Position": {
               "longitude": -3.5417,
@@ -865,7 +865,7 @@
     {
       "trips": [
         {
-          "departure": 31299,
+          "departure": 312990000,
           "destination": {
             "Position": {
               "longitude": -3.518,
@@ -886,7 +886,7 @@
     {
       "trips": [
         {
-          "departure": 29319,
+          "departure": 293190000,
           "destination": {
             "Position": {
               "longitude": -3.5188,
@@ -907,7 +907,7 @@
     {
       "trips": [
         {
-          "departure": 30830,
+          "departure": 308300000,
           "destination": {
             "Position": {
               "longitude": -3.5416,
@@ -928,7 +928,7 @@
     {
       "trips": [
         {
-          "departure": 30032,
+          "departure": 300320000,
           "destination": {
             "Position": {
               "longitude": -3.5461,
@@ -949,7 +949,7 @@
     {
       "trips": [
         {
-          "departure": 29831,
+          "departure": 298310000,
           "destination": {
             "Position": {
               "longitude": -3.51,
@@ -970,7 +970,7 @@
     {
       "trips": [
         {
-          "departure": 30145,
+          "departure": 301450000,
           "destination": {
             "Position": {
               "longitude": -3.5421,
@@ -991,7 +991,7 @@
     {
       "trips": [
         {
-          "departure": 29085,
+          "departure": 290850000,
           "destination": {
             "Position": {
               "longitude": -3.5116,
@@ -1012,7 +1012,7 @@
     {
       "trips": [
         {
-          "departure": 30050,
+          "departure": 300500000,
           "destination": {
             "Position": {
               "longitude": -3.5143,
@@ -1033,7 +1033,7 @@
     {
       "trips": [
         {
-          "departure": 29129,
+          "departure": 291290000,
           "destination": {
             "Position": {
               "longitude": -3.487,
@@ -1054,7 +1054,7 @@
     {
       "trips": [
         {
-          "departure": 30759,
+          "departure": 307590000,
           "destination": {
             "Position": {
               "longitude": -3.4825,
@@ -1075,7 +1075,7 @@
     {
       "trips": [
         {
-          "departure": 30796,
+          "departure": 307960000,
           "destination": {
             "Position": {
               "longitude": -3.4901,
@@ -1096,7 +1096,7 @@
     {
       "trips": [
         {
-          "departure": 30386,
+          "departure": 303860000,
           "destination": {
             "Position": {
               "longitude": -3.4957,
@@ -1117,7 +1117,7 @@
     {
       "trips": [
         {
-          "departure": 31408,
+          "departure": 314080000,
           "destination": {
             "Position": {
               "longitude": -3.4805,
@@ -1138,7 +1138,7 @@
     {
       "trips": [
         {
-          "departure": 29982,
+          "departure": 299820000,
           "destination": {
             "Position": {
               "longitude": -3.491,
@@ -1159,7 +1159,7 @@
     {
       "trips": [
         {
-          "departure": 28970,
+          "departure": 289700000,
           "destination": {
             "Position": {
               "longitude": -3.5223,
@@ -1180,7 +1180,7 @@
     {
       "trips": [
         {
-          "departure": 28425,
+          "departure": 284250000,
           "destination": {
             "Position": {
               "longitude": -3.5211,
@@ -1201,7 +1201,7 @@
     {
       "trips": [
         {
-          "departure": 31451,
+          "departure": 314510000,
           "destination": {
             "Position": {
               "longitude": -3.5181,
@@ -1222,7 +1222,7 @@
     {
       "trips": [
         {
-          "departure": 30801,
+          "departure": 308010000,
           "destination": {
             "Position": {
               "longitude": -3.5249,
@@ -1243,7 +1243,7 @@
     {
       "trips": [
         {
-          "departure": 29742,
+          "departure": 297420000,
           "destination": {
             "Position": {
               "longitude": -3.5216,
@@ -1264,7 +1264,7 @@
     {
       "trips": [
         {
-          "departure": 31715,
+          "departure": 317150000,
           "destination": {
             "Position": {
               "longitude": -3.5196,
@@ -1285,7 +1285,7 @@
     {
       "trips": [
         {
-          "departure": 30675,
+          "departure": 306750000,
           "destination": {
             "Position": {
               "longitude": -3.5157,
@@ -1306,7 +1306,7 @@
     {
       "trips": [
         {
-          "departure": 30647,
+          "departure": 306470000,
           "destination": {
             "Position": {
               "longitude": -3.5261,
@@ -1327,7 +1327,7 @@
     {
       "trips": [
         {
-          "departure": 30069,
+          "departure": 300690000,
           "destination": {
             "Position": {
               "longitude": -3.5192,
@@ -1348,7 +1348,7 @@
     {
       "trips": [
         {
-          "departure": 30242,
+          "departure": 302420000,
           "destination": {
             "Position": {
               "longitude": -3.5228,
@@ -1369,7 +1369,7 @@
     {
       "trips": [
         {
-          "departure": 31910,
+          "departure": 319100000,
           "destination": {
             "Position": {
               "longitude": -3.5181,
@@ -1390,7 +1390,7 @@
     {
       "trips": [
         {
-          "departure": 31030,
+          "departure": 310300000,
           "destination": {
             "Position": {
               "longitude": -3.5241,
@@ -1411,7 +1411,7 @@
     {
       "trips": [
         {
-          "departure": 30708,
+          "departure": 307080000,
           "destination": {
             "Position": {
               "longitude": -3.5169,
@@ -1432,7 +1432,7 @@
     {
       "trips": [
         {
-          "departure": 28555,
+          "departure": 285550000,
           "destination": {
             "Position": {
               "longitude": -3.5228,
@@ -1453,7 +1453,7 @@
     {
       "trips": [
         {
-          "departure": 29014,
+          "departure": 290140000,
           "destination": {
             "Position": {
               "longitude": -3.5253,
@@ -1474,7 +1474,7 @@
     {
       "trips": [
         {
-          "departure": 29438,
+          "departure": 294380000,
           "destination": {
             "Position": {
               "longitude": -3.518,
@@ -1495,7 +1495,7 @@
     {
       "trips": [
         {
-          "departure": 29904,
+          "departure": 299040000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -1516,7 +1516,7 @@
     {
       "trips": [
         {
-          "departure": 30464,
+          "departure": 304640000,
           "destination": {
             "Position": {
               "longitude": -3.5197,
@@ -1537,7 +1537,7 @@
     {
       "trips": [
         {
-          "departure": 32147,
+          "departure": 321470000,
           "destination": {
             "Position": {
               "longitude": -3.5064,
@@ -1558,7 +1558,7 @@
     {
       "trips": [
         {
-          "departure": 31195,
+          "departure": 311950000,
           "destination": {
             "Position": {
               "longitude": -3.5107,
@@ -1579,7 +1579,7 @@
     {
       "trips": [
         {
-          "departure": 29676,
+          "departure": 296760000,
           "destination": {
             "Position": {
               "longitude": -3.5063,
@@ -1600,7 +1600,7 @@
     {
       "trips": [
         {
-          "departure": 29636,
+          "departure": 296360000,
           "destination": {
             "Position": {
               "longitude": -3.5057,
@@ -1621,7 +1621,7 @@
     {
       "trips": [
         {
-          "departure": 29330,
+          "departure": 293300000,
           "destination": {
             "Position": {
               "longitude": -3.5091,
@@ -1642,7 +1642,7 @@
     {
       "trips": [
         {
-          "departure": 30785,
+          "departure": 307850000,
           "destination": {
             "Position": {
               "longitude": -3.4918,
@@ -1663,7 +1663,7 @@
     {
       "trips": [
         {
-          "departure": 31317,
+          "departure": 313170000,
           "destination": {
             "Position": {
               "longitude": -3.4885,
@@ -1684,7 +1684,7 @@
     {
       "trips": [
         {
-          "departure": 30257,
+          "departure": 302570000,
           "destination": {
             "Position": {
               "longitude": -3.5154,
@@ -1705,7 +1705,7 @@
     {
       "trips": [
         {
-          "departure": 32183,
+          "departure": 321830000,
           "destination": {
             "Position": {
               "longitude": -3.5274,
@@ -1726,7 +1726,7 @@
     {
       "trips": [
         {
-          "departure": 30873,
+          "departure": 308730000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -1747,7 +1747,7 @@
     {
       "trips": [
         {
-          "departure": 31402,
+          "departure": 314020000,
           "destination": {
             "Position": {
               "longitude": -3.5404,
@@ -1768,7 +1768,7 @@
     {
       "trips": [
         {
-          "departure": 31531,
+          "departure": 315310000,
           "destination": {
             "Position": {
               "longitude": -3.52,
@@ -1789,7 +1789,7 @@
     {
       "trips": [
         {
-          "departure": 30929,
+          "departure": 309290000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -1810,7 +1810,7 @@
     {
       "trips": [
         {
-          "departure": 32339,
+          "departure": 323390000,
           "destination": {
             "Position": {
               "longitude": -3.5276,
@@ -1831,7 +1831,7 @@
     {
       "trips": [
         {
-          "departure": 32775,
+          "departure": 327750000,
           "destination": {
             "Position": {
               "longitude": -3.5313,
@@ -1852,7 +1852,7 @@
     {
       "trips": [
         {
-          "departure": 32575,
+          "departure": 325750000,
           "destination": {
             "Position": {
               "longitude": -3.5348,
@@ -1873,7 +1873,7 @@
     {
       "trips": [
         {
-          "departure": 32352,
+          "departure": 323520000,
           "destination": {
             "Position": {
               "longitude": -3.5418,
@@ -1894,7 +1894,7 @@
     {
       "trips": [
         {
-          "departure": 30964,
+          "departure": 309640000,
           "destination": {
             "Position": {
               "longitude": -3.5195,
@@ -1915,7 +1915,7 @@
     {
       "trips": [
         {
-          "departure": 31492,
+          "departure": 314920000,
           "destination": {
             "Position": {
               "longitude": -3.5196,
@@ -1936,7 +1936,7 @@
     {
       "trips": [
         {
-          "departure": 30058,
+          "departure": 300580000,
           "destination": {
             "Position": {
               "longitude": -3.5384,
@@ -1957,7 +1957,7 @@
     {
       "trips": [
         {
-          "departure": 30439,
+          "departure": 304390000,
           "destination": {
             "Position": {
               "longitude": -3.5423,
@@ -1978,7 +1978,7 @@
     {
       "trips": [
         {
-          "departure": 32089,
+          "departure": 320890000,
           "destination": {
             "Position": {
               "longitude": -3.518,
@@ -1999,7 +1999,7 @@
     {
       "trips": [
         {
-          "departure": 30183,
+          "departure": 301830000,
           "destination": {
             "Position": {
               "longitude": -3.524,
@@ -2020,7 +2020,7 @@
     {
       "trips": [
         {
-          "departure": 29646,
+          "departure": 296460000,
           "destination": {
             "Position": {
               "longitude": -3.5269,
@@ -2041,7 +2041,7 @@
     {
       "trips": [
         {
-          "departure": 31491,
+          "departure": 314910000,
           "destination": {
             "Position": {
               "longitude": -3.5185,
@@ -2062,7 +2062,7 @@
     {
       "trips": [
         {
-          "departure": 28433,
+          "departure": 284330000,
           "destination": {
             "Position": {
               "longitude": -3.5283,
@@ -2083,7 +2083,7 @@
     {
       "trips": [
         {
-          "departure": 30689,
+          "departure": 306890000,
           "destination": {
             "Position": {
               "longitude": -3.5154,
@@ -2104,7 +2104,7 @@
     {
       "trips": [
         {
-          "departure": 31994,
+          "departure": 319940000,
           "destination": {
             "Position": {
               "longitude": -3.519,
@@ -2125,7 +2125,7 @@
     {
       "trips": [
         {
-          "departure": 32260,
+          "departure": 322600000,
           "destination": {
             "Position": {
               "longitude": -3.527,
@@ -2146,7 +2146,7 @@
     {
       "trips": [
         {
-          "departure": 33262,
+          "departure": 332620000,
           "destination": {
             "Position": {
               "longitude": -3.529,
@@ -2167,7 +2167,7 @@
     {
       "trips": [
         {
-          "departure": 29238,
+          "departure": 292380000,
           "destination": {
             "Position": {
               "longitude": -3.5425,
@@ -2188,7 +2188,7 @@
     {
       "trips": [
         {
-          "departure": 29770,
+          "departure": 297700000,
           "destination": {
             "Position": {
               "longitude": -3.535,
@@ -2209,7 +2209,7 @@
     {
       "trips": [
         {
-          "departure": 31841,
+          "departure": 318410000,
           "destination": {
             "Position": {
               "longitude": -3.5143,
@@ -2230,7 +2230,7 @@
     {
       "trips": [
         {
-          "departure": 30676,
+          "departure": 306760000,
           "destination": {
             "Position": {
               "longitude": -3.5162,
@@ -2251,7 +2251,7 @@
     {
       "trips": [
         {
-          "departure": 30504,
+          "departure": 305040000,
           "destination": {
             "Position": {
               "longitude": -3.5298,
@@ -2272,7 +2272,7 @@
     {
       "trips": [
         {
-          "departure": 31133,
+          "departure": 311330000,
           "destination": {
             "Position": {
               "longitude": -3.5301,
@@ -2293,7 +2293,7 @@
     {
       "trips": [
         {
-          "departure": 31840,
+          "departure": 318400000,
           "destination": {
             "Position": {
               "longitude": -3.5159,
@@ -2314,7 +2314,7 @@
     {
       "trips": [
         {
-          "departure": 30631,
+          "departure": 306310000,
           "destination": {
             "Position": {
               "longitude": -3.527,
@@ -2335,7 +2335,7 @@
     {
       "trips": [
         {
-          "departure": 31735,
+          "departure": 317350000,
           "destination": {
             "Position": {
               "longitude": -3.5402,
@@ -2356,7 +2356,7 @@
     {
       "trips": [
         {
-          "departure": 30647,
+          "departure": 306470000,
           "destination": {
             "Position": {
               "longitude": -3.5318,
@@ -2377,7 +2377,7 @@
     {
       "trips": [
         {
-          "departure": 28476,
+          "departure": 284760000,
           "destination": {
             "Position": {
               "longitude": -3.5389,
@@ -2398,7 +2398,7 @@
     {
       "trips": [
         {
-          "departure": 29152,
+          "departure": 291520000,
           "destination": {
             "Position": {
               "longitude": -3.5262,
@@ -2419,7 +2419,7 @@
     {
       "trips": [
         {
-          "departure": 29996,
+          "departure": 299960000,
           "destination": {
             "Position": {
               "longitude": -3.5247,
@@ -2440,7 +2440,7 @@
     {
       "trips": [
         {
-          "departure": 31028,
+          "departure": 310280000,
           "destination": {
             "Position": {
               "longitude": -3.5389,
@@ -2461,7 +2461,7 @@
     {
       "trips": [
         {
-          "departure": 31784,
+          "departure": 317840000,
           "destination": {
             "Position": {
               "longitude": -3.5171,
@@ -2482,7 +2482,7 @@
     {
       "trips": [
         {
-          "departure": 29616,
+          "departure": 296160000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -2503,7 +2503,7 @@
     {
       "trips": [
         {
-          "departure": 27730,
+          "departure": 277300000,
           "destination": {
             "Position": {
               "longitude": -3.5299,
@@ -2524,7 +2524,7 @@
     {
       "trips": [
         {
-          "departure": 32801,
+          "departure": 328010000,
           "destination": {
             "Position": {
               "longitude": -3.5252,
@@ -2545,7 +2545,7 @@
     {
       "trips": [
         {
-          "departure": 29560,
+          "departure": 295600000,
           "destination": {
             "Position": {
               "longitude": -3.5364,
@@ -2566,7 +2566,7 @@
     {
       "trips": [
         {
-          "departure": 31638,
+          "departure": 316380000,
           "destination": {
             "Position": {
               "longitude": -3.5218,
@@ -2587,7 +2587,7 @@
     {
       "trips": [
         {
-          "departure": 29636,
+          "departure": 296360000,
           "destination": {
             "Position": {
               "longitude": -3.5158,
@@ -2608,7 +2608,7 @@
     {
       "trips": [
         {
-          "departure": 29983,
+          "departure": 299830000,
           "destination": {
             "Position": {
               "longitude": -3.5276,
@@ -2629,7 +2629,7 @@
     {
       "trips": [
         {
-          "departure": 31105,
+          "departure": 311050000,
           "destination": {
             "Position": {
               "longitude": -3.5297,
@@ -2650,7 +2650,7 @@
     {
       "trips": [
         {
-          "departure": 30263,
+          "departure": 302630000,
           "destination": {
             "Position": {
               "longitude": -3.52,
@@ -2671,7 +2671,7 @@
     {
       "trips": [
         {
-          "departure": 32099,
+          "departure": 320990000,
           "destination": {
             "Position": {
               "longitude": -3.5432,
@@ -2692,7 +2692,7 @@
     {
       "trips": [
         {
-          "departure": 30138,
+          "departure": 301380000,
           "destination": {
             "Position": {
               "longitude": -3.5367,
@@ -2713,7 +2713,7 @@
     {
       "trips": [
         {
-          "departure": 29638,
+          "departure": 296380000,
           "destination": {
             "Position": {
               "longitude": -3.5361,
@@ -2734,7 +2734,7 @@
     {
       "trips": [
         {
-          "departure": 30996,
+          "departure": 309960000,
           "destination": {
             "Position": {
               "longitude": -3.5335,
@@ -2755,7 +2755,7 @@
     {
       "trips": [
         {
-          "departure": 31026,
+          "departure": 310260000,
           "destination": {
             "Position": {
               "longitude": -3.5349,
@@ -2776,7 +2776,7 @@
     {
       "trips": [
         {
-          "departure": 31506,
+          "departure": 315060000,
           "destination": {
             "Position": {
               "longitude": -3.5329,
@@ -2797,7 +2797,7 @@
     {
       "trips": [
         {
-          "departure": 30839,
+          "departure": 308390000,
           "destination": {
             "Position": {
               "longitude": -3.5368,
@@ -2818,7 +2818,7 @@
     {
       "trips": [
         {
-          "departure": 32037,
+          "departure": 320370000,
           "destination": {
             "Position": {
               "longitude": -3.5359,
@@ -2839,7 +2839,7 @@
     {
       "trips": [
         {
-          "departure": 29664,
+          "departure": 296640000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -2860,7 +2860,7 @@
     {
       "trips": [
         {
-          "departure": 30074,
+          "departure": 300740000,
           "destination": {
             "Position": {
               "longitude": -3.537,
@@ -2881,7 +2881,7 @@
     {
       "trips": [
         {
-          "departure": 30658,
+          "departure": 306580000,
           "destination": {
             "Position": {
               "longitude": -3.5155,
@@ -2902,7 +2902,7 @@
     {
       "trips": [
         {
-          "departure": 30162,
+          "departure": 301620000,
           "destination": {
             "Position": {
               "longitude": -3.5349,
@@ -2923,7 +2923,7 @@
     {
       "trips": [
         {
-          "departure": 28924,
+          "departure": 289240000,
           "destination": {
             "Position": {
               "longitude": -3.5158,
@@ -2944,7 +2944,7 @@
     {
       "trips": [
         {
-          "departure": 31862,
+          "departure": 318620000,
           "destination": {
             "Position": {
               "longitude": -3.519,
@@ -2965,7 +2965,7 @@
     {
       "trips": [
         {
-          "departure": 29643,
+          "departure": 296430000,
           "destination": {
             "Position": {
               "longitude": -3.5263,
@@ -2986,7 +2986,7 @@
     {
       "trips": [
         {
-          "departure": 28773,
+          "departure": 287730000,
           "destination": {
             "Position": {
               "longitude": -3.5268,
@@ -3007,7 +3007,7 @@
     {
       "trips": [
         {
-          "departure": 30201,
+          "departure": 302010000,
           "destination": {
             "Position": {
               "longitude": -3.5381,
@@ -3028,7 +3028,7 @@
     {
       "trips": [
         {
-          "departure": 30909,
+          "departure": 309090000,
           "destination": {
             "Position": {
               "longitude": -3.5159,
@@ -3049,7 +3049,7 @@
     {
       "trips": [
         {
-          "departure": 32146,
+          "departure": 321460000,
           "destination": {
             "Position": {
               "longitude": -3.5195,
@@ -3070,7 +3070,7 @@
     {
       "trips": [
         {
-          "departure": 31547,
+          "departure": 315470000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
@@ -3091,7 +3091,7 @@
     {
       "trips": [
         {
-          "departure": 30541,
+          "departure": 305410000,
           "destination": {
             "Position": {
               "longitude": -3.5171,
@@ -3112,7 +3112,7 @@
     {
       "trips": [
         {
-          "departure": 30562,
+          "departure": 305620000,
           "destination": {
             "Position": {
               "longitude": -3.5177,
@@ -3133,7 +3133,7 @@
     {
       "trips": [
         {
-          "departure": 30941,
+          "departure": 309410000,
           "destination": {
             "Position": {
               "longitude": -3.5387,
@@ -3154,7 +3154,7 @@
     {
       "trips": [
         {
-          "departure": 30706,
+          "departure": 307060000,
           "destination": {
             "Position": {
               "longitude": -3.5161,
@@ -3175,7 +3175,7 @@
     {
       "trips": [
         {
-          "departure": 30927,
+          "departure": 309270000,
           "destination": {
             "Position": {
               "longitude": -3.5376,
@@ -3196,7 +3196,7 @@
     {
       "trips": [
         {
-          "departure": 31195,
+          "departure": 311950000,
           "destination": {
             "Position": {
               "longitude": -3.5357,
@@ -3217,7 +3217,7 @@
     {
       "trips": [
         {
-          "departure": 30821,
+          "departure": 308210000,
           "destination": {
             "Position": {
               "longitude": -3.5318,
@@ -3238,7 +3238,7 @@
     {
       "trips": [
         {
-          "departure": 31422,
+          "departure": 314220000,
           "destination": {
             "Position": {
               "longitude": -3.5274,
@@ -3259,7 +3259,7 @@
     {
       "trips": [
         {
-          "departure": 32001,
+          "departure": 320010000,
           "destination": {
             "Position": {
               "longitude": -3.5393,
@@ -3280,7 +3280,7 @@
     {
       "trips": [
         {
-          "departure": 30544,
+          "departure": 305440000,
           "destination": {
             "Position": {
               "longitude": -3.5188,
@@ -3301,7 +3301,7 @@
     {
       "trips": [
         {
-          "departure": 31334,
+          "departure": 313340000,
           "destination": {
             "Position": {
               "longitude": -3.5349,
@@ -3322,7 +3322,7 @@
     {
       "trips": [
         {
-          "departure": 30903,
+          "departure": 309030000,
           "destination": {
             "Position": {
               "longitude": -3.5187,
@@ -3343,7 +3343,7 @@
     {
       "trips": [
         {
-          "departure": 29853,
+          "departure": 298530000,
           "destination": {
             "Position": {
               "longitude": -3.5173,
@@ -3364,7 +3364,7 @@
     {
       "trips": [
         {
-          "departure": 28205,
+          "departure": 282050000,
           "destination": {
             "Position": {
               "longitude": -3.5397,
@@ -3385,7 +3385,7 @@
     {
       "trips": [
         {
-          "departure": 30549,
+          "departure": 305490000,
           "destination": {
             "Position": {
               "longitude": -3.5142,
@@ -3406,7 +3406,7 @@
     {
       "trips": [
         {
-          "departure": 30938,
+          "departure": 309380000,
           "destination": {
             "Position": {
               "longitude": -3.5391,
@@ -3427,7 +3427,7 @@
     {
       "trips": [
         {
-          "departure": 31058,
+          "departure": 310580000,
           "destination": {
             "Position": {
               "longitude": -3.516,
@@ -3448,7 +3448,7 @@
     {
       "trips": [
         {
-          "departure": 29502,
+          "departure": 295020000,
           "destination": {
             "Position": {
               "longitude": -3.5183,
@@ -3469,7 +3469,7 @@
     {
       "trips": [
         {
-          "departure": 30477,
+          "departure": 304770000,
           "destination": {
             "Position": {
               "longitude": -3.5154,
@@ -3490,7 +3490,7 @@
     {
       "trips": [
         {
-          "departure": 31108,
+          "departure": 311080000,
           "destination": {
             "Position": {
               "longitude": -3.538,
@@ -3511,7 +3511,7 @@
     {
       "trips": [
         {
-          "departure": 30792,
+          "departure": 307920000,
           "destination": {
             "Position": {
               "longitude": -3.5169,
@@ -3532,7 +3532,7 @@
     {
       "trips": [
         {
-          "departure": 29366,
+          "departure": 293660000,
           "destination": {
             "Position": {
               "longitude": -3.5268,
@@ -3553,7 +3553,7 @@
     {
       "trips": [
         {
-          "departure": 30836,
+          "departure": 308360000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -3574,7 +3574,7 @@
     {
       "trips": [
         {
-          "departure": 31021,
+          "departure": 310210000,
           "destination": {
             "Position": {
               "longitude": -3.5347,
@@ -3595,7 +3595,7 @@
     {
       "trips": [
         {
-          "departure": 31589,
+          "departure": 315890000,
           "destination": {
             "Position": {
               "longitude": -3.5401,
@@ -3616,7 +3616,7 @@
     {
       "trips": [
         {
-          "departure": 31294,
+          "departure": 312940000,
           "destination": {
             "Position": {
               "longitude": -3.536,
@@ -3637,7 +3637,7 @@
     {
       "trips": [
         {
-          "departure": 30105,
+          "departure": 301050000,
           "destination": {
             "Position": {
               "longitude": -3.515,
@@ -3658,7 +3658,7 @@
     {
       "trips": [
         {
-          "departure": 29864,
+          "departure": 298640000,
           "destination": {
             "Position": {
               "longitude": -3.5142,
@@ -3679,7 +3679,7 @@
     {
       "trips": [
         {
-          "departure": 30563,
+          "departure": 305630000,
           "destination": {
             "Position": {
               "longitude": -3.5308,
@@ -3700,7 +3700,7 @@
     {
       "trips": [
         {
-          "departure": 30054,
+          "departure": 300540000,
           "destination": {
             "Position": {
               "longitude": -3.5185,
@@ -3721,7 +3721,7 @@
     {
       "trips": [
         {
-          "departure": 31424,
+          "departure": 314240000,
           "destination": {
             "Position": {
               "longitude": -3.5188,
@@ -3742,7 +3742,7 @@
     {
       "trips": [
         {
-          "departure": 29771,
+          "departure": 297710000,
           "destination": {
             "Position": {
               "longitude": -3.5161,
@@ -3763,7 +3763,7 @@
     {
       "trips": [
         {
-          "departure": 31307,
+          "departure": 313070000,
           "destination": {
             "Position": {
               "longitude": -3.5353,
@@ -3784,7 +3784,7 @@
     {
       "trips": [
         {
-          "departure": 29478,
+          "departure": 294780000,
           "destination": {
             "Position": {
               "longitude": -3.5381,
@@ -3805,7 +3805,7 @@
     {
       "trips": [
         {
-          "departure": 28352,
+          "departure": 283520000,
           "destination": {
             "Position": {
               "longitude": -3.5175,
@@ -3826,7 +3826,7 @@
     {
       "trips": [
         {
-          "departure": 31596,
+          "departure": 315960000,
           "destination": {
             "Position": {
               "longitude": -3.5358,
@@ -3847,7 +3847,7 @@
     {
       "trips": [
         {
-          "departure": 29845,
+          "departure": 298450000,
           "destination": {
             "Position": {
               "longitude": -3.5151,
@@ -3868,7 +3868,7 @@
     {
       "trips": [
         {
-          "departure": 30310,
+          "departure": 303100000,
           "destination": {
             "Position": {
               "longitude": -3.5292,
@@ -3889,7 +3889,7 @@
     {
       "trips": [
         {
-          "departure": 30916,
+          "departure": 309160000,
           "destination": {
             "Position": {
               "longitude": -3.5374,
@@ -3910,7 +3910,7 @@
     {
       "trips": [
         {
-          "departure": 28910,
+          "departure": 289100000,
           "destination": {
             "Position": {
               "longitude": -3.5158,
@@ -3931,7 +3931,7 @@
     {
       "trips": [
         {
-          "departure": 29498,
+          "departure": 294980000,
           "destination": {
             "Position": {
               "longitude": -3.5366,
@@ -3952,7 +3952,7 @@
     {
       "trips": [
         {
-          "departure": 30360,
+          "departure": 303600000,
           "destination": {
             "Position": {
               "longitude": -3.5206,
@@ -3973,7 +3973,7 @@
     {
       "trips": [
         {
-          "departure": 32464,
+          "departure": 324640000,
           "destination": {
             "Position": {
               "longitude": -3.5419,
@@ -3994,7 +3994,7 @@
     {
       "trips": [
         {
-          "departure": 31793,
+          "departure": 317930000,
           "destination": {
             "Position": {
               "longitude": -3.5277,
@@ -4015,7 +4015,7 @@
     {
       "trips": [
         {
-          "departure": 32252,
+          "departure": 322520000,
           "destination": {
             "Position": {
               "longitude": -3.5148,
@@ -4036,7 +4036,7 @@
     {
       "trips": [
         {
-          "departure": 31414,
+          "departure": 314140000,
           "destination": {
             "Position": {
               "longitude": -3.5184,
@@ -4057,7 +4057,7 @@
     {
       "trips": [
         {
-          "departure": 30743,
+          "departure": 307430000,
           "destination": {
             "Position": {
               "longitude": -3.5221,
@@ -4078,7 +4078,7 @@
     {
       "trips": [
         {
-          "departure": 31134,
+          "departure": 311340000,
           "destination": {
             "Position": {
               "longitude": -3.523,
@@ -4099,7 +4099,7 @@
     {
       "trips": [
         {
-          "departure": 30093,
+          "departure": 300930000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
@@ -4120,7 +4120,7 @@
     {
       "trips": [
         {
-          "departure": 28876,
+          "departure": 288760000,
           "destination": {
             "Position": {
               "longitude": -3.5305,
@@ -4141,7 +4141,7 @@
     {
       "trips": [
         {
-          "departure": 29469,
+          "departure": 294690000,
           "destination": {
             "Position": {
               "longitude": -3.5195,
@@ -4162,7 +4162,7 @@
     {
       "trips": [
         {
-          "departure": 29822,
+          "departure": 298220000,
           "destination": {
             "Position": {
               "longitude": -3.5294,
@@ -4183,7 +4183,7 @@
     {
       "trips": [
         {
-          "departure": 32332,
+          "departure": 323320000,
           "destination": {
             "Position": {
               "longitude": -3.5384,
@@ -4204,7 +4204,7 @@
     {
       "trips": [
         {
-          "departure": 31732,
+          "departure": 317320000,
           "destination": {
             "Position": {
               "longitude": -3.5371,
@@ -4225,7 +4225,7 @@
     {
       "trips": [
         {
-          "departure": 29685,
+          "departure": 296850000,
           "destination": {
             "Position": {
               "longitude": -3.5254,
@@ -4246,7 +4246,7 @@
     {
       "trips": [
         {
-          "departure": 31225,
+          "departure": 312250000,
           "destination": {
             "Position": {
               "longitude": -3.5415,
@@ -4267,7 +4267,7 @@
     {
       "trips": [
         {
-          "departure": 29781,
+          "departure": 297810000,
           "destination": {
             "Position": {
               "longitude": -3.5308,
@@ -4288,7 +4288,7 @@
     {
       "trips": [
         {
-          "departure": 29096,
+          "departure": 290960000,
           "destination": {
             "Position": {
               "longitude": -3.5327,
@@ -4309,7 +4309,7 @@
     {
       "trips": [
         {
-          "departure": 29913,
+          "departure": 299130000,
           "destination": {
             "Position": {
               "longitude": -3.5327,
@@ -4330,7 +4330,7 @@
     {
       "trips": [
         {
-          "departure": 31568,
+          "departure": 315680000,
           "destination": {
             "Position": {
               "longitude": -3.518,
@@ -4351,7 +4351,7 @@
     {
       "trips": [
         {
-          "departure": 32297,
+          "departure": 322970000,
           "destination": {
             "Position": {
               "longitude": -3.537,
@@ -4372,7 +4372,7 @@
     {
       "trips": [
         {
-          "departure": 29912,
+          "departure": 299120000,
           "destination": {
             "Position": {
               "longitude": -3.5358,
@@ -4393,7 +4393,7 @@
     {
       "trips": [
         {
-          "departure": 30215,
+          "departure": 302150000,
           "destination": {
             "Position": {
               "longitude": -3.5317,
@@ -4414,7 +4414,7 @@
     {
       "trips": [
         {
-          "departure": 29698,
+          "departure": 296980000,
           "destination": {
             "Position": {
               "longitude": -3.5183,
@@ -4435,7 +4435,7 @@
     {
       "trips": [
         {
-          "departure": 31672,
+          "departure": 316720000,
           "destination": {
             "Position": {
               "longitude": -3.5363,
@@ -4456,7 +4456,7 @@
     {
       "trips": [
         {
-          "departure": 30081,
+          "departure": 300810000,
           "destination": {
             "Position": {
               "longitude": -3.5373,
@@ -4477,7 +4477,7 @@
     {
       "trips": [
         {
-          "departure": 30102,
+          "departure": 301020000,
           "destination": {
             "Position": {
               "longitude": -3.5358,
@@ -4498,7 +4498,7 @@
     {
       "trips": [
         {
-          "departure": 30012,
+          "departure": 300120000,
           "destination": {
             "Position": {
               "longitude": -3.5262,
@@ -4519,7 +4519,7 @@
     {
       "trips": [
         {
-          "departure": 30357,
+          "departure": 303570000,
           "destination": {
             "Position": {
               "longitude": -3.5147,
@@ -4540,7 +4540,7 @@
     {
       "trips": [
         {
-          "departure": 30498,
+          "departure": 304980000,
           "destination": {
             "Position": {
               "longitude": -3.5239,
@@ -4561,7 +4561,7 @@
     {
       "trips": [
         {
-          "departure": 29816,
+          "departure": 298160000,
           "destination": {
             "Position": {
               "longitude": -3.5242,
@@ -4582,7 +4582,7 @@
     {
       "trips": [
         {
-          "departure": 28847,
+          "departure": 288470000,
           "destination": {
             "Position": {
               "longitude": -3.5158,
@@ -4603,7 +4603,7 @@
     {
       "trips": [
         {
-          "departure": 30849,
+          "departure": 308490000,
           "destination": {
             "Position": {
               "longitude": -3.5192,
@@ -4624,7 +4624,7 @@
     {
       "trips": [
         {
-          "departure": 30093,
+          "departure": 300930000,
           "destination": {
             "Position": {
               "longitude": -3.5249,
@@ -4645,7 +4645,7 @@
     {
       "trips": [
         {
-          "departure": 31909,
+          "departure": 319090000,
           "destination": {
             "Position": {
               "longitude": -3.524,
@@ -4666,7 +4666,7 @@
     {
       "trips": [
         {
-          "departure": 30718,
+          "departure": 307180000,
           "destination": {
             "Position": {
               "longitude": -3.5228,
@@ -4687,7 +4687,7 @@
     {
       "trips": [
         {
-          "departure": 33062,
+          "departure": 330620000,
           "destination": {
             "Position": {
               "longitude": -3.511,
@@ -4708,7 +4708,7 @@
     {
       "trips": [
         {
-          "departure": 32068,
+          "departure": 320680000,
           "destination": {
             "Position": {
               "longitude": -3.5213,
@@ -4729,7 +4729,7 @@
     {
       "trips": [
         {
-          "departure": 32890,
+          "departure": 328900000,
           "destination": {
             "Position": {
               "longitude": -3.5155,
@@ -4750,7 +4750,7 @@
     {
       "trips": [
         {
-          "departure": 30330,
+          "departure": 303300000,
           "destination": {
             "Position": {
               "longitude": -3.5171,
@@ -4771,7 +4771,7 @@
     {
       "trips": [
         {
-          "departure": 30807,
+          "departure": 308070000,
           "destination": {
             "Position": {
               "longitude": -3.5216,
@@ -4792,7 +4792,7 @@
     {
       "trips": [
         {
-          "departure": 30783,
+          "departure": 307830000,
           "destination": {
             "Position": {
               "longitude": -3.5199,
@@ -4813,7 +4813,7 @@
     {
       "trips": [
         {
-          "departure": 32475,
+          "departure": 324750000,
           "destination": {
             "Position": {
               "longitude": -3.5226,
@@ -4834,7 +4834,7 @@
     {
       "trips": [
         {
-          "departure": 32231,
+          "departure": 322310000,
           "destination": {
             "Position": {
               "longitude": -3.5148,
@@ -4855,7 +4855,7 @@
     {
       "trips": [
         {
-          "departure": 30812,
+          "departure": 308120000,
           "destination": {
             "Position": {
               "longitude": -3.5223,
@@ -4876,7 +4876,7 @@
     {
       "trips": [
         {
-          "departure": 30793,
+          "departure": 307930000,
           "destination": {
             "Position": {
               "longitude": -3.5156,
@@ -4897,7 +4897,7 @@
     {
       "trips": [
         {
-          "departure": 29978,
+          "departure": 299780000,
           "destination": {
             "Position": {
               "longitude": -3.5197,
@@ -4918,7 +4918,7 @@
     {
       "trips": [
         {
-          "departure": 29935,
+          "departure": 299350000,
           "destination": {
             "Position": {
               "longitude": -3.5177,
@@ -4939,7 +4939,7 @@
     {
       "trips": [
         {
-          "departure": 32247,
+          "departure": 322470000,
           "destination": {
             "Position": {
               "longitude": -3.5427,
@@ -4960,7 +4960,7 @@
     {
       "trips": [
         {
-          "departure": 27954,
+          "departure": 279540000,
           "destination": {
             "Position": {
               "longitude": -3.5417,
@@ -4981,7 +4981,7 @@
     {
       "trips": [
         {
-          "departure": 30805,
+          "departure": 308050000,
           "destination": {
             "Position": {
               "longitude": -3.5416,
@@ -5002,7 +5002,7 @@
     {
       "trips": [
         {
-          "departure": 30222,
+          "departure": 302220000,
           "destination": {
             "Position": {
               "longitude": -3.5439,
@@ -5023,7 +5023,7 @@
     {
       "trips": [
         {
-          "departure": 31608,
+          "departure": 316080000,
           "destination": {
             "Position": {
               "longitude": -3.5398,
@@ -5044,7 +5044,7 @@
     {
       "trips": [
         {
-          "departure": 30449,
+          "departure": 304490000,
           "destination": {
             "Position": {
               "longitude": -3.5494,
@@ -5065,7 +5065,7 @@
     {
       "trips": [
         {
-          "departure": 28872,
+          "departure": 288720000,
           "destination": {
             "Position": {
               "longitude": -3.5395,
@@ -5086,7 +5086,7 @@
     {
       "trips": [
         {
-          "departure": 31159,
+          "departure": 311590000,
           "destination": {
             "Position": {
               "longitude": -3.5417,
@@ -5107,7 +5107,7 @@
     {
       "trips": [
         {
-          "departure": 30302,
+          "departure": 303020000,
           "destination": {
             "Position": {
               "longitude": -3.485,
@@ -5128,7 +5128,7 @@
     {
       "trips": [
         {
-          "departure": 28922,
+          "departure": 289220000,
           "destination": {
             "Position": {
               "longitude": -3.4883,
@@ -5149,7 +5149,7 @@
     {
       "trips": [
         {
-          "departure": 31398,
+          "departure": 313980000,
           "destination": {
             "Position": {
               "longitude": -3.4826,
@@ -5170,7 +5170,7 @@
     {
       "trips": [
         {
-          "departure": 29210,
+          "departure": 292100000,
           "destination": {
             "Position": {
               "longitude": -3.4961,
@@ -5191,7 +5191,7 @@
     {
       "trips": [
         {
-          "departure": 30076,
+          "departure": 300760000,
           "destination": {
             "Position": {
               "longitude": -3.4795,
@@ -5212,7 +5212,7 @@
     {
       "trips": [
         {
-          "departure": 30246,
+          "departure": 302460000,
           "destination": {
             "Position": {
               "longitude": -3.4848,
@@ -5233,7 +5233,7 @@
     {
       "trips": [
         {
-          "departure": 29173,
+          "departure": 291730000,
           "destination": {
             "Position": {
               "longitude": -3.4901,
@@ -5254,7 +5254,7 @@
     {
       "trips": [
         {
-          "departure": 30760,
+          "departure": 307600000,
           "destination": {
             "Position": {
               "longitude": -3.4803,
@@ -5275,7 +5275,7 @@
     {
       "trips": [
         {
-          "departure": 29739,
+          "departure": 297390000,
           "destination": {
             "Position": {
               "longitude": -3.4757,
@@ -5296,7 +5296,7 @@
     {
       "trips": [
         {
-          "departure": 29443,
+          "departure": 294430000,
           "destination": {
             "Position": {
               "longitude": -3.4712,
@@ -5317,7 +5317,7 @@
     {
       "trips": [
         {
-          "departure": 29061,
+          "departure": 290610000,
           "destination": {
             "Position": {
               "longitude": -3.4795,
@@ -5338,7 +5338,7 @@
     {
       "trips": [
         {
-          "departure": 31059,
+          "departure": 310590000,
           "destination": {
             "Position": {
               "longitude": -3.4875,
@@ -5359,7 +5359,7 @@
     {
       "trips": [
         {
-          "departure": 28966,
+          "departure": 289660000,
           "destination": {
             "Position": {
               "longitude": -3.48,
@@ -5380,7 +5380,7 @@
     {
       "trips": [
         {
-          "departure": 30557,
+          "departure": 305570000,
           "destination": {
             "Position": {
               "longitude": -3.47,
@@ -5401,7 +5401,7 @@
     {
       "trips": [
         {
-          "departure": 29387,
+          "departure": 293870000,
           "destination": {
             "Position": {
               "longitude": -3.4761,
@@ -5422,7 +5422,7 @@
     {
       "trips": [
         {
-          "departure": 32162,
+          "departure": 321620000,
           "destination": {
             "Position": {
               "longitude": -3.4892,
@@ -5443,7 +5443,7 @@
     {
       "trips": [
         {
-          "departure": 29902,
+          "departure": 299020000,
           "destination": {
             "Position": {
               "longitude": -3.4842,
@@ -5464,7 +5464,7 @@
     {
       "trips": [
         {
-          "departure": 32568,
+          "departure": 325680000,
           "destination": {
             "Position": {
               "longitude": -3.488,
@@ -5485,7 +5485,7 @@
     {
       "trips": [
         {
-          "departure": 30938,
+          "departure": 309380000,
           "destination": {
             "Position": {
               "longitude": -3.4892,
@@ -5506,7 +5506,7 @@
     {
       "trips": [
         {
-          "departure": 29415,
+          "departure": 294150000,
           "destination": {
             "Position": {
               "longitude": -3.4798,
@@ -5527,7 +5527,7 @@
     {
       "trips": [
         {
-          "departure": 31646,
+          "departure": 316460000,
           "destination": {
             "Position": {
               "longitude": -3.4757,
@@ -5548,7 +5548,7 @@
     {
       "trips": [
         {
-          "departure": 27946,
+          "departure": 279460000,
           "destination": {
             "Position": {
               "longitude": -3.4815,
@@ -5569,7 +5569,7 @@
     {
       "trips": [
         {
-          "departure": 29172,
+          "departure": 291720000,
           "destination": {
             "Position": {
               "longitude": -3.5003,
@@ -5590,7 +5590,7 @@
     {
       "trips": [
         {
-          "departure": 29991,
+          "departure": 299910000,
           "destination": {
             "Position": {
               "longitude": -3.4737,
@@ -5611,7 +5611,7 @@
     {
       "trips": [
         {
-          "departure": 30186,
+          "departure": 301860000,
           "destination": {
             "Position": {
               "longitude": -3.4806,
@@ -5632,7 +5632,7 @@
     {
       "trips": [
         {
-          "departure": 31963,
+          "departure": 319630000,
           "destination": {
             "Position": {
               "longitude": -3.4795,
@@ -5653,7 +5653,7 @@
     {
       "trips": [
         {
-          "departure": 28191,
+          "departure": 281910000,
           "destination": {
             "Position": {
               "longitude": -3.4809,
@@ -5674,7 +5674,7 @@
     {
       "trips": [
         {
-          "departure": 30310,
+          "departure": 303100000,
           "destination": {
             "Position": {
               "longitude": -3.4997,
@@ -5695,7 +5695,7 @@
     {
       "trips": [
         {
-          "departure": 31257,
+          "departure": 312570000,
           "destination": {
             "Position": {
               "longitude": -3.4704,
@@ -5716,7 +5716,7 @@
     {
       "trips": [
         {
-          "departure": 30536,
+          "departure": 305360000,
           "destination": {
             "Position": {
               "longitude": -3.4894,
@@ -5737,7 +5737,7 @@
     {
       "trips": [
         {
-          "departure": 30430,
+          "departure": 304300000,
           "destination": {
             "Position": {
               "longitude": -3.497,
@@ -5758,7 +5758,7 @@
     {
       "trips": [
         {
-          "departure": 30759,
+          "departure": 307590000,
           "destination": {
             "Position": {
               "longitude": -3.4784,
@@ -5779,7 +5779,7 @@
     {
       "trips": [
         {
-          "departure": 29524,
+          "departure": 295240000,
           "destination": {
             "Position": {
               "longitude": -3.4713,
@@ -5800,7 +5800,7 @@
     {
       "trips": [
         {
-          "departure": 29307,
+          "departure": 293070000,
           "destination": {
             "Position": {
               "longitude": -3.4864,
@@ -5821,7 +5821,7 @@
     {
       "trips": [
         {
-          "departure": 32122,
+          "departure": 321220000,
           "destination": {
             "Position": {
               "longitude": -3.4739,
@@ -5842,7 +5842,7 @@
     {
       "trips": [
         {
-          "departure": 30196,
+          "departure": 301960000,
           "destination": {
             "Position": {
               "longitude": -3.4991,
@@ -5863,7 +5863,7 @@
     {
       "trips": [
         {
-          "departure": 31094,
+          "departure": 310940000,
           "destination": {
             "Position": {
               "longitude": -3.478,
@@ -5884,7 +5884,7 @@
     {
       "trips": [
         {
-          "departure": 31944,
+          "departure": 319440000,
           "destination": {
             "Position": {
               "longitude": -3.4855,
@@ -5905,7 +5905,7 @@
     {
       "trips": [
         {
-          "departure": 32528,
+          "departure": 325280000,
           "destination": {
             "Position": {
               "longitude": -3.4745,
@@ -5926,7 +5926,7 @@
     {
       "trips": [
         {
-          "departure": 30137,
+          "departure": 301370000,
           "destination": {
             "Position": {
               "longitude": -3.482,
@@ -5947,7 +5947,7 @@
     {
       "trips": [
         {
-          "departure": 29081,
+          "departure": 290810000,
           "destination": {
             "Position": {
               "longitude": -3.4996,
@@ -5968,7 +5968,7 @@
     {
       "trips": [
         {
-          "departure": 30369,
+          "departure": 303690000,
           "destination": {
             "Position": {
               "longitude": -3.4874,
@@ -5989,7 +5989,7 @@
     {
       "trips": [
         {
-          "departure": 29201,
+          "departure": 292010000,
           "destination": {
             "Position": {
               "longitude": -3.4694,
@@ -6010,7 +6010,7 @@
     {
       "trips": [
         {
-          "departure": 31147,
+          "departure": 311470000,
           "destination": {
             "Position": {
               "longitude": -3.4777,
@@ -6031,7 +6031,7 @@
     {
       "trips": [
         {
-          "departure": 29962,
+          "departure": 299620000,
           "destination": {
             "Position": {
               "longitude": -3.4871,
@@ -6052,7 +6052,7 @@
     {
       "trips": [
         {
-          "departure": 30391,
+          "departure": 303910000,
           "destination": {
             "Position": {
               "longitude": -3.4751,
@@ -6073,7 +6073,7 @@
     {
       "trips": [
         {
-          "departure": 28136,
+          "departure": 281360000,
           "destination": {
             "Position": {
               "longitude": -3.4697,
@@ -6094,7 +6094,7 @@
     {
       "trips": [
         {
-          "departure": 32142,
+          "departure": 321420000,
           "destination": {
             "Position": {
               "longitude": -3.4848,
@@ -6115,7 +6115,7 @@
     {
       "trips": [
         {
-          "departure": 32060,
+          "departure": 320600000,
           "destination": {
             "Position": {
               "longitude": -3.4998,
@@ -6136,7 +6136,7 @@
     {
       "trips": [
         {
-          "departure": 29343,
+          "departure": 293430000,
           "destination": {
             "Position": {
               "longitude": -3.5064,
@@ -6157,7 +6157,7 @@
     {
       "trips": [
         {
-          "departure": 31199,
+          "departure": 311990000,
           "destination": {
             "Position": {
               "longitude": -3.4998,
@@ -6178,7 +6178,7 @@
     {
       "trips": [
         {
-          "departure": 30680,
+          "departure": 306800000,
           "destination": {
             "Position": {
               "longitude": -3.5068,
@@ -6199,7 +6199,7 @@
     {
       "trips": [
         {
-          "departure": 31391,
+          "departure": 313910000,
           "destination": {
             "Position": {
               "longitude": -3.5063,
@@ -6220,7 +6220,7 @@
     {
       "trips": [
         {
-          "departure": 30258,
+          "departure": 302580000,
           "destination": {
             "Position": {
               "longitude": -3.4964,
@@ -6241,7 +6241,7 @@
     {
       "trips": [
         {
-          "departure": 32249,
+          "departure": 322490000,
           "destination": {
             "Position": {
               "longitude": -3.5065,
@@ -6262,7 +6262,7 @@
     {
       "trips": [
         {
-          "departure": 31178,
+          "departure": 311780000,
           "destination": {
             "Position": {
               "longitude": -3.4993,
@@ -6283,7 +6283,7 @@
     {
       "trips": [
         {
-          "departure": 31327,
+          "departure": 313270000,
           "destination": {
             "Position": {
               "longitude": -3.5097,
@@ -6304,7 +6304,7 @@
     {
       "trips": [
         {
-          "departure": 29045,
+          "departure": 290450000,
           "destination": {
             "Position": {
               "longitude": -3.5053,
@@ -6325,7 +6325,7 @@
     {
       "trips": [
         {
-          "departure": 31106,
+          "departure": 311060000,
           "destination": {
             "Position": {
               "longitude": -3.5018,
@@ -6346,7 +6346,7 @@
     {
       "trips": [
         {
-          "departure": 29901,
+          "departure": 299010000,
           "destination": {
             "Position": {
               "longitude": -3.504,
@@ -6367,7 +6367,7 @@
     {
       "trips": [
         {
-          "departure": 30163,
+          "departure": 301630000,
           "destination": {
             "Position": {
               "longitude": -3.5022,
@@ -6388,7 +6388,7 @@
     {
       "trips": [
         {
-          "departure": 32509,
+          "departure": 325090000,
           "destination": {
             "Position": {
               "longitude": -3.4971,
@@ -6409,7 +6409,7 @@
     {
       "trips": [
         {
-          "departure": 30595,
+          "departure": 305950000,
           "destination": {
             "Position": {
               "longitude": -3.5027,
@@ -6430,7 +6430,7 @@
     {
       "trips": [
         {
-          "departure": 29918,
+          "departure": 299180000,
           "destination": {
             "Position": {
               "longitude": -3.51,
@@ -6451,7 +6451,7 @@
     {
       "trips": [
         {
-          "departure": 29418,
+          "departure": 294180000,
           "destination": {
             "Position": {
               "longitude": -3.5073,
@@ -6472,7 +6472,7 @@
     {
       "trips": [
         {
-          "departure": 29853,
+          "departure": 298530000,
           "destination": {
             "Position": {
               "longitude": -3.5059,
@@ -6493,7 +6493,7 @@
     {
       "trips": [
         {
-          "departure": 30879,
+          "departure": 308790000,
           "destination": {
             "Position": {
               "longitude": -3.5032,
@@ -6514,7 +6514,7 @@
     {
       "trips": [
         {
-          "departure": 30105,
+          "departure": 301050000,
           "destination": {
             "Position": {
               "longitude": -3.4977,
@@ -6535,7 +6535,7 @@
     {
       "trips": [
         {
-          "departure": 30691,
+          "departure": 306910000,
           "destination": {
             "Position": {
               "longitude": -3.5106,
@@ -6556,7 +6556,7 @@
     {
       "trips": [
         {
-          "departure": 30192,
+          "departure": 301920000,
           "destination": {
             "Position": {
               "longitude": -3.4988,
@@ -6577,7 +6577,7 @@
     {
       "trips": [
         {
-          "departure": 30473,
+          "departure": 304730000,
           "destination": {
             "Position": {
               "longitude": -3.5016,
@@ -6598,7 +6598,7 @@
     {
       "trips": [
         {
-          "departure": 29925,
+          "departure": 299250000,
           "destination": {
             "Position": {
               "longitude": -3.4977,
@@ -6619,7 +6619,7 @@
     {
       "trips": [
         {
-          "departure": 31490,
+          "departure": 314900000,
           "destination": {
             "Position": {
               "longitude": -3.4971,
@@ -6640,7 +6640,7 @@
     {
       "trips": [
         {
-          "departure": 31945,
+          "departure": 319450000,
           "destination": {
             "Position": {
               "longitude": -3.5018,
@@ -6661,7 +6661,7 @@
     {
       "trips": [
         {
-          "departure": 28906,
+          "departure": 289060000,
           "destination": {
             "Position": {
               "longitude": -3.5098,
@@ -6682,7 +6682,7 @@
     {
       "trips": [
         {
-          "departure": 30640,
+          "departure": 306400000,
           "destination": {
             "Position": {
               "longitude": -3.5426,
@@ -6703,7 +6703,7 @@
     {
       "trips": [
         {
-          "departure": 29064,
+          "departure": 290640000,
           "destination": {
             "Position": {
               "longitude": -3.5318,
@@ -6724,7 +6724,7 @@
     {
       "trips": [
         {
-          "departure": 29230,
+          "departure": 292300000,
           "destination": {
             "Position": {
               "longitude": -3.5331,
@@ -6745,7 +6745,7 @@
     {
       "trips": [
         {
-          "departure": 28256,
+          "departure": 282560000,
           "destination": {
             "Position": {
               "longitude": -3.5324,
@@ -6766,7 +6766,7 @@
     {
       "trips": [
         {
-          "departure": 31777,
+          "departure": 317770000,
           "destination": {
             "Position": {
               "longitude": -3.5391,
@@ -6787,7 +6787,7 @@
     {
       "trips": [
         {
-          "departure": 31834,
+          "departure": 318340000,
           "destination": {
             "Position": {
               "longitude": -3.5342,
@@ -6808,7 +6808,7 @@
     {
       "trips": [
         {
-          "departure": 30633,
+          "departure": 306330000,
           "destination": {
             "Position": {
               "longitude": -3.538,
@@ -6829,7 +6829,7 @@
     {
       "trips": [
         {
-          "departure": 31549,
+          "departure": 315490000,
           "destination": {
             "Position": {
               "longitude": -3.5364,
@@ -6850,7 +6850,7 @@
     {
       "trips": [
         {
-          "departure": 31340,
+          "departure": 313400000,
           "destination": {
             "Position": {
               "longitude": -3.5338,
@@ -6871,7 +6871,7 @@
     {
       "trips": [
         {
-          "departure": 30339,
+          "departure": 303390000,
           "destination": {
             "Position": {
               "longitude": -3.5336,
@@ -6892,7 +6892,7 @@
     {
       "trips": [
         {
-          "departure": 31890,
+          "departure": 318900000,
           "destination": {
             "Position": {
               "longitude": -3.5401,
@@ -6913,7 +6913,7 @@
     {
       "trips": [
         {
-          "departure": 29567,
+          "departure": 295670000,
           "destination": {
             "Position": {
               "longitude": -3.5334,
@@ -6934,7 +6934,7 @@
     {
       "trips": [
         {
-          "departure": 30781,
+          "departure": 307810000,
           "destination": {
             "Position": {
               "longitude": -3.5332,
@@ -6955,7 +6955,7 @@
     {
       "trips": [
         {
-          "departure": 32131,
+          "departure": 321310000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
@@ -6976,7 +6976,7 @@
     {
       "trips": [
         {
-          "departure": 31267,
+          "departure": 312670000,
           "destination": {
             "Position": {
               "longitude": -3.5357,
@@ -6997,7 +6997,7 @@
     {
       "trips": [
         {
-          "departure": 32615,
+          "departure": 326150000,
           "destination": {
             "Position": {
               "longitude": -3.5373,
@@ -7018,7 +7018,7 @@
     {
       "trips": [
         {
-          "departure": 32254,
+          "departure": 322540000,
           "destination": {
             "Position": {
               "longitude": -3.5279,
@@ -7039,7 +7039,7 @@
     {
       "trips": [
         {
-          "departure": 31426,
+          "departure": 314260000,
           "destination": {
             "Position": {
               "longitude": -3.5362,
@@ -7060,7 +7060,7 @@
     {
       "trips": [
         {
-          "departure": 29483,
+          "departure": 294830000,
           "destination": {
             "Position": {
               "longitude": -3.5357,
@@ -7081,7 +7081,7 @@
     {
       "trips": [
         {
-          "departure": 30102,
+          "departure": 301020000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -7102,7 +7102,7 @@
     {
       "trips": [
         {
-          "departure": 29260,
+          "departure": 292600000,
           "destination": {
             "Position": {
               "longitude": -3.533,
@@ -7123,7 +7123,7 @@
     {
       "trips": [
         {
-          "departure": 28511,
+          "departure": 285110000,
           "destination": {
             "Position": {
               "longitude": -3.5256,
@@ -7144,7 +7144,7 @@
     {
       "trips": [
         {
-          "departure": 30465,
+          "departure": 304650000,
           "destination": {
             "Position": {
               "longitude": -3.5302,
@@ -7165,7 +7165,7 @@
     {
       "trips": [
         {
-          "departure": 31243,
+          "departure": 312430000,
           "destination": {
             "Position": {
               "longitude": -3.5307,
@@ -7186,7 +7186,7 @@
     {
       "trips": [
         {
-          "departure": 30037,
+          "departure": 300370000,
           "destination": {
             "Position": {
               "longitude": -3.5322,
@@ -7207,7 +7207,7 @@
     {
       "trips": [
         {
-          "departure": 29583,
+          "departure": 295830000,
           "destination": {
             "Position": {
               "longitude": -3.5354,
@@ -7228,7 +7228,7 @@
     {
       "trips": [
         {
-          "departure": 29408,
+          "departure": 294080000,
           "destination": {
             "Position": {
               "longitude": -3.5261,
@@ -7249,7 +7249,7 @@
     {
       "trips": [
         {
-          "departure": 29570,
+          "departure": 295700000,
           "destination": {
             "Position": {
               "longitude": -3.5355,
@@ -7270,7 +7270,7 @@
     {
       "trips": [
         {
-          "departure": 31590,
+          "departure": 315900000,
           "destination": {
             "Position": {
               "longitude": -3.5289,
@@ -7291,7 +7291,7 @@
     {
       "trips": [
         {
-          "departure": 24549,
+          "departure": 245490000,
           "destination": {
             "Position": {
               "longitude": -3.5323,
@@ -7312,7 +7312,7 @@
     {
       "trips": [
         {
-          "departure": 48216,
+          "departure": 482160000,
           "destination": {
             "Position": {
               "longitude": -3.5276,
@@ -7333,7 +7333,7 @@
     {
       "trips": [
         {
-          "departure": 39354,
+          "departure": 393540000,
           "destination": {
             "Position": {
               "longitude": -3.5329,
@@ -7354,7 +7354,7 @@
     {
       "trips": [
         {
-          "departure": 49078,
+          "departure": 490780000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -7375,7 +7375,7 @@
     {
       "trips": [
         {
-          "departure": 34007,
+          "departure": 340070000,
           "destination": {
             "Position": {
               "longitude": -3.5235,
@@ -7396,7 +7396,7 @@
     {
       "trips": [
         {
-          "departure": 48135,
+          "departure": 481350000,
           "destination": {
             "Position": {
               "longitude": -3.529,
@@ -7417,7 +7417,7 @@
     {
       "trips": [
         {
-          "departure": 37645,
+          "departure": 376450000,
           "destination": {
             "Position": {
               "longitude": -3.5311,
@@ -7438,7 +7438,7 @@
     {
       "trips": [
         {
-          "departure": 44437,
+          "departure": 444370000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -7459,7 +7459,7 @@
     {
       "trips": [
         {
-          "departure": 40153,
+          "departure": 401530000,
           "destination": {
             "Position": {
               "longitude": -3.5276,
@@ -7480,7 +7480,7 @@
     {
       "trips": [
         {
-          "departure": 40464,
+          "departure": 404640000,
           "destination": {
             "Position": {
               "longitude": -3.5314,
@@ -7501,7 +7501,7 @@
     {
       "trips": [
         {
-          "departure": 39983,
+          "departure": 399830000,
           "destination": {
             "Position": {
               "longitude": -3.5296,
@@ -7522,7 +7522,7 @@
     {
       "trips": [
         {
-          "departure": 36086,
+          "departure": 360860000,
           "destination": {
             "Position": {
               "longitude": -3.5303,
@@ -7543,7 +7543,7 @@
     {
       "trips": [
         {
-          "departure": 41265,
+          "departure": 412650000,
           "destination": {
             "Position": {
               "longitude": -3.5254,
@@ -7564,7 +7564,7 @@
     {
       "trips": [
         {
-          "departure": 34421,
+          "departure": 344210000,
           "destination": {
             "Position": {
               "longitude": -3.5255,
@@ -7585,7 +7585,7 @@
     {
       "trips": [
         {
-          "departure": 30314,
+          "departure": 303140000,
           "destination": {
             "Position": {
               "longitude": -3.5292,
@@ -7606,7 +7606,7 @@
     {
       "trips": [
         {
-          "departure": 45359,
+          "departure": 453590000,
           "destination": {
             "Position": {
               "longitude": -3.5313,
@@ -7627,7 +7627,7 @@
     {
       "trips": [
         {
-          "departure": 37168,
+          "departure": 371680000,
           "destination": {
             "Position": {
               "longitude": -3.5349,
@@ -7648,7 +7648,7 @@
     {
       "trips": [
         {
-          "departure": 44961,
+          "departure": 449610000,
           "destination": {
             "Position": {
               "longitude": -3.5323,
@@ -7669,7 +7669,7 @@
     {
       "trips": [
         {
-          "departure": 35159,
+          "departure": 351590000,
           "destination": {
             "Position": {
               "longitude": -3.5345,
@@ -7690,7 +7690,7 @@
     {
       "trips": [
         {
-          "departure": 27197,
+          "departure": 271970000,
           "destination": {
             "Position": {
               "longitude": -3.5299,
@@ -7711,7 +7711,7 @@
     {
       "trips": [
         {
-          "departure": 29514,
+          "departure": 295140000,
           "destination": {
             "Position": {
               "longitude": -3.5325,
@@ -7732,7 +7732,7 @@
     {
       "trips": [
         {
-          "departure": 31047,
+          "departure": 310470000,
           "destination": {
             "Position": {
               "longitude": -3.5302,
@@ -7753,7 +7753,7 @@
     {
       "trips": [
         {
-          "departure": 51913,
+          "departure": 519130000,
           "destination": {
             "Position": {
               "longitude": -3.5323,
@@ -7774,7 +7774,7 @@
     {
       "trips": [
         {
-          "departure": 37321,
+          "departure": 373210000,
           "destination": {
             "Position": {
               "longitude": -3.5334,
@@ -7795,7 +7795,7 @@
     {
       "trips": [
         {
-          "departure": 31511,
+          "departure": 315110000,
           "destination": {
             "Position": {
               "longitude": -3.5334,
@@ -7816,7 +7816,7 @@
     {
       "trips": [
         {
-          "departure": 38215,
+          "departure": 382150000,
           "destination": {
             "Position": {
               "longitude": -3.5324,
@@ -7837,7 +7837,7 @@
     {
       "trips": [
         {
-          "departure": 40685,
+          "departure": 406850000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -7858,7 +7858,7 @@
     {
       "trips": [
         {
-          "departure": 49137,
+          "departure": 491370000,
           "destination": {
             "Position": {
               "longitude": -3.5249,
@@ -7879,7 +7879,7 @@
     {
       "trips": [
         {
-          "departure": 41284,
+          "departure": 412840000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -7900,7 +7900,7 @@
     {
       "trips": [
         {
-          "departure": 38016,
+          "departure": 380160000,
           "destination": {
             "Position": {
               "longitude": -3.5269,
@@ -7921,7 +7921,7 @@
     {
       "trips": [
         {
-          "departure": 37499,
+          "departure": 374990000,
           "destination": {
             "Position": {
               "longitude": -3.5299,
@@ -7942,7 +7942,7 @@
     {
       "trips": [
         {
-          "departure": 34520,
+          "departure": 345200000,
           "destination": {
             "Position": {
               "longitude": -3.5284,
@@ -7963,7 +7963,7 @@
     {
       "trips": [
         {
-          "departure": 27066,
+          "departure": 270660000,
           "destination": {
             "Position": {
               "longitude": -3.5343,
@@ -7984,7 +7984,7 @@
     {
       "trips": [
         {
-          "departure": 41773,
+          "departure": 417730000,
           "destination": {
             "Position": {
               "longitude": -3.5322,
@@ -8005,7 +8005,7 @@
     {
       "trips": [
         {
-          "departure": 44473,
+          "departure": 444730000,
           "destination": {
             "Position": {
               "longitude": -3.5341,
@@ -8026,7 +8026,7 @@
     {
       "trips": [
         {
-          "departure": 29139,
+          "departure": 291390000,
           "destination": {
             "Position": {
               "longitude": -3.527,
@@ -8047,7 +8047,7 @@
     {
       "trips": [
         {
-          "departure": 34806,
+          "departure": 348060000,
           "destination": {
             "Position": {
               "longitude": -3.5283,
@@ -8068,7 +8068,7 @@
     {
       "trips": [
         {
-          "departure": 39591,
+          "departure": 395910000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -8089,7 +8089,7 @@
     {
       "trips": [
         {
-          "departure": 38778,
+          "departure": 387780000,
           "destination": {
             "Position": {
               "longitude": -3.5344,
@@ -8110,7 +8110,7 @@
     {
       "trips": [
         {
-          "departure": 48213,
+          "departure": 482130000,
           "destination": {
             "Position": {
               "longitude": -3.5284,
@@ -8131,7 +8131,7 @@
     {
       "trips": [
         {
-          "departure": 35992,
+          "departure": 359920000,
           "destination": {
             "Position": {
               "longitude": -3.5298,
@@ -8152,7 +8152,7 @@
     {
       "trips": [
         {
-          "departure": 39811,
+          "departure": 398110000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -8173,7 +8173,7 @@
     {
       "trips": [
         {
-          "departure": 53340,
+          "departure": 533400000,
           "destination": {
             "Position": {
               "longitude": -3.5346,
@@ -8194,7 +8194,7 @@
     {
       "trips": [
         {
-          "departure": 37549,
+          "departure": 375490000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -8215,7 +8215,7 @@
     {
       "trips": [
         {
-          "departure": 46853,
+          "departure": 468530000,
           "destination": {
             "Position": {
               "longitude": -3.5246,
@@ -8236,7 +8236,7 @@
     {
       "trips": [
         {
-          "departure": 39730,
+          "departure": 397300000,
           "destination": {
             "Position": {
               "longitude": -3.5281,
@@ -8257,7 +8257,7 @@
     {
       "trips": [
         {
-          "departure": 36875,
+          "departure": 368750000,
           "destination": {
             "Position": {
               "longitude": -3.5259,
@@ -8278,7 +8278,7 @@
     {
       "trips": [
         {
-          "departure": 32700,
+          "departure": 327000000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -8299,7 +8299,7 @@
     {
       "trips": [
         {
-          "departure": 43769,
+          "departure": 437690000,
           "destination": {
             "Position": {
               "longitude": -3.5235,
@@ -8320,7 +8320,7 @@
     {
       "trips": [
         {
-          "departure": 32915,
+          "departure": 329150000,
           "destination": {
             "Position": {
               "longitude": -3.5268,
@@ -8341,7 +8341,7 @@
     {
       "trips": [
         {
-          "departure": 43032,
+          "departure": 430320000,
           "destination": {
             "Position": {
               "longitude": -3.5327,
@@ -8362,7 +8362,7 @@
     {
       "trips": [
         {
-          "departure": 34194,
+          "departure": 341940000,
           "destination": {
             "Position": {
               "longitude": -3.5336,
@@ -8383,7 +8383,7 @@
     {
       "trips": [
         {
-          "departure": 32219,
+          "departure": 322190000,
           "destination": {
             "Position": {
               "longitude": -3.5259,
@@ -8404,7 +8404,7 @@
     {
       "trips": [
         {
-          "departure": 44939,
+          "departure": 449390000,
           "destination": {
             "Position": {
               "longitude": -3.5349,
@@ -8425,7 +8425,7 @@
     {
       "trips": [
         {
-          "departure": 24877,
+          "departure": 248770000,
           "destination": {
             "Position": {
               "longitude": -3.5299,
@@ -8446,7 +8446,7 @@
     {
       "trips": [
         {
-          "departure": 39375,
+          "departure": 393750000,
           "destination": {
             "Position": {
               "longitude": -3.5353,
@@ -8467,7 +8467,7 @@
     {
       "trips": [
         {
-          "departure": 34606,
+          "departure": 346060000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -8488,7 +8488,7 @@
     {
       "trips": [
         {
-          "departure": 36045,
+          "departure": 360450000,
           "destination": {
             "Position": {
               "longitude": -3.5346,
@@ -8509,7 +8509,7 @@
     {
       "trips": [
         {
-          "departure": 33975,
+          "departure": 339750000,
           "destination": {
             "Position": {
               "longitude": -3.526,
@@ -8530,7 +8530,7 @@
     {
       "trips": [
         {
-          "departure": 32231,
+          "departure": 322310000,
           "destination": {
             "Position": {
               "longitude": -3.5314,
@@ -8551,7 +8551,7 @@
     {
       "trips": [
         {
-          "departure": 36836,
+          "departure": 368360000,
           "destination": {
             "Position": {
               "longitude": -3.529,
@@ -8572,7 +8572,7 @@
     {
       "trips": [
         {
-          "departure": 45837,
+          "departure": 458370000,
           "destination": {
             "Position": {
               "longitude": -3.5317,
@@ -8593,7 +8593,7 @@
     {
       "trips": [
         {
-          "departure": 40864,
+          "departure": 408640000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -8614,7 +8614,7 @@
     {
       "trips": [
         {
-          "departure": 37565,
+          "departure": 375650000,
           "destination": {
             "Position": {
               "longitude": -3.527,
@@ -8635,7 +8635,7 @@
     {
       "trips": [
         {
-          "departure": 53579,
+          "departure": 535790000,
           "destination": {
             "Position": {
               "longitude": -3.5225,
@@ -8656,7 +8656,7 @@
     {
       "trips": [
         {
-          "departure": 38691,
+          "departure": 386910000,
           "destination": {
             "Position": {
               "longitude": -3.5302,
@@ -8677,7 +8677,7 @@
     {
       "trips": [
         {
-          "departure": 42495,
+          "departure": 424950000,
           "destination": {
             "Position": {
               "longitude": -3.5318,
@@ -8698,7 +8698,7 @@
     {
       "trips": [
         {
-          "departure": 43942,
+          "departure": 439420000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -8719,7 +8719,7 @@
     {
       "trips": [
         {
-          "departure": 36807,
+          "departure": 368070000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -8740,7 +8740,7 @@
     {
       "trips": [
         {
-          "departure": 38787,
+          "departure": 387870000,
           "destination": {
             "Position": {
               "longitude": -3.5266,
@@ -8761,7 +8761,7 @@
     {
       "trips": [
         {
-          "departure": 44024,
+          "departure": 440240000,
           "destination": {
             "Position": {
               "longitude": -3.5275,
@@ -8782,7 +8782,7 @@
     {
       "trips": [
         {
-          "departure": 30676,
+          "departure": 306760000,
           "destination": {
             "Position": {
               "longitude": -3.5263,
@@ -8803,7 +8803,7 @@
     {
       "trips": [
         {
-          "departure": 33488,
+          "departure": 334880000,
           "destination": {
             "Position": {
               "longitude": -3.5306,
@@ -8824,7 +8824,7 @@
     {
       "trips": [
         {
-          "departure": 35718,
+          "departure": 357180000,
           "destination": {
             "Position": {
               "longitude": -3.5303,
@@ -8845,7 +8845,7 @@
     {
       "trips": [
         {
-          "departure": 42760,
+          "departure": 427600000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -8866,7 +8866,7 @@
     {
       "trips": [
         {
-          "departure": 39165,
+          "departure": 391650000,
           "destination": {
             "Position": {
               "longitude": -3.5346,
@@ -8887,7 +8887,7 @@
     {
       "trips": [
         {
-          "departure": 35437,
+          "departure": 354370000,
           "destination": {
             "Position": {
               "longitude": -3.5352,
@@ -8908,7 +8908,7 @@
     {
       "trips": [
         {
-          "departure": 46280,
+          "departure": 462800000,
           "destination": {
             "Position": {
               "longitude": -3.525,
@@ -8929,7 +8929,7 @@
     {
       "trips": [
         {
-          "departure": 30195,
+          "departure": 301950000,
           "destination": {
             "Position": {
               "longitude": -3.5332,
@@ -8950,7 +8950,7 @@
     {
       "trips": [
         {
-          "departure": 33011,
+          "departure": 330110000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
@@ -8971,7 +8971,7 @@
     {
       "trips": [
         {
-          "departure": 32870,
+          "departure": 328700000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -8992,7 +8992,7 @@
     {
       "trips": [
         {
-          "departure": 37880,
+          "departure": 378800000,
           "destination": {
             "Position": {
               "longitude": -3.5313,
@@ -9013,7 +9013,7 @@
     {
       "trips": [
         {
-          "departure": 42540,
+          "departure": 425400000,
           "destination": {
             "Position": {
               "longitude": -3.5289,
@@ -9034,7 +9034,7 @@
     {
       "trips": [
         {
-          "departure": 48565,
+          "departure": 485650000,
           "destination": {
             "Position": {
               "longitude": -3.5322,
@@ -9055,7 +9055,7 @@
     {
       "trips": [
         {
-          "departure": 51463,
+          "departure": 514630000,
           "destination": {
             "Position": {
               "longitude": -3.5319,
@@ -9076,7 +9076,7 @@
     {
       "trips": [
         {
-          "departure": 40568,
+          "departure": 405680000,
           "destination": {
             "Position": {
               "longitude": -3.5251,
@@ -9097,7 +9097,7 @@
     {
       "trips": [
         {
-          "departure": 33622,
+          "departure": 336220000,
           "destination": {
             "Position": {
               "longitude": -3.5303,
@@ -9118,7 +9118,7 @@
     {
       "trips": [
         {
-          "departure": 41689,
+          "departure": 416890000,
           "destination": {
             "Position": {
               "longitude": -3.5275,
@@ -9139,7 +9139,7 @@
     {
       "trips": [
         {
-          "departure": 50085,
+          "departure": 500850000,
           "destination": {
             "Position": {
               "longitude": -3.5262,
@@ -9160,7 +9160,7 @@
     {
       "trips": [
         {
-          "departure": 40280,
+          "departure": 402800000,
           "destination": {
             "Position": {
               "longitude": -3.5296,
@@ -9181,7 +9181,7 @@
     {
       "trips": [
         {
-          "departure": 38836,
+          "departure": 388360000,
           "destination": {
             "Position": {
               "longitude": -3.5304,
@@ -9202,7 +9202,7 @@
     {
       "trips": [
         {
-          "departure": 46046,
+          "departure": 460460000,
           "destination": {
             "Position": {
               "longitude": -3.5344,
@@ -9223,7 +9223,7 @@
     {
       "trips": [
         {
-          "departure": 33631,
+          "departure": 336310000,
           "destination": {
             "Position": {
               "longitude": -3.5309,
@@ -9244,7 +9244,7 @@
     {
       "trips": [
         {
-          "departure": 38296,
+          "departure": 382960000,
           "destination": {
             "Position": {
               "longitude": -3.5284,
@@ -9265,7 +9265,7 @@
     {
       "trips": [
         {
-          "departure": 43341,
+          "departure": 433410000,
           "destination": {
             "Position": {
               "longitude": -3.5302,
@@ -9286,7 +9286,7 @@
     {
       "trips": [
         {
-          "departure": 40604,
+          "departure": 406040000,
           "destination": {
             "Position": {
               "longitude": -3.5317,
@@ -9307,7 +9307,7 @@
     {
       "trips": [
         {
-          "departure": 31094,
+          "departure": 310940000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -9328,7 +9328,7 @@
     {
       "trips": [
         {
-          "departure": 44295,
+          "departure": 442950000,
           "destination": {
             "Position": {
               "longitude": -3.5316,
@@ -9349,7 +9349,7 @@
     {
       "trips": [
         {
-          "departure": 41999,
+          "departure": 419990000,
           "destination": {
             "Position": {
               "longitude": -3.5239,
@@ -9370,7 +9370,7 @@
     {
       "trips": [
         {
-          "departure": 38926,
+          "departure": 389260000,
           "destination": {
             "Position": {
               "longitude": -3.5346,
@@ -9391,7 +9391,7 @@
     {
       "trips": [
         {
-          "departure": 38786,
+          "departure": 387860000,
           "destination": {
             "Position": {
               "longitude": -3.535,
@@ -9412,7 +9412,7 @@
     {
       "trips": [
         {
-          "departure": 39297,
+          "departure": 392970000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -9433,7 +9433,7 @@
     {
       "trips": [
         {
-          "departure": 43824,
+          "departure": 438240000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -9454,7 +9454,7 @@
     {
       "trips": [
         {
-          "departure": 40471,
+          "departure": 404710000,
           "destination": {
             "Position": {
               "longitude": -3.5338,
@@ -9475,7 +9475,7 @@
     {
       "trips": [
         {
-          "departure": 29071,
+          "departure": 290710000,
           "destination": {
             "Position": {
               "longitude": -3.5301,
@@ -9496,7 +9496,7 @@
     {
       "trips": [
         {
-          "departure": 29334,
+          "departure": 293340000,
           "destination": {
             "Position": {
               "longitude": -3.5283,
@@ -9517,7 +9517,7 @@
     {
       "trips": [
         {
-          "departure": 39554,
+          "departure": 395540000,
           "destination": {
             "Position": {
               "longitude": -3.5312,
@@ -9538,7 +9538,7 @@
     {
       "trips": [
         {
-          "departure": 34741,
+          "departure": 347410000,
           "destination": {
             "Position": {
               "longitude": -3.5336,
@@ -9559,7 +9559,7 @@
     {
       "trips": [
         {
-          "departure": 36540,
+          "departure": 365400000,
           "destination": {
             "Position": {
               "longitude": -3.5269,
@@ -9580,7 +9580,7 @@
     {
       "trips": [
         {
-          "departure": 48436,
+          "departure": 484360000,
           "destination": {
             "Position": {
               "longitude": -3.5239,
@@ -9601,7 +9601,7 @@
     {
       "trips": [
         {
-          "departure": 54065,
+          "departure": 540650000,
           "destination": {
             "Position": {
               "longitude": -3.5309,
@@ -9622,7 +9622,7 @@
     {
       "trips": [
         {
-          "departure": 41091,
+          "departure": 410910000,
           "destination": {
             "Position": {
               "longitude": -3.533,
@@ -9643,7 +9643,7 @@
     {
       "trips": [
         {
-          "departure": 39928,
+          "departure": 399280000,
           "destination": {
             "Position": {
               "longitude": -3.5282,
@@ -9664,7 +9664,7 @@
     {
       "trips": [
         {
-          "departure": 35829,
+          "departure": 358290000,
           "destination": {
             "Position": {
               "longitude": -3.5268,
@@ -9685,7 +9685,7 @@
     {
       "trips": [
         {
-          "departure": 30604,
+          "departure": 306040000,
           "destination": {
             "Position": {
               "longitude": -3.5332,
@@ -9706,7 +9706,7 @@
     {
       "trips": [
         {
-          "departure": 40139,
+          "departure": 401390000,
           "destination": {
             "Position": {
               "longitude": -3.5309,
@@ -9727,7 +9727,7 @@
     {
       "trips": [
         {
-          "departure": 30507,
+          "departure": 305070000,
           "destination": {
             "Position": {
               "longitude": -3.5305,
@@ -9748,7 +9748,7 @@
     {
       "trips": [
         {
-          "departure": 38758,
+          "departure": 387580000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -9769,7 +9769,7 @@
     {
       "trips": [
         {
-          "departure": 39980,
+          "departure": 399800000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -9790,7 +9790,7 @@
     {
       "trips": [
         {
-          "departure": 51621,
+          "departure": 516210000,
           "destination": {
             "Position": {
               "longitude": -3.5307,
@@ -9811,7 +9811,7 @@
     {
       "trips": [
         {
-          "departure": 45040,
+          "departure": 450400000,
           "destination": {
             "Position": {
               "longitude": -3.5258,
@@ -9832,7 +9832,7 @@
     {
       "trips": [
         {
-          "departure": 35181,
+          "departure": 351810000,
           "destination": {
             "Position": {
               "longitude": -3.5251,
@@ -9853,7 +9853,7 @@
     {
       "trips": [
         {
-          "departure": 33743,
+          "departure": 337430000,
           "destination": {
             "Position": {
               "longitude": -3.5325,
@@ -9874,7 +9874,7 @@
     {
       "trips": [
         {
-          "departure": 48783,
+          "departure": 487830000,
           "destination": {
             "Position": {
               "longitude": -3.5346,
@@ -9895,7 +9895,7 @@
     {
       "trips": [
         {
-          "departure": 35587,
+          "departure": 355870000,
           "destination": {
             "Position": {
               "longitude": -3.5345,
@@ -9916,7 +9916,7 @@
     {
       "trips": [
         {
-          "departure": 41136,
+          "departure": 411360000,
           "destination": {
             "Position": {
               "longitude": -3.5326,
@@ -9937,7 +9937,7 @@
     {
       "trips": [
         {
-          "departure": 35573,
+          "departure": 355730000,
           "destination": {
             "Position": {
               "longitude": -3.5341,
@@ -9958,7 +9958,7 @@
     {
       "trips": [
         {
-          "departure": 32285,
+          "departure": 322850000,
           "destination": {
             "Position": {
               "longitude": -3.5232,
@@ -9979,7 +9979,7 @@
     {
       "trips": [
         {
-          "departure": 40613,
+          "departure": 406130000,
           "destination": {
             "Position": {
               "longitude": -3.5301,
@@ -10000,7 +10000,7 @@
     {
       "trips": [
         {
-          "departure": 36428,
+          "departure": 364280000,
           "destination": {
             "Position": {
               "longitude": -3.5325,
@@ -10021,7 +10021,7 @@
     {
       "trips": [
         {
-          "departure": 40875,
+          "departure": 408750000,
           "destination": {
             "Position": {
               "longitude": -3.53,
@@ -10042,7 +10042,7 @@
     {
       "trips": [
         {
-          "departure": 43812,
+          "departure": 438120000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -10063,7 +10063,7 @@
     {
       "trips": [
         {
-          "departure": 45841,
+          "departure": 458410000,
           "destination": {
             "Position": {
               "longitude": -3.5289,
@@ -10084,7 +10084,7 @@
     {
       "trips": [
         {
-          "departure": 25516,
+          "departure": 255160000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -10105,7 +10105,7 @@
     {
       "trips": [
         {
-          "departure": 50569,
+          "departure": 505690000,
           "destination": {
             "Position": {
               "longitude": -3.5249,
@@ -10126,7 +10126,7 @@
     {
       "trips": [
         {
-          "departure": 25127,
+          "departure": 251270000,
           "destination": {
             "Position": {
               "longitude": -3.524,
@@ -10147,7 +10147,7 @@
     {
       "trips": [
         {
-          "departure": 39436,
+          "departure": 394360000,
           "destination": {
             "Position": {
               "longitude": -3.5312,
@@ -10168,7 +10168,7 @@
     {
       "trips": [
         {
-          "departure": 27937,
+          "departure": 279370000,
           "destination": {
             "Position": {
               "longitude": -3.533,
@@ -10189,7 +10189,7 @@
     {
       "trips": [
         {
-          "departure": 35567,
+          "departure": 355670000,
           "destination": {
             "Position": {
               "longitude": -3.5303,
@@ -10210,7 +10210,7 @@
     {
       "trips": [
         {
-          "departure": 36371,
+          "departure": 363710000,
           "destination": {
             "Position": {
               "longitude": -3.5277,
@@ -10231,7 +10231,7 @@
     {
       "trips": [
         {
-          "departure": 46210,
+          "departure": 462100000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -10252,7 +10252,7 @@
     {
       "trips": [
         {
-          "departure": 30297,
+          "departure": 302970000,
           "destination": {
             "Position": {
               "longitude": -3.53,
@@ -10273,7 +10273,7 @@
     {
       "trips": [
         {
-          "departure": 43349,
+          "departure": 433490000,
           "destination": {
             "Position": {
               "longitude": -3.5221,
@@ -10294,7 +10294,7 @@
     {
       "trips": [
         {
-          "departure": 42480,
+          "departure": 424800000,
           "destination": {
             "Position": {
               "longitude": -3.5309,
@@ -10315,7 +10315,7 @@
     {
       "trips": [
         {
-          "departure": 42707,
+          "departure": 427070000,
           "destination": {
             "Position": {
               "longitude": -3.529,
@@ -10336,7 +10336,7 @@
     {
       "trips": [
         {
-          "departure": 47782,
+          "departure": 477820000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -10357,7 +10357,7 @@
     {
       "trips": [
         {
-          "departure": 40630,
+          "departure": 406300000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -10378,7 +10378,7 @@
     {
       "trips": [
         {
-          "departure": 52345,
+          "departure": 523450000,
           "destination": {
             "Position": {
               "longitude": -3.5294,
@@ -10399,7 +10399,7 @@
     {
       "trips": [
         {
-          "departure": 42634,
+          "departure": 426340000,
           "destination": {
             "Position": {
               "longitude": -3.5336,
@@ -10420,7 +10420,7 @@
     {
       "trips": [
         {
-          "departure": 23841,
+          "departure": 238410000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -10441,7 +10441,7 @@
     {
       "trips": [
         {
-          "departure": 47069,
+          "departure": 470690000,
           "destination": {
             "Position": {
               "longitude": -3.5331,
@@ -10462,7 +10462,7 @@
     {
       "trips": [
         {
-          "departure": 37496,
+          "departure": 374960000,
           "destination": {
             "Position": {
               "longitude": -3.5241,
@@ -10483,7 +10483,7 @@
     {
       "trips": [
         {
-          "departure": 45009,
+          "departure": 450090000,
           "destination": {
             "Position": {
               "longitude": -3.528,
@@ -10504,7 +10504,7 @@
     {
       "trips": [
         {
-          "departure": 36240,
+          "departure": 362400000,
           "destination": {
             "Position": {
               "longitude": -3.5344,
@@ -10525,7 +10525,7 @@
     {
       "trips": [
         {
-          "departure": 41588,
+          "departure": 415880000,
           "destination": {
             "Position": {
               "longitude": -3.525,
@@ -10546,7 +10546,7 @@
     {
       "trips": [
         {
-          "departure": 33671,
+          "departure": 336710000,
           "destination": {
             "Position": {
               "longitude": -3.5324,
@@ -10567,7 +10567,7 @@
     {
       "trips": [
         {
-          "departure": 40189,
+          "departure": 401890000,
           "destination": {
             "Position": {
               "longitude": -3.5334,
@@ -10588,7 +10588,7 @@
     {
       "trips": [
         {
-          "departure": 34227,
+          "departure": 342270000,
           "destination": {
             "Position": {
               "longitude": -3.5336,
@@ -10609,7 +10609,7 @@
     {
       "trips": [
         {
-          "departure": 31036,
+          "departure": 310360000,
           "destination": {
             "Position": {
               "longitude": -3.5286,
@@ -10630,7 +10630,7 @@
     {
       "trips": [
         {
-          "departure": 42155,
+          "departure": 421550000,
           "destination": {
             "Position": {
               "longitude": -3.5303,
@@ -10651,7 +10651,7 @@
     {
       "trips": [
         {
-          "departure": 47371,
+          "departure": 473710000,
           "destination": {
             "Position": {
               "longitude": -3.53,
@@ -10672,7 +10672,7 @@
     {
       "trips": [
         {
-          "departure": 25775,
+          "departure": 257750000,
           "destination": {
             "Position": {
               "longitude": -3.5274,
@@ -10693,7 +10693,7 @@
     {
       "trips": [
         {
-          "departure": 38324,
+          "departure": 383240000,
           "destination": {
             "Position": {
               "longitude": -3.5298,
@@ -10714,7 +10714,7 @@
     {
       "trips": [
         {
-          "departure": 46754,
+          "departure": 467540000,
           "destination": {
             "Position": {
               "longitude": -3.5353,
@@ -10735,7 +10735,7 @@
     {
       "trips": [
         {
-          "departure": 35154,
+          "departure": 351540000,
           "destination": {
             "Position": {
               "longitude": -3.5286,
@@ -10756,7 +10756,7 @@
     {
       "trips": [
         {
-          "departure": 37556,
+          "departure": 375560000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -10777,7 +10777,7 @@
     {
       "trips": [
         {
-          "departure": 32331,
+          "departure": 323310000,
           "destination": {
             "Position": {
               "longitude": -3.5336,
@@ -10798,7 +10798,7 @@
     {
       "trips": [
         {
-          "departure": 24834,
+          "departure": 248340000,
           "destination": {
             "Position": {
               "longitude": -3.5315,
@@ -10819,7 +10819,7 @@
     {
       "trips": [
         {
-          "departure": 42833,
+          "departure": 428330000,
           "destination": {
             "Position": {
               "longitude": -3.5241,
@@ -10840,7 +10840,7 @@
     {
       "trips": [
         {
-          "departure": 32024,
+          "departure": 320240000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -10861,7 +10861,7 @@
     {
       "trips": [
         {
-          "departure": 52722,
+          "departure": 527220000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -10882,7 +10882,7 @@
     {
       "trips": [
         {
-          "departure": 44534,
+          "departure": 445340000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
@@ -10903,7 +10903,7 @@
     {
       "trips": [
         {
-          "departure": 40687,
+          "departure": 406870000,
           "destination": {
             "Position": {
               "longitude": -3.53,
@@ -10924,7 +10924,7 @@
     {
       "trips": [
         {
-          "departure": 41397,
+          "departure": 413970000,
           "destination": {
             "Position": {
               "longitude": -3.5355,
@@ -10945,7 +10945,7 @@
     {
       "trips": [
         {
-          "departure": 41440,
+          "departure": 414400000,
           "destination": {
             "Position": {
               "longitude": -3.5304,
@@ -10966,7 +10966,7 @@
     {
       "trips": [
         {
-          "departure": 39960,
+          "departure": 399600000,
           "destination": {
             "Position": {
               "longitude": -3.5344,
@@ -10987,7 +10987,7 @@
     {
       "trips": [
         {
-          "departure": 53437,
+          "departure": 534370000,
           "destination": {
             "Position": {
               "longitude": -3.5318,
@@ -11008,7 +11008,7 @@
     {
       "trips": [
         {
-          "departure": 30493,
+          "departure": 304930000,
           "destination": {
             "Position": {
               "longitude": -3.5319,
@@ -11029,7 +11029,7 @@
     {
       "trips": [
         {
-          "departure": 39177,
+          "departure": 391770000,
           "destination": {
             "Position": {
               "longitude": -3.5325,
@@ -11050,7 +11050,7 @@
     {
       "trips": [
         {
-          "departure": 45829,
+          "departure": 458290000,
           "destination": {
             "Position": {
               "longitude": -3.5293,
@@ -11071,7 +11071,7 @@
     {
       "trips": [
         {
-          "departure": 44084,
+          "departure": 440840000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -11092,7 +11092,7 @@
     {
       "trips": [
         {
-          "departure": 33685,
+          "departure": 336850000,
           "destination": {
             "Position": {
               "longitude": -3.5251,
@@ -11113,7 +11113,7 @@
     {
       "trips": [
         {
-          "departure": 38028,
+          "departure": 380280000,
           "destination": {
             "Position": {
               "longitude": -3.5297,
@@ -11134,7 +11134,7 @@
     {
       "trips": [
         {
-          "departure": 34709,
+          "departure": 347090000,
           "destination": {
             "Position": {
               "longitude": -3.5324,
@@ -11155,7 +11155,7 @@
     {
       "trips": [
         {
-          "departure": 48123,
+          "departure": 481230000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -11176,7 +11176,7 @@
     {
       "trips": [
         {
-          "departure": 37662,
+          "departure": 376620000,
           "destination": {
             "Position": {
               "longitude": -3.5302,
@@ -11197,7 +11197,7 @@
     {
       "trips": [
         {
-          "departure": 39719,
+          "departure": 397190000,
           "destination": {
             "Position": {
               "longitude": -3.5301,
@@ -11218,7 +11218,7 @@
     {
       "trips": [
         {
-          "departure": 40545,
+          "departure": 405450000,
           "destination": {
             "Position": {
               "longitude": -3.5289,
@@ -11239,7 +11239,7 @@
     {
       "trips": [
         {
-          "departure": 39111,
+          "departure": 391110000,
           "destination": {
             "Position": {
               "longitude": -3.5322,
@@ -11260,7 +11260,7 @@
     {
       "trips": [
         {
-          "departure": 41682,
+          "departure": 416820000,
           "destination": {
             "Position": {
               "longitude": -3.5277,
@@ -11281,7 +11281,7 @@
     {
       "trips": [
         {
-          "departure": 40987,
+          "departure": 409870000,
           "destination": {
             "Position": {
               "longitude": -3.5326,
@@ -11302,7 +11302,7 @@
     {
       "trips": [
         {
-          "departure": 40873,
+          "departure": 408730000,
           "destination": {
             "Position": {
               "longitude": -3.5239,
@@ -11323,7 +11323,7 @@
     {
       "trips": [
         {
-          "departure": 35806,
+          "departure": 358060000,
           "destination": {
             "Position": {
               "longitude": -3.536,
@@ -11344,7 +11344,7 @@
     {
       "trips": [
         {
-          "departure": 31930,
+          "departure": 319300000,
           "destination": {
             "Position": {
               "longitude": -3.5259,
@@ -11365,7 +11365,7 @@
     {
       "trips": [
         {
-          "departure": 47048,
+          "departure": 470480000,
           "destination": {
             "Position": {
               "longitude": -3.5294,
@@ -11386,7 +11386,7 @@
     {
       "trips": [
         {
-          "departure": 42111,
+          "departure": 421110000,
           "destination": {
             "Position": {
               "longitude": -3.5223,
@@ -11407,7 +11407,7 @@
     {
       "trips": [
         {
-          "departure": 47591,
+          "departure": 475910000,
           "destination": {
             "Position": {
               "longitude": -3.5276,
@@ -11428,7 +11428,7 @@
     {
       "trips": [
         {
-          "departure": 36443,
+          "departure": 364430000,
           "destination": {
             "Position": {
               "longitude": -3.5323,
@@ -11449,7 +11449,7 @@
     {
       "trips": [
         {
-          "departure": 47539,
+          "departure": 475390000,
           "destination": {
             "Position": {
               "longitude": -3.5259,
@@ -11470,7 +11470,7 @@
     {
       "trips": [
         {
-          "departure": 30212,
+          "departure": 302120000,
           "destination": {
             "Position": {
               "longitude": -3.5284,
@@ -11491,7 +11491,7 @@
     {
       "trips": [
         {
-          "departure": 39815,
+          "departure": 398150000,
           "destination": {
             "Position": {
               "longitude": -3.531,
@@ -11512,7 +11512,7 @@
     {
       "trips": [
         {
-          "departure": 40073,
+          "departure": 400730000,
           "destination": {
             "Position": {
               "longitude": -3.5247,
@@ -11533,7 +11533,7 @@
     {
       "trips": [
         {
-          "departure": 36138,
+          "departure": 361380000,
           "destination": {
             "Position": {
               "longitude": -3.5356,
@@ -11554,7 +11554,7 @@
     {
       "trips": [
         {
-          "departure": 27302,
+          "departure": 273020000,
           "destination": {
             "Position": {
               "longitude": -3.5289,
@@ -11575,7 +11575,7 @@
     {
       "trips": [
         {
-          "departure": 45937,
+          "departure": 459370000,
           "destination": {
             "Position": {
               "longitude": -3.5317,
@@ -11596,7 +11596,7 @@
     {
       "trips": [
         {
-          "departure": 37734,
+          "departure": 377340000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -11617,7 +11617,7 @@
     {
       "trips": [
         {
-          "departure": 40392,
+          "departure": 403920000,
           "destination": {
             "Position": {
               "longitude": -3.5353,
@@ -11638,7 +11638,7 @@
     {
       "trips": [
         {
-          "departure": 42988,
+          "departure": 429880000,
           "destination": {
             "Position": {
               "longitude": -3.5338,
@@ -11659,7 +11659,7 @@
     {
       "trips": [
         {
-          "departure": 39565,
+          "departure": 395650000,
           "destination": {
             "Position": {
               "longitude": -3.528,
@@ -11680,7 +11680,7 @@
     {
       "trips": [
         {
-          "departure": 40264,
+          "departure": 402640000,
           "destination": {
             "Position": {
               "longitude": -3.5251,
@@ -11701,7 +11701,7 @@
     {
       "trips": [
         {
-          "departure": 45743,
+          "departure": 457430000,
           "destination": {
             "Position": {
               "longitude": -3.5284,
@@ -11722,7 +11722,7 @@
     {
       "trips": [
         {
-          "departure": 39725,
+          "departure": 397250000,
           "destination": {
             "Position": {
               "longitude": -3.5246,
@@ -11743,7 +11743,7 @@
     {
       "trips": [
         {
-          "departure": 46585,
+          "departure": 465850000,
           "destination": {
             "Position": {
               "longitude": -3.5309,
@@ -11764,7 +11764,7 @@
     {
       "trips": [
         {
-          "departure": 47827,
+          "departure": 478270000,
           "destination": {
             "Position": {
               "longitude": -3.5256,
@@ -11785,7 +11785,7 @@
     {
       "trips": [
         {
-          "departure": 34715,
+          "departure": 347150000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
@@ -11806,7 +11806,7 @@
     {
       "trips": [
         {
-          "departure": 45767,
+          "departure": 457670000,
           "destination": {
             "Position": {
               "longitude": -3.535,
@@ -11827,7 +11827,7 @@
     {
       "trips": [
         {
-          "departure": 42435,
+          "departure": 424350000,
           "destination": {
             "Position": {
               "longitude": -3.5321,
@@ -11848,7 +11848,7 @@
     {
       "trips": [
         {
-          "departure": 35626,
+          "departure": 356260000,
           "destination": {
             "Position": {
               "longitude": -3.5304,
@@ -11869,7 +11869,7 @@
     {
       "trips": [
         {
-          "departure": 30282,
+          "departure": 302820000,
           "destination": {
             "Position": {
               "longitude": -3.5307,
@@ -11890,7 +11890,7 @@
     {
       "trips": [
         {
-          "departure": 47072,
+          "departure": 470720000,
           "destination": {
             "Position": {
               "longitude": -3.5269,
@@ -11911,7 +11911,7 @@
     {
       "trips": [
         {
-          "departure": 32145,
+          "departure": 321450000,
           "destination": {
             "Position": {
               "longitude": -3.5316,
@@ -11932,7 +11932,7 @@
     {
       "trips": [
         {
-          "departure": 45659,
+          "departure": 456590000,
           "destination": {
             "Position": {
               "longitude": -3.5269,
@@ -11953,7 +11953,7 @@
     {
       "trips": [
         {
-          "departure": 34770,
+          "departure": 347700000,
           "destination": {
             "Position": {
               "longitude": -3.5325,
@@ -11974,7 +11974,7 @@
     {
       "trips": [
         {
-          "departure": 32632,
+          "departure": 326320000,
           "destination": {
             "Position": {
               "longitude": -3.5347,
@@ -11995,7 +11995,7 @@
     {
       "trips": [
         {
-          "departure": 34575,
+          "departure": 345750000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -12016,7 +12016,7 @@
     {
       "trips": [
         {
-          "departure": 40630,
+          "departure": 406300000,
           "destination": {
             "Position": {
               "longitude": -3.5254,
@@ -12037,7 +12037,7 @@
     {
       "trips": [
         {
-          "departure": 44159,
+          "departure": 441590000,
           "destination": {
             "Position": {
               "longitude": -3.5321,
@@ -12058,7 +12058,7 @@
     {
       "trips": [
         {
-          "departure": 34940,
+          "departure": 349400000,
           "destination": {
             "Position": {
               "longitude": -3.5338,
@@ -12079,7 +12079,7 @@
     {
       "trips": [
         {
-          "departure": 36597,
+          "departure": 365970000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -12100,7 +12100,7 @@
     {
       "trips": [
         {
-          "departure": 32753,
+          "departure": 327530000,
           "destination": {
             "Position": {
               "longitude": -3.5261,
@@ -12121,7 +12121,7 @@
     {
       "trips": [
         {
-          "departure": 20764,
+          "departure": 207640000,
           "destination": {
             "Position": {
               "longitude": -3.5293,
@@ -12142,7 +12142,7 @@
     {
       "trips": [
         {
-          "departure": 36370,
+          "departure": 363700000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -12163,7 +12163,7 @@
     {
       "trips": [
         {
-          "departure": 33840,
+          "departure": 338400000,
           "destination": {
             "Position": {
               "longitude": -3.5244,
@@ -12184,7 +12184,7 @@
     {
       "trips": [
         {
-          "departure": 33654,
+          "departure": 336540000,
           "destination": {
             "Position": {
               "longitude": -3.5274,
@@ -12205,7 +12205,7 @@
     {
       "trips": [
         {
-          "departure": 54066,
+          "departure": 540660000,
           "destination": {
             "Position": {
               "longitude": -3.5304,
@@ -12226,7 +12226,7 @@
     {
       "trips": [
         {
-          "departure": 45198,
+          "departure": 451980000,
           "destination": {
             "Position": {
               "longitude": -3.5255,
@@ -12247,7 +12247,7 @@
     {
       "trips": [
         {
-          "departure": 40950,
+          "departure": 409500000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -12268,7 +12268,7 @@
     {
       "trips": [
         {
-          "departure": 42638,
+          "departure": 426380000,
           "destination": {
             "Position": {
               "longitude": -3.5253,
@@ -12289,7 +12289,7 @@
     {
       "trips": [
         {
-          "departure": 40655,
+          "departure": 406550000,
           "destination": {
             "Position": {
               "longitude": -3.5246,
@@ -12310,7 +12310,7 @@
     {
       "trips": [
         {
-          "departure": 24179,
+          "departure": 241790000,
           "destination": {
             "Position": {
               "longitude": -3.5257,
@@ -12331,7 +12331,7 @@
     {
       "trips": [
         {
-          "departure": 53758,
+          "departure": 537580000,
           "destination": {
             "Position": {
               "longitude": -3.5223,
@@ -12352,7 +12352,7 @@
     {
       "trips": [
         {
-          "departure": 37678,
+          "departure": 376780000,
           "destination": {
             "Position": {
               "longitude": -3.5303,
@@ -12373,7 +12373,7 @@
     {
       "trips": [
         {
-          "departure": 55764,
+          "departure": 557640000,
           "destination": {
             "Position": {
               "longitude": -3.5342,
@@ -12394,7 +12394,7 @@
     {
       "trips": [
         {
-          "departure": 37074,
+          "departure": 370740000,
           "destination": {
             "Position": {
               "longitude": -3.5272,
@@ -12415,7 +12415,7 @@
     {
       "trips": [
         {
-          "departure": 37512,
+          "departure": 375120000,
           "destination": {
             "Position": {
               "longitude": -3.5236,
@@ -12436,7 +12436,7 @@
     {
       "trips": [
         {
-          "departure": 34439,
+          "departure": 344390000,
           "destination": {
             "Position": {
               "longitude": -3.524,
@@ -12457,7 +12457,7 @@
     {
       "trips": [
         {
-          "departure": 37622,
+          "departure": 376220000,
           "destination": {
             "Position": {
               "longitude": -3.5361,
@@ -12478,7 +12478,7 @@
     {
       "trips": [
         {
-          "departure": 46039,
+          "departure": 460390000,
           "destination": {
             "Position": {
               "longitude": -3.5284,
@@ -12499,7 +12499,7 @@
     {
       "trips": [
         {
-          "departure": 41402,
+          "departure": 414020000,
           "destination": {
             "Position": {
               "longitude": -3.5267,
@@ -12520,7 +12520,7 @@
     {
       "trips": [
         {
-          "departure": 49975,
+          "departure": 499750000,
           "destination": {
             "Position": {
               "longitude": -3.531,
@@ -12541,7 +12541,7 @@
     {
       "trips": [
         {
-          "departure": 28168,
+          "departure": 281680000,
           "destination": {
             "Position": {
               "longitude": -3.5355,
@@ -12562,7 +12562,7 @@
     {
       "trips": [
         {
-          "departure": 41066,
+          "departure": 410660000,
           "destination": {
             "Position": {
               "longitude": -3.5278,
@@ -12583,7 +12583,7 @@
     {
       "trips": [
         {
-          "departure": 42462,
+          "departure": 424620000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -12604,7 +12604,7 @@
     {
       "trips": [
         {
-          "departure": 34345,
+          "departure": 343450000,
           "destination": {
             "Position": {
               "longitude": -3.5353,
@@ -12625,7 +12625,7 @@
     {
       "trips": [
         {
-          "departure": 46197,
+          "departure": 461970000,
           "destination": {
             "Position": {
               "longitude": -3.5302,
@@ -12646,7 +12646,7 @@
     {
       "trips": [
         {
-          "departure": 54212,
+          "departure": 542120000,
           "destination": {
             "Position": {
               "longitude": -3.5326,
@@ -12667,7 +12667,7 @@
     {
       "trips": [
         {
-          "departure": 47380,
+          "departure": 473800000,
           "destination": {
             "Position": {
               "longitude": -3.5322,
@@ -12688,7 +12688,7 @@
     {
       "trips": [
         {
-          "departure": 39770,
+          "departure": 397700000,
           "destination": {
             "Position": {
               "longitude": -3.5293,
@@ -12709,7 +12709,7 @@
     {
       "trips": [
         {
-          "departure": 35920,
+          "departure": 359200000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -12730,7 +12730,7 @@
     {
       "trips": [
         {
-          "departure": 44801,
+          "departure": 448010000,
           "destination": {
             "Position": {
               "longitude": -3.5327,
@@ -12751,7 +12751,7 @@
     {
       "trips": [
         {
-          "departure": 39918,
+          "departure": 399180000,
           "destination": {
             "Position": {
               "longitude": -3.5344,
@@ -12772,7 +12772,7 @@
     {
       "trips": [
         {
-          "departure": 48376,
+          "departure": 483760000,
           "destination": {
             "Position": {
               "longitude": -3.5334,
@@ -12793,7 +12793,7 @@
     {
       "trips": [
         {
-          "departure": 30758,
+          "departure": 307580000,
           "destination": {
             "Position": {
               "longitude": -3.5315,
@@ -12814,7 +12814,7 @@
     {
       "trips": [
         {
-          "departure": 22933,
+          "departure": 229330000,
           "destination": {
             "Position": {
               "longitude": -3.5297,
@@ -12835,7 +12835,7 @@
     {
       "trips": [
         {
-          "departure": 38950,
+          "departure": 389500000,
           "destination": {
             "Position": {
               "longitude": -3.5317,
@@ -12856,7 +12856,7 @@
     {
       "trips": [
         {
-          "departure": 39864,
+          "departure": 398640000,
           "destination": {
             "Position": {
               "longitude": -3.5347,
@@ -12877,7 +12877,7 @@
     {
       "trips": [
         {
-          "departure": 23889,
+          "departure": 238890000,
           "destination": {
             "Position": {
               "longitude": -3.5314,
@@ -12898,7 +12898,7 @@
     {
       "trips": [
         {
-          "departure": 53566,
+          "departure": 535660000,
           "destination": {
             "Position": {
               "longitude": -3.5345,
@@ -12919,7 +12919,7 @@
     {
       "trips": [
         {
-          "departure": 32374,
+          "departure": 323740000,
           "destination": {
             "Position": {
               "longitude": -3.5317,
@@ -12940,7 +12940,7 @@
     {
       "trips": [
         {
-          "departure": 49842,
+          "departure": 498420000,
           "destination": {
             "Position": {
               "longitude": -3.5255,
@@ -12961,7 +12961,7 @@
     {
       "trips": [
         {
-          "departure": 44557,
+          "departure": 445570000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -12982,7 +12982,7 @@
     {
       "trips": [
         {
-          "departure": 43931,
+          "departure": 439310000,
           "destination": {
             "Position": {
               "longitude": -3.5319,
@@ -13003,7 +13003,7 @@
     {
       "trips": [
         {
-          "departure": 40028,
+          "departure": 400280000,
           "destination": {
             "Position": {
               "longitude": -3.5292,
@@ -13024,7 +13024,7 @@
     {
       "trips": [
         {
-          "departure": 36665,
+          "departure": 366650000,
           "destination": {
             "Position": {
               "longitude": -3.5306,
@@ -13045,7 +13045,7 @@
     {
       "trips": [
         {
-          "departure": 42842,
+          "departure": 428420000,
           "destination": {
             "Position": {
               "longitude": -3.5261,
@@ -13066,7 +13066,7 @@
     {
       "trips": [
         {
-          "departure": 37992,
+          "departure": 379920000,
           "destination": {
             "Position": {
               "longitude": -3.5268,
@@ -13087,7 +13087,7 @@
     {
       "trips": [
         {
-          "departure": 55137,
+          "departure": 551370000,
           "destination": {
             "Position": {
               "longitude": -3.5252,
@@ -13108,7 +13108,7 @@
     {
       "trips": [
         {
-          "departure": 43765,
+          "departure": 437650000,
           "destination": {
             "Position": {
               "longitude": -3.5333,
@@ -13129,7 +13129,7 @@
     {
       "trips": [
         {
-          "departure": 29622,
+          "departure": 296220000,
           "destination": {
             "Position": {
               "longitude": -3.5349,
@@ -13150,7 +13150,7 @@
     {
       "trips": [
         {
-          "departure": 48208,
+          "departure": 482080000,
           "destination": {
             "Position": {
               "longitude": -3.5302,
@@ -13171,7 +13171,7 @@
     {
       "trips": [
         {
-          "departure": 41538,
+          "departure": 415380000,
           "destination": {
             "Position": {
               "longitude": -3.5255,
@@ -13192,7 +13192,7 @@
     {
       "trips": [
         {
-          "departure": 39929,
+          "departure": 399290000,
           "destination": {
             "Position": {
               "longitude": -3.5339,
@@ -13213,7 +13213,7 @@
     {
       "trips": [
         {
-          "departure": 43011,
+          "departure": 430110000,
           "destination": {
             "Position": {
               "longitude": -3.5272,
@@ -13234,7 +13234,7 @@
     {
       "trips": [
         {
-          "departure": 45032,
+          "departure": 450320000,
           "destination": {
             "Position": {
               "longitude": -3.5323,
@@ -13255,7 +13255,7 @@
     {
       "trips": [
         {
-          "departure": 35879,
+          "departure": 358790000,
           "destination": {
             "Position": {
               "longitude": -3.5241,
@@ -13276,7 +13276,7 @@
     {
       "trips": [
         {
-          "departure": 37234,
+          "departure": 372340000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -13297,7 +13297,7 @@
     {
       "trips": [
         {
-          "departure": 31485,
+          "departure": 314850000,
           "destination": {
             "Position": {
               "longitude": -3.5327,
@@ -13318,7 +13318,7 @@
     {
       "trips": [
         {
-          "departure": 47881,
+          "departure": 478810000,
           "destination": {
             "Position": {
               "longitude": -3.5276,
@@ -13339,7 +13339,7 @@
     {
       "trips": [
         {
-          "departure": 36578,
+          "departure": 365780000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -13360,7 +13360,7 @@
     {
       "trips": [
         {
-          "departure": 43752,
+          "departure": 437520000,
           "destination": {
             "Position": {
               "longitude": -3.5324,
@@ -13381,7 +13381,7 @@
     {
       "trips": [
         {
-          "departure": 39792,
+          "departure": 397920000,
           "destination": {
             "Position": {
               "longitude": -3.534,
@@ -13402,7 +13402,7 @@
     {
       "trips": [
         {
-          "departure": 41338,
+          "departure": 413380000,
           "destination": {
             "Position": {
               "longitude": -3.5241,
@@ -13423,7 +13423,7 @@
     {
       "trips": [
         {
-          "departure": 36021,
+          "departure": 360210000,
           "destination": {
             "Position": {
               "longitude": -3.5285,
@@ -13444,7 +13444,7 @@
     {
       "trips": [
         {
-          "departure": 45644,
+          "departure": 456440000,
           "destination": {
             "Position": {
               "longitude": -3.5294,
@@ -13465,7 +13465,7 @@
     {
       "trips": [
         {
-          "departure": 30194,
+          "departure": 301940000,
           "destination": {
             "Position": {
               "longitude": -3.5279,
@@ -13486,7 +13486,7 @@
     {
       "trips": [
         {
-          "departure": 35706,
+          "departure": 357060000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -13507,7 +13507,7 @@
     {
       "trips": [
         {
-          "departure": 34018,
+          "departure": 340180000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -13528,7 +13528,7 @@
     {
       "trips": [
         {
-          "departure": 50140,
+          "departure": 501400000,
           "destination": {
             "Position": {
               "longitude": -3.5235,
@@ -13549,7 +13549,7 @@
     {
       "trips": [
         {
-          "departure": 42924,
+          "departure": 429240000,
           "destination": {
             "Position": {
               "longitude": -3.5333,
@@ -13570,7 +13570,7 @@
     {
       "trips": [
         {
-          "departure": 52379,
+          "departure": 523790000,
           "destination": {
             "Position": {
               "longitude": -3.526,
@@ -13591,7 +13591,7 @@
     {
       "trips": [
         {
-          "departure": 41498,
+          "departure": 414980000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
@@ -13612,7 +13612,7 @@
     {
       "trips": [
         {
-          "departure": 33489,
+          "departure": 334890000,
           "destination": {
             "Position": {
               "longitude": -3.5259,
@@ -13633,7 +13633,7 @@
     {
       "trips": [
         {
-          "departure": 29600,
+          "departure": 296000000,
           "destination": {
             "Position": {
               "longitude": -3.5361,
@@ -13654,7 +13654,7 @@
     {
       "trips": [
         {
-          "departure": 31709,
+          "departure": 317090000,
           "destination": {
             "Position": {
               "longitude": -3.5298,
@@ -13675,7 +13675,7 @@
     {
       "trips": [
         {
-          "departure": 36210,
+          "departure": 362100000,
           "destination": {
             "Position": {
               "longitude": -3.5244,
@@ -13696,7 +13696,7 @@
     {
       "trips": [
         {
-          "departure": 42939,
+          "departure": 429390000,
           "destination": {
             "Position": {
               "longitude": -3.5322,
@@ -13717,7 +13717,7 @@
     {
       "trips": [
         {
-          "departure": 38805,
+          "departure": 388050000,
           "destination": {
             "Position": {
               "longitude": -3.5235,
@@ -13738,7 +13738,7 @@
     {
       "trips": [
         {
-          "departure": 38555,
+          "departure": 385550000,
           "destination": {
             "Position": {
               "longitude": -3.5328,
@@ -13759,7 +13759,7 @@
     {
       "trips": [
         {
-          "departure": 32574,
+          "departure": 325740000,
           "destination": {
             "Position": {
               "longitude": -3.5273,
@@ -13780,7 +13780,7 @@
     {
       "trips": [
         {
-          "departure": 53023,
+          "departure": 530230000,
           "destination": {
             "Position": {
               "longitude": -3.5332,
@@ -13801,7 +13801,7 @@
     {
       "trips": [
         {
-          "departure": 54022,
+          "departure": 540220000,
           "destination": {
             "Position": {
               "longitude": -3.5337,
@@ -13822,7 +13822,7 @@
     {
       "trips": [
         {
-          "departure": 33122,
+          "departure": 331220000,
           "destination": {
             "Position": {
               "longitude": -3.5307,
@@ -13843,7 +13843,7 @@
     {
       "trips": [
         {
-          "departure": 42448,
+          "departure": 424480000,
           "destination": {
             "Position": {
               "longitude": -3.5313,
@@ -13864,7 +13864,7 @@
     {
       "trips": [
         {
-          "departure": 43342,
+          "departure": 433420000,
           "destination": {
             "Position": {
               "longitude": -3.5225,
@@ -13885,7 +13885,7 @@
     {
       "trips": [
         {
-          "departure": 52006,
+          "departure": 520060000,
           "destination": {
             "Position": {
               "longitude": -3.535,
@@ -13906,7 +13906,7 @@
     {
       "trips": [
         {
-          "departure": 37152,
+          "departure": 371520000,
           "destination": {
             "Position": {
               "longitude": -3.5324,
@@ -13927,7 +13927,7 @@
     {
       "trips": [
         {
-          "departure": 38032,
+          "departure": 380320000,
           "destination": {
             "Position": {
               "longitude": -3.5274,
@@ -13948,7 +13948,7 @@
     {
       "trips": [
         {
-          "departure": 49639,
+          "departure": 496390000,
           "destination": {
             "Position": {
               "longitude": -3.5307,
@@ -13969,7 +13969,7 @@
     {
       "trips": [
         {
-          "departure": 39868,
+          "departure": 398680000,
           "destination": {
             "Position": {
               "longitude": -3.5299,
@@ -13990,7 +13990,7 @@
     {
       "trips": [
         {
-          "departure": 51289,
+          "departure": 512890000,
           "destination": {
             "Position": {
               "longitude": -3.5316,
@@ -14011,7 +14011,7 @@
     {
       "trips": [
         {
-          "departure": 46092,
+          "departure": 460920000,
           "destination": {
             "Position": {
               "longitude": -3.526,
@@ -14032,7 +14032,7 @@
     {
       "trips": [
         {
-          "departure": 31331,
+          "departure": 313310000,
           "destination": {
             "Position": {
               "longitude": -3.5313,
@@ -14053,7 +14053,7 @@
     {
       "trips": [
         {
-          "departure": 35387,
+          "departure": 353870000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -14074,7 +14074,7 @@
     {
       "trips": [
         {
-          "departure": 45890,
+          "departure": 458900000,
           "destination": {
             "Position": {
               "longitude": -3.5311,
@@ -14095,7 +14095,7 @@
     {
       "trips": [
         {
-          "departure": 37811,
+          "departure": 378110000,
           "destination": {
             "Position": {
               "longitude": -3.5259,
@@ -14116,7 +14116,7 @@
     {
       "trips": [
         {
-          "departure": 42835,
+          "departure": 428350000,
           "destination": {
             "Position": {
               "longitude": -3.5326,
@@ -14137,7 +14137,7 @@
     {
       "trips": [
         {
-          "departure": 44005,
+          "departure": 440050000,
           "destination": {
             "Position": {
               "longitude": -3.5253,
@@ -14158,7 +14158,7 @@
     {
       "trips": [
         {
-          "departure": 47009,
+          "departure": 470090000,
           "destination": {
             "Position": {
               "longitude": -3.5325,
@@ -14179,7 +14179,7 @@
     {
       "trips": [
         {
-          "departure": 60925,
+          "departure": 609250000,
           "destination": {
             "Position": {
               "longitude": -3.5335,
@@ -14200,7 +14200,7 @@
     {
       "trips": [
         {
-          "departure": 43928,
+          "departure": 439280000,
           "destination": {
             "Position": {
               "longitude": -3.5325,
@@ -14221,7 +14221,7 @@
     {
       "trips": [
         {
-          "departure": 38248,
+          "departure": 382480000,
           "destination": {
             "Position": {
               "longitude": -3.5292,
@@ -14242,7 +14242,7 @@
     {
       "trips": [
         {
-          "departure": 39928,
+          "departure": 399280000,
           "destination": {
             "Position": {
               "longitude": -3.5313,
@@ -14263,7 +14263,7 @@
     {
       "trips": [
         {
-          "departure": 34481,
+          "departure": 344810000,
           "destination": {
             "Position": {
               "longitude": -3.532,
@@ -14284,7 +14284,7 @@
     {
       "trips": [
         {
-          "departure": 47584,
+          "departure": 475840000,
           "destination": {
             "Position": {
               "longitude": -3.5312,
@@ -14305,7 +14305,7 @@
     {
       "trips": [
         {
-          "departure": 40276,
+          "departure": 402760000,
           "destination": {
             "Position": {
               "longitude": -3.5322,
@@ -14326,7 +14326,7 @@
     {
       "trips": [
         {
-          "departure": 48501,
+          "departure": 485010000,
           "destination": {
             "Position": {
               "longitude": -3.5341,
@@ -14347,7 +14347,7 @@
     {
       "trips": [
         {
-          "departure": 36834,
+          "departure": 368340000,
           "destination": {
             "Position": {
               "longitude": -3.5271,
@@ -14368,7 +14368,7 @@
     {
       "trips": [
         {
-          "departure": 38178,
+          "departure": 381780000,
           "destination": {
             "Position": {
               "longitude": -3.535,
@@ -14389,7 +14389,7 @@
     {
       "trips": [
         {
-          "departure": 29589,
+          "departure": 295890000,
           "destination": {
             "Position": {
               "longitude": -3.5305,
@@ -14410,7 +14410,7 @@
     {
       "trips": [
         {
-          "departure": 28372,
+          "departure": 283720000,
           "destination": {
             "Position": {
               "longitude": -3.5321,
@@ -14431,7 +14431,7 @@
     {
       "trips": [
         {
-          "departure": 31218,
+          "departure": 312180000,
           "destination": {
             "Position": {
               "longitude": -3.5254,
@@ -14452,7 +14452,7 @@
     {
       "trips": [
         {
-          "departure": 29394,
+          "departure": 293940000,
           "destination": {
             "Position": {
               "longitude": -3.5327,
@@ -14473,7 +14473,7 @@
     {
       "trips": [
         {
-          "departure": 42681,
+          "departure": 426810000,
           "destination": {
             "Position": {
               "longitude": -3.5255,
@@ -14494,7 +14494,7 @@
     {
       "trips": [
         {
-          "departure": 61172,
+          "departure": 611720000,
           "destination": {
             "Position": {
               "longitude": -3.5356,
@@ -14515,7 +14515,7 @@
     {
       "trips": [
         {
-          "departure": 36350,
+          "departure": 363500000,
           "destination": {
             "Position": {
               "longitude": -3.5298,
@@ -14536,7 +14536,7 @@
     {
       "trips": [
         {
-          "departure": 33402,
+          "departure": 334020000,
           "destination": {
             "Position": {
               "longitude": -3.5328,
@@ -14557,7 +14557,7 @@
     {
       "trips": [
         {
-          "departure": 29154,
+          "departure": 291540000,
           "destination": {
             "Position": {
               "longitude": -3.53,
@@ -14578,7 +14578,7 @@
     {
       "trips": [
         {
-          "departure": 40240,
+          "departure": 402400000,
           "destination": {
             "Position": {
               "longitude": -3.5287,
@@ -14599,7 +14599,7 @@
     {
       "trips": [
         {
-          "departure": 51375,
+          "departure": 513750000,
           "destination": {
             "Position": {
               "longitude": -3.5282,
@@ -14620,7 +14620,7 @@
     {
       "trips": [
         {
-          "departure": 59770,
+          "departure": 597700000,
           "destination": {
             "Position": {
               "longitude": -3.5328,
@@ -14641,7 +14641,7 @@
     {
       "trips": [
         {
-          "departure": 43224,
+          "departure": 432240000,
           "destination": {
             "Position": {
               "longitude": -3.5317,
@@ -14662,7 +14662,7 @@
     {
       "trips": [
         {
-          "departure": 48107,
+          "departure": 481070000,
           "destination": {
             "Position": {
               "longitude": -3.531,
@@ -14683,7 +14683,7 @@
     {
       "trips": [
         {
-          "departure": 47252,
+          "departure": 472520000,
           "destination": {
             "Position": {
               "longitude": -3.5301,
@@ -14704,7 +14704,7 @@
     {
       "trips": [
         {
-          "departure": 33650,
+          "departure": 336500000,
           "destination": {
             "Position": {
               "longitude": -3.5351,
