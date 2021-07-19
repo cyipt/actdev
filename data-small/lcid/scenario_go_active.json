@@ -1655,7 +1655,7 @@
               "latitude": 53.7795
             }
           },
-          "mode": "Bike",
+          "mode": "Walk",
           "purpose": "Shopping"
         }
       ]
@@ -1697,7 +1697,7 @@
               "latitude": 53.7849
             }
           },
-          "mode": "Drive",
+          "mode": "Bike",
           "purpose": "Shopping"
         }
       ]
@@ -2176,8 +2176,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.551,
-              "latitude": 53.8003
+              "longitude": -1.5507,
+              "latitude": 53.8001
             }
           },
           "mode": "Walk",
@@ -2387,7 +2387,7 @@
           "destination": {
             "Position": {
               "longitude": -1.5514,
-              "latitude": 53.7934
+              "latitude": 53.7933
             }
           },
           "mode": "Walk",
@@ -2512,8 +2512,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5486,
-              "latitude": 53.8012
+              "longitude": -1.5489,
+              "latitude": 53.8013
             }
           },
           "mode": "Walk",
@@ -2575,8 +2575,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5388,
-              "latitude": 53.8016
+              "longitude": -1.551,
+              "latitude": 53.8003
             }
           },
           "mode": "Walk",
@@ -2596,8 +2596,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.553,
-              "latitude": 53.7994
+              "longitude": -1.5446,
+              "latitude": 53.7951
             }
           },
           "mode": "Walk",
@@ -2932,8 +2932,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5514,
-              "latitude": 53.7933
+              "longitude": -1.5512,
+              "latitude": 53.7934
             }
           },
           "mode": "Walk",
@@ -3142,7 +3142,7 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.553,
+              "longitude": -1.5529,
               "latitude": 53.7993
             }
           },
@@ -3457,8 +3457,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5531,
-              "latitude": 53.799
+              "longitude": -1.553,
+              "latitude": 53.7991
             }
           },
           "mode": "Walk",
@@ -3583,7 +3583,7 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5532,
+              "longitude": -1.5536,
               "latitude": 53.7986
             }
           },
@@ -4066,8 +4066,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5543,
-              "latitude": 53.8006
+              "longitude": -1.5469,
+              "latitude": 53.7967
             }
           },
           "mode": "Walk",
@@ -4171,8 +4171,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5373,
-              "latitude": 53.79
+              "longitude": -1.5518,
+              "latitude": 53.7928
             }
           },
           "mode": "Walk",
@@ -4339,8 +4339,8 @@
           },
           "destination": {
             "Position": {
-              "longitude": -1.5497,
-              "latitude": 53.7987
+              "longitude": -1.5506,
+              "latitude": 53.8003
             }
           },
           "mode": "Walk",
@@ -10664,7 +10664,7 @@
               "latitude": 53.7962
             }
           },
-          "mode": "Bike",
+          "mode": "Walk",
           "purpose": "Shopping"
         }
       ]
@@ -11588,7 +11588,7 @@
               "latitude": 53.7967
             }
           },
-          "mode": "Drive",
+          "mode": "Bike",
           "purpose": "Shopping"
         }
       ]

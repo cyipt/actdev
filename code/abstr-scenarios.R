@@ -1,6 +1,7 @@
 # Aim: demonstrate disaggregating polygons for #24
 
 library(tidyverse)
+library(R.utils)
 
 if (!exists("site_name")) {
   site_name = "cricklewood"
@@ -106,7 +107,8 @@ if (error) {
 }
 
 if (procgen_exists) {
-  system(paste0("gunzip ", procgen_path_gz))
+  #system(paste0("gunzip ", procgen_path_gz))
+  gunzip(procgen_path_gz)
   procgen_houses = sf::read_sf(procgen_path)
   file.remove(procgen_path)
 }
