@@ -43,9 +43,10 @@ if (new_site) {
                 sf::st_sf(cbind(sf::st_drop_geometry(site), new_cols),
                           geometry = site$geometry)) %>% arrange(site_name)
 } else {
-  #TODO this is returning null
+  # filter to selected sites
   site_names_to_build = sites %>%
-    filter(str_detect(string = site_name, pattern = "lcid"))
+    filter(site_name == "allerton-bywater" | site_name == "bailrigg" | site_name == "lcid" | site_name == "micklefield" | site_name == "poundbury" | site_name == "taunton-firepool" | site_name == "tyersal-lane"  )
+  site_names_to_build = site_names_to_build$site_name
 }
 
 source("code/load_jts.R") # national data if not loaded (takes some time)
@@ -148,22 +149,24 @@ if (new_site) {
 }
 
 # Save and sanity check data -----------------------------------------------
+if(new_site){
+  write_csv(sf::st_drop_geometry(sites_join),
+            "data-small/all-sites.csv")
+  file.remove("data-small/all-sites.geojson")
+  sf::write_sf(sites_join, "data-small/all-sites.geojson")
+  
+  mode_share_baseline = read.csv("data-small/mode-share-sites-baseline.csv")
+  mode_share_goactive = read.csv("data-small/mode-share-sites-goactive.csv")
+  summary(sanity1 <-
+            mode_share_baseline$site_name == sites_join$site_name)
+  summary(sanity2 <-
+            mode_share_goactive$site_name == sites_join$site_name)
+  mode_share_goactive$site_name[!sanity2]
+  setdiff(mode_share_goactive$site_name, sites_join$site_name)
+  all(sanity1)
+  all(sanity2)
+}
 
-write_csv(sf::st_drop_geometry(sites_join),
-          "data-small/all-sites.csv")
-file.remove("data-small/all-sites.geojson")
-sf::write_sf(sites_join, "data-small/all-sites.geojson")
-
-mode_share_baseline = read.csv("data-small/mode-share-sites-baseline.csv")
-mode_share_goactive = read.csv("data-small/mode-share-sites-goactive.csv")
-summary(sanity1 <-
-          mode_share_baseline$site_name == sites_join$site_name)
-summary(sanity2 <-
-          mode_share_goactive$site_name == sites_join$site_name)
-mode_share_goactive$site_name[!sanity2]
-setdiff(mode_share_goactive$site_name, sites_join$site_name)
-all(sanity1)
-all(sanity2)
 
 # Then in Git do git add -A, commit and push
 # git add -A

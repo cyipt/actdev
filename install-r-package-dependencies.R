@@ -5,7 +5,7 @@ cran_pkgs = c("httr", "lwgeom", "mapview", "od", "osmextract", "pct",
               "piggyback", "tmap", "ggplot2", "data.table", "geojsonio", "osmdata", 
               "tidyverse", "cyclestreets", "tmaptools", "spatstat", "rmarkdown", 
               "patchwork", "scales", "colorspace", "jsonlite", "bookdown", 
-              "knitr", "xaringan")
+              "knitr", "xaringan", "R.utils")
 remotes::install_cran(cran_pkgs)
 remotes::install_github(c("cyipt/acton", "cyipt/actdev"))
 remotes::install_github("a-b-street/abstr")
