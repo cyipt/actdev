@@ -41,7 +41,7 @@ mean(circ_complete$cycle_drive_ratio)
 summary(sites_join$crossing_points)
 
 
-# figure 1 ----------------------------------------------------------------
+# old planit figure 2 ----------------------------------------------------------------
 
 
 library(tidyverse)
@@ -93,3 +93,171 @@ isna = afterchanges %>%
 unique(isna$n_documents)
 unique(isna$n_dwellings)
 unique(isna$n_statutory_days)
+
+----old planit figure 1------
+
+withdwellings$dwellings_band = cut(x = withdwellings$n_dwellings, breaks = seq(from = 0, to = 400, by = 20), include.lowest = TRUE)
+# change labels of withdwellings$dwellings_band
+
+withdwellings$dwellings_band = gsub("\\(", "", withdwellings$dwellings_band)
+withdwellings$dwellings_band = gsub(",","-", withdwellings$dwellings_band)
+withdwellings$dwellings_band = gsub("\\]", "", withdwellings$dwellings_band)
+withdwellings$dwellings_band = gsub("\\[", "", withdwellings$dwellings_band)
+withdwellings$dwellings_band = as.character(withdwellings$dwellings_band)
+
+withdwellings = withdwellings %>% 
+  mutate_all(~replace(., is.na(.), 0))
+
+withdwellings$dwellings_band = as.factor(withdwellings$dwellings_band)
+
+withdwellings$dwellings_band = ordered(withdwellings$dwellings_band, levels = c("0-20", "20-40", "40-60", "60-80", "80-100", "100-120", "120-140", "140-160", "160-180", "180-200", "200-220", "220-240", "240-260", "260-280", "280-300", "300-320", "320-340", "340-360", "360-380", "380-400", ">400"))
+
+ggplot(withdwellings, aes(x = dwellings_band)) +
+  geom_bar() + 
+  theme(axis.text.x = element_text(angle = 45))
+
+
+# Figure 1 ----------------------------------------------------------------
+
+library(tidyverse)
+library(ggplot2)
+library(sf)
+
+site_name = "great-kneighton"
+
+path = file.path("data-small", site_name)
+all_od = read_csv(file.path(path, "all-census-od.csv"))
+desire_lines = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
+
+# colourscheme
+cols = c("#457b9d", "#90be6d", "#ffd166", "#fe5f55")
+
+# create combined infographic ---------------------------------------------
+
+get_distance_bands = function(x, distance_band = c(0, zonebuilder::zb_100_triangular_numbers[2:5], 20, 30, 10000)) {
+  distance_labels = paste0(distance_band[-length(distance_band)], "-", distance_band[-1])
+  distance_labels = gsub(pattern = "-10000", replacement = "+", distance_labels)
+  cut(x = x, breaks = distance_band * 1000, labels = distance_labels)
+}
+
+all_od_new = all_od %>% 
+  rename(all = all, walk = foot, cycle = bicycle, drive = car_driver, trimode = trimode_base) %>% 
+  select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
+  mutate(across(all:length, as.numeric))
+
+# disaggregated desire lines inside the study area
+desire_lines_disag = desire_lines %>% 
+  rename(all = all_base, trimode = trimode_base) %>% 
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  filter(purpose == "commute") %>% 
+  select(geo_code2, all, trimode, walk_base, cycle_base, drive_base, walk_godutch, cycle_godutch, drive_godutch, length) %>% 
+  sf::st_drop_geometry()
+
+# get desire lines outside the study area
+all_dist_outside = all_od_new %>% 
+  filter(! geo_code2 %in% desire_lines_disag$geo_code2)
+
+# join the lines inside and outside the study area for the two scenarios separately
+desire_disag_base = desire_lines_disag %>%
+  select(-c(walk_godutch:drive_godutch)) %>% 
+  rename(walk = walk_base, cycle = cycle_base, drive = drive_base)
+
+desire_disag_scenario = desire_lines_disag %>%
+  select(-c(walk_base:drive_base)) %>% 
+  rename(walk = walk_godutch, cycle = cycle_godutch, drive = drive_godutch)
+
+desire_all_base = bind_rows(desire_disag_base, all_dist_outside)
+
+desire_all_scenario = bind_rows(desire_disag_scenario, all_dist_outside)
+
+# Baseline scenario
+
+mode_split_base = desire_all_base %>%
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  summarise(across(all:drive, sum)) %>% 
+  mutate(other = all - trimode)
+
+all_dist = mode_split_base %>% 
+  pivot_longer(cols = c(walk, cycle, drive, other))
+
+all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
+
+g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
+  geom_bar(position = "stack", stat = "identity", show.legend = FALSE) +
+  scale_fill_manual(values = cols) +
+  labs(y = "", x = "Distance band (km)", fill = "") +
+  theme_minimal() +
+  ylim(c(0, 800))
+
+####
+
+
+site_name = "chapelford"
+
+path = file.path("data-small", site_name)
+all_od = read_csv(file.path(path, "all-census-od.csv"))
+desire_lines = sf::read_sf(file.path(path, "desire-lines-many.geojson"))
+
+# colourscheme
+cols = c("#457b9d", "#90be6d", "#ffd166", "#fe5f55")
+
+# create combined infographic ---------------------------------------------
+
+get_distance_bands = function(x, distance_band = c(0, zonebuilder::zb_100_triangular_numbers[2:5], 20, 30, 10000)) {
+  distance_labels = paste0(distance_band[-length(distance_band)], "-", distance_band[-1])
+  distance_labels = gsub(pattern = "-10000", replacement = "+", distance_labels)
+  cut(x = x, breaks = distance_band * 1000, labels = distance_labels)
+}
+
+all_od_new = all_od %>% 
+  rename(all = all, walk = foot, cycle = bicycle, drive = car_driver, trimode = trimode_base) %>% 
+  select(geo_code2, all, trimode, walk, cycle, drive, length) %>% 
+  mutate(across(all:length, as.numeric))
+
+# disaggregated desire lines inside the study area
+desire_lines_disag = desire_lines %>% 
+  rename(all = all_base, trimode = trimode_base) %>% 
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  filter(purpose == "commute") %>% 
+  select(geo_code2, all, trimode, walk_base, cycle_base, drive_base, walk_godutch, cycle_godutch, drive_godutch, length) %>% 
+  sf::st_drop_geometry()
+
+# get desire lines outside the study area
+all_dist_outside = all_od_new %>% 
+  filter(! geo_code2 %in% desire_lines_disag$geo_code2)
+
+# join the lines inside and outside the study area for the two scenarios separately
+desire_disag_base = desire_lines_disag %>%
+  select(-c(walk_godutch:drive_godutch)) %>% 
+  rename(walk = walk_base, cycle = cycle_base, drive = drive_base)
+
+desire_disag_scenario = desire_lines_disag %>%
+  select(-c(walk_base:drive_base)) %>% 
+  rename(walk = walk_godutch, cycle = cycle_godutch, drive = drive_godutch)
+
+desire_all_base = bind_rows(desire_disag_base, all_dist_outside)
+
+desire_all_scenario = bind_rows(desire_disag_scenario, all_dist_outside)
+
+# Baseline scenario
+
+mode_split_base = desire_all_base %>%
+  mutate(distance_band = get_distance_bands(x = length)) %>% 
+  group_by(distance_band, .drop = FALSE) %>% 
+  summarise(across(all:drive, sum)) %>% 
+  mutate(other = all - trimode)
+
+all_dist = mode_split_base %>% 
+  pivot_longer(cols = c(walk, cycle, drive, other))
+
+all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
+
+g2 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
+  geom_bar(position = "stack", stat = "identity") +
+  scale_fill_manual(values = cols) +
+  labs(y = "", x = "Distance band (km)", fill = "") +
+  theme_minimal() +
+  ylim(c(0, 800))
