@@ -1,19 +1,38 @@
 library(tidyverse)
 library(sf)
 library(tmap)
+tmap_mode("view")
 
 sites_join = sf::read_sf("data-small/all-sites.geojson")
 
 # remove sites with less than 500 dwellings at completion
-sites_join = sites_join %>% 
+sites_table_geo = sites_join %>% 
   filter(dwellings_when_complete >= 500)
 
-sites_table_geo = sites_join %>% 
-  select(percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, circuity_fast_cycle, circuity_walk, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario, in_site_walk_circuity, in_site_cycle_circuity, in_site_drive_circuity)
+sites_table_geo %>% 
+  skimr::skim()
+sites_table_point = sf::st_centroid(sites_table_geo)
+# works but no legend:
+tm_shape(sites_table_point) +
+  tm_dots(size = "dwellings_when_complete") 
+
+regions = sf::read_sf("https://github.com/saferactive/saferactive/releases/download/0.1.4/Regions_.December_2020._EN_BGC.geojson")
+# gb_outline = sf::read_sf("https://github.com/martinjc/UK-GeoJSON/raw/master/json/administrative/gb/lad.json")
+gb_outline = rnaturalearth::ne_countries(country = "United Kingdom", scale = "medium")
+tmap_mode("plot")
+tm_shape(regions) +
+  tm_borders() +
+tm_shape(sites_table_point, bbox = tmaptools::bb(sites_table_point, ext = 1.5)) +
+  tm_dots(size = "dwellings_when_complete") +
+  tm_shape(gb_outline) +
+  tm_borders(lwd = 2)
+
+
+
 
 sites_table = sites_table_geo %>% 
-  st_drop_geometry() 
-skimr::skim(sites_table)
+  select(percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, circuity_fast_cycle, circuity_walk, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario, in_site_walk_circuity, in_site_cycle_circuity, in_site_drive_circuity)
+st_drop_geometry() 
 
 
 
