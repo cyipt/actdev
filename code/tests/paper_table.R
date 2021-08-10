@@ -1,5 +1,6 @@
 library(tidyverse)
 library(sf)
+library(tmap)
 
 sites_join = sf::read_sf("data-small/all-sites.geojson")
 
@@ -7,9 +8,14 @@ sites_join = sf::read_sf("data-small/all-sites.geojson")
 sites_join = sites_join %>% 
   filter(dwellings_when_complete >= 500)
 
-sites_table = sites_join %>% 
-  st_drop_geometry() %>% 
+sites_table_geo = sites_join %>% 
   select(percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, circuity_fast_cycle, circuity_walk, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario, in_site_walk_circuity, in_site_cycle_circuity, in_site_drive_circuity)
+
+sites_table = sites_table_geo %>% 
+  st_drop_geometry() 
+skimr::skim(sites_table)
+
+
 
 sites_table$in_site_walk_circuity = as.numeric(sites_table$in_site_walk_circuity)
 sites_table$in_site_cycle_circuity = as.numeric(sites_table$in_site_cycle_circuity)
