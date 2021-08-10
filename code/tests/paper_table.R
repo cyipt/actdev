@@ -17,20 +17,29 @@ tm_shape(sites_table_point) +
   tm_dots(size = "dwellings_when_complete") 
 
 regions = sf::read_sf("https://github.com/saferactive/saferactive/releases/download/0.1.4/Regions_.December_2020._EN_BGC.geojson")
+regions_simplified = rmapshaper::ms_simplify(regions, keep = 0.01)
 # gb_outline = sf::read_sf("https://github.com/martinjc/UK-GeoJSON/raw/master/json/administrative/gb/lad.json")
-gb_outline = rnaturalearth::ne_countries(country = "United Kingdom", scale = "medium")
+regions_linestrings = sf::st_cast(regions_simplified, to = "MULTILINESTRING")
+gb_outline = rnaturalearth::ne_countries(country = "United Kingdom", scale = "medium", returnclass = "sf")
+gb_outline_linestrings = sf::st_cast(gb_outline, to = "MULTILINESTRING")
+regions_buffered = sf::st_difference(
+  regions_linestrings,
+  sf::st_buffer(gb_outline_linestrings, 1000)
+)
 tmap_mode("plot")
 # tmaptools::palette_explorer()
 tmap_options(check.and.fix = TRUE)
-tm_shape(regions) +
-  tm_borders() +
+tm_shape(regions_buffered) +
+  tm_lines(col = "grey", lwd = 0.5) +
   tm_shape(sites_table_point) +
   tm_dots(
     "percent_commute_active_base", size = "dwellings_when_complete", title = "% Active", title.size = "Dwellings",
     palette = "plasma", legend.size.is.portrait = TRUE) +
   tm_shape(gb_outline) +
   tm_borders(lwd = 2) +
-  tm_layout(legend.position = c(0.8, 0.7))
+  tm_layout(legend.position = c(0.8, 0.67), scale = 1.5) +
+  tm_scale_bar() +
+  tm_compass(position = c("right", "top"))
 
 sites_table = sites_table_geo %>% 
   select(percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, circuity_fast_cycle, circuity_walk, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario, in_site_walk_circuity, in_site_cycle_circuity, in_site_drive_circuity)
