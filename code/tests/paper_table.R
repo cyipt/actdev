@@ -1,5 +1,6 @@
 library(tidyverse)
 library(sf)
+library(spatstat)
 
 sites_join = sf::read_sf("data-small/all-sites.geojson")
 
@@ -7,21 +8,31 @@ sites_join = sf::read_sf("data-small/all-sites.geojson")
 sites_join = sites_join %>% 
   filter(dwellings_when_complete >= 500)
 
+site_table = sites_join %>% 
+  st_drop_geometry() %>% 
+  select(full_name, main_local_authority, is_complete, dwellings_when_complete)
+
+write_csv(site_table, "site_table.csv")
+
 sites_table = sites_join %>% 
   st_drop_geometry() %>% 
-  select(percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, circuity_fast_cycle, circuity_walk, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario, in_site_walk_circuity, in_site_cycle_circuity, in_site_drive_circuity)
+  select(percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, circuity_fast_cycle, circuity_walk, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario, in_site_walk_circuity, in_site_cycle_circuity, in_site_drive_circuity, crossing_points)
 
 sites_table$in_site_walk_circuity = as.numeric(sites_table$in_site_walk_circuity)
 sites_table$in_site_cycle_circuity = as.numeric(sites_table$in_site_cycle_circuity)
 sites_table$in_site_drive_circuity = as.numeric(sites_table$in_site_drive_circuity)
 
-mm = sapply(sites_table, mean, na.rm = TRUE)
-minm = sapply(sites_table, min, na.rm = TRUE)
-maxm = sapply(sites_table, max, na.rm = TRUE)
+# mm = round(sapply(sites_table, median, na.rm = TRUE), 2)
+# minm = sapply(sites_table, min, na.rm = TRUE)
+# maxm = sapply(sites_table, max, na.rm = TRUE)
+
+end_table = round(sapply(sites_table, quantile, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE), 2)
+end_table = as.data.frame(t(end_table))
 
 metrics = names(sites_table)
+end_table = tibble(metrics, end_table)
 
-end_table = tibble(metrics, mm, minm, maxm)
+write_csv(end_table, "table1.csv")
 
 ## note no walk circuity results for wynyard and long marston because there are no walk commute routes
 
