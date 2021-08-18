@@ -8,7 +8,7 @@ output: word_document
 # this collaborative doc was set-up with:
 install.packages("trackdown")
 trackdown::upload_file("prose/ccag-booth-content.Rmd")
-trackdown::update_file("prose/ccag-booth-content.Rmd")
+trackdown::update_file("prose/ccag-booth-content.Rmd", path_output = "prose/ccag-booth-content.docx")
 trackdown::("prose/ccag-booth-content.Rmd")
 # see https://claudiozandonella.github.io/trackdown/ for details
 ```
