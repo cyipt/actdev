@@ -1,1 +1,0 @@
-# ActDev booth at CycleC

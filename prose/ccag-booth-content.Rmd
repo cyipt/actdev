@@ -40,12 +40,14 @@ See below for a demonstration of how it can be used to make changes to travel in
 
 https://youtu.be/P12N51qI5Cs?t=1471
 
-To add:
+ActDev shows how new technology can make planning a more evidence-based, accessible and participatory process.
+If you're interested in adding new sites to the web app, and want to see the open source technology and reproducible and transparent workflow behind the tool, check out the project's development repository on GitHub at [github.com/cyipt/actdev](https://github.com/cyipt/actdev/blob/main/code/tests/add-new-site.md).
+There you will find instructions on creating site boundaries and adding new sites (requires experience with the statistical programming language R), illustrated in the GIF below.
 
-- video showing demo of A/B Street
+![](https://raw.githubusercontent.com/cyipt/actdev/main/code/tests/geojson-polygon.gif)
+
+To add:
 
 - video showing application data (CycleStreets)
 
 - link to talks providing context
-
-- link to instructions on adding a new site and demo of new site that has been added (Nathanael?)
