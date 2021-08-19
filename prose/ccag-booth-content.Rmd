@@ -8,8 +8,9 @@ output: word_document
 # this collaborative doc was set-up with:
 install.packages("trackdown")
 trackdown::upload_file("prose/ccag-booth-content.Rmd")
+trackdown::update_file("prose/ccag-booth-content.Rmd")
 trackdown::update_file("prose/ccag-booth-content.Rmd", path_output = "prose/ccag-booth-content.docx")
-trackdown::("prose/ccag-booth-content.Rmd")
+trackdown::download_file("prose/ccag-booth-content.Rmd")
 # see https://claudiozandonella.github.io/trackdown/ for details
 ```
 
@@ -19,23 +20,27 @@ ActDev project, University of Leeds, CycleStreets Ltd, A/B Street
 
 ## Vendor Headline
 
-Welcome to the Active Travel and New Development (ActDev) pototype tool and research project, which provides an evidence base on active travel potential and provision in and around new and proposed development sites
+Welcome to the Active Travel and New Development (ActDev) prototype tool and research project, which provides an evidence base on active travel potential and provision in and around new and proposed development sites
 
 ## About
 
-ActDev is a project to develop a strong and nationally scalable evidence base on walking and cycling potential and provision in and around new development sites. In the first phase of work, we developed a prototype web application showing walking and cycling route from 35 housing developments to key 'trip attractors' and calculated walking and cycling metrics within the boundary of each site. The results demonstrate the importance of considering walking and cycling potential and provision early in the planning process, the possibility of quantifying walking and cycling opportunities associated with new developments, and the feasibility of developing an actionable evidence base that will enable the planning process to support ambitious walking, cycling and decarbonisation targets nationawide. In this booth we will show you what the project is about and how we can scale it to provide evidence at local, regional and national levels.
+ActDev is a project to develop a strong and nationally scalable evidence base on walking and cycling potential and provision in and around new development sites. In the first phase of work, we developed a prototype web application showing walking and cycling route from 35 housing developments to key 'trip attractors' and calculated walking and cycling metrics within the boundary of each site. The results demonstrate the importance of considering walking and cycling potential and provision early in the planning process, the possibility of quantifying walking and cycling opportunities associated with new developments, and the feasibility of developing an actionable evidence base that will enable the planning process to support ambitious walking, cycling and decarbonisation targets nationwide. In this booth we will show you what the project is about and how we can scale it to provide evidence at local, regional and national levels.
 
 ## Additional information
 
 Welcome to our ActDev booth. Here we provide an overview of the approach and its potential to generate a step change in the evidence base needed for development design and planning decisions that properly account for walking and cycling. The tool is scalable and has the potential to provide vital information to inform key stakeholders on the suitability of proposed sites, current provision in and around new and proposed sites, and priorities to improve active travel infrastructure in and around new development sites.
 
-For a 5 minute overview of the tools see our taster video.
+The [ActDev video](https://www.youtube.com/watch?v=nNYroA16JEQ) provides a good 5 minute overview of the tool.
+If that whetted your appetite, check out a live demo of the tool and how it can be used to support planning in relation to new developments in the video below.
 
-https://www.youtube.com/watch?v=nNYroA16JEQ
+https://youtu.be/P12N51qI5Cs?t=697
+
+A unique aspect of the ActDev tool is the use of the new A/B Street open source city simulation and editing software.
+See below for a demonstration of how it can be used to make changes to travel infrastructure in relation to new developments, and simulate the changes in travel behaviour.
+
+https://youtu.be/P12N51qI5Cs?t=1471
 
 To add:
-
-- video showing demo of tool, e.g. at the start of Joey's demo during the 2nd ActDev video: https://youtu.be/P12N51qI5Cs?t=697
 
 - video showing demo of A/B Street
 
