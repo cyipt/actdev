@@ -20,11 +20,11 @@ ActDev project, University of Leeds, CycleStreets Ltd, A/B Street
 
 ## Vendor Headline
 
-Welcome to the Active Travel and New Development (ActDev) prototype tool and research project, which provides an evidence base on active travel potential and provision in and around new and proposed development sites
+Welcome to the Active Travel and New Development (ActDev) prototype tool and research project, which provides an evidence base on active travel potential and provision in and around new and proposed residential development sites
 
 ## About
 
-ActDev is a project to develop a strong and nationally scalable evidence base on walking and cycling potential and provision in and around new development sites. In the first phase of work, we developed a prototype web application showing walking and cycling route from 35 housing developments to key 'trip attractors' and calculated walking and cycling metrics within the boundary of each site. The results demonstrate the importance of considering walking and cycling potential and provision early in the planning process, the possibility of quantifying walking and cycling opportunities associated with new developments, and the feasibility of developing an actionable evidence base that will enable the planning process to support ambitious walking, cycling and decarbonisation targets nationwide. In this booth we will show you what the project is about and how we can scale it to provide evidence at local, regional and national levels.
+ActDev is a project to develop a strong and nationally scalable evidence base on walking and cycling potential and provision in and around new development sites. In the first phase of work, we developed a prototype web application showing walking and cycling routes from 35 housing developments to key 'trip attractors' and calculated walking and cycling metrics within the boundary of each site. The results demonstrate the importance of considering walking and cycling potential and provision early in the planning process, the possibility of quantifying walking and cycling opportunities associated with new developments, and the feasibility of developing an actionable evidence base that will enable the planning process to support ambitious walking, cycling and decarbonisation targets nationwide. In this booth we will show you what the project is about and how we can scale it to provide evidence at local, regional and national levels.
 
 ## Additional information
 
