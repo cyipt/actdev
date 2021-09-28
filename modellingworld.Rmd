@@ -1,7 +1,7 @@
 ---
 title: "The ActDev Project"
 subtitle: "an open and scalable platform for simulating new developments and their impacts on walking and cycling"
-author: "Robin Lovelace, Joey Talbot, Nikée Groot, Martin Lucas-Smith, Patrick Johansson, Simon Nutall, Andrew Speakman, Dustin Carlino & Nathanael Sheehan"
+author: "Nathanael Sheehan"
 institute: "Leeds' [Institute for Transport Studies](https://environment.leeds.ac.uk/transport) and partners"
 date: "Modelling World Q&A, 2021-10-05"
 output:
@@ -52,8 +52,6 @@ Source: ['Inside the black box' report](https://www.co.pierce.wa.us/DocumentCent
 
 Publicly available tool providing evidence on active travel provision and potential in and around planned and proposed development sites
 
-See https://actdev.cyipt.bike/
-
 ![](https://user-images.githubusercontent.com/22789869/135095007-475b081c-6b09-435d-bde7-7a1f1079f8a8.png)
 
 ---
@@ -64,13 +62,14 @@ See https://actdev.cyipt.bike/
 
 - Planning data (PlanIT)
 - Demographic and travel data (2011 Census & ONS)
-- Journey routing and road characteristics (OSRM & MHCLG)
+- Journey routing and road characteristics (OSM, OSRM & MHCLG)
 - Mode shift scenarios (PCT)
 - In-site metrics (OSRM)
+- Visualisation (Mapbox & AB Street)
 
 ---
 
-## Overview of results
+## Spatial variation of sites
 
 ![](https://user-images.githubusercontent.com/22789869/135111008-3a4a61fe-bcd9-423d-87ef-25fca35c2158.png)
 
@@ -88,6 +87,7 @@ See https://actdev.cyipt.bike/
 
 ## Live demo of the tool
 
+See https://actdev.cyipt.bike/
 
 ---
 
@@ -97,13 +97,6 @@ See https://actdev.cyipt.bike/
 - Transport models have a huge impact on transport planning
 - More people with access to good data -> better outcomes
 - New paper, Lovelace et al (2020) describes the emergence and possibilities for 'open access models'
-
----
-
-## The ActDev Questionnaire
-
-![](https://user-images.githubusercontent.com/1825120/110797354-e5e6fa80-8270-11eb-8b9d-26b2ac1c0403.png)
-Your feedback will help improve our work!
 
 ---
 
