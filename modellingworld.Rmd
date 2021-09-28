@@ -60,11 +60,13 @@ See https://actdev.cyipt.bike/
 
 ## Methodology
 
+**Open source tools and data** is central to the methodology. The following data sources and tools were used:
+
 - Planning data (PlanIT)
 - Demographic and travel data (2011 Census & ONS)
 - Journey routing and road characteristics (OSRM & MHCLG)
 - Mode shift scenarios (PCT)
-- Insite metrics (OSRM)
+- In-site metrics (OSRM)
 
 ---
 
