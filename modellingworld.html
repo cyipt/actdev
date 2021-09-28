@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>The ActDev Project</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Robin Lovelace, Joey Talbot, Nikée Groot, Martin Lucas-Smith, Patrick Johansson, Simon Nutall, Andrew Speakman, Dustin Carlino &amp; Nathanael Sheehan" />
+    <script src="modellingworld_files/header-attrs-2.10/header-attrs.js"></script>
+    <link href="modellingworld_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="modellingworld_files/remark-css-0.0.1/tamu.css" rel="stylesheet" />
+    <link href="modellingworld_files/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# The ActDev Project
+## an open and scalable platform for simulating new developments and their impacts on walking and cycling
+### Robin Lovelace, Joey Talbot, Nikée Groot, Martin Lucas-Smith, Patrick Johansson, Simon Nutall, Andrew Speakman, Dustin Carlino &amp; Nathanael Sheehan
+### Leeds’ <a href="https://environment.leeds.ac.uk/transport">Institute for Transport Studies</a> and partners
+### Modelling World Q&amp;A, 2021-10-05
+
+---
+
+
+#### The ActDev Team
+
+![](https://user-images.githubusercontent.com/1825120/110677777-75d36880-81cd-11eb-8c59-eb406066bc4a.png)
+
+--
+
+![](https://user-images.githubusercontent.com/22789869/135088260-e697f43a-a1b3-4a86-ba23-ba95ad5f8b6e.png)
+
+---
+
+
+## The problem
+
+![](https://user-images.githubusercontent.com/1825120/103755051-1b6b2f80-5005-11eb-988b-f7c8d3108e53.png)
+
+Source: ['Inside the black box' report](https://www.co.pierce.wa.us/DocumentCenter/View/755/A-GuideToModeling?bidId=)
+
+--
+
+- Few tools exist for assessing active travel potential or provision in/around new developments
+
+--
+
+- Planning and transport intersections are not always joined up
+
+--
+
+- The concepts of 'participatory democracy' and 'citizen science' mean there is a need for collaborative solutions
+
+
+---
+
+## The ActDev tool
+
+4 month UKRI funded project on high impact research in transport/planning
+
+Publicly available tool providing evidence on active travel provision and potential in and around planned and proposed development sites
+
+See https://actdev.cyipt.bike/
+
+![](https://user-images.githubusercontent.com/22789869/135095007-475b081c-6b09-435d-bde7-7a1f1079f8a8.png)
+
+---
+
+## Methodology
+
+- Planning data (PlanIT)
+- Demographic and travel data (2011 Census &amp; ONS)
+- Journey routing and road characteristics (OSRM &amp; MHCLG)
+- Mode shift scenarios (PCT)
+- Insite metrics (OSRM)
+
+---
+
+## Overview of results
+
+![](https://user-images.githubusercontent.com/22789869/135111008-3a4a61fe-bcd9-423d-87ef-25fca35c2158.png)
+
+---
+
+## Research findings
+
+- Median distance to town centre is 3.2 km only three within 2.0 km
+- **14%** of trips made by active travel around 35 sample site locations compared with **14% nationwide**
+- Provision of good infrastructure varies considerably
+
+![](https://user-images.githubusercontent.com/1825120/110777119-ad3b2700-8258-11eb-87f9-553449faa757.png)
+
+---
+
+## Live demo of the tool
+
+
+---
+
+## The importance of open data and open tools
+
+![](https://www.robinlovelace.net/publication/lovelace-open-2020/featured.png)
+- Transport models have a huge impact on transport planning
+- More people with access to good data -&gt; better outcomes
+- New paper, Lovelace et al (2020) describes the emergence and possibilities for 'open access models'
+
+---
+
+## The ActDev Questionnaire
+
+![](https://user-images.githubusercontent.com/1825120/110797354-e5e6fa80-8270-11eb-8b9d-26b2ac1c0403.png)
+Your feedback will help improve our work
+
+---
+
+# Questions
+
+
+Thanks for listening and please ask any questions!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
