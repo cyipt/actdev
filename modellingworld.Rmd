@@ -1,0 +1,105 @@
+---
+title: "The ActDev Project"
+subtitle: "an open and scalable platform for simulating new developments and their impacts on walking and cycling"
+author: "Nathanael Sheehan"
+institute: "Leeds' [Institute for Transport Studies](https://environment.leeds.ac.uk/transport) and partners"
+date: "Modelling World Q&A, 2021-10-05"
+output:
+  xaringan::moon_reader:
+    css: [default, tamu, tamu-fonts]
+    nature: 
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+#### The ActDev Team
+
+![](https://user-images.githubusercontent.com/1825120/110677777-75d36880-81cd-11eb-8c59-eb406066bc4a.png)
+
+--
+
+![](https://user-images.githubusercontent.com/22789869/135088260-e697f43a-a1b3-4a86-ba23-ba95ad5f8b6e.png)
+
+---
+
+
+## The problem
+
+![](https://user-images.githubusercontent.com/1825120/103755051-1b6b2f80-5005-11eb-988b-f7c8d3108e53.png)
+
+Source: ['Inside the black box' report](https://www.co.pierce.wa.us/DocumentCenter/View/755/A-GuideToModeling?bidId=)
+
+--
+
+- Few tools exist for assessing active travel potential or provision in/around new developments
+
+--
+
+- Planning and transport intersections are not always joined up
+
+--
+
+- The concepts of 'participatory democracy' and 'citizen science' mean there is a need for collaborative solutions
+
+
+---
+
+## The ActDev tool
+
+4 month UKRI funded project on high impact research in transport/planning
+
+Publicly available tool providing evidence on active travel provision and potential in and around planned and proposed development sites
+
+![](https://user-images.githubusercontent.com/22789869/135095007-475b081c-6b09-435d-bde7-7a1f1079f8a8.png)
+
+---
+
+## Methodology
+
+**Open source tools and data** is central to the methodology. The following data sources and tools were used:
+
+- Planning data (PlanIT)
+- Demographic and travel data (2011 Census & ONS)
+- Journey routing and road characteristics (OSM, OSRM & MHCLG)
+- Mode shift scenarios (PCT)
+- In-site metrics (OSRM)
+- Visualisation (Mapbox & AB Street)
+
+---
+
+## Spatial variation of sites
+
+![](https://user-images.githubusercontent.com/22789869/135111008-3a4a61fe-bcd9-423d-87ef-25fca35c2158.png)
+
+---
+
+## Research findings
+
+- Median distance to town centre is 3.2 km only three within 2.0 km
+- **14%** of trips made by active travel around 35 sample site locations compared with **14% nationwide**
+- Provision of good infrastructure varies considerably
+
+![](https://user-images.githubusercontent.com/1825120/110777119-ad3b2700-8258-11eb-87f9-553449faa757.png)
+
+---
+
+## Live demo of the tool
+
+See https://actdev.cyipt.bike/
+
+---
+
+## The importance of open data and open tools
+
+![](https://www.robinlovelace.net/publication/lovelace-open-2020/featured.png)
+- Transport models have a huge impact on transport planning
+- More people with access to good data -> better outcomes
+- New paper, Lovelace et al (2020) describes the emergence and possibilities for 'open access models'
+
+---
+
+# Questions
+
+Thanks for listening and please ask any questions!
