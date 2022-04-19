@@ -1,13 +1,68 @@
 
-# within site circuity ----------------------------------------------------
-
 
 sites_join = sf::read_sf("data-small/all-sites.geojson")
+
+sites_join = sites_join %>% 
+  filter(dwellings_when_complete >= 500)
+
+sites_view = sites_join %>% 
+  select(site_name, percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, percent_commute_drive_base, circuity_fast_cycle, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario) %>% 
+  pivot_longer(cols = c(percent_commute_active_base, percent_commute_walk_base, percent_commute_cycle_base, percent_commute_drive_base, percent_commute_drive_base, circuity_fast_cycle, busyness_fast_cycle, median_commute_distance, distance_to_town, percent_commute_active_scenario, percent_commute_walk_scenario, percent_commute_cycle_scenario, percent_commute_drive_scenario), values_to = "Value", names_to = "Metric") 
+
+metrics = c("percent_commute_active_base", "percent_commute_walk_base", "percent_commute_cycle_base", "percent_commute_drive_base", "percent_commute_drive_base", "circuity_fast_cycle", "busyness_fast_cycle", "median_commute_distance", "distance_to_town", "percent_commute_active_scenario", "percent_commute_walk_scenario", "percent_commute_cycle_scenario", "percent_commute_drive_scenario")
+
+median(sites_view$Value[which(sites_view$Metric == "percent_commute_active_base")])
+
+metrics_table = data.frame(metrics)
+for(i in metrics){
+  metrics_table[i,] = median(sites_view$Value[which(sites_view$Metric == i)])
+}
+metrics_table = metrics_table %>% 
+  slice(-c(1:13))
+metrics_table
+
+metrics_table_min = data.frame(metrics)
+for(i in metrics){
+  metrics_table_min[i,] = min(sites_view$Value[which(sites_view$Metric == i)])
+}
+metrics_table_min = metrics_table_min %>% 
+  slice(-c(1:13))
+metrics_table_min
+
+metrics_table_max = data.frame(metrics)
+for(i in metrics){
+  metrics_table_max[i,] = max(sites_view$Value[which(sites_view$Metric == i)])
+}
+metrics_table_max = metrics_table_max %>% 
+  slice(-c(1:13))
+metrics_table_max
+
+metrics_table_q1 = data.frame(metrics)
+for(i in metrics){
+  metrics_table_q1[i,] = quantile(sites_view$Value[which(sites_view$Metric == i)], probs = 0.25)
+}
+metrics_table_q1 = metrics_table_q1 %>% 
+  slice(-c(1:13)) 
+metrics_table_q1
+
+metrics_table_q3 = data.frame(metrics)
+for(i in metrics){
+  metrics_table_q3[i,] = quantile(sites_view$Value[which(sites_view$Metric == i)], probs = 0.75)
+}
+metrics_table_q3 = metrics_table_q3 %>% 
+  slice(-c(1:13))
+metrics_table_q3
+
+
+
+# within site stats ----------------------------------------------------
 
 circ_stats = sites_join %>% 
   filter(! is.na(in_site_walk_circuity),
          site_name != "micklefield") %>% 
   mutate(across(c(in_site_walk_circuity,in_site_cycle_circuity,in_site_drive_circuity), as.numeric))
+
+median(circ_stats$crossing_points)
 
 mean(circ_stats$in_site_walk_circuity)
 mean(circ_stats$in_site_cycle_circuity)
