@@ -21,6 +21,9 @@ library(sf)
 # sites_join = inner_join(sites,sites_df %>% select(-dwellings_when_complete))
 sites_join = sites
 
+sites_join = sites_join %>% 
+  filter(dwellings_when_complete >= 500)
+
 #get msoas nationally
 zones_msoa_national = pct::get_pct(national = TRUE, geography = "msoa", layer = "z")
 
@@ -97,9 +100,7 @@ for(i in sites_join$site_name) {
   f = paste0("data-small/", i, "/routes-fast.geojson")
   fast_routes = sf::read_sf(f)
   route_town = fast_routes %>% filter(purpose == "town")
-  
-  crossing_points = st_intersection(fast_routes, site_line)
-  # prop_near = sum(desire_lines$all_base) / sum(all_desire_lines$all) #proportion of commutes that are represented in desire_lines_many 
+  # prop_near = sum(desire_lines$all_base) / sum(all_desire_lines$all) #proportion of commutes that are represented in desire_lines_many
   median_dist = round(weighted.median(all_desire_lines$length, w = all_desire_lines$all) / 1000, 1)
   all_trips = sum(all_desire_lines$all)
   drive_trips = sum(all_desire_lines$car_driver)
@@ -107,15 +108,15 @@ for(i in sites_join$site_name) {
   # walk_base = sum(all_desire_lines$foot)
   # cycle_base = sum(all_desire_lines$bicycle)
   percent_trimode_trips = sum(all_desire_lines$trimode_base) / all_trips
-  
+
   percent_commute_walk_base = round(100 * sum(all_desire_lines$foot) / all_trips)
   percent_commute_cycle_base = round(100 * sum(all_desire_lines$bicycle) / all_trips)
   percent_commute_drive_base = round(100 * sum(all_desire_lines$car_driver) / all_trips)
-  
+
   percent_commute_bus_base = round(100 * sum(all_desire_lines$bus) / all_trips)
   percent_commute_rail_base = round(100 * ((sum(all_desire_lines$train) + sum(all_desire_lines$light_rail)) / all_trips))
   percent_commute_other_base = round(100 * ((sum(all_desire_lines$car_passenger) + sum(all_desire_lines$taxi) + sum(all_desire_lines$motorbike) + sum(all_desire_lines$other)) / all_trips))
-  
+
   drive_near = sum(desire_lines$drive_base)
   drive_dutch = sum(desire_lines$drive_godutch)
   active_near = sum(desire_lines$walk_base) + sum(desire_lines$cycle_base)
@@ -124,18 +125,18 @@ for(i in sites_join$site_name) {
   walk_dutch = sum(desire_lines$walk_godutch)
   # cycle_near = sum(desire_lines$cycle_base)
   cycle_dutch = sum(desire_lines$cycle_godutch)
-  
-  pchanged = round(100 * (drive_near - drive_dutch) / drive_trips)  
+
+  pchanged = round(100 * (drive_near - drive_dutch) / drive_trips)
   pchanged_ofnear = round(100 * (drive_near - drive_dutch) / drive_near)
   percent_commute_active_base = round(100 * active_base / all_trips)
   # percent_scenario_active = round(100 * (active_base + active_dutch - active_near) / all_trips)
-  # to correct for missing desire lines in small sites: calculate the % by which active travel has increased in the mapped desire lines, then assume it increases by the same proportion in unmapped desire lines (yes this is slightly optimistic because the unmapped ones will be longer, but at least it evens things out between sites with different populations) 
+  # to correct for missing desire lines in small sites: calculate the % by which active travel has increased in the mapped desire lines, then assume it increases by the same proportion in unmapped desire lines (yes this is slightly optimistic because the unmapped ones will be longer, but at least it evens things out between sites with different populations)
   percent_commute_active_increase = active_dutch / active_near
   percent_commute_active_scenario = (active_base / all_trips * percent_commute_active_increase)
   percent_commute_drive_scenario = round(100 * (percent_trimode_trips - percent_commute_active_scenario))
   percent_commute_walk_scenario = round(100 * (walk_dutch / active_dutch * percent_commute_active_scenario))
   percent_commute_cycle_scenario = round(100 * (cycle_dutch / active_dutch * percent_commute_active_scenario))
-  
+
   # code to re-add the data to the sites_join table
   sites_join$percent_commute_walk_base[sites_join$site_name == i] = percent_commute_walk_base
   sites_join$percent_commute_cycle_base[sites_join$site_name == i] = percent_commute_cycle_base
@@ -143,7 +144,7 @@ for(i in sites_join$site_name) {
   sites_join$percent_commute_bus_base[sites_join$site_name == i] = percent_commute_bus_base
   sites_join$percent_commute_rail_base[sites_join$site_name == i] = percent_commute_rail_base
   sites_join$percent_commute_other_base[sites_join$site_name == i] = percent_commute_other_base
-  
+
   sites_join$distance_to_town[sites_join$site_name == i] = round(route_town$length / 1000, 1)
   sites_join$median_commute_distance[sites_join$site_name == i] = median_dist
   sites_join$percent_commute_active_base[sites_join$site_name == i] = percent_commute_active_base
@@ -154,12 +155,11 @@ for(i in sites_join$site_name) {
   sites_join$percent_commute_drive_scenario[sites_join$site_name == i] = percent_commute_drive_scenario
   sites_join$percent_commute_walk_scenario[sites_join$site_name == i] = percent_commute_walk_scenario
   sites_join$percent_commute_cycle_scenario[sites_join$site_name == i] = percent_commute_cycle_scenario
-  sites_join$crossing_points[sites_join$site_name == i] = length(unique(crossing_points$geometry))
   # message(round(100 * (drive_trips - drive_dutch) / drive_trips), " percent in ", i)
 
   }
 
-# add in circuity measures
+# add in circuity and access point measures
 sites_join$busyness_fast_cycle = NA
 sites_join$circuity_fast_cycle = NA
 sites_join$circuity_walk = NA
@@ -176,7 +176,9 @@ for(i in sites_join$site_name) {
   join_walk = inner_join(walk, desire_lines %>% select(geo_code2, euclidean_length = length), by = "geo_code2")
   join_walk$circuity = join_walk$route_length / join_walk$euclidean_length
   walk_circuity = round(weighted.mean(join_walk$circuity, w = join_walk$walk_base), 2)
+  crossing_points = st_intersection(walk_routes, site_line)
   sites_join$circuity_walk[sites_join$site_name == i] = walk_circuity
+  sites_join$crossing_points[sites_join$site_name == i] = length(unique(crossing_points$geometry))
   }
   
   fast = fast_routes %>% st_drop_geometry %>% select(geo_code2, route_length = length, cycle_base)
