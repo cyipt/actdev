@@ -54,6 +54,72 @@ metrics_table_q3 = metrics_table_q3 %>%
 metrics_table_q3
 
 
+# walk circuity------------------------
+
+circ_stats = sites_join %>% 
+  filter(! is.na(crossing_points),
+         site_name != "micklefield") 
+
+sites_view = circ_stats %>% 
+  select(site_name, crossing_points) %>% 
+  pivot_longer(cols = c(crossing_points), values_to = "Value", names_to = "Metric") 
+
+median(sites_view$Value)
+
+# within site stats------------------
+
+circ_stats = sites_join %>% 
+  filter(! is.na(in_site_walk_circuity),
+         site_name != "micklefield") %>% 
+  mutate(across(c(in_site_walk_circuity,in_site_cycle_circuity,in_site_drive_circuity), as.numeric))
+
+sites_view = circ_stats %>% 
+  select(in_site_walk_circuity,in_site_cycle_circuity,in_site_drive_circuity) %>% 
+  pivot_longer(cols = c(in_site_walk_circuity,in_site_cycle_circuity,in_site_drive_circuity), values_to = "Value", names_to = "Metric") 
+
+metrics = c("in_site_walk_circuity","in_site_cycle_circuity","in_site_drive_circuity")
+
+metrics_table = data.frame(metrics)
+for(i in metrics){
+  metrics_table[i,] = median(sites_view$Value[which(sites_view$Metric == i)])
+}
+metrics_table = metrics_table %>% 
+  slice(-c(1:3))
+metrics_table
+
+metrics_table_min = data.frame(metrics)
+for(i in metrics){
+  metrics_table_min[i,] = min(sites_view$Value[which(sites_view$Metric == i)])
+}
+metrics_table_min = metrics_table_min %>% 
+  slice(-c(1:3))
+metrics_table_min
+
+metrics_table_max = data.frame(metrics)
+for(i in metrics){
+  metrics_table_max[i,] = max(sites_view$Value[which(sites_view$Metric == i)])
+}
+metrics_table_max = metrics_table_max %>% 
+  slice(-c(1:3))
+metrics_table_max
+
+metrics_table_q1 = data.frame(metrics)
+for(i in metrics){
+  metrics_table_q1[i,] = quantile(sites_view$Value[which(sites_view$Metric == i)], probs = 0.25)
+}
+metrics_table_q1 = metrics_table_q1 %>% 
+  slice(-c(1:3)) 
+metrics_table_q1
+
+metrics_table_q3 = data.frame(metrics)
+for(i in metrics){
+  metrics_table_q3[i,] = quantile(sites_view$Value[which(sites_view$Metric == i)], probs = 0.75)
+}
+metrics_table_q3 = metrics_table_q3 %>% 
+  slice(-c(1:3))
+metrics_table_q3
+
+
 
 # within site stats ----------------------------------------------------
 

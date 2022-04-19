@@ -172,6 +172,8 @@ for(i in sites_join$site_name) {
   f = paste0("data-small/", i, "/routes-walk.geojson")
   
   if(file.exists(f)) { walk_routes = sf::read_sf(f)
+  site_boundary = sites_join$geometry[sites_join$site_name == i]
+  site_line = st_cast(site_boundary,"LINESTRING")
   walk = walk_routes %>% st_drop_geometry %>% select(geo_code2, route_length = distance, walk_base)
   join_walk = inner_join(walk, desire_lines %>% select(geo_code2, euclidean_length = length), by = "geo_code2")
   join_walk$circuity = join_walk$route_length / join_walk$euclidean_length
