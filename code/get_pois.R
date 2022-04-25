@@ -21,7 +21,7 @@ get_pois = function(
   require(sf)
   if(nrow(osm_polygons) > 0) {
     osm_points_in_polygons = osm_points[osm_polygons, ]
-    mapview::mapview(osm_points_in_polygons)
+    # mapview::mapview(osm_points_in_polygons)
     osm_points_not_in_polygons = osm_points[
       !osm_points$osm_id %in% osm_points_in_polygons$osm_id,
     ] 
