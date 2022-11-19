@@ -1,8 +1,37 @@
 library(tidyverse)
 library(sf)
 library(spatstat)
+library(tmap)
 
 sites_join = sf::read_sf("data-small/all-sites.geojson")
+
+# remove sites with less than 500 dwellings at completion
+sites_table_geo = sites_join %>% 
+  filter(dwellings_when_complete >= 500)
+
+sites_table_geo %>% 
+  skimr::skim()
+sites_table_point = sf::st_centroid(sites_table_geo)
+# works but no legend:
+tm_shape(sites_table_point) +
+  tm_dots(size = "dwellings_when_complete") 
+
+regions = sf::read_sf("https://github.com/saferactive/saferactive/releases/download/0.1.4/Regions_.December_2020._EN_BGC.geojson")
+# gb_outline = sf::read_sf("https://github.com/martinjc/UK-GeoJSON/raw/master/json/administrative/gb/lad.json")
+gb_outline = rnaturalearth::ne_countries(country = "United Kingdom", scale = "medium")
+tmap_mode("plot")
+# tmaptools::palette_explorer()
+tmap_options(check.and.fix = TRUE)
+tm_shape(regions) +
+  tm_borders() +
+  tm_shape(sites_table_point) +
+  tm_dots(
+    "percent_commute_active_base", size = "dwellings_when_complete", title = "% Active", title.size = "Dwellings",
+    palette = "plasma", legend.size.is.portrait = TRUE) +
+  tm_shape(gb_outline) +
+  tm_borders(lwd = 2) +
+  tm_layout(legend.position = c(0.8, 0.7))
+
 
 # remove sites with less than 500 dwellings at completion
 sites_join = sites_join %>% 

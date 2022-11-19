@@ -94,7 +94,7 @@ unique(isna$n_documents)
 unique(isna$n_dwellings)
 unique(isna$n_statutory_days)
 
-----old planit figure 1------
+# ----old planit figure 1------
 
 withdwellings$dwellings_band = cut(x = withdwellings$n_dwellings, breaks = seq(from = 0, to = 400, by = 20), include.lowest = TRUE)
 # change labels of withdwellings$dwellings_band
