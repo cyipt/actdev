@@ -16,22 +16,30 @@ sites_table_point = sf::st_centroid(sites_table_geo)
 tm_shape(sites_table_point) +
   tm_dots(size = "dwellings_when_complete") 
 
-regions = sf::read_sf("https://github.com/saferactive/saferactive/releases/download/0.1.4/Regions_.December_2020._EN_BGC.geojson")
+# regions = sf::read_sf("https://github.com/saferactive/saferactive/releases/download/0.1.4/Regions_.December_2020._EN_BGC.geojson")
 # gb_outline = sf::read_sf("https://github.com/martinjc/UK-GeoJSON/raw/master/json/administrative/gb/lad.json")
+regions = sf::read_sf("data-small/European_Electoral_Regions_(December_2017)_UK_BUC.geojson")
 gb_outline = rnaturalearth::ne_countries(country = "United Kingdom", scale = "medium")
+regions_en = regions |> 
+  filter(str_detect(eer17cd, "E"))
 tmap_mode("plot")
 # tmaptools::palette_explorer()
 tmap_options(check.and.fix = TRUE)
-tm_shape(regions) +
+tm_shape(regions, bbox = sf::st_bbox(regions_en)) +
   tm_borders() +
+  # tm_text("eer17nm", size = 0.7) +
   tm_shape(sites_table_point) +
   tm_dots(
     "percent_commute_active_base", size = "dwellings_when_complete", title = "% Active", title.size = "Dwellings",
     palette = "plasma", legend.size.is.portrait = TRUE) +
-  tm_shape(gb_outline) +
-  tm_borders(lwd = 2) +
+  # tm_shape(regions) +
+  # tm_text("eer17nm", size = 0.7) +
+  # tm_shape(gb_outline) +
+  # tm_borders(lwd = 2) +
   tm_layout(legend.position = c(0.8, 0.7))
 
+tmap_save(tm = .Last.value, filename = "figures/overview-map.png", dpi = 300)
+browseURL("figures/overview-map.png")
 
 # remove sites with less than 500 dwellings at completion
 sites_join = sites_join %>% 
