@@ -117,7 +117,7 @@ ggplot(withdwellings, aes(x = dwellings_band)) +
   theme(axis.text.x = element_text(angle = 45))
 
 
-# Figure 1 ----------------------------------------------------------------
+# Figure 4 (left half) ------------------------------------------------------
 
 library(tidyverse)
 library(ggplot2)
@@ -185,14 +185,18 @@ all_dist = mode_split_base %>%
 all_dist$name = factor(all_dist$name, levels = c("walk", "cycle", "other", "drive"))
 
 g1 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
-  geom_bar(position = "stack", stat = "identity", show.legend = FALSE) +
+  geom_bar(position = "stack", stat = "identity"
+           # , show.legend = FALSE # this makes the bars too wide
+           ) +
   scale_fill_manual(values = cols) +
   labs(y = "", x = "Distance band (km)", fill = "") +
   theme_minimal() +
   ylim(c(0, 800))
+ggsave(filename = "great-kneighton-baseline.png", plot = g1, dpi = 300)
+# g1 + theme(text = element_text(size = 20)) 
 
-####
 
+# Figure 4 (right half) ---------------------------------------------------
 
 site_name = "chapelford"
 
@@ -261,3 +265,5 @@ g2 = ggplot(all_dist, aes(fill = name, y = value, x = distance_band)) +
   labs(y = "", x = "Distance band (km)", fill = "") +
   theme_minimal() +
   ylim(c(0, 800))
+ggsave(filename = "chapelford-baseline.png", plot = g2, dpi = 300)
+# g2 + theme(text = element_text(size = 20))
