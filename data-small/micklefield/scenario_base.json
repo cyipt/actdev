@@ -4,4641 +4,588 @@
     {
       "trips": [
         {
-          "departure": 315570000,
-          "origin": {
-            "Position": {
-              "longitude": -1.327,
-              "latitude": 53.7952
-            }
-          },
+          "departure": 310530000,
           "destination": {
             "Position": {
-              "longitude": -1.4645,
-              "latitude": 53.8195
+              "longitude": -1.377,
+              "latitude": 53.7976
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 312430000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3232,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4619,
-              "latitude": 53.8118
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 312740000,
-          "origin": {
-            "Position": {
-              "longitude": -1.324,
-              "latitude": 53.7914
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5407,
-              "latitude": 53.8106
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 314800000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5451,
-              "latitude": 53.8116
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 316640000,
-          "origin": {
-            "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7936
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4444,
-              "latitude": 53.8043
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 298080000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3249,
-              "latitude": 53.792
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4344,
-              "latitude": 53.8127
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 318340000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3245,
               "latitude": 53.795
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4429,
-              "latitude": 53.812
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 311930000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3246,
-              "latitude": 53.7922
-            }
-          },
+          "departure": 325190000,
           "destination": {
             "Position": {
-              "longitude": -1.4406,
-              "latitude": 53.7999
+              "longitude": -1.379,
+              "latitude": 53.794
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 291920000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3257,
-              "latitude": 53.7948
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4783,
-              "latitude": 53.8007
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 283200000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3233,
               "latitude": 53.7914
             }
-          },
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 315290000,
           "destination": {
             "Position": {
-              "longitude": -1.4834,
-              "latitude": 53.8007
+              "longitude": -1.3859,
+              "latitude": 53.7983
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 321790000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3259,
-              "latitude": 53.7946
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5658,
-              "latitude": 53.8008
-            }
-          },
-          "mode": "Bike",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 304160000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3277,
               "latitude": 53.7964
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5676,
-              "latitude": 53.8075
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 286090000,
+          "departure": 304290000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3891,
+              "latitude": 53.7962
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3253,
               "latitude": 53.7941
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.569,
-              "latitude": 53.8059
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 310890000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3234,
-              "latitude": 53.7925
-            }
-          },
+          "departure": 304220000,
           "destination": {
             "Position": {
-              "longitude": -1.5599,
-              "latitude": 53.8035
+              "longitude": -1.375,
+              "latitude": 53.7974
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 302720000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3264,
-              "latitude": 53.7966
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5569,
-              "latitude": 53.8062
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 316640000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3259,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5314,
-              "latitude": 53.8056
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 313160000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3251,
-              "latitude": 53.7944
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5288,
-              "latitude": 53.8067
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 301870000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3265,
               "latitude": 53.7961
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5301,
-              "latitude": 53.8071
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 313630000,
+          "departure": 294790000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3763,
+              "latitude": 53.7987
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3276,
               "latitude": 53.7964
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5176,
-              "latitude": 53.8115
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 310570000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3233,
-              "latitude": 53.7928
-            }
-          },
+          "departure": 296000000,
           "destination": {
             "Position": {
-              "longitude": -1.5226,
-              "latitude": 53.8071
+              "longitude": -1.388,
+              "latitude": 53.7923
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 317030000,
-          "origin": {
-            "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7928
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5157,
-              "latitude": 53.8047
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 319560000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3234,
-              "latitude": 53.7943
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4679,
-              "latitude": 53.797
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 301410000,
-          "origin": {
-            "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7952
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5087,
-              "latitude": 53.784
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 321990000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3244,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4987,
-              "latitude": 53.7931
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 297140000,
-          "origin": {
-            "Position": {
-              "longitude": -1.323,
-              "latitude": 53.7914
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4397,
-              "latitude": 53.7985
-            }
-          },
-          "mode": "Bike",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 315890000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3241,
-              "latitude": 53.7914
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4302,
-              "latitude": 53.7964
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 328060000,
-          "origin": {
-            "Position": {
-              "longitude": -1.324,
-              "latitude": 53.7944
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4373,
-              "latitude": 53.7975
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 310600000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3243,
-              "latitude": 53.7921
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4493,
-              "latitude": 53.7992
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 321830000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7948
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4317,
-              "latitude": 53.795
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 305380000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3247,
-              "latitude": 53.7949
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4392,
-              "latitude": 53.7989
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 297450000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3237,
-              "latitude": 53.7942
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3898,
-              "latitude": 53.7913
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 307300000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.7933
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3984,
-              "latitude": 53.7905
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 313030000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3248,
-              "latitude": 53.792
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3916,
-              "latitude": 53.792
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 296590000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3255,
-              "latitude": 53.7946
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.4012,
-              "latitude": 53.7895
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 311790000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3228,
-              "latitude": 53.7916
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3932,
-              "latitude": 53.7913
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 302930000,
-          "origin": {
-            "Position": {
-              "longitude": -1.328,
-              "latitude": 53.7964
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3972,
-              "latitude": 53.79
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 305940000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3255,
-              "latitude": 53.7943
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3789,
-              "latitude": 53.7959
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 302380000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3278,
-              "latitude": 53.7962
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5133,
-              "latitude": 53.7869
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 300210000,
-          "origin": {
-            "Position": {
-              "longitude": -1.324,
-              "latitude": 53.7927
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.52,
-              "latitude": 53.7958
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 299120000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3236,
-              "latitude": 53.7913
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3723,
-              "latitude": 53.7905
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 298920000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3236,
               "latitude": 53.7926
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3731,
-              "latitude": 53.793
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 337480000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3249,
-              "latitude": 53.7943
-            }
-          },
+          "departure": 311570000,
           "destination": {
             "Position": {
-              "longitude": -1.5654,
-              "latitude": 53.7792
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 309260000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3259,
-              "latitude": 53.7946
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5612,
-              "latitude": 53.788
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 316830000,
-          "origin": {
-            "Position": {
-              "longitude": -1.323,
-              "latitude": 53.7897
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5615,
-              "latitude": 53.7861
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 298100000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3237,
-              "latitude": 53.7914
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5447,
-              "latitude": 53.7989
-            }
-          },
-          "mode": "Walk",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 310150000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3253,
-              "latitude": 53.7922
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5533,
-              "latitude": 53.7967
-            }
-          },
-          "mode": "Bike",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 317620000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.7927
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5431,
-              "latitude": 53.7958
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 320490000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3231,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5492,
-              "latitude": 53.8031
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 309390000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3264,
-              "latitude": 53.7949
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5499,
-              "latitude": 53.7991
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 303150000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3257,
-              "latitude": 53.795
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5497,
-              "latitude": 53.7987
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 313710000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.793
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5486,
-              "latitude": 53.8012
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 309560000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3241,
-              "latitude": 53.7936
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5567,
-              "latitude": 53.7937
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 316310000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3254,
-              "latitude": 53.7932
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5456,
-              "latitude": 53.804
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 304230000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3268,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5502,
-              "latitude": 53.798
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 317010000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3231,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5501,
-              "latitude": 53.7964
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 301750000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3248,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5433,
-              "latitude": 53.7955
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 334190000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3263,
-              "latitude": 53.7924
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.543,
-              "latitude": 53.7972
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 318520000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.7921
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5538,
-              "latitude": 53.7951
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 308580000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3244,
-              "latitude": 53.7948
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.542,
-              "latitude": 53.7933
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 292040000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5565,
-              "latitude": 53.7957
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 295960000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3271,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5499,
-              "latitude": 53.797
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 298720000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3253,
-              "latitude": 53.7957
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5389,
-              "latitude": 53.7952
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 297090000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3253,
-              "latitude": 53.7936
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.543,
-              "latitude": 53.7976
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 318040000,
-          "origin": {
-            "Position": {
-              "longitude": -1.324,
-              "latitude": 53.7931
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5506,
-              "latitude": 53.8003
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 305420000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3268,
-              "latitude": 53.7967
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5341,
-              "latitude": 53.7852
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 316120000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3249,
-              "latitude": 53.7945
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5051,
-              "latitude": 53.7597
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 307180000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3247,
-              "latitude": 53.7913
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5027,
-              "latitude": 53.7686
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 296840000,
-          "origin": {
-            "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7959
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5316,
-              "latitude": 53.7901
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 323580000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3238,
-              "latitude": 53.7933
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5023,
-              "latitude": 53.7584
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 309100000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3265,
-              "latitude": 53.7949
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.51,
-              "latitude": 53.7731
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 312040000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7931
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.5276,
-              "latitude": 53.7792
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 307850000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3231,
-              "latitude": 53.793
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.523,
-              "latitude": 53.775
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 313800000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3228,
-              "latitude": 53.79
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3837,
-              "latitude": 53.7932
-            }
-          },
-          "mode": "Bike",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 364650000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.7906
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3944,
-              "latitude": 53.7926
-            }
-          },
-          "mode": "Bike",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 276620000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3257,
-              "latitude": 53.796
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3904,
-              "latitude": 53.7946
-            }
-          },
-          "mode": "Bike",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 411940000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3229,
-              "latitude": 53.7909
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3905,
-              "latitude": 53.7955
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 436260000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3249,
-              "latitude": 53.7943
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3811,
-              "latitude": 53.7947
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 434870000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3252,
-              "latitude": 53.7929
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3913,
-              "latitude": 53.7953
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 484520000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.795
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3887,
-              "latitude": 53.7926
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 352890000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3256,
-              "latitude": 53.7958
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3815,
-              "latitude": 53.7944
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 467980000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3261,
-              "latitude": 53.7956
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3905,
-              "latitude": 53.7942
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 385350000,
-          "origin": {
-            "Position": {
-              "longitude": -1.327,
-              "latitude": 53.7952
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3898,
-              "latitude": 53.7937
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 495200000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3246,
-              "latitude": 53.7914
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3942,
-              "latitude": 53.7925
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 361660000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3228,
-              "latitude": 53.7898
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3839,
-              "latitude": 53.7944
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 353710000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3256,
-              "latitude": 53.7946
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3875,
-              "latitude": 53.7978
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 428700000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3267,
-              "latitude": 53.7962
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3948,
-              "latitude": 53.7937
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 429600000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3251,
-              "latitude": 53.7944
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.387,
-              "latitude": 53.7948
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 375660000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3228,
-              "latitude": 53.7898
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3867,
+              "longitude": -1.3844,
               "latitude": 53.7981
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 419410000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3248,
-              "latitude": 53.792
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3899,
-              "latitude": 53.7914
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 353930000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3237,
-              "latitude": 53.7919
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3889,
-              "latitude": 53.7934
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 257000000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7931
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3905,
-              "latitude": 53.7914
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 206280000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3239,
-              "latitude": 53.7922
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3837,
-              "latitude": 53.7927
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 276470000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3262,
-              "latitude": 53.7964
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3919,
-              "latitude": 53.7914
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 302490000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3231,
-              "latitude": 53.7897
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3941,
-              "latitude": 53.7942
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 439440000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3229,
-              "latitude": 53.792
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.388,
-              "latitude": 53.7923
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 336800000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3261,
-              "latitude": 53.7948
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3941,
-              "latitude": 53.7942
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 390940000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3236,
-              "latitude": 53.7939
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3896,
-              "latitude": 53.7912
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 335370000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3886,
-              "latitude": 53.7942
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 378310000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3239,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3908,
-              "latitude": 53.7976
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 337510000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3254,
-              "latitude": 53.7954
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3896,
-              "latitude": 53.7975
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 393000000,
-          "origin": {
-            "Position": {
-              "longitude": -1.323,
-              "latitude": 53.7914
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3904,
-              "latitude": 53.7947
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 523950000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3259,
-              "latitude": 53.7962
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3821,
-              "latitude": 53.7955
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 326660000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.326,
-              "latitude": 53.7928
+              "latitude": 53.7952
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3886,
-              "latitude": 53.7941
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 497550000,
+          "departure": 312140000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3853,
+              "latitude": 53.7935
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
           "origin": {
             "Position": {
-              "longitude": -1.3231,
-              "latitude": 53.793
+              "longitude": -1.3241,
+              "latitude": 53.7914
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3867,
-              "latitude": 53.7918
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 441120000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.7913
-            }
-          },
+          "departure": 316280000,
           "destination": {
             "Position": {
-              "longitude": -1.388,
-              "latitude": 53.7915
+              "longitude": -1.3808,
+              "latitude": 53.7983
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 362310000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3261,
-              "latitude": 53.7927
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3886,
-              "latitude": 53.7932
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 401010000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3271,
-              "latitude": 53.7918
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3931,
-              "latitude": 53.7921
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 329060000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.324,
-              "latitude": 53.7932
+              "latitude": 53.7944
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3875,
-              "latitude": 53.7919
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 391150000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3239,
-              "latitude": 53.7933
-            }
-          },
+          "departure": 319440000,
           "destination": {
             "Position": {
-              "longitude": -1.387,
-              "latitude": 53.7962
+              "longitude": -1.3504,
+              "latitude": 53.7806
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 420750000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3265,
-              "latitude": 53.7922
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3919,
-              "latitude": 53.7936
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 314700000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3233,
-              "latitude": 53.7939
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3929,
-              "latitude": 53.798
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 301490000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3266,
-              "latitude": 53.7952
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3872,
-              "latitude": 53.7925
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 498030000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3247,
-              "latitude": 53.792
+              "latitude": 53.7949
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3814,
-              "latitude": 53.7947
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 372430000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3249,
-              "latitude": 53.793
-            }
-          },
+          "departure": 314640000,
           "destination": {
             "Position": {
-              "longitude": -1.392,
-              "latitude": 53.7932
+              "longitude": -1.3656,
+              "latitude": 53.7815
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3237,
+              "latitude": 53.7942
+            }
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 357440000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3227,
-              "latitude": 53.7929
-            }
-          },
+          "departure": 449860000,
           "destination": {
             "Position": {
-              "longitude": -1.3861,
-              "latitude": 53.7953
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 262050000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.7947
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3862,
-              "latitude": 53.791
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 268050000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3231,
-              "latitude": 53.7932
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3901,
-              "latitude": 53.795
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 442120000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3261,
-              "latitude": 53.7939
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3881,
-              "latitude": 53.7955
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 235030000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3239,
-              "latitude": 53.7907
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3874,
-              "latitude": 53.7973
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 370490000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3239,
-              "latitude": 53.7948
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3862,
+              "longitude": -1.381,
               "latitude": 53.7945
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 437970000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3229,
-              "latitude": 53.7903
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3849,
-              "latitude": 53.7972
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 401450000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3264,
-              "latitude": 53.7949
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.387,
-              "latitude": 53.796
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 349840000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3252,
-              "latitude": 53.792
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.387,
-              "latitude": 53.7955
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 428200000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3243,
-              "latitude": 53.7921
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3903,
-              "latitude": 53.7938
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 359320000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3263,
-              "latitude": 53.7964
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3876,
-              "latitude": 53.7911
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 356550000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3254,
-              "latitude": 53.7946
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3865,
-              "latitude": 53.7976
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 392360000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3246,
-              "latitude": 53.7916
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3879,
-              "latitude": 53.7919
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 386420000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3246,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.384,
-              "latitude": 53.7937
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 361430000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3271,
-              "latitude": 53.7956
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3831,
-              "latitude": 53.7963
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 246470000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7929
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3889,
-              "latitude": 53.7922
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 398430000,
-          "origin": {
-            "Position": {
-              "longitude": -1.324,
-              "latitude": 53.7915
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.383,
-              "latitude": 53.792
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 339680000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3237,
-              "latitude": 53.7942
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3867,
-              "latitude": 53.7931
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 435390000,
-          "origin": {
-            "Position": {
-              "longitude": -1.323,
-              "latitude": 53.7911
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3896,
-              "latitude": 53.7914
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 499830000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3248,
-              "latitude": 53.792
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3892,
-              "latitude": 53.7906
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 342720000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3276,
-              "latitude": 53.7964
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3917,
-              "latitude": 53.795
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 507920000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3267,
-              "latitude": 53.7957
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3903,
-              "latitude": 53.7914
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 473640000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3236,
-              "latitude": 53.7931
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3881,
-              "latitude": 53.7911
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 590910000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3273,
-              "latitude": 53.7922
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3838,
-              "latitude": 53.7986
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 310080000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3239,
-              "latitude": 53.7915
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3834,
-              "latitude": 53.7927
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 222310000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3265,
-              "latitude": 53.7949
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3866,
-              "latitude": 53.7983
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 326940000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7939
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3834,
-              "latitude": 53.7963
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 257090000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3228,
-              "latitude": 53.7916
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.387,
-              "latitude": 53.791
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 541390000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3247,
-              "latitude": 53.7936
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3881,
-              "latitude": 53.7931
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 417110000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3244,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3819,
-              "latitude": 53.7968
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 365970000,
-          "origin": {
-            "Position": {
-              "longitude": -1.323,
-              "latitude": 53.7897
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3848,
-              "latitude": 53.7983
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 398790000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3261,
-              "latitude": 53.7965
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3898,
-              "latitude": 53.7913
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 476240000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3241,
-              "latitude": 53.7935
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3846,
-              "latitude": 53.7952
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 292240000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3251,
               "latitude": 53.7948
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3926,
-              "latitude": 53.792
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 485900000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3237,
-              "latitude": 53.7937
-            }
-          },
+          "departure": 354800000,
           "destination": {
             "Position": {
-              "longitude": -1.3888,
-              "latitude": 53.7974
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 352800000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3244,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3914,
-              "latitude": 53.7938
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 471240000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3233,
-              "latitude": 53.7937
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3915,
-              "latitude": 53.7929
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 343120000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3233,
-              "latitude": 53.79
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3839,
-              "latitude": 53.7937
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 426690000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3247,
-              "latitude": 53.7913
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3821,
-              "latitude": 53.7947
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 382750000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.7921
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3885,
-              "latitude": 53.7956
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 479220000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3271,
-              "latitude": 53.7953
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3853,
-              "latitude": 53.7919
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 442880000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3278,
+              "longitude": -1.3862,
               "latitude": 53.7965
             }
           },
-          "destination": {
-            "Position": {
-              "longitude": -1.384,
-              "latitude": 53.7927
-            }
-          },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 376390000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7956
+              "longitude": -1.3253,
+              "latitude": 53.7957
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3901,
-              "latitude": 53.7937
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 396490000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3256,
-              "latitude": 53.7939
-            }
-          },
+          "departure": 287310000,
           "destination": {
             "Position": {
-              "longitude": -1.3828,
-              "latitude": 53.7937
+              "longitude": -1.381,
+              "latitude": 53.7945
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 390720000,
-          "origin": {
-            "Position": {
-              "longitude": -1.324,
-              "latitude": 53.7949
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.387,
-              "latitude": 53.7962
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 321340000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3246,
-              "latitude": 53.7922
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3873,
-              "latitude": 53.7919
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 418660000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3253,
               "latitude": 53.7936
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3855,
-              "latitude": 53.7918
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 482400000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3238,
-              "latitude": 53.7923
-            }
-          },
+          "departure": 250970000,
           "destination": {
             "Position": {
-              "longitude": -1.3906,
-              "latitude": 53.7946
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 337880000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3259,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3932,
-              "latitude": 53.7921
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 347300000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3271,
-              "latitude": 53.7921
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3909,
-              "latitude": 53.7947
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 452980000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3263,
-              "latitude": 53.7929
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3877,
-              "latitude": 53.7961
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 441850000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3268,
-              "latitude": 53.7953
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3811,
-              "latitude": 53.7944
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 223850000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3262,
-              "latitude": 53.7955
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3907,
-              "latitude": 53.7947
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 336070000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3239,
-              "latitude": 53.792
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3895,
-              "latitude": 53.7937
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 355240000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3271,
-              "latitude": 53.7953
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.386,
+              "longitude": -1.3872,
               "latitude": 53.7953
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 317770000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3243,
-              "latitude": 53.7934
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3921,
-              "latitude": 53.7949
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 304460000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3264,
               "latitude": 53.7966
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3879,
-              "latitude": 53.7971
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 377320000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3246,
-              "latitude": 53.7936
-            }
-          },
+          "departure": 452700000,
           "destination": {
             "Position": {
-              "longitude": -1.3887,
+              "longitude": -1.3848,
+              "latitude": 53.7963
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3268,
+              "latitude": 53.7967
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 409430000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3872,
+              "latitude": 53.7953
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3245,
+              "latitude": 53.7953
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 338790000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3898,
+              "latitude": 53.7896
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3238,
+              "latitude": 53.7933
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 470310000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3809,
               "latitude": 53.7947
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 425750000,
-          "origin": {
-            "Position": {
-              "longitude": -1.328,
-              "latitude": 53.7964
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.388,
-              "latitude": 53.7913
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 357050000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3247,
-              "latitude": 53.7926
+              "latitude": 53.7913
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3832,
-              "latitude": 53.7958
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 545470000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3254,
-              "latitude": 53.7938
-            }
-          },
+          "departure": 400980000,
           "destination": {
             "Position": {
-              "longitude": -1.3904,
-              "latitude": 53.7946
+              "longitude": -1.381,
+              "latitude": 53.7945
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 374090000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3259,
-              "latitude": 53.7946
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3815,
-              "latitude": 53.7943
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 342970000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3237,
-              "latitude": 53.7905
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3857,
-              "latitude": 53.7948
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 368950000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3236,
-              "latitude": 53.794
+              "latitude": 53.7926
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.388,
-              "latitude": 53.792
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 386420000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3264,
-              "latitude": 53.7951
-            }
-          },
+          "departure": 399150000,
           "destination": {
             "Position": {
-              "longitude": -1.383,
+              "longitude": -1.388,
+              "latitude": 53.7945
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3265,
+              "latitude": 53.7949
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 360600000,
+          "destination": {
+            "Position": {
+              "longitude": -1.388,
+              "latitude": 53.7945
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3258,
+              "latitude": 53.7931
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 372110000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3872,
+              "latitude": 53.7953
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3229,
+              "latitude": 53.7909
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 483310000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3944,
               "latitude": 53.7921
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 489400000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
-              "longitude": -1.324,
-              "latitude": 53.7927
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3872,
-              "latitude": 53.7916
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 580170000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3234,
-              "latitude": 53.794
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3886,
-              "latitude": 53.7923
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 378840000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3233,
-              "latitude": 53.7928
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3864,
+              "longitude": -1.3249,
               "latitude": 53.7954
             }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 338070000,
-          "origin": {
-            "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7952
-            }
-          },
+          "departure": 424640000,
           "destination": {
             "Position": {
-              "longitude": -1.3913,
-              "latitude": 53.7926
+              "longitude": -1.3809,
+              "latitude": 53.7947
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.323,
+              "latitude": 53.792
+            }
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 481190000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7946
-            }
-          },
+          "departure": 403200000,
           "destination": {
             "Position": {
-              "longitude": -1.3874,
-              "latitude": 53.7908
+              "longitude": -1.3888,
+              "latitude": 53.7934
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 444870000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
-              "longitude": -1.3242,
-              "latitude": 53.7952
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3898,
-              "latitude": 53.797
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 426480000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3255,
-              "latitude": 53.7943
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3865,
-              "latitude": 53.7928
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 372220000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3247,
-              "latitude": 53.7928
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3864,
+              "longitude": -1.3235,
               "latitude": 53.791
             }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 486920000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.7928
-            }
-          },
+          "departure": 259660000,
           "destination": {
             "Position": {
-              "longitude": -1.3923,
-              "latitude": 53.7948
+              "longitude": -1.3821,
+              "latitude": 53.7944
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 332740000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3243,
               "latitude": 53.7938
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3903,
-              "latitude": 53.7913
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 475680000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.793
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3942,
-              "latitude": 53.7975
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 350380000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3271,
-              "latitude": 53.7965
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3908,
-              "latitude": 53.7938
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 306150000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3233,
-              "latitude": 53.7936
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3821,
-              "latitude": 53.7954
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 459640000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.791
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3906,
-              "latitude": 53.7947
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 434800000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3229,
-              "latitude": 53.7907
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3948,
-              "latitude": 53.7935
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 394760000,
-          "origin": {
-            "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7927
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3947,
-              "latitude": 53.794
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 484270000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3257,
-              "latitude": 53.7935
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3837,
-              "latitude": 53.796
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 429160000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3258,
-              "latitude": 53.7948
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3918,
-              "latitude": 53.7979
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 370320000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3253,
-              "latitude": 53.7935
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3941,
-              "latitude": 53.7933
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 468120000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3247,
-              "latitude": 53.7921
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3873,
-              "latitude": 53.7917
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 353850000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3244,
-              "latitude": 53.7913
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.386,
-              "latitude": 53.7941
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 395480000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3232,
-              "latitude": 53.7933
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3862,
-              "latitude": 53.7974
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 320130000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3257,
-              "latitude": 53.795
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3875,
-              "latitude": 53.7911
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 383060000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.7927
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3882,
-              "latitude": 53.7972
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 349270000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3252,
-              "latitude": 53.7928
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3903,
-              "latitude": 53.7956
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 244700000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.7938
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3885,
-              "latitude": 53.7961
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 510310000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3255,
-              "latitude": 53.7929
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.382,
-              "latitude": 53.7957
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 465030000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3268,
-              "latitude": 53.7957
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3891,
-              "latitude": 53.7974
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 300960000,
-          "origin": {
-            "Position": {
-              "longitude": -1.326,
-              "latitude": 53.7959
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3906,
-              "latitude": 53.7954
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 450710000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3269,
-              "latitude": 53.7953
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3917,
-              "latitude": 53.7979
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 459420000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3261,
-              "latitude": 53.7927
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3861,
-              "latitude": 53.794
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 388540000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3244,
-              "latitude": 53.7926
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3886,
-              "latitude": 53.7945
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 366650000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3237,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3844,
-              "latitude": 53.7949
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 309420000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3235,
-              "latitude": 53.7921
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3832,
-              "latitude": 53.7974
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 324550000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3253,
-              "latitude": 53.7941
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3856,
-              "latitude": 53.7919
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 341090000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3245,
-              "latitude": 53.7909
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3826,
-              "latitude": 53.792
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 447990000,
-          "origin": {
-            "Position": {
-              "longitude": -1.323,
-              "latitude": 53.793
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3885,
-              "latitude": 53.7987
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 430060000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3265,
-              "latitude": 53.7954
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3909,
-              "latitude": 53.793
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 426350000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3231,
-              "latitude": 53.7899
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3836,
-              "latitude": 53.7934
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 465180000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3248,
-              "latitude": 53.7923
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3891,
-              "latitude": 53.7918
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 352900000,
-          "origin": {
-            "Position": {
-              "longitude": -1.323,
-              "latitude": 53.7915
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3931,
-              "latitude": 53.7917
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 360160000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3264,
-              "latitude": 53.7957
-            }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.3906,
-              "latitude": 53.7938
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
@@ -4646,104 +593,545 @@
       "trips": [
         {
           "departure": 290260000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3268,
-              "latitude": 53.7923
-            }
-          },
           "destination": {
             "Position": {
-              "longitude": -1.3894,
+              "longitude": -1.3872,
+              "latitude": 53.7953
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.325,
+              "latitude": 53.7953
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 318520000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3816,
+              "latitude": 53.7944
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3232,
+              "latitude": 53.7933
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 349570000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3803,
+              "latitude": 53.7948
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3262,
+              "latitude": 53.7955
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 386950000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3806,
+              "latitude": 53.7948
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3237,
+              "latitude": 53.7941
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 499160000,
+          "destination": {
+            "Position": {
+              "longitude": -1.388,
+              "latitude": 53.7945
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3259,
+              "latitude": 53.7962
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 435660000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3803,
+              "latitude": 53.7948
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3271,
+              "latitude": 53.7918
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 334420000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3824,
+              "latitude": 53.7965
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3265,
+              "latitude": 53.7922
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 331710000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3821,
+              "latitude": 53.7944
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3261,
+              "latitude": 53.7927
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 311350000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3891,
+              "latitude": 53.7962
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3247,
               "latitude": 53.7913
             }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 351570000,
-          "origin": {
-            "Position": {
-              "longitude": -1.324,
-              "latitude": 53.793
-            }
-          },
+          "departure": 408360000,
           "destination": {
             "Position": {
-              "longitude": -1.3876,
-              "latitude": 53.7954
+              "longitude": -1.3848,
+              "latitude": 53.7963
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
-        }
-      ]
-    },
-    {
-      "trips": [
-        {
-          "departure": 402320000,
+          "purpose": "Shopping",
           "origin": {
             "Position": {
               "longitude": -1.3277,
               "latitude": 53.7964
             }
-          },
-          "destination": {
-            "Position": {
-              "longitude": -1.39,
-              "latitude": 53.7932
-            }
-          },
-          "mode": "Drive",
-          "purpose": "Shopping"
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 443690000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3236,
-              "latitude": 53.7918
-            }
-          },
+          "departure": 443790000,
           "destination": {
             "Position": {
-              "longitude": -1.3867,
+              "longitude": -1.381,
+              "latitude": 53.7945
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.327,
+              "latitude": 53.7952
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 373130000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3822,
+              "latitude": 53.7947
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3259,
+              "latitude": 53.7962
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 501550000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3816,
+              "latitude": 53.7944
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3264,
+              "latitude": 53.7966
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 414210000,
+          "destination": {
+            "Position": {
+              "longitude": -1.388,
+              "latitude": 53.792
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3231,
+              "latitude": 53.7899
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 449440000,
+          "destination": {
+            "Position": {
+              "longitude": -1.388,
+              "latitude": 53.7923
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3246,
+              "latitude": 53.792
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 458070000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3807,
+              "latitude": 53.7945
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.323,
+              "latitude": 53.7897
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 417930000,
+          "destination": {
+            "Position": {
+              "longitude": -1.388,
+              "latitude": 53.792
+            }
+          },
+          "mode": "Bike",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3246,
+              "latitude": 53.7938
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 511970000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3848,
+              "latitude": 53.7963
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3253,
+              "latitude": 53.7922
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 540980000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3835,
               "latitude": 53.7924
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.324,
+              "latitude": 53.7941
+            }
+          }
         }
       ]
     },
     {
       "trips": [
         {
-          "departure": 465580000,
-          "origin": {
-            "Position": {
-              "longitude": -1.3252,
-              "latitude": 53.7926
-            }
-          },
+          "departure": 527670000,
           "destination": {
             "Position": {
-              "longitude": -1.3865,
-              "latitude": 53.7972
+              "longitude": -1.3819,
+              "latitude": 53.7947
+            }
+          },
+          "mode": "Bike",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3261,
+              "latitude": 53.7948
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 512800000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3898,
+              "latitude": 53.7896
             }
           },
           "mode": "Drive",
-          "purpose": "Shopping"
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3262,
+              "latitude": 53.7964
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 420240000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3807,
+              "latitude": 53.7945
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3235,
+              "latitude": 53.7926
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 455490000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3813,
+              "latitude": 53.7945
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3235,
+              "latitude": 53.7947
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 359890000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3853,
+              "latitude": 53.7935
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3255,
+              "latitude": 53.7946
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 385270000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3809,
+              "latitude": 53.7947
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3271,
+              "latitude": 53.7961
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trips": [
+        {
+          "departure": 495270000,
+          "destination": {
+            "Position": {
+              "longitude": -1.3819,
+              "latitude": 53.7947
+            }
+          },
+          "mode": "Drive",
+          "purpose": "Shopping",
+          "origin": {
+            "Position": {
+              "longitude": -1.3254,
+              "latitude": 53.7954
+            }
+          }
         }
       ]
     }
